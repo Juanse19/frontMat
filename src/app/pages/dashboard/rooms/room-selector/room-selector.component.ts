@@ -370,7 +370,8 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
 
     // const contador = interval(1000)
     // contador.subscribe((n) =>{
-    //   this.MoverCarro();
+       this.MoverCarro();
+       this.CrearElemento();
     // });
 
     this.ColorMaquinas();

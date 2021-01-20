@@ -385,18 +385,18 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
       )
       .subscribe((hideGrid: boolean) => this.hideGrid = hideGrid);
 
-      this.list().subscribe(
-        res => {
-          // console.log(JSON.parse(res[0]).respuesta);
-          this.hola = JSON.stringify(res);
-        },
-      );
+      // this.list().subscribe(
+      //   res => {
+      //     // console.log(JSON.parse(res[0]).respuesta);
+      //     this.hola = JSON.stringify(res);
+      //   },
+      // );
       
   }
 
-  list(): Observable<any> {
-    return this.http.get('http://127.0.0.1:1880/test');
-  }
+  // list(): Observable<any> {
+  //   return this.http.get('http://127.0.0.1:1880/test');
+  // }
 
 
   ngOnDestroy() {

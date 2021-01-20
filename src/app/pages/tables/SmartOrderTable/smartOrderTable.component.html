@@ -1,0 +1,18 @@
+
+<nb-card>
+    <nb-card-header>
+      Smart Order Table
+    </nb-card-header>
+  
+    <nb-card-body>
+      <ng2-smart-table class="example-smart-table"
+                       [settings]="settings"
+                       [source]="source"
+                       (deleteConfirm)="onDeleteConfirm($event)">
+                       <!-- (edit)="onEdit($event)" -->
+      </ng2-smart-table>
+    </nb-card-body>
+    <nb-card-footer>
+      <button type="submit" (click)="createUser()" class="btn btn-primary">Add User</button>
+    </nb-card-footer>
+  </nb-card>

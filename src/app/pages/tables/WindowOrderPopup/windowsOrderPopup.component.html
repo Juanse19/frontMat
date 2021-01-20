@@ -1,0 +1,69 @@
+<div class="row">
+
+  <div class="col-md-6">
+    <!-- <nb-card> -->
+
+    <!-- <p>Orden: <input type="text" id="ordenValue" name="ordenValue" #ordenValor  value="{{ data.order }}" required minlength="0" maxlength="20" size="10"></p>  -->
+    <!-- <p>Orden: <input type="text" id="ordenValue" name="ordenValue" nbInput #ordenValor  value="{{ data.order }}" required minlength="0" maxlength="20" size="10" disabled="true"></p> -->
+    <!-- <p>Orden: {{ data.order }}</p> -->
+    <!-- <p>Nombre: {{ data.name }}</p> -->
+    <!-- <p>Descripcion: {{ data.description }}</p> -->
+    <!-- <p>Referencia: </p>
+    <p>{{ data.reference }}</p> -->
+    <p>Referencia: <input type="text" id="referenciaValue" name="referenciaValue" nbInput #referenciaValor  value="{{ data.reference }}" required minlength="0" maxlength="30" size="10"></p>
+    <p>Longitud: <input type="number" id="longitudValue" name="longitudValue" nbInput #longitudValor  value="{{ data.orderLength }}" required minlength="0" maxlength="30" size="10"></p>
+    <p>Cortes: <input type="number" id="cortesValue" name="cortesValue" nbInput #cortesValor  value="{{ data.cutsNumber }}" required minlength="0" maxlength="30" size="10"></p>
+    <p>Ancho: <input type="number" id="anchoValue" name="anchoValue" nbInput #anchoValor  value="{{ data.cutsWidth }}" required minlength="0" maxlength="30" size="10"></p>
+    <p>Largo: <input type="number" id="largoValue" name="largoValue" nbInput #largoValor  value="{{ data.cutsLength }}" required minlength="0" maxlength="30" size="10"></p>
+  <!-- </nb-card> -->
+  </div>
+
+  <div class="col-md-6">
+
+
+    <!-- <nb-card> -->
+      <p><nb-card-header>Dispositivos Origen</nb-card-header></p>
+
+  <!-- <nb-card-body> -->
+    <p><nb-select [(ngModel)]="maquinaOrigen.value">
+  <nb-option *ngFor="let option of origen" [value]="option.value">
+    {{ option.label }}
+  </nb-option>             
+</nb-select></p>
+
+
+<!-- </nb-card-body> -->
+
+<p><nb-card-header>Dispositivos Destino</nb-card-header></p>
+
+<!-- <nb-card-body> -->
+<p><nb-select [(ngModel)]="maquinaDestino.value"> 
+<nb-option *ngFor="let option2 of destino" [value]="option2.value" >
+{{ option2.label }}
+</nb-option>             
+</nb-select></p>
+<!-- </nb-card> -->
+
+    <!-- <nb-card>
+      <nb-card-header>Select</nb-card-header>
+      <nb-card-body>
+        <nb-select selected="1">
+          <nb-option value="1">Option 1</nb-option>
+          <nb-option value="2">Option 2</nb-option>
+        </nb-select>
+      </nb-card-body>
+    </nb-card> -->
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+
+  <p><button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="Edit()">EDIT</button></p>
+</div>
+
+
+</div>
+  
+

@@ -1,0 +1,53 @@
+ <!-- <p>Orden: </p>
+    <p>Nombre: </p>
+    <p>Descripcion: </p>
+    <p>Referencia: </p> -->
+
+    <div class="row">
+      <div class="col-md-6">
+         <!-- <nb-card> -->
+            <p>Orden: <input type="text" id="ordenValor" status="info" name="ordenValor" nbInput #ordenValor required minlength="0" maxlength="30" size="10"></p>
+            <p>Referencia: <input type="text" id="referenciaValue" status="info" name="referenciaValue" nbInput #referenciaValor required minlength="0" maxlength="30" size="10"></p>
+            <p>Batch: <input type="number" id="batchValor" status="info" name="batchValor" nbInput #batchValor required minlength="0" maxlength="30" size="10"></p>
+            <p>Longitud: <input type="number" id="longitudValue" status="info" name="longitudValue" nbInput #longitudValor   required minlength="0" maxlength="30" size="10"></p>
+            <p>Cortes: <input type="number" id="cortesValue" status="info" name="cortesValue" nbInput #cortesValor  required minlength="0" maxlength="30" size="10"></p>
+            <p>Cortes Ancho: <input type="number" id="anchoValue" status="info" name="anchoValue" nbInput #anchoValor  required minlength="0" maxlength="30" size="10"></p>
+            <p>Cortes Largo: <input type="number" id="largoValue" status="info" name="largoValue" height="20" nbInput #largoValor  required minlength="0" maxlength="30" size="10"></p>
+            <p>Sheets Number: <input type="number" id="sheetsNumberValor" status="info" name="sheetsNumberValor" height="20" nbInput #sheetsNumberValor  required minlength="0" maxlength="30" size="10"></p>
+
+
+            <!-- </nb-card> -->
+      </div>
+
+      <div class="col-md-6">
+            
+          <p><nb-card-header>Dispositivos Origen</nb-card-header></p>
+            <p><nb-select [(ngModel)]="maquinaOrigen.value" >
+            <nb-option *ngFor="let option of origen" [value]="option.value">
+             {{ option.label }}
+             </nb-option>             
+           </nb-select></p>
+    
+           <p><nb-card-header>Dispositivos Destino</nb-card-header></p>  
+           <p><nb-select [(ngModel)]="maquinaDestino.value"> 
+            <nb-option *ngFor="let option2 of destino" [value]="option2.value" >
+            {{ option2.label }}
+            </nb-option>             
+            </nb-select></p>
+            <p>Stack Height: <input type="number" id="stackHeightValor" status="info" name="stackHeightValor" height="20" nbInput #stackHeightValor  required minlength="0" maxlength="30" size="10"></p>
+            <p>SheetThickness: <input type="number" id="sheetsThicknessValor" status="info" name="sheetsThicknessValor" height="20" nbInput #sheetsThicknessValor  required minlength="0" maxlength="30" size="10"></p>
+            <p>ProductsMissing: <input type="number" id="productsMissingValor" status="info" name="productsMissingValor" height="20" nbInput #productsMissingValor  required minlength="0" maxlength="30" size="10"></p>
+            <nb-toggle [(ngModel)]="toggleNgModel" status="success">SignalStart</nb-toggle>
+            <p>SheetScrap: <input type="text" id="sheetScrapValor" status="info" name="sheetScrapValor" nbInput #sheetScrapValor required minlength="0" maxlength="30" size="10"></p>
+
+           
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+     
+      <p><button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="Crear()">Crear Orden</button></p>
+     </div>
+     
+     
+     </div>

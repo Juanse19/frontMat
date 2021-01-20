@@ -7,8 +7,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit }
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthSocialLink, NbAuthService, NbAuthResult } from '@nebular/auth';
+import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { getDeepFromObject } from '../../helpers';
 import { EMAIL_PATTERN } from '../constants';
+import {ApiGetService} from './apiGet.services';
+interface Roles {
+  id?: number;
+  name: string;
+}
 
 @Component({
   selector: 'ngx-register',
@@ -28,18 +34,27 @@ export class NgxRegisterComponent implements OnInit {
   showMessages: any = this.getConfigValue('forms.register.showMessages');
   strategy: string = this.getConfigValue('forms.register.strategy');
   socialLinks: NbAuthSocialLink[] = this.getConfigValue('forms.login.socialLinks');
-
+  selectedRole;
   submitted = false;
   errors: string[] = [];
   messages: string[] = [];
   user: any = {};
+  listaRoles:Roles[]=[];
+
 
   registerForm: FormGroup;
   constructor(protected service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     protected cd: ChangeDetectorRef,
     private fb: FormBuilder,
-    protected router: Router) {
+    protected router: Router,
+    private httpService: HttpService,
+    private apiGetComp: ApiGetService,
+    ) {
+      
+      this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles').subscribe((res: any) => {
+        this.listaRoles=res;
+      });
   }
 
   get login() { return this.registerForm.get('fullName'); }
@@ -47,6 +62,7 @@ export class NgxRegisterComponent implements OnInit {
   get password() { return this.registerForm.get('password'); }
   get confirmPassword() { return this.registerForm.get('confirmPassword'); }
   get terms() { return this.registerForm.get('terms'); }
+  get role() { return this.registerForm.get('role'); }
 
   ngOnInit(): void {
     const loginValidators = [
@@ -54,6 +70,12 @@ export class NgxRegisterComponent implements OnInit {
       Validators.maxLength(this.maxLoginLength),
     ];
     this.isFullNameRequired && loginValidators.push(Validators.required);
+
+    const roleValidators = [
+      Validators.minLength(this.minLength),
+      Validators.maxLength(this.maxLength),
+    ];
+    roleValidators.push(Validators.required);
 
     const emailValidators = [
       Validators.pattern(EMAIL_PATTERN),
@@ -72,7 +94,11 @@ export class NgxRegisterComponent implements OnInit {
       password: this.fb.control('', [...passwordValidators]),
       confirmPassword: this.fb.control('', [...passwordValidators]),
       terms: this.fb.control(''),
+      role: this.fb.control('', [...roleValidators]),
     });
+    // this.httpService.get(this.httpService.apiUrlMatbox+'/userrole/getroles').subscribe((res: any) => {
+    //   this.listaRoles=res;
+    // });
   }
 
   register(): void {

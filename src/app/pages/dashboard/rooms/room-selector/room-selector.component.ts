@@ -18,6 +18,7 @@ import { FormControl } from '@angular/forms';
 import {WindowComponent2 } from '../../OrderPopup/orderPopup.component';
 import { HttpService } from '../../../../@core/backend/common/api/http.service';
 import { NbAccessChecker } from '@nebular/security';
+import { SignalRService } from '../../services/signal-r.service';
 
 // import {WindowFormComponent} from '../../../modal-overlays/window/window-form/window-form.component'
 interface Country {
@@ -333,6 +334,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     private location: Location,
     private locationStrategy: LocationStrategy,
     private themeService: NbThemeService,
+    public sigalRService: SignalRService,
     private http: HttpClient,
     private comp: JacComponent,
     private comp2: WindowComponent,
@@ -368,30 +370,34 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // const contador = interval(1000)
-    // contador.subscribe((n) =>{
+    this.sigalRService.startConnection();
+    this.sigalRService.addTransferMachineColorDataListener();
+    this.startHttpRequest();
+
+   
        this.MoverCarro();
-       this.CrearElemento();
-    // });
+    //    this.CrearElemento();
+   
 
-    this.ColorMaquinas();
+    // this.ColorMaquinas();
 
-    this.hideGrid = this.themeService.currentTheme === 'corporate';
+    // this.hideGrid = this.themeService.currentTheme === 'corporate';
 
-    this.themeService.onThemeChange()
-      .pipe(
-        map(({ name }) => name === 'corporate'),
-        takeUntil(this.destroy$),
-      )
-      .subscribe((hideGrid: boolean) => this.hideGrid = hideGrid);
+    // this.themeService.onThemeChange()
+    //   .pipe(
+    //     map(({ name }) => name === 'corporate'),
+    //     takeUntil(this.destroy$),
+    //   )
+    //   .subscribe((hideGrid: boolean) => this.hideGrid = hideGrid);
 
-      // this.list().subscribe(
-      //   res => {
-      //     // console.log(JSON.parse(res[0]).respuesta);
-      //     this.hola = JSON.stringify(res);
-      //   },
-      // );
       
+  }
+
+  private startHttpRequest(){
+this.http.get(this.api.apiUrlMatbox + "/machinecolor")
+.subscribe(res=>{
+  console.log(res);
+});
   }
 
   // list(): Observable<any> {
@@ -453,16 +459,26 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
   }
 
   ColorMaquinas(){
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/MachineColor/GetMachineColor').subscribe((res: any) => {
-       this.colorMartin1228 = res.colorMartin1228;
-       this.colorWARD15000 = res.colorWARD15000;
-       this.colorLaminadora = res.colorLaminadora;
-       this.colorImpresora36 = res.colorImpresora36;
-       this.colorJS = res.colorJS;
-       this.color924 = res.color924;
-       this.colorSYS = res.colorSYS;
+    // this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/MachineColor/GetMachineColor').subscribe((res: any) => {
+    //    this.colorMartin1228 =  res.colorMartin1228;
+    //    this.colorWARD15000 = res.colorWARD15000;
+    //    this.colorLaminadora = res.colorLaminadora;
+    //    this.colorImpresora36 = res.colorImpresora36;
+    //    this.colorJS = res.colorJS;
+    //    this.color924 = res.color924;
+    //    this.colorSYS = res.colorSYS;
 
-      });
+    //   });
+   
+      this.colorMartin1228 =  this.sigalRService.data.ColorMartin1228 //colorMartin1228;
+      this.colorWARD15000 = this.sigalRService.data.ColorWARD15000;
+      this.colorLaminadora = this.sigalRService.data.ColorLaminadora;
+      this.colorImpresora36 = this.sigalRService.data.ColorImpresora36;
+      this.colorJS = this.sigalRService.data.ColorJS;
+      this.color924 = this.sigalRService.data.Color924;
+      this.colorSYS = this.sigalRService.data.ColorSYS;
+
+   
   }
 
 

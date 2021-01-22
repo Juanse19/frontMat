@@ -119,6 +119,9 @@ MIT
 @angular/router
 MIT
 
+@aspnet/signalr
+Apache-2.0
+
 @asymmetrik/ngx-leaflet
 MIT
 The MIT License (MIT)

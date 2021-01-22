@@ -11,8 +11,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3001/api',
-  apiUrlMat: 'http://localhost:8081/api',
-  apiUrlMatSignalR: 'http://localhost:8081',
+  apiUrlMat: 'https://localhost:5001/api',
+  apiUrlMatSignalR: 'https://localhost:5001',
   apiUrlNode: 'http://10.100.22.48:1880',
   testUser: {
     // tslint:disable

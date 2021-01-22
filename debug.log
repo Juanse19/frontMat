@@ -9,3 +9,5 @@
 [0122/004250.451:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
 [0122/093419.195:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
 [0122/101854.083:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
+[0122/150753.504:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
+[0122/152238.615:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\JEISSO~1\AppData\Local\Temp\.profile\Crashpad\attachments\1c381e69-201b-41dd-884b-09dc2cf6c643: El sistema no puede encontrar la ruta especificada. (0x3)

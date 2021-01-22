@@ -18,6 +18,9 @@ export class HttpService {
   get apiUrlMatbox(): string {
     return environment.apiUrlMat;
   }
+  get apiUrlMatSignalR(): string {
+    return environment.apiUrlMatSignalR;
+  }
 
   get apiUrlNode(): string {
     return environment.apiUrlNode;

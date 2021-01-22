@@ -24,9 +24,7 @@
 
 <nb-card>
   <nb-card-header>WIP</nb-card-header>
-  <div>
-	{{ hola }}
-  </div>
+  
   <div class="room-selector">
 	
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
@@ -71,22 +69,22 @@
 			<title>Process.6036</title>
 			<desc>ST7</desc>
 			<rect x="0" y="585.087" width="215.197" height="26.913" class="st3"/>
-			<rect id="paqueteST71" nbInput #paqueteST71  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST72" nbInput #paqueteST72  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST73" nbInput #paqueteST73 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST74" nbInput #paqueteST74  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST75" nbInput #paqueteST75  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST7[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST7[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST7[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST7[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST7[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST7[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST7[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST7[3].valor}" fill-opacity="1" />
+			<rect *ngIf="sigalRService.dataPackageST7[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST7[4].valor}" fill-opacity="1" />
 			<text x="101.78" y="607.6" class="st4">ST7</text>		</g>
 		<g id="shape136-15" transform="translate(346.027,-410.844)"(click)="ClicST6()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Process.6037</title>
 			<desc>ST6</desc>
 			<rect x="0" y="585.087" width="215.197" height="26.913" class="st3"/>	
 			<!-- <rect x="0" y="585.087" width="215.197" height="26.913" class="st3" visibility="hidden"/>	 -->
-			<rect id="paqueteST61" nbInput #paqueteST61  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST62" nbInput #paqueteST62  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST63" nbInput #paqueteST63 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST64" nbInput #paqueteST64  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST65" nbInput #paqueteST65  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST6[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST6[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST6[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST6[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST6[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST6[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST6[3].visible" x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST6[3].valor}" fill-opacity="1" />
+			<rect *ngIf="sigalRService.dataPackageST6[4].visible" x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST6[4].valor}" fill-opacity="1" />
 
 			<!-- <rect x="30" y="591.798" width="28.0068" height="20.2016" fill='black'/> -->
 			<text x="101.78" y="607.6" class="st4">ST6</text>		</g>
@@ -125,11 +123,11 @@
 			<title>Process.6042</title>
 			<desc>ST1</desc>
 			<rect x="0" y="585.087" width="35.884" height="26.913" class="st8"/>
-			<rect id="paqueteST11" nbInput #paqueteST55 x="0" y="585.087" width="35.0068" height="5.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST12" nbInput #paqueteST54 x="0" y="591.087"  width="35.0068" height="5.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST13" nbInput #paqueteST53  x="0" y="597.087"  width="35.0068" height="5.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST14" nbInput #paqueteST52  x="0" y="603.087" width="35.0068" height="5.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST15" nbInput #paqueteST51 x="0" y="609.087"  width="35.0068" height="5.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST11[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST11[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST11[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST11[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST11[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST11[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST11[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST11[3].valor}" fill-opacity="1" />
+			<rect *ngIf="sigalRService.dataPackageST11[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST11[4].valor}" fill-opacity="1" />
 			<text x="13.58" y="608.2" class="st9">ST1</text>		</g>
 		<g id="shape142-37" transform="translate(489.643,-436.95)">
 			<title>Process.6043</title>
@@ -161,19 +159,19 @@
 		<g id="shape148-53" transform="translate(162.202,-407.794)" (click)="ClicJS()">
 			<title>Process.6049</title>
 			<desc>JS</desc>
-			<rect [ngStyle]="{fill: colorJS}" x="0" y="585.087" width="71.7519" height="26.913" class="st11"/>
+			<rect [ngStyle]="{fill: sigalRService.dataMachineColor.colorJS}" x="0" y="585.087" width="71.7519" height="26.913" class="st11"/>
 			<text x="2" y="607.6" class="st12">JS</text>		</g>
 		<g id="shape149-56" transform="translate(90.4872,-378.638)"(click)="ClicST14()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Process.6050</title>
 			<desc>ST14</desc>
 			<rect x="0" y="585.087" width="215.197" height="26.913" class="st13"/>
-			<rect id="paqueteST147" nbInput #paqueteST147  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST146" nbInput #paqueteST146  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST145" nbInput #paqueteST145 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST144" nbInput #paqueteST144  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST143" nbInput #paqueteST143  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST142" nbInput #paqueteST142 x="150" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST141" nbInput #paqueteST141  x="180" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST14[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST14[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST14[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST14[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST14[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST14[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST14[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST14[3].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST14[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST14[4].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST14[5].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST14[5].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST14[6].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST14[6].valor}" fill-opacity="1"/>
 			<text x="99.76" y="607.6" class="st4">ST14</text>		</g>
 		<g id="shape150-61" transform="translate(126.264,-350.38)">
 			<title>Process.6051</title>
@@ -184,12 +182,13 @@
 			<title>Process.6052</title>
 			<desc>ST15</desc>
 			<rect x="0" y="585.087" width="178.12" height="26.913" class="st13"/>
-			<rect id="paqueteST156" nbInput #paqueteST156  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST155" nbInput #paqueteST155  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST154" nbInput #paqueteST154 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST153" nbInput #paqueteST153  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST152" nbInput #paqueteST152  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST151" nbInput #paqueteST151 x="150" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST15[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST15[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST15[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST15[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST15[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST15[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST15[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST15[3].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST15[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST15[4].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST15[5].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST15[5].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST15[6].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST15[6].valor}" fill-opacity="1"/>
 			<text x="83.18" y="608.2" class="st9">ST15</text>		</g>
 		<g id="shape152-68" transform="translate(269.551,-224.399)">
 			<title>Process.6053</title>
@@ -200,11 +199,11 @@
 			<title>Process.6054</title>
 			<desc>ST13</desc>
 			<rect x="0" y="585.087" width="215.197" height="26.913" class="st14"/>
-			<rect id="paqueteST131" nbInput #paqueteST131  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST132" nbInput #paqueteST132  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST133" nbInput #paqueteST133 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST134" nbInput #paqueteST134  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST135" nbInput #paqueteST135  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST13[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST13[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST13[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST13[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST13[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST13[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST13[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST13[3].valor}" fill-opacity="1" />
+			<rect *ngIf="sigalRService.dataPackageST13[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST13[4].valor}" fill-opacity="1" />
 			<text x="99.76" y="607.6" class="st4">ST13</text>		</g>
 		<g id="shape154-75" transform="translate(66.2445,197.209) rotate(-90)">
 			<title>Process.6055</title>
@@ -224,12 +223,12 @@
 		<g id="shape157-84" transform="translate(54.9415,-350.38)" (click)="Clic924()"> 
 			<title>Process.6058</title>
 			<desc>924</desc>
-			<rect [ngStyle]="{fill: color924}" x="0" y="585.087" width="71.3229" height="26.913" class="st15"/>
+			<rect [ngStyle]="{fill: sigalRService.dataMachineColor.color924}" x="0" y="585.087" width="71.3229" height="26.913" class="st15"/>
 			<text x="2" y="607.6" class="st12">924</text>		</g>
 		<g id="shape158-87" transform="translate(195.121,-224.146)" (click)="ClicSYS()">
 			<title>Process.6059</title>
 			<desc>S&#38;S</desc>
-			<rect [ngStyle]="{fill: colorSYS}" x="0" y="585.087" width="74.1068" height="26.913" class="st16"/>
+			<rect [ngStyle]="{fill: sigalRService.dataMachineColor.colorSYS}" x="0" y="585.087" width="74.1068" height="26.913" class="st16"/>
 			<text x="2" y="607.6" class="st12">S&#38;S</text>		</g>
 		<g id="shape167-90" transform="translate(529.959,-436.998)">
 			<title>Sheet.167</title>
@@ -389,22 +388,22 @@
 		<g id="shape205-278" transform="translate(19.6957,-527.143)" (click)="ClicMARTIN1228()">
 			<title>Process.6106</title>
 			<desc>MARTIN 1228</desc>
-			<rect [ngStyle]="{fill: colorMartin1228}" x="0" y="585.087" width="71.3229" height="26.913" class="st21"/>
+			<rect [ngStyle]="{fill: sigalRService.dataMachineColor.colorMartin1228}" x="0" y="585.087" width="71.3229" height="26.913" class="st21"/>
 			<text x="2" y="607.6" class="st12">MARTIN 1228</text>		</g>
 		<g id="shape206-281" transform="translate(66.2445,271.316) rotate(-90)" (click)="ClicWard15000()">
 			<title>Process.6107</title>
 			<desc>Ward 15000</desc>
-			<rect [ngStyle]="{fill: colorWARD15000}" x="0" y="585.087" width="74.1068" height="26.913" class="st22"/>
+			<rect [ngStyle]="{fill: sigalRService.dataMachineColor.colorWARD15000}" x="0" y="585.087" width="74.1068" height="26.913" class="st22"/>
 			<text x="2" y="607.6" class="st12">Ward 15000</text>		</g>
 		<g id="shape207-284" transform="translate(122.015,271.316) rotate(-90)" (click)="ClicLaminadora()">
 			<title>Process.6108</title>
 			<desc>laminadora</desc>
-			<rect [ngStyle]="{fill: colorLaminadora}" x="0" y="585.087" width="74.1068" height="26.913" class="st22"/>
+			<rect [ngStyle]="{fill: sigalRService.dataMachineColor.colorLaminadora}" x="0" y="585.087" width="74.1068" height="26.913" class="st22"/>
 			<text x="2" y="607.6" class="st12">laminadora</text>		</g>
 		<g id="shape208-287" transform="translate(153,271.986) rotate(-90)" (click)="ClicImpresora36()">
 			<title>Process.6109</title>
 			<desc>Impresora 36</desc>
-			<rect [ngStyle]="{fill: colorImpresora36}" x="0" y="585.087" width="74.1068" height="26.913" class="st22"/>
+			<rect [ngStyle]="{fill: sigalRService.dataMachineColor.colorImpresora36}" x="0" y="585.087" width="74.1068" height="26.913" class="st22"/>
 			<text x="2" y="607.6" class="st12">Impresora 36</text>		</g>
 		<g id="shape226-290" transform="translate(196.528,-242.262)">
 			<title>Text.6127</title>
@@ -463,11 +462,11 @@
 			<title>Process.1003</title>
 			<desc>ST12</desc>
 			<rect x="0" y="585.087" width="215.197" height="26.913" class="st3"/>
-			<rect id="paqueteST121" nbInput #paqueteST121  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST122" nbInput #paqueteST122  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST123" nbInput #paqueteST123 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST124" nbInput #paqueteST124  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST125" nbInput #paqueteST125  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST12[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST12[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST12[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST12[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST12[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST12[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST12[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST12[3].valor}" fill-opacity="1" />
+			<rect *ngIf="sigalRService.dataPackageST12[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST12[4].valor}" fill-opacity="1" />
 			<text x="99.76" y="607.6" class="st4">ST12</text>		</g>
 		<g id="shape1004-331" transform="translate(346.369,-274.111)"(click)="ClicST11()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Process.1004</title>
@@ -483,31 +482,31 @@
 			<title>Process.1005</title>
 			<desc>ST10</desc>
 			<rect x="0" y="585.087" width="215.197" height="26.913" class="st3"/>
-			<rect id="paqueteST101" nbInput #paqueteST101  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST102" nbInput #paqueteST102  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST103" nbInput #paqueteST103 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST104" nbInput #paqueteST104  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST105" nbInput #paqueteST105  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST10[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST10[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST10[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST10[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST10[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST10[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST10[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST10[3].valor}" fill-opacity="1" />
+			<rect *ngIf="sigalRService.dataPackageST10[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST10[4].valor}" fill-opacity="1" />
 			<text x="99.76" y="607.6" class="st4">ST10</text>		</g>
 		<g id="shape1006-339" transform="translate(346.5,-329.679)"(click)="ClicST9()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Process.1006</title>
 			<desc>ST9</desc>
 			<rect x="0" y="585.087" width="215.197" height="26.913" class="st3"/>
-			<rect id="paqueteST91" nbInput #paqueteST91  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST92" nbInput #paqueteST92  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST93" nbInput #paqueteST93 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST94" nbInput #paqueteST94  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST95" nbInput #paqueteST95  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST9[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST9[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST9[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST9[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST9[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST9[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST9[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST9[3].valor}" fill-opacity="1" />
+			<rect *ngIf="sigalRService.dataPackageST9[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST9[4].valor}" fill-opacity="1" />
 			<text x="101.78" y="607.6" class="st4">ST9</text>		</g>
 		<g id="shape1007-343" transform="translate(346.5,-357.339)"(click)="ClicST8()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Process.1007</title>
-			<desc>ST8</desc>
+			<desc>ST8 </desc>
 			<rect x="0" y="585.087" width="215.197" height="26.913" class="st3"/>
-			<rect id="paqueteST81" nbInput #paqueteST81  x="0" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST82" nbInput #paqueteST82  x="30" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST83" nbInput #paqueteST83 x="60" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST84" nbInput #paqueteST84  x="90" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
-			<rect id="paqueteST85" nbInput #paqueteST85  x="120" y="591.798" width="28.0068" height="20.2016" fill='black' fill-opacity="1" visibility="hidden" (click)="ClicMARTIN1228()"/>
+			<rect *ngIf="sigalRService.dataPackageST8[0].visible" x="0" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST8[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST8[1].visible" x="30" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST8[1].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST8[2].visible" x="60" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST8[2].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST8[3].visible"  x="90" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST8[3].valor}" fill-opacity="1" />
+			<rect *ngIf="sigalRService.dataPackageST8[4].visible"  x="120" y="591.798" width="28.0068" height="20.2016" [ngStyle] = "{fill:sigalRService.dataPackageST8[4].valor}" fill-opacity="1" />
 			<text x="101.78" y="607.6" class="st4">ST8</text>		</g>
 		<g id="group1009-347" transform="translate(27,-470.807)">
 			<title>Sheet.1009</title>

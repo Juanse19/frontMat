@@ -18,6 +18,8 @@ import { FormControl } from '@angular/forms';
 import {WindowComponent2 } from '../../OrderPopup/orderPopup.component';
 import { HttpService } from '../../../../@core/backend/common/api/http.service';
 import { NbAccessChecker } from '@nebular/security';
+import { SignalRService } from '../../services/signal-r.service';
+import { IdMaquinas, IdWip } from '../../_interfaces/MatBox.model';
 
 // import {WindowFormComponent} from '../../../modal-overlays/window/window-form/window-form.component'
 interface Country {
@@ -67,6 +69,7 @@ interface SearchResult2 {
   ordenes: Ordenes[];
   total: number;
 }
+
 
 let ORDENES: Ordenes[] = [
 
@@ -167,7 +170,6 @@ function search2(text: string, pipe: PipeTransform): Ordenes[] {
 
 
 export class RoomSelectorComponent implements OnInit, OnDestroy {
-
 
   private _state: State = {
     page: 1,
@@ -333,6 +335,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     private location: Location,
     private locationStrategy: LocationStrategy,
     private themeService: NbThemeService,
+    public sigalRService: SignalRService,
     private http: HttpClient,
     private comp: JacComponent,
     private comp2: WindowComponent,
@@ -340,13 +343,11 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     public pipe: DecimalPipe,
     private api: HttpService,
     // private comp4: WindowComponent2,
-
-
+    
     // private comp3: WindowFormComponent
   ) {
     this.selectRoom('0');
-
-
+    
   }
 
   get ordenesMaquina$() { return this._Ordenes$.asObservable(); }
@@ -368,13 +369,19 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // const contador = interval(1000)
-    // contador.subscribe((n) =>{
-       this.MoverCarro();
-       this.CrearElemento();
-    // });
+    this.sigalRService.startConnectionMachineColor();
+    this.startHttpRequestMachineColor();
+    
+    for (var clave in IdWip){
+      var idMachine=IdWip[clave];
 
-    this.ColorMaquinas();
+      this.sigalRService.startConnectionPackageWip(idMachine);
+      this.startHttpRequestPackage(idMachine);  
+    }
+
+           this.MoverCarro();
+    //    this.CrearElemento();
+   
 
     this.hideGrid = this.themeService.currentTheme === 'corporate';
 
@@ -385,15 +392,22 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
       )
       .subscribe((hideGrid: boolean) => this.hideGrid = hideGrid);
 
-      // this.list().subscribe(
-      //   res => {
-      //     // console.log(JSON.parse(res[0]).respuesta);
-      //     this.hola = JSON.stringify(res);
-      //   },
-      // );
       
   }
 
+  private startHttpRequestMachineColor(){
+this.http.get(this.api.apiUrlMatbox + "/machinecolor")
+.subscribe(res=>{
+  console.log(res);
+});
+  }
+
+  private startHttpRequestPackage(id){    
+    this.http.get(this.api.apiUrlMatbox + "/showpackage?idMaquina="+ id)
+    .subscribe(res=>{
+      console.log(res);
+    });
+      }
   // list(): Observable<any> {
   //   return this.http.get('http://127.0.0.1:1880/test');
   // }
@@ -450,19 +464,6 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     const path = this.location.path().replace(/\/$/, '');
 
     return `url(${baseHref}${path}${id})`;
-  }
-
-  ColorMaquinas(){
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/MachineColor/GetMachineColor').subscribe((res: any) => {
-       this.colorMartin1228 = res.colorMartin1228;
-       this.colorWARD15000 = res.colorWARD15000;
-       this.colorLaminadora = res.colorLaminadora;
-       this.colorImpresora36 = res.colorImpresora36;
-       this.colorJS = res.colorJS;
-       this.color924 = res.color924;
-       this.colorSYS = res.colorSYS;
-
-      });
   }
 
 

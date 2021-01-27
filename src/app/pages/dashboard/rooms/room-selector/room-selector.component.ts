@@ -369,6 +369,9 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    
+    
+    
     this.sigalRService.startConnectionMachineColor();
     this.startHttpRequestMachineColor();
     
@@ -508,105 +511,96 @@ this.http.get(this.api.apiUrlMatbox + "/machinecolor")
   }
 
   ClicST3() {
-     this.comp2.openWindowForm(23);
+     this.comp2.openWindowForm(IdWip.ST3);
   }
 
   ClicST4() {
-    this.comp2.openWindowForm(24);
+    this.comp2.openWindowForm(IdWip.ST4);
  }
 
  ClicST5() {
-  this.comp2.openWindowForm(25);
+  this.comp2.openWindowForm(IdWip.ST5);
 }
 ClicST6() {
-  this.comp2.openWindowForm(26);
+  this.comp2.openWindowForm(IdWip.ST6);
 }
 ClicST7() {
-  this.comp2.openWindowForm(30);
+  this.comp2.openWindowForm(IdWip.ST7);
 }
 
 ClicST8() {
-  this.comp2.openWindowForm(31);
+  this.comp2.openWindowForm(IdWip.ST8);
 }
 
 
 ClicST9() {
-  this.comp2.openWindowForm(32);
+  this.comp2.openWindowForm(IdWip.ST9);
 }
 
 ClicST10() {
-  this.comp2.openWindowForm(33);
+  this.comp2.openWindowForm(IdWip.ST10);
 }
 
 ClicST11() {
-  this.comp2.openWindowForm(34);
+  this.comp2.openWindowForm(IdWip.ST11);
 }
 
 
 ClicST12() {
-  this.comp2.openWindowForm(35);
+  this.comp2.openWindowForm(IdWip.ST12);
 }
 
 
 ClicST13() {
-  this.comp2.openWindowForm(36);
+  this.comp2.openWindowForm(IdWip.ST13);
 }
 
 
 ClicST14() {
-  this.comp2.openWindowForm(37);
+  this.comp2.openWindowForm(IdWip.ST14);
 }
 
 ClicST15() {
-  this.comp2.openWindowForm(38);
+  this.comp2.openWindowForm(IdWip.ST15);
 }
 
 
 
   ClicMARTIN1228() {    
-        this.comp2.openWindowForm(22); 
+        this.comp2.openWindowForm(IdMaquinas.Martin1228); 
   }
 
   ClicWard15000() {
-    this.fillValor ='green';
-    // this.valorX = this.valorX + 10;
-    // for(let i = 0; i < 200 ; i++){
-    // this.valorX = this.valorX + 5;
-    // delay(5000);
-    // }
-    // console.log("ST3 clic " + this.comp.nombre);
-    
-      this.comp2.openWindowForm(39);
-
+      this.comp2.openWindowForm(IdMaquinas.WARD15000);
   }
   ClicLaminadora() {
-    this.comp2.openWindowForm(40);
+    this.comp2.openWindowForm(IdMaquinas.Laminadora);
 }
 
 ClicImpresora36() {
   
-  this.comp2.openWindowForm(41);
+  this.comp2.openWindowForm(IdMaquinas.Impresora36);
 }
 
 ClicJS() {
-  this.comp2.openWindowForm(43);
+  this.comp2.openWindowForm(IdMaquinas.JS);
 }
 
 Clic924() {
-  this.comp2.openWindowForm(44);
+  this.comp2.openWindowForm(IdMaquinas.M924);
 }
 
 
 ClicSYS() {
-  this.comp2.openWindowForm(45);
+  this.comp2.openWindowForm(IdMaquinas.SYS);
 }
 
   public ClicST2(): void {    
-    this.comp2.openWindowForm(21);
+    this.comp2.openWindowForm(IdWip.ST2);
   }
 
   public ClicST1(): void {
-    this.comp2.openWindowForm(20);
+    this.comp2.openWindowForm(IdWip.ST1);
   }
 
   

@@ -1,21 +1,17 @@
 
 
-import { Component, ElementRef, PipeTransform, TemplateRef, ViewChild, Renderer2 } from '@angular/core';
-import { NbWindowConfig, NbWindowService } from '@nebular/theme';
+import { Component, ElementRef, PipeTransform, TemplateRef, ViewChild, Renderer2,Injectable  } from '@angular/core';
+import { NbWindowConfig, NbWindowService, NbWindowRef } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject  } from 'rxjs';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import {WindowComponent2 } from '../OrderPopup/orderPopup.component';
-import {RoomSelectorComponent } from '../rooms/room-selector/room-selector.component';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import { createExpressionWithTypeArguments } from 'typescript';
-import { id } from '@swimlane/ngx-charts';
-import { Router, RouterModule, NavigationEnd, RouterLink } from '@angular/router';
-import { NbAccessChecker } from '@nebular/security';
-import { map } from 'rxjs/operators';
-import { exit } from 'process';
+import { Router, NavigationEnd } from '@angular/router';
+import { NbAccessChecker } from '@nebular/security'
+import { MessageService } from '../services/MessageService';
 
 interface Propiedades {
   id?: number;
@@ -175,8 +171,11 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
   templateUrl: './windowPopup.component.html',
   styleUrls: [ './windowPopup.component.scss'],
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class WindowComponent {
-
+  windowRef:NbWindowRef;
   private _state: State = {
     page: 1,
     pageSize: 5,
@@ -231,16 +230,15 @@ export class WindowComponent {
   @ViewChild('wips') eWips: ElementRef;
   
   constructor(private windowService: NbWindowService,
+    
     public accessChecker: NbAccessChecker,
     private apiGetComp: ApiGetService,
     public pipe: DecimalPipe,
     private orderPopup: WindowComponent2,
     private api: HttpService,
-    private renderer: Renderer2,
     private router: Router,
-    // private colorMaquina: RoomSelectorComponent,
-    // private windowTitle:NbWindowConfig,
-    // private nombre2: titl,
+    private messageService: MessageService,
+    
     ) {
 
       
@@ -341,7 +339,8 @@ export class WindowComponent {
               name: this.nombreEstado,
               x: 5,
             };
-            this.windowService.open(WindowComponent, { title: this.propiedades.description});
+            this.windowRef=this.windowService.open(WindowComponent, { title: this.propiedades.description});
+            
           });
         });    
         });
@@ -437,7 +436,11 @@ export class WindowComponent {
     // this.colorMaquina.fillValor = 'red';
     // console.log(PROPIEDADESACTUALIZAR);
 
-    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarPropiedadesMaquina', PROPIEDADESACTUALIZAR).subscribe(res => res);
+    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarPropiedadesMaquina', PROPIEDADESACTUALIZAR).subscribe((res:any) => {
+      this.messageService.sendMessage('Message from Home Component to App Component!');
+      this.windowRef.close();
+    }      
+      );
   }
 
    public moveSelected(direction) {
@@ -537,6 +540,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
-    
+
+
   }
 }

@@ -45,6 +45,7 @@ import {
 import { AuthRoutingModule } from './auth-routing.module';
 import { ComponentsModule } from '../@components/components.module';
 import { authOptions } from './auth.settings';
+// import { authSettings } from './access.settings';
 import { authSettings } from './access.settings';
 
 const GUARDS = [AuthGuard, AdminGuard];
@@ -76,14 +77,16 @@ export function filterInterceptorRequest(req: HttpRequest<any>): boolean {
 }
 
 @NgModule({
-  declarations: [...PIPES, ...COMPONENTS],
+  declarations: [...PIPES, ...COMPONENTS, ],
   imports: [
+    
     AuthRoutingModule,
     ReactiveFormsModule,
     CommonModule,
     ComponentsModule,
     ...NB_MODULES,
     NbAuthModule.forRoot(authOptions),
+    
   ],
   exports: [...PIPES],
   providers: [

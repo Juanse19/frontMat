@@ -8,7 +8,7 @@ import { Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output, ViewCh
 import { Location, LocationStrategy } from '@angular/common';
 import { NbThemeService } from '@nebular/theme';
 import { delay, map, takeUntil } from 'rxjs/operators';
-import { Observable, Subject, of, BehaviorSubject, interval } from 'rxjs';
+import { Observable, Subject, of, BehaviorSubject, interval,Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { JacComponent } from '../../JacComponent/jac.component';
 import { WindowComponent } from '../../WindowPopupComponent/windowPopup.component';
@@ -19,7 +19,9 @@ import {WindowComponent2 } from '../../OrderPopup/orderPopup.component';
 import { HttpService } from '../../../../@core/backend/common/api/http.service';
 import { NbAccessChecker } from '@nebular/security';
 import { SignalRService } from '../../services/signal-r.service';
-import { IdMaquinas, IdWip } from '../../_interfaces/MatBox.model';
+import { MessageService } from '../../services/MessageService';
+import { IdMaquinas, IdWip,MachineColor } from '../../_interfaces/MatBox.model';
+
 
 // import {WindowFormComponent} from '../../../modal-overlays/window/window-form/window-form.component'
 interface Country {
@@ -170,6 +172,19 @@ function search2(text: string, pipe: PipeTransform): Ordenes[] {
 
 
 export class RoomSelectorComponent implements OnInit, OnDestroy {
+  messages: any[] = [];
+  subscription: Subscription;
+
+  public dataMachineColor:MachineColor = {
+    color924:"Red",
+    colorImpresora36:"Red",
+    colorJS:"Red",
+    colorLaminadora:"Red",
+    colorMartin1228:"Red",
+    colorSYS:"Red",
+    colorWARD15000:"Red",
+
+  };
 
   private _state: State = {
     page: 1,
@@ -337,17 +352,23 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     private themeService: NbThemeService,
     public sigalRService: SignalRService,
     private http: HttpClient,
-    private comp: JacComponent,
     private comp2: WindowComponent,
     public apiGetComp: ApiGetService,
     public pipe: DecimalPipe,
     private api: HttpService,
+    private messageService: MessageService
     // private comp4: WindowComponent2,
     
     // private comp3: WindowFormComponent
   ) {
-    this.selectRoom('0');
     
+    this.subscription = this.messageService.onMessage().subscribe(message => {
+      if (message) {
+        //this.messages.push(message);
+        this.ColorCharge();
+      } 
+    });
+    this.selectRoom('0');
   }
 
   get ordenesMaquina$() { return this._Ordenes$.asObservable(); }
@@ -367,20 +388,36 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     this._search$.next();
   }
 
+  public ColorCharge(){
+    
+  this.http.get(this.api.apiUrlMatbox + "/Orders/GetMachineColor")
+  .subscribe((res: any)=>{
+    console.log(res);
+    this.dataMachineColor=res;
+  });
+  }
+
   ngOnInit() {
 
     
+//mostrar colores de maquinas
+this.ColorCharge();
     
-    
-    this.sigalRService.startConnectionMachineColor();
-    this.startHttpRequestMachineColor();
-    
+    //iniciar los paquetes en bandas
     for (var clave in IdWip){
       var idMachine=IdWip[clave];
 
       this.sigalRService.startConnectionPackageWip(idMachine);
       this.startHttpRequestPackage(idMachine);  
     }
+
+//suscripcion cambio de color
+// this.subscription = this.comp2.itemsObservable$.subscribe((items: Array<{ nombre: string }>) => {
+//   this.ColorCharge();
+//   this.contador = items.length;
+// });    
+
+
 
            this.MoverCarro();
     //    this.CrearElemento();
@@ -398,12 +435,12 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
       
   }
 
-  private startHttpRequestMachineColor(){
-this.http.get(this.api.apiUrlMatbox + "/machinecolor")
-.subscribe(res=>{
-  console.log(res);
-});
-  }
+//   private startHttpRequestMachineColor(){
+// this.http.get(this.api.apiUrlMatbox + "/machinecolor")
+// .subscribe(res=>{
+//   console.log(res);
+// });
+//   }
 
   private startHttpRequestPackage(id){    
     this.http.get(this.api.apiUrlMatbox + "/showpackage?idMaquina="+ id)
@@ -417,8 +454,12 @@ this.http.get(this.api.apiUrlMatbox + "/machinecolor")
 
 
   ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+  }
     this.destroy$.next();
     this.destroy$.complete();
+    
   }
 
   private sortRooms() {
@@ -511,7 +552,9 @@ this.http.get(this.api.apiUrlMatbox + "/machinecolor")
   }
 
   ClicST3() {
-     this.comp2.openWindowForm(IdWip.ST3);
+     var res = this.comp2.openWindowForm(IdWip.ST3);
+     
+     
   }
 
   ClicST4() {
@@ -584,6 +627,7 @@ ClicImpresora36() {
 
 ClicJS() {
   this.comp2.openWindowForm(IdMaquinas.JS);
+  
 }
 
 Clic924() {

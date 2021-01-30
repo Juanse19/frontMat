@@ -5,7 +5,7 @@
  */
 
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import {
   NbActionsModule,
   NbLayoutModule,
@@ -49,8 +49,13 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
+import {WindowComponentAlarm} from '../pages/dashboard/alarmPopup/alarmPopup.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import {ApiGetService} from '../pages/dashboard/WindowPopupComponent/apiGet.services';
 
 const NB_MODULES = [
+  FormsModule,
   NbLayoutModule,
   NbMenuModule,
   NbUserModule,
@@ -64,6 +69,7 @@ const NB_MODULES = [
   NbIconModule,
   NbSpinnerModule,
   NbEvaIconsModule,
+  NgbModule,
 ];
 const COMPONENTS = [
   HeaderComponent,
@@ -73,6 +79,7 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  WindowComponentAlarm,
 ];
 const PIPES = [
   CapitalizePipe,
@@ -87,6 +94,8 @@ const PIPES = [
   imports: [CommonModule, AuthModule, ...NB_MODULES],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
   declarations: [...COMPONENTS, ...PIPES],
+  providers: [ApiGetService, DecimalPipe
+  ],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders<ThemeModule> {

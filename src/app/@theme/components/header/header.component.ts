@@ -4,7 +4,7 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Injectable } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { LayoutService } from '../../../@core/utils';
@@ -13,14 +13,21 @@ import { Subject } from 'rxjs';
 import { UserStore } from '../../../@core/stores/user.store';
 import { SettingsData } from '../../../@core/interfaces/common/settings';
 import { User } from '../../../@core/interfaces/common/users';
+import {WindowComponentAlarm} from '../../../pages/dashboard/alarmPopup/alarmPopup.component';
+import { SignalRService } from '../../../pages/dashboard/services/signal-r.service';
+import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class HeaderComponent implements OnInit, OnDestroy {
-
+  public numeroAlarmas = "0";
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: User;
@@ -54,7 +61,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private userStore: UserStore,
               private settingsService: SettingsData,
               private layoutService: LayoutService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private comp3: WindowComponentAlarm,
+              private http: HttpClient,
+              private api: HttpService,
+              public sigalRService: SignalRService) {
   }
 
   getMenuItems() {
@@ -66,6 +77,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.sigalRService.startConnectionAlarmas();
+      this.startHttpRequestAlarmas();  
+
     this.currentTheme = this.themeService.currentTheme;
 
     this.userStore.onUserStateChange()
@@ -107,6 +122,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.themeService.changeTheme(themeName);
   }
 
+  private startHttpRequestAlarmas(){    
+    this.http.get(this.api.apiUrlMatbox + "/sralarms")
+    .subscribe(res=>{
+      console.log(res);
+    });
+      }
+
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
     this.layoutService.changeLayoutSize();
@@ -117,5 +139,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+  AbrirAlarmas(){
+   this.comp3.openWindowForm("Alarmas","");
   }
 }

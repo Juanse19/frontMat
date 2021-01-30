@@ -14,15 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SignalRService implements OnInit {
   public dataPackages:PackagesWIP[];
-  // public dataMachineColor:MachineColor = {
-  //   color924:"Red",
-  //   colorImpresora36:"Red",
-  //   colorJS:"Red",
-  //   colorLaminadora:"Red",
-  //   colorMartin1228:"Red",
-  //   colorSYS:"Red",
-  //   colorWARD15000:"Red",
-  // };
+  public numeroAlarmas : {numeroAlarmas:number} = {numeroAlarmas:0}
   public dataPackageWip: PackagesWIP[];
   public dataPackageST1: PackagesWIP[];
   public dataPackageST2: PackagesWIP[];
@@ -41,49 +33,42 @@ export class SignalRService implements OnInit {
   public dataPackageST15: PackagesWIP[];
   
   
-  // private hubConnectionMachineColor: signalR.HubConnection;
+  private hubConnectionAlarmas: signalR.HubConnection;
   private hubConnectionPackageWip: signalR.HubConnection;
   
   
 
-//   public startConnectionMachineColor = () => {
-//     this.ngOnInit();
+  public startConnectionAlarmas = () => {
+    this.ngOnInit();
     
-//         let accessToken = "some token";
-//         var options = {
-//           transport: signalR.HttpTransportType.ServerSentEvents,
-//           logging: signalR.LogLevel.Trace,
-//           accessTokenFactory: () => accessToken
-//       };
+        let accessToken = "some token";
+        var options = {
+          transport: signalR.HttpTransportType.ServerSentEvents,
+          logging: signalR.LogLevel.Trace,
+          accessTokenFactory: () => accessToken
+      };
 
-//   this.hubConnectionMachineColor = new signalR.HubConnectionBuilder()
-//   .withUrl(this.api.apiUrlMatSignalR + '/machinecolor',options)
-//   .build();
-//   this.hubConnectionMachineColor.serverTimeoutInMilliseconds = 120000;
+  this.hubConnectionAlarmas = new signalR.HubConnectionBuilder()
+  .withUrl(this.api.apiUrlMatSignalR + '/sralarms',options)
+  .build();
+  this.hubConnectionAlarmas.serverTimeoutInMilliseconds = 120000;
   
-//   this.hubConnectionMachineColor.on('transfermachinecolordata', (data)=>{
-//     this.dataMachineColor=data;
-//     // console.log(data);
-//   });
+  this.hubConnectionAlarmas.on('transferalarmdata', (data)=>{
+    this.numeroAlarmas=data;
+    // console.log(data);
+  });
 
-//   this.hubConnectionMachineColor
-//   .start()
-//   .then(()=>console.log('Connection started GetMachineColor'))
-//   .catch(
-//     err=>console.log('Error while starting connection MachineColor: ' + err,
-//     this.startConnectionMachineColor()    
-//     ))
+  this.hubConnectionAlarmas
+  .start()
+  .then(()=>console.log('Connection started GetMachineColor'))
+  .catch(
+    err=>console.log('Error while starting connection MachineColor: ' + err,
+    this.startConnectionAlarmas()    
+    ))
 
-// }
+}
 
-// public addTransferMachineColorDataListener = () => {
-//   this.hubConnectionMachineColor.on('transfermachinecolordata', (data)=>{
-//     this.dataMachineColor=data;
-//     console.log(data);
-    
-//   })
-// }
-////////////////////////////////////////////////////////////
+
 
 
 public startConnectionPackageWip = (id:number) => {
@@ -199,7 +184,14 @@ AsignarDatosWip(data:any){
 constructor(private api: HttpService,
   private http: HttpClient,
   ){    
-
+    for (var clave in IdWip){
+      var idMachine=IdWip[clave];
+      this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
+      .subscribe((res: any)=>{
+        console.log(res);
+        this.AsignarDatosWip(res);
+      });
+  }
   }
   
 ngOnInit(){

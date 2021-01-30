@@ -23,7 +23,14 @@
       <nb-search type="rotate-layout"></nb-search>
     </nb-action>
     <nb-action class="control-item" icon="email-outline"></nb-action>
-    <nb-action class="control-item" icon="bell-outline"></nb-action>
+    <nb-action class="control-item" 
+    icon="bell-outline"
+    badgeDot
+					 badgePosition="top right"
+					 badgeStatus="danger"					 
+					 badgeText={{sigalRService.numeroAlarmas.numeroAlarmas}}
+					 (click)="AbrirAlarmas()">
+  </nb-action>
     <nb-action class="user-action"  *nbIsGranted="['view', 'current-user']">
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"

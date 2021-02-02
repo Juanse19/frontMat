@@ -8,62 +8,83 @@
 
  @include nb-install-component() {
    .room-selector {
-     max-width: 1000px!important;
+     max-width: 100%!important;
  }
  
  
- .st1 {marker-end:url(#mrkr4-9);marker-start:url(#mrkr4-7);stroke:#b7dde8;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
- .st1:hover {marker-end:url(#mrkr4-9);marker-start:url(#mrkr4-7);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
- .st2 {fill:#b7dde8;fill-opacity:1;stroke:#b7dde8;stroke-opacity:1;stroke-width:0.21739130434783}
- .st2:hover {fill:#b7dde8;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:0.21739130434783}
- .st3 {fill:url(#ptrn7-13);shape-rendering:crispEdges;stroke:#75d175;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st3:hover {fill:url(#ptrn7-13);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st4 {fill:#000000;font-family:Calibri;font-size:0.666664em}
- .st5 {fill:#262626;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st5:hover {fill:#262626;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st6 {fill:#feeeff;font-family:Calibri;font-size:0.499992em}
- .st7 {fill:none;stroke:#f09609;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st7:hover {fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st8 {fill:url(#ptrn19-31);shape-rendering:crispEdges;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st8:hover {fill:url(#ptrn19-31);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st9 {fill:#000000;font-family:Calibri;font-size:0.499992em}
- .st10 {fill:none;stroke:#1ba1e2;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st10:hover {fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st11 {fill:#00b050;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st11:hover {fill:#00b050;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st12 {fill:#feffff;font-family:Calibri;font-size:0.666664em}
- .st13 {fill:url(#ptrn20-59);shape-rendering:crispEdges;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st13:hover {fill:url(#ptrn20-59);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st14 {fill:url(#ptrn7-13);shape-rendering:crispEdges;stroke:#00aba9;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st14:hover {fill:url(#ptrn7-13);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st15 {fill:#00b0f0;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st15:hover {fill:#00b0f0;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st16 {fill:#c00000;stroke:#c00000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st16:hover {fill:#c00000;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st17 {fill:none;stroke:#0070c0;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st17:hover {fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st18 {marker-start:url(#mrkr4-7);stroke:#b7dde8;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
- .st18:hover {marker-start:url(#mrkr4-7);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
- .st19 {fill:url(#ptrn6-131);shape-rendering:crispEdges;stroke:#1ba1e2;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st19:hover {fill:url(#ptrn6-131);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st20 {fill:url(#ptrn19-31_268);shape-rendering:crispEdges;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st20:hover {fill:url(#ptrn19-31_268);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st21 {fill:#f09609;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st21:hover {fill:#f09609;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st22 {fill:#a5a5a5;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st22:hover {fill:#a5a5a5;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st23 {fill:none;stroke:none;stroke-linecap:butt;stroke-width:0.75}
- .st24 {fill:#7b818e;font-family:Segoe UI;font-size:0.499992em}
- .st25 {fill:url(#ptrn19-31_319);shape-rendering:crispEdges;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st25:hover {fill:url(#ptrn19-31_319);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st26 {stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.2376}
- .st26:hover {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.2376}
- .st27 {fill:#00aba9;stroke:#00e7e4;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st27:hover {fill:#00aba9;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st28 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
- .st29 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
- 
- 
+//  .st1 {marker-end:url(#mrkr4-9);marker-start:url(#mrkr4-7);stroke:#b7dde8;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+//  .st1:hover {marker-end:url(#mrkr4-9);marker-start:url(#mrkr4-7);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+//  .st2 {fill:#b7dde8;fill-opacity:1;stroke:#b7dde8;stroke-opacity:1;stroke-width:0.21739130434783}
+//  .st2:hover {fill:#b7dde8;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:0.21739130434783}
+//  .st3 {fill:url(#ptrn7-13);shape-rendering:crispEdges;stroke:#75d175;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st3:hover {fill:url(#ptrn7-13);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st4 {fill:#000000;font-family:Calibri;font-size:0.666664em}
+//  .st5 {fill:#262626;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st5:hover {fill:#262626;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st6 {fill:#feeeff;font-family:Calibri;font-size:0.499992em}
+//  .st7 {fill:none;stroke:#f09609;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st7:hover {fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st8 {fill:url(#ptrn19-31);shape-rendering:crispEdges;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st8:hover {fill:url(#ptrn19-31);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st9 {fill:#000000;font-family:Calibri;font-size:0.499992em}
+//  .st10 {fill:none;stroke:#1ba1e2;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st10:hover {fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st11 {fill:#00b050;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st11:hover {fill:#00b050;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st12 {fill:#feffff;font-family:Calibri;font-size:0.666664em}
+//  .st13 {fill:url(#ptrn20-59);shape-rendering:crispEdges;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st13:hover {fill:url(#ptrn20-59);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st14 {fill:url(#ptrn7-13);shape-rendering:crispEdges;stroke:#00aba9;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st14:hover {fill:url(#ptrn7-13);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st15 {fill:#00b0f0;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st15:hover {fill:#00b0f0;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st16 {fill:#c00000;stroke:#c00000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st16:hover {fill:#c00000;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st17 {fill:none;stroke:#0070c0;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st17:hover {fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st18 {marker-start:url(#mrkr4-7);stroke:#b7dde8;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+//  .st18:hover {marker-start:url(#mrkr4-7);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+//  .st19 {fill:url(#ptrn6-131);shape-rendering:crispEdges;stroke:#1ba1e2;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st19:hover {fill:url(#ptrn6-131);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st20 {fill:url(#ptrn19-31_268);shape-rendering:crispEdges;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st20:hover {fill:url(#ptrn19-31_268);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st21 {fill:#f09609;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st21:hover {fill:#f09609;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st22 {fill:#a5a5a5;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st22:hover {fill:#a5a5a5;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st23 {fill:none;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+//  .st24 {fill:#7b818e;font-family:Segoe UI;font-size:0.499992em}
+//  .st25 {fill:url(#ptrn19-31_319);shape-rendering:crispEdges;stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st25:hover {fill:url(#ptrn19-31_319);shape-rendering:crispEdges;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st26 {stroke:#339933;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.2376}
+//  .st26:hover {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.2376}
+//  .st27 {fill:#00aba9;stroke:#00e7e4;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st27:hover {fill:#00aba9;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st28 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+//  .st29 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+
+
+.st1 {fill:"#f0f0f0"}
+.st1:hover {fill:none; stroke:blue}
+		.st2 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+    .st2:hover {fill:none; stroke:blue}
+		.st3 {fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st3:hover {fill:none; stroke:blue}
+    .st4 {stroke:#000000;stroke-linecap:butt;stroke-width:0.75; fill:"#f0f0f0"}
+    .st4:hover {fill:none; stroke:blue}
+		.st5 {fill:#000000;font-family:Calibri;font-size:0.666664em}
+    .st5:hover {fill:none; stroke:blue}
+		.st6 {fill:"#f0f0f0";stroke:#000000;stroke-linecap:butt;stroke-width:0.75}
+    .st6:hover {fill:none; stroke:blue}
+		.st7 {fill:#000000;font-family:Calibri;font-size:1.00001em}
+    .st7:hover {fill:none; stroke:blue}
+		.st8 {font-size:1em}
+    .st8:hover {fill:none; stroke:blue}
+		.st9 {fill:#000000;font-family:Calibri;font-size:0.499992em}
+    .st9:hover {fill:none; stroke:blue}
+		.st10 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+    
+
    nb-card {
      background-color: transparent;
      border-width: 0;

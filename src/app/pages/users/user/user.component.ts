@@ -18,6 +18,15 @@ import {User, UserData} from '../../../@core/interfaces/common/users';
 import {EMAIL_PATTERN, NUMBERS_PATTERN} from '../../../@auth/components';
 import {NbAuthOAuth2JWTToken, NbTokenService} from '@nebular/auth';
 import {UserStore} from '../../../@core/stores/user.store';
+import { HttpService } from '../../../@core/backend/common/api/http.service';
+import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
+
+
+interface Roles {
+  id?: number;
+  name: string;
+}
+
 
 export enum UserFormMode {
   VIEW = 'View',
@@ -33,6 +42,8 @@ export enum UserFormMode {
 })
 export class UserComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
+  selectedRole;
+  listaRoles:Roles[]=[];
 
   protected readonly unsubscribe$ = new Subject<void>();
 
@@ -41,6 +52,7 @@ export class UserComponent implements OnInit, OnDestroy {
   get lastName() { return this.userForm.get('lastName'); }
 
   get login() { return this.userForm.get('login'); }
+  get role() { return this.userForm.get('role'); }
 
   get email() { return this.userForm.get('email'); }
 
@@ -63,7 +75,12 @@ export class UserComponent implements OnInit, OnDestroy {
               private tokenService: NbTokenService,
               private userStore: UserStore,
               private toasterService: NbToastrService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private httpService: HttpService,
+              private apiGetComp: ApiGetService,) {
+                this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles').subscribe((res: any) => {
+                  this.listaRoles=res;
+                });
   }
 
   ngOnInit(): void {
@@ -74,7 +91,7 @@ export class UserComponent implements OnInit, OnDestroy {
   initUserForm() {
     this.userForm = this.fb.group({
       id: this.fb.control(''),
-      role: this.fb.control(''),
+      role: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       firstName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       lastName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       login: this.fb.control('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
@@ -120,6 +137,9 @@ export class UserComponent implements OnInit, OnDestroy {
     loadUser
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((user) => {
+        this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getrolebyuser?idUser='+user.id).subscribe((res: any) => {
+          user.role=res.name;
+        
         this.userForm.setValue({
           id: user.id ? user.id : '',
           role: user.role ? user.role : '',
@@ -134,7 +154,7 @@ export class UserComponent implements OnInit, OnDestroy {
             zipCode: (user.address && user.address.zipCode) ? user.address.zipCode : '',
           },
         });
-
+      });
         // this is a place for value changes handling
         // this.userForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe((value) => {   });
       });
@@ -152,6 +172,11 @@ export class UserComponent implements OnInit, OnDestroy {
     let observable = new Observable<User>();
     if (this.mode === UserFormMode.EDIT_SELF) {
       this.usersService.updateCurrent(user).subscribe((result: any) => {
+        var userRole = {
+          IdUser:user.id,
+          Role:user.role
+        };
+        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole).subscribe();
           this.tokenService.set(new NbAuthOAuth2JWTToken(result, 'email', new Date()));
           this.handleSuccessResponse();
         },
@@ -167,6 +192,12 @@ export class UserComponent implements OnInit, OnDestroy {
     observable
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => {
+        var userRole = {
+          IdUser:user.id,
+          Role:user.role
+        };
+        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole).subscribe();
+       
         this.handleSuccessResponse();
       },
       err => {

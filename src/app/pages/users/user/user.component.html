@@ -66,6 +66,7 @@
                                 [showRequired]="email?.errors?.required && email.touched" min=1 max=120></ngx-validation-message>
       </div>
 
+   
       <div class="form-group" formGroupName="address">
         <label for="inputStreet">Street</label>
         <input nbInput class="form-control" id="inputStreet" placeholder="Street" formControlName="street">
@@ -79,6 +80,27 @@
       <div class="form-group" formGroupName="address">
         <label for="inputZipCode">Zip Code</label>
         <input nbInput class="form-control" id="inputZipCode" placeholder="Zip Code" formControlName="zipCode">
+      </div>
+    
+      <div class="form-group" >
+        <label for="role">Role</label>
+                                <nb-select id="role" 
+                                [formControl]="role"
+                                [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'"
+                                class="form-control"
+                                placeholder= "Role"
+                                [(selected)]="selectedRole">
+                                  <nb-option *ngFor="let itemRole of listaRoles" [value]="itemRole.name">
+                                    {{ itemRole.name }}
+                                  </nb-option>             
+                              </nb-select>
+                              <ngx-validation-message label="Role"
+                              [showMinLength]="role?.hasError('minlength')"
+                              [showMaxLength]="role?.hasError('maxlength')" 
+                              minLength=3
+                              maxLength=20
+                              [showRequired]="role?.errors?.required && role.touched"
+                              ></ngx-validation-message>
       </div>
     </div>
   </nb-card-body>

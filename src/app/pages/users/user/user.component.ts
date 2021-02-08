@@ -91,7 +91,7 @@ export class UserComponent implements OnInit, OnDestroy {
   initUserForm() {
     this.userForm = this.fb.group({
       id: this.fb.control(''),
-      role: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
+      role: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
       firstName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       lastName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       login: this.fb.control('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),

@@ -8,6 +8,24 @@ export interface MachineColor{
     colorSYS  :string,
 }
 
+export interface WipColor{
+    colorST1 :string,
+    colorST2  :string,
+    colorST3  :string,
+    colorST4  :string,
+    colorST5 :string,
+    colorST6  :string,
+    colorST7  :string,
+    colorST8 :string,
+    colorST9  :string,
+    colorST10  :string,
+    colorST11  :string,
+    colorST12  :string,
+    colorST13  :string,
+    colorST14  :string,
+    colorST15  :string,
+}
+
 export interface PackagesWIP{
     order :string,
     description  :string,
@@ -28,7 +46,7 @@ export const IdMaquinas = {
 }
 
 export const IdWip = {
-    ST1:20,
+ST1:20,
 ST2:21,
 ST3:23,
 ST4:24,

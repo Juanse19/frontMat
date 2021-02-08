@@ -76,15 +76,26 @@
         <label for="inputCity">City</label>
         <input nbInput class="form-control" id="inputCity" placeholder="City" formControlName="city">
       </div>
-
+<!-- 
       <div class="form-group" formGroupName="address">
         <label for="inputZipCode">Zip Code</label>
         <input nbInput class="form-control" id="inputZipCode" placeholder="Zip Code" formControlName="zipCode">
-      </div>
+      </div> -->
     
       <div class="form-group" >
         <label for="role">Role</label>
-                                <nb-select id="role" 
+
+ <nb-select class="form-control" id="role" placeholder= "Role"
+                                [formControl]="role"
+                                [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'"                             
+                                [(selected)]="selectedRole">
+                                  <nb-option *ngFor="let itemRole of listaRoles" [value]="itemRole.name">
+                                    {{ itemRole.name }}
+                                  </nb-option>             
+                              </nb-select>
+
+        <!-- <input nbInput class="form-control" id="role" placeholder="role" formControlName="role"> -->
+                                <!-- <nb-select id="role" 
                                 [formControl]="role"
                                 [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'"
                                 class="form-control"
@@ -100,7 +111,7 @@
                               minLength=3
                               maxLength=20
                               [showRequired]="role?.errors?.required && role.touched"
-                              ></ngx-validation-message>
+                              ></ngx-validation-message> -->
       </div>
     </div>
   </nb-card-body>

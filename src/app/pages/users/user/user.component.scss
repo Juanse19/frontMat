@@ -28,4 +28,11 @@
       @include nb-rtl(margin, 0 0 0 0.75rem);
     }
   }
+
+  
+  ::ng-deep .user-smart-table {
+    .form-control {
+      color: nb-theme(form-control-color);
+    }
+  }
 }

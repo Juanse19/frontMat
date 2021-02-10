@@ -2,11 +2,7 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { NbWindowService } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import { last } from 'rxjs/operators';
-// import {HttpClient} from '@angular/common/http'
-// import { WindowFormComponent } from '../..window-form/window-form.component';
-// import { WindowFormComponent } from '../../modal-overlays/window/window-form/window-form.component';
-
+import { MessageService } from '../services/MessageService';
 interface Ordenes {
   id?: number;
   order: string;
@@ -58,9 +54,7 @@ export class WindowComponent2 {
     private windowService: NbWindowService,
     private apiGetComp: ApiGetService,
     private api: HttpService,
-    // public pipe : DecimalPipe
-    // private windowTitle:NbWindowConfig,
-    // private nombre2: titl,
+    private messageService: MessageService,
     ) {
 
 
@@ -91,8 +85,9 @@ STATUSPACKAGE = {
   idStatus:event,
 }
     this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/PostUpdatePackageState',STATUSPACKAGE).subscribe((res: any) => {
-      if (res=="ok")
-      alert("Paquete actualizado");
+      
+        this.messageService.sendMessage('PackageUpdate');
+      
     });
   }
 

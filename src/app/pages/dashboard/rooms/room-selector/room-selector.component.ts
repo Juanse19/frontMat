@@ -215,6 +215,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
   valorXCT = 0;
   valorYCT1 = 591.798;
   valorYCT2 = 591.798;
+  valorZTM = 0;
 
   paqueteNombe = "paqueteST6"
   contPaqueteST6 = 0;
@@ -382,7 +383,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
   ) {
     
     this.subscription = this.messageService.onMessage().subscribe(message => {
-      if (message) {
+      if (message.text=="MachineColor") {
         //this.messages.push(message);
         this.ColorCharge();
       } 
@@ -541,6 +542,7 @@ this.ColorCharge();
       this.MoverCT();
       this.MoverCT1();
       this.MoverCT2();
+      this.MoverTM();
     });
     // const contador2 = interval(1000)
     // contador2.subscribe((n) =>{
@@ -573,6 +575,15 @@ this.ColorCharge();
       this.valorYCT2  = res.position;
       });
   }
+
+  MoverTM(){
+    // this.valorX = this.valorX + 10;
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/TM').subscribe((res: any) => {
+      // console.log(res);
+      this.valorZTM  = res.position;
+      });
+  }
+
 
   ClicST3() {
      var res = this.comp2.openWindowForm(IdWip.ST3);

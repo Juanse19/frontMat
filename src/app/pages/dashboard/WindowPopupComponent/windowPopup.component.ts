@@ -5,7 +5,7 @@ import { NbWindowConfig, NbWindowService, NbWindowRef } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, Observable, of, Subject  } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject,Subscription } from 'rxjs';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import {WindowComponent2 } from '../OrderPopup/orderPopup.component';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
@@ -175,6 +175,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
   providedIn: 'root'
 })
 export class WindowComponent {
+  subscription: Subscription;
   windowRef:NbWindowRef;
   private _state: State = {
     page: 1,
@@ -241,7 +242,14 @@ export class WindowComponent {
     
     ) {
 
-      
+      this.subscription = this.messageService.onMessage().subscribe(message => {
+        if (message.text=="PackageUpdate") {
+          //this.messages.push(message);
+          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina).subscribe((res: any) => {
+            ORDENES = res;
+          });
+        } 
+      });
       // .pipe(map(hasAccess => {
       //   if (hasAccess) {
       //     // return [...dashboardMenu, userMenu, ...menu];
@@ -437,8 +445,8 @@ export class WindowComponent {
     // console.log(PROPIEDADESACTUALIZAR);
 
     this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarPropiedadesMaquina', PROPIEDADESACTUALIZAR).subscribe((res:any) => {
-      this.messageService.sendMessage('Message from Home Component to App Component!');
-      this.windowRef.close();
+      this.messageService.sendMessage('MachineColor');
+      //this.windowRef.close();
     }      
       );
   }
@@ -540,7 +548,8 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
-
-
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+  }
   }
 }

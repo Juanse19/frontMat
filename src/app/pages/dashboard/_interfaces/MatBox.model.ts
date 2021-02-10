@@ -27,12 +27,14 @@ export interface WipColor{
 }
 
 export interface PackagesWIP{
+    id:number,
     order :string,
     description  :string,
     valor  :string,
     idMaquina: number,
     name:string,
     visible:boolean,
+    cutLength:number
 }
 
 export const IdMaquinas = {

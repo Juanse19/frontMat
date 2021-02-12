@@ -247,6 +247,16 @@ export class WindowComponent {
           //this.messages.push(message);
           this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina).subscribe((res: any) => {
             ORDENES = res;
+            // this._search$.pipe(
+            //   tap(() => this._loading$.next(true)),
+            //   debounceTime(200),
+            //   switchMap(() => this._search()),
+            //   delay(200),
+            //   tap(() => this._loading$.next(false)),
+            // ).subscribe(result => {
+            //   this._Ordenes$.next(result.ordenes);
+            //   this._total$.next(result.total);
+            // });
           });
         } 
       });

@@ -17,6 +17,8 @@ import {
   NbIconModule,
   NbSpinnerModule,
   NbToggleModule,
+  NbInputModule,
+  NbAutocompleteModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -72,6 +74,8 @@ import { WindowComponent2} from './OrderPopup/orderPopup.component';
     ReactiveFormsModule,
     // FormsModule,
     NbToggleModule,
+    NbInputModule,
+    NbAutocompleteModule,
   ],
   declarations: [
     DashboardComponent,

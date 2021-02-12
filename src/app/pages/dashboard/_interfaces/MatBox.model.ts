@@ -34,8 +34,18 @@ export interface PackagesWIP{
     idMaquina: number,
     name:string,
     visible:boolean,
-    cutLength:number
+    cutLength:number,
+    state:number,
+    ngStyle:NgStyle
 }
+
+export interface NgStyle{
+    fill:string,
+    width:number,
+    x:number,
+    fillOpacity:number,
+}
+
 
 export const IdMaquinas = {
     Martin1228 :22,
@@ -68,4 +78,9 @@ CT1:49,
 TM:54,
 
     
+}
+
+export interface OrderProcess{
+    Id:number,
+    Order:string,
 }

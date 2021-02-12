@@ -23,6 +23,28 @@
 
 
 <nb-card>
+	<nb-card-body class="example-items-rows">
+        <input 
+		type="text" 
+		nbInput 
+		status="basic" 
+		placeholder="Buscar arrumes por orden"
+		[(ngModel)]="inputOrder"
+		[nbAutocomplete]="autoControl"
+		>
+	 <!-- <input
+	[formControl]="inputFormControl"
+	nbInput
+	type="text"
+	placeholder="Ordenes"
+	 />-->
+  <nb-autocomplete #autoControl>
+	<nb-option *ngFor="let option of orderProcess" [value]="option.order">
+	  {{ option.order }}
+	</nb-option>
+  </nb-autocomplete>  
+</nb-card-body>
+
 	<div class="room-layout">
   <!-- <div class="room-selector"> -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
@@ -928,7 +950,8 @@
 				<path transform="" d="M0 319.03 L21.24 319.03" class="st2" [ngStyle]={stroke:dataWipColor.colorST1}/>
 			</g>
 			<rect *ngIf="sigalRService.dataPackageST1[0].visible" x="0" y="303" width="19" height="14" 
-				[ngStyle] = "{fill:sigalRService.dataPackageST1[0].valor}" fill-opacity="1"/>
+							[ngStyle] = "sigalRService.dataPackageST1[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST1[0].order==inputOrder}"/>
 			<g id="shape170-501">
 				<text x="4.88" y="310.81" class="st5">ST1</text>			</g>
 		</g>
@@ -943,7 +966,9 @@
 				<title>Sheet.183</title>
 				<path transform="" d="M0 297.94 L21.28 297.94 L21.28 319.03 L0 319.03 L0 297.94 Z" class="st6" [ngStyle]={stroke:dataWipColor.colorST2}/>
 			</g>
-			<rect *ngIf="sigalRService.dataPackageST2[0].visible" x="0" y="303" width="19" height="14" [ngStyle] = "{fill:sigalRService.dataPackageST2[0].valor}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST2[0].visible" x="0" y="303" width="19" height="14" 
+		[ngStyle] = "sigalRService.dataPackageST2[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST2[0].order==inputOrder}"/>
 			<g id="shape181-508">
 				<text x="4.82" y="310.88" class="st5">ST2</text>			</g>
 		</g>
@@ -1150,63 +1175,30 @@
 			<title>Sheet.220</title>
 			<desc>ST15</desc>
 			<path transform="" d="M127.67 319.03 L0 319.03 L0 298.48 L127.67 298.48 L127.67 319.03 L127.67 319.03 Z" class="st6"(click)="ClicST15()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST15}" />
-				<rect *ngIf="sigalRService.dataPackageST15[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST15[0].valor, 
-				width:sigalRService.dataPackageST15[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST15[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST15[1].valor,
-				width:sigalRService.dataPackageST15[1].cutLength,
-			x:sigalRService.dataPackageST15[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST15[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST15[2].valor,
-				width:sigalRService.dataPackageST15[2].cutLength,
-				x:sigalRService.dataPackageST15[0].cutLength + 
-				sigalRService.dataPackageST15[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST15[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST15[3].valor,
-			width:sigalRService.dataPackageST15[3].cutLength,
-				x:sigalRService.dataPackageST15[0].cutLength + 
-				sigalRService.dataPackageST15[1].cutLength + 
-				sigalRService.dataPackageST15[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST15[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST15[4].valor,
-			width:sigalRService.dataPackageST15[4].cutLength,
-				x:sigalRService.dataPackageST15[0].cutLength + 
-				sigalRService.dataPackageST15[1].cutLength + 
-				sigalRService.dataPackageST15[2].cutLength + 
-				sigalRService.dataPackageST15[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST15[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST15[5].valor,
-			width:sigalRService.dataPackageST15[5].cutLength,
-				x:sigalRService.dataPackageST15[0].cutLength + 
-				sigalRService.dataPackageST15[1].cutLength + 
-				sigalRService.dataPackageST15[2].cutLength + 
-				sigalRService.dataPackageST15[3].cutLength + 
-				sigalRService.dataPackageST15[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST15[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST15[6].valor,
-			width:sigalRService.dataPackageST15[6].cutLength,
-				x:sigalRService.dataPackageST15[0].cutLength + 
-				sigalRService.dataPackageST15[1].cutLength + 
-				sigalRService.dataPackageST15[2].cutLength + 
-				sigalRService.dataPackageST15[3].cutLength + 
-				sigalRService.dataPackageST15[4].cutLength + 
-				sigalRService.dataPackageST15[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST15[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST15[7].valor,
-			width:sigalRService.dataPackageST15[7].cutLength,
-				x:sigalRService.dataPackageST15[0].cutLength + 
-				sigalRService.dataPackageST15[1].cutLength + 
-				sigalRService.dataPackageST15[2].cutLength + 
-				sigalRService.dataPackageST15[3].cutLength + 
-				sigalRService.dataPackageST15[4].cutLength + 
-				sigalRService.dataPackageST15[5].cutLength + 
-				sigalRService.dataPackageST15[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST15[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[7].order==inputOrder}"/>
 			<text x="55.99" y="311.15" class="st5">ST15</text>		</g>
 		<g id="shape221-619" transform="translate(124.399,-131.677)">
 			<title>Sheet.221</title>
@@ -1217,63 +1209,30 @@
 			<title>Sheet.222</title>
 			<desc>ST14</desc>
 			<path transform="" d="M129.43 319.03 L129.43 301.68 L0 301.68 L0 319.03 L129.43 319.03 L129.43 319.03 Z" class="st6" (click)="ClicST14()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST14}" />
-			<rect *ngIf="sigalRService.dataPackageST14[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST14[0].valor, 
-				width:sigalRService.dataPackageST14[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST14[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST14[1].valor,
-				width:sigalRService.dataPackageST14[1].cutLength,
-			x:sigalRService.dataPackageST14[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST14[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST14[2].valor,
-				width:sigalRService.dataPackageST14[2].cutLength,
-				x:sigalRService.dataPackageST14[0].cutLength + 
-				sigalRService.dataPackageST14[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST14[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST14[3].valor,
-			width:sigalRService.dataPackageST14[3].cutLength,
-				x:sigalRService.dataPackageST14[0].cutLength + 
-				sigalRService.dataPackageST14[1].cutLength + 
-				sigalRService.dataPackageST14[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST14[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST14[4].valor,
-			width:sigalRService.dataPackageST14[4].cutLength,
-				x:sigalRService.dataPackageST14[0].cutLength + 
-				sigalRService.dataPackageST14[1].cutLength + 
-				sigalRService.dataPackageST14[2].cutLength + 
-				sigalRService.dataPackageST14[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST14[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST14[5].valor,
-			width:sigalRService.dataPackageST14[5].cutLength,
-				x:sigalRService.dataPackageST14[0].cutLength + 
-				sigalRService.dataPackageST14[1].cutLength + 
-				sigalRService.dataPackageST14[2].cutLength + 
-				sigalRService.dataPackageST14[3].cutLength + 
-				sigalRService.dataPackageST14[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST14[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST14[6].valor,
-			width:sigalRService.dataPackageST14[6].cutLength,
-				x:sigalRService.dataPackageST14[0].cutLength + 
-				sigalRService.dataPackageST14[1].cutLength + 
-				sigalRService.dataPackageST14[2].cutLength + 
-				sigalRService.dataPackageST14[3].cutLength + 
-				sigalRService.dataPackageST14[4].cutLength + 
-				sigalRService.dataPackageST14[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST14[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST14[7].valor,
-			width:sigalRService.dataPackageST14[7].cutLength,
-				x:sigalRService.dataPackageST14[0].cutLength + 
-				sigalRService.dataPackageST14[1].cutLength + 
-				sigalRService.dataPackageST14[2].cutLength + 
-				sigalRService.dataPackageST14[3].cutLength + 
-				sigalRService.dataPackageST14[4].cutLength + 
-				sigalRService.dataPackageST14[5].cutLength + 
-				sigalRService.dataPackageST14[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST14[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[7].order==inputOrder}"/>
 			<text x="56.88" y="312.75" class="st5">ST14</text>		</g>
 		<g id="shape223-625" transform="translate(170.22,-181.31)">
 			<title>Sheet.223</title>
@@ -1284,437 +1243,206 @@
 			<title>Sheet.224</title>
 			<desc>ST3</desc>
 			<path transform="" d="M0 319.03 L57.45 319.03 L57.49 300.77 L0 300.77 L0 319.03 L0 319.03 Z" class="st6" (click)="ClicST3()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST3}/>
-				<rect *ngIf="sigalRService.dataPackageST3[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST3[0].valor, 
-				width:sigalRService.dataPackageST3[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST3[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST3[1].valor,
-				width:sigalRService.dataPackageST3[1].cutLength,
-			x:sigalRService.dataPackageST3[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST3[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST3[2].valor,
-				width:sigalRService.dataPackageST3[2].cutLength,
-				x:sigalRService.dataPackageST3[0].cutLength + 
-				sigalRService.dataPackageST3[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST3[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST3[3].valor,
-			width:sigalRService.dataPackageST3[3].cutLength,
-				x:sigalRService.dataPackageST3[0].cutLength + 
-				sigalRService.dataPackageST3[1].cutLength + 
-				sigalRService.dataPackageST3[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST3[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST3[4].valor,
-			width:sigalRService.dataPackageST3[4].cutLength,
-				x:sigalRService.dataPackageST3[0].cutLength + 
-				sigalRService.dataPackageST3[1].cutLength + 
-				sigalRService.dataPackageST3[2].cutLength + 
-				sigalRService.dataPackageST3[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST3[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST3[5].valor,
-			width:sigalRService.dataPackageST3[5].cutLength,
-				x:sigalRService.dataPackageST3[0].cutLength + 
-				sigalRService.dataPackageST3[1].cutLength + 
-				sigalRService.dataPackageST3[2].cutLength + 
-				sigalRService.dataPackageST3[3].cutLength + 
-				sigalRService.dataPackageST3[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST3[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST3[6].valor,
-			width:sigalRService.dataPackageST3[6].cutLength,
-				x:sigalRService.dataPackageST3[0].cutLength + 
-				sigalRService.dataPackageST3[1].cutLength + 
-				sigalRService.dataPackageST3[2].cutLength + 
-				sigalRService.dataPackageST3[3].cutLength + 
-				sigalRService.dataPackageST3[4].cutLength + 
-				sigalRService.dataPackageST3[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST3[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST3[7].valor,
-			width:sigalRService.dataPackageST3[7].cutLength,
-				x:sigalRService.dataPackageST3[0].cutLength + 
-				sigalRService.dataPackageST3[1].cutLength + 
-				sigalRService.dataPackageST3[2].cutLength + 
-				sigalRService.dataPackageST3[3].cutLength + 
-				sigalRService.dataPackageST3[4].cutLength + 
-				sigalRService.dataPackageST3[5].cutLength + 
-				sigalRService.dataPackageST3[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST3[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST3[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST3[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST3[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST3[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST3[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST3[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST3[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST3[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST3[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST3[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST3[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST3[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST3[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST3[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST3[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST3[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST3[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST3[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST3[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST3[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST3[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST3[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST3[7].order==inputOrder}"/>
 			<text x="22.93" y="312.3" class="st5">ST3</text>		</g>
 		<g id="shape225-631" transform="translate(258.33,-179.079)"(click)="ClicST6()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.225</title>
 			<desc>ST6</desc>
 			<path transform="" d="M0 303.62 L128.28 303.62 L128.28 319.03 L0 319.03 L0 303.62 L0 303.62 L0 303.62 Z"  class="st1" (click)="ClicST6()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST6}/>
 			<path transform="" d="M0 303.62 L128.28 303.62 L128.28 319.03 L0 319.03 L0 303.62 L0 303.62"  class="st4" [ngStyle]={stroke:dataWipColor.colorST6}/>
-				<rect *ngIf="sigalRService.dataPackageST6[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST6[0].valor, 
-				width:sigalRService.dataPackageST6[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST6[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST6[1].valor,
-				width:sigalRService.dataPackageST6[1].cutLength,
-			x:sigalRService.dataPackageST6[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST6[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST6[2].valor,
-				width:sigalRService.dataPackageST6[2].cutLength,
-				x:sigalRService.dataPackageST6[0].cutLength + 
-				sigalRService.dataPackageST6[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST6[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST6[3].valor,
-			width:sigalRService.dataPackageST6[3].cutLength,
-				x:sigalRService.dataPackageST6[0].cutLength + 
-				sigalRService.dataPackageST6[1].cutLength + 
-				sigalRService.dataPackageST6[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST6[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST6[4].valor,
-			width:sigalRService.dataPackageST6[4].cutLength,
-				x:sigalRService.dataPackageST6[0].cutLength + 
-				sigalRService.dataPackageST6[1].cutLength + 
-				sigalRService.dataPackageST6[2].cutLength + 
-				sigalRService.dataPackageST6[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST6[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST6[5].valor,
-			width:sigalRService.dataPackageST6[5].cutLength,
-				x:sigalRService.dataPackageST6[0].cutLength + 
-				sigalRService.dataPackageST6[1].cutLength + 
-				sigalRService.dataPackageST6[2].cutLength + 
-				sigalRService.dataPackageST6[3].cutLength + 
-				sigalRService.dataPackageST6[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST6[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST6[6].valor,
-			width:sigalRService.dataPackageST6[6].cutLength,
-				x:sigalRService.dataPackageST6[0].cutLength + 
-				sigalRService.dataPackageST6[1].cutLength + 
-				sigalRService.dataPackageST6[2].cutLength + 
-				sigalRService.dataPackageST6[3].cutLength + 
-				sigalRService.dataPackageST6[4].cutLength + 
-				sigalRService.dataPackageST6[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST6[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST6[7].valor,
-			width:sigalRService.dataPackageST6[7].cutLength,
-				x:sigalRService.dataPackageST6[0].cutLength + 
-				sigalRService.dataPackageST6[1].cutLength + 
-				sigalRService.dataPackageST6[2].cutLength + 
-				sigalRService.dataPackageST6[3].cutLength + 
-				sigalRService.dataPackageST6[4].cutLength + 
-				sigalRService.dataPackageST6[5].cutLength + 
-				sigalRService.dataPackageST6[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST6[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[7].order==inputOrder}"/>
 			<text x="58.33" y="313.72" class="st5">ST6</text>		</g>
 		<g id="shape226-635" transform="translate(258.334,-156.995)"(click)="ClicST7()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.226</title>
 			<desc>ST7</desc>
 			<path transform="" d="M0 319.03 L0 297.34 L128.17 297.76 L128.17 319 L0 319.03 L0 319.03 Z" class="st6" (click)="ClicST4()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST7}/>
-			<rect *ngIf="sigalRService.dataPackageST7[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST7[0].valor, 
-				width:sigalRService.dataPackageST7[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST7[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST7[1].valor,
-				width:sigalRService.dataPackageST7[1].cutLength,
-			x:sigalRService.dataPackageST7[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST7[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST7[2].valor,
-				width:sigalRService.dataPackageST7[2].cutLength,
-				x:sigalRService.dataPackageST7[0].cutLength + 
-				sigalRService.dataPackageST7[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST7[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST7[3].valor,
-			width:sigalRService.dataPackageST7[3].cutLength,
-				x:sigalRService.dataPackageST7[0].cutLength + 
-				sigalRService.dataPackageST7[1].cutLength + 
-				sigalRService.dataPackageST7[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST7[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST7[4].valor,
-			width:sigalRService.dataPackageST7[4].cutLength,
-				x:sigalRService.dataPackageST7[0].cutLength + 
-				sigalRService.dataPackageST7[1].cutLength + 
-				sigalRService.dataPackageST7[2].cutLength + 
-				sigalRService.dataPackageST7[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST7[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST7[5].valor,
-			width:sigalRService.dataPackageST7[5].cutLength,
-				x:sigalRService.dataPackageST7[0].cutLength + 
-				sigalRService.dataPackageST7[1].cutLength + 
-				sigalRService.dataPackageST7[2].cutLength + 
-				sigalRService.dataPackageST7[3].cutLength + 
-				sigalRService.dataPackageST7[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST7[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST7[6].valor,
-			width:sigalRService.dataPackageST7[6].cutLength,
-				x:sigalRService.dataPackageST7[0].cutLength + 
-				sigalRService.dataPackageST7[1].cutLength + 
-				sigalRService.dataPackageST7[2].cutLength + 
-				sigalRService.dataPackageST7[3].cutLength + 
-				sigalRService.dataPackageST7[4].cutLength + 
-				sigalRService.dataPackageST7[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST7[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST7[7].valor,
-			width:sigalRService.dataPackageST7[7].cutLength,
-				x:sigalRService.dataPackageST7[0].cutLength + 
-				sigalRService.dataPackageST7[1].cutLength + 
-				sigalRService.dataPackageST7[2].cutLength + 
-				sigalRService.dataPackageST7[3].cutLength + 
-				sigalRService.dataPackageST7[4].cutLength + 
-				sigalRService.dataPackageST7[5].cutLength + 
-				sigalRService.dataPackageST7[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST7[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[7].order==inputOrder}"/>
 			<text x="58.27" y="310.58" class="st5">ST7</text>		</g>
 		<g id="shape227-638" transform="translate(258.331,-140.826)" (click)="ClicST8()" *ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>ST8</title>
 			<desc>ST8</desc>
 			<path transform="" d="M0 319.03 L0 306.43 L128.17 306.43 L128.17 319.03 L0 319.01 L0 319.01 L0 319.03 Z" class="st1" (click)="ClicST8()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST8}/>
 			<path transform="" d="M0 319.03 L0 306.43 L128.17 306.43 L128.17 319.03 L0 319.01 L0 319.01" class="st4" (click)="ClicST8()" [ngStyle]={stroke:dataWipColor.colorST8}/>
-			<rect *ngIf="sigalRService.dataPackageST8[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST8[0].valor, 
-				width:sigalRService.dataPackageST8[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST8[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST8[1].valor,
-				width:sigalRService.dataPackageST8[1].cutLength,
-			x:sigalRService.dataPackageST8[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST8[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST8[2].valor,
-				width:sigalRService.dataPackageST8[2].cutLength,
-				x:sigalRService.dataPackageST8[0].cutLength + 
-				sigalRService.dataPackageST8[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST8[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST8[3].valor,
-			width:sigalRService.dataPackageST8[3].cutLength,
-				x:sigalRService.dataPackageST8[0].cutLength + 
-				sigalRService.dataPackageST8[1].cutLength + 
-				sigalRService.dataPackageST8[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST8[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST8[4].valor,
-			width:sigalRService.dataPackageST8[4].cutLength,
-				x:sigalRService.dataPackageST8[0].cutLength + 
-				sigalRService.dataPackageST8[1].cutLength + 
-				sigalRService.dataPackageST8[2].cutLength + 
-				sigalRService.dataPackageST8[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST8[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST8[5].valor,
-			width:sigalRService.dataPackageST8[5].cutLength,
-				x:sigalRService.dataPackageST8[0].cutLength + 
-				sigalRService.dataPackageST8[1].cutLength + 
-				sigalRService.dataPackageST8[2].cutLength + 
-				sigalRService.dataPackageST8[3].cutLength + 
-				sigalRService.dataPackageST8[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST8[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST8[6].valor,
-			width:sigalRService.dataPackageST8[6].cutLength,
-				x:sigalRService.dataPackageST8[0].cutLength + 
-				sigalRService.dataPackageST8[1].cutLength + 
-				sigalRService.dataPackageST8[2].cutLength + 
-				sigalRService.dataPackageST8[3].cutLength + 
-				sigalRService.dataPackageST8[4].cutLength + 
-				sigalRService.dataPackageST8[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST8[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST8[7].valor,
-			width:sigalRService.dataPackageST8[7].cutLength,
-				x:sigalRService.dataPackageST8[0].cutLength + 
-				sigalRService.dataPackageST8[1].cutLength + 
-				sigalRService.dataPackageST8[2].cutLength + 
-				sigalRService.dataPackageST8[3].cutLength + 
-				sigalRService.dataPackageST8[4].cutLength + 
-				sigalRService.dataPackageST8[5].cutLength + 
-				sigalRService.dataPackageST8[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST8[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[7].order==inputOrder}"/>
 			<text x="58.27" y="315.13" class="st5">ST8</text>		</g>
 		<g id="shape228-642" transform="translate(258.334,-123.69)"(click)="ClicST9()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.228</title>
 			<desc>ST9</desc>
 			<path transform="" d="M128.17 302.83 L128.17 319.03 L0 319.01 L0 302.81 L128.17 302.83 L128.17 302.83 Z" class="st6" (click)="ClicST9()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST9}/>
-				<rect *ngIf="sigalRService.dataPackageST9[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST9[0].valor, 
-				width:sigalRService.dataPackageST9[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST9[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST9[1].valor,
-				width:sigalRService.dataPackageST9[1].cutLength,
-			x:sigalRService.dataPackageST9[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST9[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST9[2].valor,
-				width:sigalRService.dataPackageST9[2].cutLength,
-				x:sigalRService.dataPackageST9[0].cutLength + 
-				sigalRService.dataPackageST9[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST9[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST9[3].valor,
-			width:sigalRService.dataPackageST9[3].cutLength,
-				x:sigalRService.dataPackageST9[0].cutLength + 
-				sigalRService.dataPackageST9[1].cutLength + 
-				sigalRService.dataPackageST9[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST9[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST9[4].valor,
-			width:sigalRService.dataPackageST9[4].cutLength,
-				x:sigalRService.dataPackageST9[0].cutLength + 
-				sigalRService.dataPackageST9[1].cutLength + 
-				sigalRService.dataPackageST9[2].cutLength + 
-				sigalRService.dataPackageST9[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST9[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST9[5].valor,
-			width:sigalRService.dataPackageST9[5].cutLength,
-				x:sigalRService.dataPackageST9[0].cutLength + 
-				sigalRService.dataPackageST9[1].cutLength + 
-				sigalRService.dataPackageST9[2].cutLength + 
-				sigalRService.dataPackageST9[3].cutLength + 
-				sigalRService.dataPackageST9[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST9[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST9[6].valor,
-			width:sigalRService.dataPackageST9[6].cutLength,
-				x:sigalRService.dataPackageST9[0].cutLength + 
-				sigalRService.dataPackageST9[1].cutLength + 
-				sigalRService.dataPackageST9[2].cutLength + 
-				sigalRService.dataPackageST9[3].cutLength + 
-				sigalRService.dataPackageST9[4].cutLength + 
-				sigalRService.dataPackageST9[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST9[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST9[7].valor,
-			width:sigalRService.dataPackageST9[7].cutLength,
-				x:sigalRService.dataPackageST9[0].cutLength + 
-				sigalRService.dataPackageST9[1].cutLength + 
-				sigalRService.dataPackageST9[2].cutLength + 
-				sigalRService.dataPackageST9[3].cutLength + 
-				sigalRService.dataPackageST9[4].cutLength + 
-				sigalRService.dataPackageST9[5].cutLength + 
-				sigalRService.dataPackageST9[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST9[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[7].order==inputOrder}"/>
 			<text x="58.27" y="313.32" class="st5">ST9</text>		</g>
 		<g id="shape229-645" transform="translate(258.334,-109.722)"(click)="ClicST10()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.229</title>
 			<desc>ST10</desc>
 			<path transform="" d="M0 306.43 L0 319.03 L128.17 319.03 L128.17 306.43 L0 306.43 L0 306.43 Z" class="st6" (click)="ClicST10()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST10}/>
-			<rect *ngIf="sigalRService.dataPackageST10[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST10[0].valor, 
-				width:sigalRService.dataPackageST10[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST10[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST10[1].valor,
-				width:sigalRService.dataPackageST10[1].cutLength,
-			x:sigalRService.dataPackageST10[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST10[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST10[2].valor,
-				width:sigalRService.dataPackageST10[2].cutLength,
-				x:sigalRService.dataPackageST10[0].cutLength + 
-				sigalRService.dataPackageST10[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST10[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST10[3].valor,
-			width:sigalRService.dataPackageST10[3].cutLength,
-				x:sigalRService.dataPackageST10[0].cutLength + 
-				sigalRService.dataPackageST10[1].cutLength + 
-				sigalRService.dataPackageST10[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST10[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST10[4].valor,
-			width:sigalRService.dataPackageST10[4].cutLength,
-				x:sigalRService.dataPackageST10[0].cutLength + 
-				sigalRService.dataPackageST10[1].cutLength + 
-				sigalRService.dataPackageST10[2].cutLength + 
-				sigalRService.dataPackageST10[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST10[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST10[5].valor,
-			width:sigalRService.dataPackageST10[5].cutLength,
-				x:sigalRService.dataPackageST10[0].cutLength + 
-				sigalRService.dataPackageST10[1].cutLength + 
-				sigalRService.dataPackageST10[2].cutLength + 
-				sigalRService.dataPackageST10[3].cutLength + 
-				sigalRService.dataPackageST10[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST10[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST10[6].valor,
-			width:sigalRService.dataPackageST10[6].cutLength,
-				x:sigalRService.dataPackageST10[0].cutLength + 
-				sigalRService.dataPackageST10[1].cutLength + 
-				sigalRService.dataPackageST10[2].cutLength + 
-				sigalRService.dataPackageST10[3].cutLength + 
-				sigalRService.dataPackageST10[4].cutLength + 
-				sigalRService.dataPackageST10[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST10[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST10[7].valor,
-			width:sigalRService.dataPackageST10[7].cutLength,
-				x:sigalRService.dataPackageST10[0].cutLength + 
-				sigalRService.dataPackageST10[1].cutLength + 
-				sigalRService.dataPackageST10[2].cutLength + 
-				sigalRService.dataPackageST10[3].cutLength + 
-				sigalRService.dataPackageST10[4].cutLength + 
-				sigalRService.dataPackageST10[5].cutLength + 
-				sigalRService.dataPackageST10[6].cutLength + 7
-			}" fill-opacity="1"/>
+				<rect *ngIf="sigalRService.dataPackageST10[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[7].order==inputOrder}"/>
 			<text x="56.24" y="315.13" class="st5">ST10</text>		</g>
 		<g id="shape230-648" transform="translate(258.334,-93.6662)"(click)="ClicST11()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.230</title>
 			<desc>ST11</desc>
 			<path transform="" d="M0 306.58 L128.17 306.58 L128.17 319.03 L0 319.03 L0 306.58 L0 306.58 Z" class="st6" (click)="ClicST11()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST11}"/>
-				<rect *ngIf="sigalRService.dataPackageST11[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST11[0].valor, 
-				width:sigalRService.dataPackageST11[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST11[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST11[1].valor,
-				width:sigalRService.dataPackageST11[1].cutLength,
-			x:sigalRService.dataPackageST11[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST11[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST11[2].valor,
-				width:sigalRService.dataPackageST11[2].cutLength,
-				x:sigalRService.dataPackageST11[0].cutLength + 
-				sigalRService.dataPackageST11[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST11[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST11[3].valor,
-			width:sigalRService.dataPackageST11[3].cutLength,
-				x:sigalRService.dataPackageST11[0].cutLength + 
-				sigalRService.dataPackageST11[1].cutLength + 
-				sigalRService.dataPackageST11[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST11[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST11[4].valor,
-			width:sigalRService.dataPackageST11[4].cutLength,
-				x:sigalRService.dataPackageST11[0].cutLength + 
-				sigalRService.dataPackageST11[1].cutLength + 
-				sigalRService.dataPackageST11[2].cutLength + 
-				sigalRService.dataPackageST11[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST11[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST11[5].valor,
-			width:sigalRService.dataPackageST11[5].cutLength,
-				x:sigalRService.dataPackageST11[0].cutLength + 
-				sigalRService.dataPackageST11[1].cutLength + 
-				sigalRService.dataPackageST11[2].cutLength + 
-				sigalRService.dataPackageST11[3].cutLength + 
-				sigalRService.dataPackageST11[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST11[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST11[6].valor,
-			width:sigalRService.dataPackageST11[6].cutLength,
-				x:sigalRService.dataPackageST11[0].cutLength + 
-				sigalRService.dataPackageST11[1].cutLength + 
-				sigalRService.dataPackageST11[2].cutLength + 
-				sigalRService.dataPackageST11[3].cutLength + 
-				sigalRService.dataPackageST11[4].cutLength + 
-				sigalRService.dataPackageST11[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST11[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST11[7].valor,
-			width:sigalRService.dataPackageST11[7].cutLength,
-				x:sigalRService.dataPackageST11[0].cutLength + 
-				sigalRService.dataPackageST11[1].cutLength + 
-				sigalRService.dataPackageST11[2].cutLength + 
-				sigalRService.dataPackageST11[3].cutLength + 
-				sigalRService.dataPackageST11[4].cutLength + 
-				sigalRService.dataPackageST11[5].cutLength + 
-				sigalRService.dataPackageST11[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST11[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[7].order==inputOrder}"/>
 			<text x="56.24" y="315.2" class="st5">ST11</text>		</g>
 		<g id="shape231-651" transform="translate(258.334,-71.3928)"(click)="ClicST12()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.231</title>
@@ -1722,187 +1450,88 @@
 			<path transform="" d="M0.01 297.62 L128.17 297.62 L128.17 319.01 L0 319.03 L0.01 297.73 L0.01 297.73 L0.01 297.62 Z"
 					class="st1" (click)="ClicST12()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST12}"/>
 			<path transform="" d="M0.01 297.62 L128.17 297.62 L128.17 319.01 L0 319.03 L0.01 297.73 L0.01 297.73" class="st4" [ngStyle]="{stroke:dataWipColor.colorST12}"/>
-				<rect *ngIf="sigalRService.dataPackageST12[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST12[0].valor, 
-				width:sigalRService.dataPackageST12[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST12[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST12[1].valor,
-				width:sigalRService.dataPackageST12[1].cutLength,
-			x:sigalRService.dataPackageST12[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST12[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST12[2].valor,
-				width:sigalRService.dataPackageST12[2].cutLength,
-				x:sigalRService.dataPackageST12[0].cutLength + 
-				sigalRService.dataPackageST12[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST12[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST12[3].valor,
-			width:sigalRService.dataPackageST12[3].cutLength,
-				x:sigalRService.dataPackageST12[0].cutLength + 
-				sigalRService.dataPackageST12[1].cutLength + 
-				sigalRService.dataPackageST12[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST12[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST12[4].valor,
-			width:sigalRService.dataPackageST12[4].cutLength,
-				x:sigalRService.dataPackageST12[0].cutLength + 
-				sigalRService.dataPackageST12[1].cutLength + 
-				sigalRService.dataPackageST12[2].cutLength + 
-				sigalRService.dataPackageST12[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST12[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST12[5].valor,
-			width:sigalRService.dataPackageST12[5].cutLength,
-				x:sigalRService.dataPackageST12[0].cutLength + 
-				sigalRService.dataPackageST12[1].cutLength + 
-				sigalRService.dataPackageST12[2].cutLength + 
-				sigalRService.dataPackageST12[3].cutLength + 
-				sigalRService.dataPackageST12[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST12[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST12[6].valor,
-			width:sigalRService.dataPackageST12[6].cutLength,
-				x:sigalRService.dataPackageST12[0].cutLength + 
-				sigalRService.dataPackageST12[1].cutLength + 
-				sigalRService.dataPackageST12[2].cutLength + 
-				sigalRService.dataPackageST12[3].cutLength + 
-				sigalRService.dataPackageST12[4].cutLength + 
-				sigalRService.dataPackageST12[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST12[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST12[7].valor,
-			width:sigalRService.dataPackageST12[7].cutLength,
-				x:sigalRService.dataPackageST12[0].cutLength + 
-				sigalRService.dataPackageST12[1].cutLength + 
-				sigalRService.dataPackageST12[2].cutLength + 
-				sigalRService.dataPackageST12[3].cutLength + 
-				sigalRService.dataPackageST12[4].cutLength + 
-				sigalRService.dataPackageST12[5].cutLength + 
-				sigalRService.dataPackageST12[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST12[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[7].order==inputOrder}"/>
 			<text x="56.24" y="310.73" class="st5">ST12</text>		</g>
 		<g id="shape232-655" transform="translate(258.353,-49.6886)"(click)="ClicST13()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.232</title>
 			<desc>ST13</desc>
 			<path transform="" d="M0 300.76 L0 319.03 L128.14 319.03 L128.14 300.76 L0 300.76 L0 300.76 Z" class="st6" (click)="ClicST13()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST13}"/>
-				<rect *ngIf="sigalRService.dataPackageST13[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST13[0].valor, 
-				width:sigalRService.dataPackageST13[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST13[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST13[1].valor,
-				width:sigalRService.dataPackageST13[1].cutLength,
-			x:sigalRService.dataPackageST13[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST13[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST13[2].valor,
-				width:sigalRService.dataPackageST13[2].cutLength,
-				x:sigalRService.dataPackageST13[0].cutLength + 
-				sigalRService.dataPackageST13[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST13[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST13[3].valor,
-			width:sigalRService.dataPackageST13[3].cutLength,
-				x:sigalRService.dataPackageST13[0].cutLength + 
-				sigalRService.dataPackageST13[1].cutLength + 
-				sigalRService.dataPackageST13[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST13[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST13[4].valor,
-			width:sigalRService.dataPackageST13[4].cutLength,
-				x:sigalRService.dataPackageST13[0].cutLength + 
-				sigalRService.dataPackageST13[1].cutLength + 
-				sigalRService.dataPackageST13[2].cutLength + 
-				sigalRService.dataPackageST13[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST13[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST13[5].valor,
-			width:sigalRService.dataPackageST13[5].cutLength,
-				x:sigalRService.dataPackageST13[0].cutLength + 
-				sigalRService.dataPackageST13[1].cutLength + 
-				sigalRService.dataPackageST13[2].cutLength + 
-				sigalRService.dataPackageST13[3].cutLength + 
-				sigalRService.dataPackageST13[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST13[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST13[6].valor,
-			width:sigalRService.dataPackageST13[6].cutLength,
-				x:sigalRService.dataPackageST13[0].cutLength + 
-				sigalRService.dataPackageST13[1].cutLength + 
-				sigalRService.dataPackageST13[2].cutLength + 
-				sigalRService.dataPackageST13[3].cutLength + 
-				sigalRService.dataPackageST13[4].cutLength + 
-				sigalRService.dataPackageST13[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST13[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST13[7].valor,
-			width:sigalRService.dataPackageST13[7].cutLength,
-				x:sigalRService.dataPackageST13[0].cutLength + 
-				sigalRService.dataPackageST13[1].cutLength + 
-				sigalRService.dataPackageST13[2].cutLength + 
-				sigalRService.dataPackageST13[3].cutLength + 
-				sigalRService.dataPackageST13[4].cutLength + 
-				sigalRService.dataPackageST13[5].cutLength + 
-				sigalRService.dataPackageST13[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST13[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[7].order==inputOrder}"/>
 			<text x="56.23" y="312.3" class="st5">ST13</text>		</g>
 		<g id="shape233-658" transform="translate(417.358,-178.527)"(click)="ClicST4()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.233</title>
 			<desc>ST4</desc>
 			<path transform="" d="M0 272.95 L0 319.03 L17.64 319.03 L17.64 272.95 L0 272.95 L0 272.95 Z" class="st6" (click)="ClicST4()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST4}/>
-				<rect *ngIf="sigalRService.dataPackageST4[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST4[0].valor, 
-				width:sigalRService.dataPackageST4[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST4[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST4[1].valor,
-				width:sigalRService.dataPackageST4[1].cutLength,
-			x:sigalRService.dataPackageST4[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST4[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST4[2].valor,
-				width:sigalRService.dataPackageST4[2].cutLength,
-				x:sigalRService.dataPackageST4[0].cutLength + 
-				sigalRService.dataPackageST4[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST4[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST4[3].valor,
-			width:sigalRService.dataPackageST4[3].cutLength,
-				x:sigalRService.dataPackageST4[0].cutLength + 
-				sigalRService.dataPackageST4[1].cutLength + 
-				sigalRService.dataPackageST4[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST4[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST4[4].valor,
-			width:sigalRService.dataPackageST4[4].cutLength,
-				x:sigalRService.dataPackageST4[0].cutLength + 
-				sigalRService.dataPackageST4[1].cutLength + 
-				sigalRService.dataPackageST4[2].cutLength + 
-				sigalRService.dataPackageST4[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST4[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST4[5].valor,
-			width:sigalRService.dataPackageST4[5].cutLength,
-				x:sigalRService.dataPackageST4[0].cutLength + 
-				sigalRService.dataPackageST4[1].cutLength + 
-				sigalRService.dataPackageST4[2].cutLength + 
-				sigalRService.dataPackageST4[3].cutLength + 
-				sigalRService.dataPackageST4[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST4[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST4[6].valor,
-			width:sigalRService.dataPackageST4[6].cutLength,
-				x:sigalRService.dataPackageST4[0].cutLength + 
-				sigalRService.dataPackageST4[1].cutLength + 
-				sigalRService.dataPackageST4[2].cutLength + 
-				sigalRService.dataPackageST4[3].cutLength + 
-				sigalRService.dataPackageST4[4].cutLength + 
-				sigalRService.dataPackageST4[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST4[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST4[7].valor,
-			width:sigalRService.dataPackageST4[7].cutLength,
-				x:sigalRService.dataPackageST4[0].cutLength + 
-				sigalRService.dataPackageST4[1].cutLength + 
-				sigalRService.dataPackageST4[2].cutLength + 
-				sigalRService.dataPackageST4[3].cutLength + 
-				sigalRService.dataPackageST4[4].cutLength + 
-				sigalRService.dataPackageST4[5].cutLength + 
-				sigalRService.dataPackageST4[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST4[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST4[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST4[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST4[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST4[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST4[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST4[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST4[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST4[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST4[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST4[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST4[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST4[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST4[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST4[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST4[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[7].order==inputOrder}"/>
 			<text x="3.01" y="298.39" class="st5">ST4</text>		</g>
 		<g id="shape234-661" transform="translate(438.585,-176.683)">
 			<title>Sheet.234</title>
@@ -1913,63 +1542,30 @@
 			<title>Sheet.235</title>
 			<desc>ST5</desc>
 			<path transform="" d="M0 276.55 L0 319.03 L21.24 319.03 L21.24 276.55 L0 276.55 L0 276.55 Z" class="st6" (click)="ClicST5()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST5}/>
-			<rect *ngIf="sigalRService.dataPackageST5[0].visible" x="0" y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST5[0].valor, 
-				width:sigalRService.dataPackageST5[0].cutLength}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST5[1].visible"  y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST5[1].valor,
-				width:sigalRService.dataPackageST5[1].cutLength,
-			x:sigalRService.dataPackageST5[0].cutLength + 1
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST5[2].visible" y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST5[2].valor,
-				width:sigalRService.dataPackageST5[2].cutLength,
-				x:sigalRService.dataPackageST5[0].cutLength + 
-				sigalRService.dataPackageST5[1].cutLength + 2}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST5[3].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST5[3].valor,
-			width:sigalRService.dataPackageST5[3].cutLength,
-				x:sigalRService.dataPackageST5[0].cutLength + 
-				sigalRService.dataPackageST5[1].cutLength + 
-				sigalRService.dataPackageST5[2].cutLength + 3}" fill-opacity="1" />
-			<rect *ngIf="sigalRService.dataPackageST5[4].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST5[4].valor,
-			width:sigalRService.dataPackageST5[4].cutLength,
-				x:sigalRService.dataPackageST5[0].cutLength + 
-				sigalRService.dataPackageST5[1].cutLength + 
-				sigalRService.dataPackageST5[2].cutLength + 
-				sigalRService.dataPackageST5[3].cutLength + 4
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST5[5].visible"   y="305" height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST5[5].valor,
-			width:sigalRService.dataPackageST5[5].cutLength,
-				x:sigalRService.dataPackageST5[0].cutLength + 
-				sigalRService.dataPackageST5[1].cutLength + 
-				sigalRService.dataPackageST5[2].cutLength + 
-				sigalRService.dataPackageST5[3].cutLength + 
-				sigalRService.dataPackageST5[4].cutLength + 5
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST5[6].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST5[6].valor,
-			width:sigalRService.dataPackageST5[6].cutLength,
-				x:sigalRService.dataPackageST5[0].cutLength + 
-				sigalRService.dataPackageST5[1].cutLength + 
-				sigalRService.dataPackageST5[2].cutLength + 
-				sigalRService.dataPackageST5[3].cutLength + 
-				sigalRService.dataPackageST5[4].cutLength + 
-				sigalRService.dataPackageST5[5].cutLength + 6
-			}" fill-opacity="1"/>
-			<rect *ngIf="sigalRService.dataPackageST5[7].visible"   y="305"  height="13" 
-			[ngStyle] = "{fill:sigalRService.dataPackageST5[7].valor,
-			width:sigalRService.dataPackageST5[7].cutLength,
-				x:sigalRService.dataPackageST5[0].cutLength + 
-				sigalRService.dataPackageST5[1].cutLength + 
-				sigalRService.dataPackageST5[2].cutLength + 
-				sigalRService.dataPackageST5[3].cutLength + 
-				sigalRService.dataPackageST5[4].cutLength + 
-				sigalRService.dataPackageST5[5].cutLength + 
-				sigalRService.dataPackageST5[6].cutLength + 7
-			}" fill-opacity="1"/>
+			<rect *ngIf="sigalRService.dataPackageST5[0].visible" x="0" y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST5[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST5[0].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST5[1].visible"  y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST5[1].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST5[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST5[2].visible" y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST5[2].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST5[2].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST5[3].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST5[3].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST5[3].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST5[4].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST5[4].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST5[1].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST5[5].visible"   y="307" height="11" 
+			[ngStyle] = "sigalRService.dataPackageST5[5].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST5[5].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST5[6].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST5[6].ngStyle"	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST5[6].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST5[7].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST5[7].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST5[7].order==inputOrder}"/>
 			<text x="4.81" y="300.19" class="st5">ST5</text>		</g>
 		<g id="shape236-667" transform="translate(489.043,-91.6771)">
 			<title>Sheet.236</title>

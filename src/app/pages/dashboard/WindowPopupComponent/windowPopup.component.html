@@ -58,8 +58,9 @@
 						<p><b>Estado</b></p>
 						<nb-toggle [(ngModel)]="propiedades.isOn" status="success">{{data.name}}</nb-toggle>
 						<!-- <nb-toggle [(checked)]="checked"></nb-toggle> -->
-						<p><b>Descripcion dispositivo:</b></p>
-						<p>Descripcion dispositivo: <input #prioridadValor type="number" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"></p>
+						<p><b>Name</b></p>
+						<!-- <input type="text" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"> -->
+						<!-- <input type="text" nbInput #prioridadValor fullWidth fieldSize="small" placeholder="Input" [(ngModel)]="inputItemNgModel"> -->
 						<p>{{data.text}}</p>
 
 						<!-- <p><nb-card-header>Color</nb-card-header></p> -->

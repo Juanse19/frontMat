@@ -20,7 +20,7 @@ import { HttpService } from '../../../../@core/backend/common/api/http.service';
 import { NbAccessChecker } from '@nebular/security';
 import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
-import { IdMaquinas, IdWip,MachineColor, WipColor } from '../../_interfaces/MatBox.model';
+import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess } from '../../_interfaces/MatBox.model';
 
 
 // import {WindowFormComponent} from '../../../modal-overlays/window/window-form/window-form.component'
@@ -172,8 +172,13 @@ function search2(text: string, pipe: PipeTransform): Ordenes[] {
 
 
 export class RoomSelectorComponent implements OnInit, OnDestroy {
+  @ViewChild('autoInput') input;
+
   messages: any[] = [];
   subscription: Subscription;
+  inputOrder: string;
+
+  public orderProcess:OrderProcess[];
 
   public dataMachineColor:MachineColor = {
     color924:"White",
@@ -423,7 +428,9 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    
+  
+    this.GetOrderProcess();
+
 //mostrar colores de maquinas
 this.ColorCharge();
     
@@ -469,9 +476,16 @@ this.ColorCharge();
   private startHttpRequestPackage(id){    
     this.http.get(this.api.apiUrlMatbox + "/showpackage?idMaquina="+ id)
     .subscribe(res=>{
-      console.log(res);
+      // console.log(res);
     });
       }
+
+      private GetOrderProcess(){    
+        this.http.get(this.api.apiUrlMatbox + "/Orders/GetOrderProcess")
+        .subscribe((res:any)=>{
+          this.orderProcess=res;
+        });
+          }
   // list(): Observable<any> {
   //   return this.http.get('http://127.0.0.1:1880/test');
   // }

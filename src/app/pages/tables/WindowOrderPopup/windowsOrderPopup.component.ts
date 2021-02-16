@@ -2,6 +2,7 @@ import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { NbComponentStatus, NbWindowService } from '@nebular/theme';
 import {ApiWindowOrderPopup} from './apiWindowiOrderPopup.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { MessageService } from '../../dashboard/services/MessageService';
 
 // import { ApiGetService } from '../OrderTable/apiGet.services';
 // import {HttpClient} from '@angular/common/http'
@@ -20,6 +21,7 @@ interface Ordenes {
   cutsWidth: number;
   cutsLength: number;
   origen: string;
+  priority: number;
 }
 
 interface OrdenActualizar {
@@ -31,6 +33,8 @@ interface OrdenActualizar {
   cortes: number;
   cortesAncho: number;
   cortesLargo: number;
+  priority:number;
+  PreviousPriority:number;
 }
 
 interface MaquinasDestino {
@@ -121,6 +125,7 @@ public selectedOrigen ;
   @ViewChild('cortesValor') cortesValor: ElementRef;
   @ViewChild('anchoValor') anchoValor: ElementRef;
   @ViewChild('largoValor') largoValor: ElementRef;
+  @ViewChild('priorityValue') priorityValue: ElementRef;
   @ViewChild('referenciaValor') referenciaValor: ElementRef;
 
 
@@ -132,10 +137,7 @@ public selectedOrigen ;
     private windowService: NbWindowService,
     private apiGetComp: ApiWindowOrderPopup,
     private api: HttpService,
-    // public desplegable: NbSelectComponent,
-    // public pipe : DecimalPipe
-    // private windowTitle:NbWindowConfig,
-    // private nombre2: titl,
+    private messageService: MessageService,
     ) {
       this.MaquinasDestinoLista();
       this.MaquinasOrigenLista();
@@ -230,9 +232,13 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       cortes: Number(this.cortesValor.nativeElement.value),
       cortesAncho: Number(this.anchoValor.nativeElement.value),
       cortesLargo: Number(this.largoValor.nativeElement.value),
+      priority: Number(this.priorityValue.nativeElement.value),
+      PreviousPriority: this.data.priority,
     };
 
-    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarOrden', ORDENESACTUALIZAR).subscribe(res => res);
+    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarOrden', ORDENESACTUALIZAR).subscribe((res: any) => {
+      this.messageService.sendMessage('orderTable');
+    });
   }
 
   ChangeLocation($event) {

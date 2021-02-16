@@ -2,11 +2,9 @@ import { Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output, ViewCh
 import { Location, LocationStrategy } from '@angular/common';
 import { NbThemeService } from '@nebular/theme';
 import { map, takeUntil, startWith, debounceTime, tap, switchMap, delay } from 'rxjs/operators';
-import { Observable, Subject, of, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, of, BehaviorSubject,Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { i18nMetaToDocStmt } from '@angular/compiler/src/render3/view/i18n/meta';
-// import { JacComponent } from '../../JacComponent/jac.component'
-// import { WindowComponent } from '../../WindowPopupComponent/windowPopup.component'
 import {ApiGetService} from '../OrderTable/apiGet.services'
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
@@ -14,7 +12,7 @@ import {WindowComponent} from '../WindowOrderPopup/windowsOrderPopup.component'
 import {ApiWindowOrderPopup} from '../WindowOrderPopup/apiWindowiOrderPopup.services'
 import {WindowCreateComponent} from '../WindowCreateOrderPopup/windowsCreateOrderPopup.component'
 import {HttpService} from '../../../@core/backend/common/api/http.service'
-// import { WindowComponent2 } from '../../dashboard/OrderPopup/orderPopup.component';
+import { MessageService } from '../../dashboard/services/MessageService';
 
 
   interface Ordenes {
@@ -28,6 +26,7 @@ import {HttpService} from '../../../@core/backend/common/api/http.service'
     cutsWidth: number;
     cutsLength: number;
     origen:string;
+    priority: number;
   }
 
   interface State {
@@ -82,7 +81,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
 
   export class OrderTableComponent implements OnInit {
 
-
+    subscription: Subscription;
     private _state: State = {
       page: 1,
       pageSize: 5,
@@ -114,11 +113,17 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         public pipe : DecimalPipe,
         private orderPopup: WindowComponent, 
         private orderCrearPopup: WindowCreateComponent,
-        private api: HttpService
-
+        private api: HttpService,
+        private messageService: MessageService
         // private comp3: WindowFormComponent
       ) {
-        
+
+        this.subscription = this.messageService.onMessage().subscribe(message => {
+          if (message.text=="orderTable") {
+            //this.messages.push(message);
+            this.CargarTabla();
+          }
+        });
         this._search$.pipe(
           tap(() => this._loading$.next(true)),
           debounceTime(200),
@@ -191,7 +196,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
       return of({ordenes, total});
     }
 
-    Edit(orden:string, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number){
+    Edit(orden:string, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number){
       ORDEN = {
         order: orden,
         name: nombre,
@@ -201,7 +206,8 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         cutsNumber: corteNumero,
         cutsWidth: corteAncho,
         cutsLength: corteLargo,
-        origen: origenValor
+        origen: origenValor,
+        priority: parPrority,
       }
       // console.log(ORDEN);
       this.orderPopup.openWindowForm("Propiedades de la Orden " + ORDEN.order , "", ORDEN);

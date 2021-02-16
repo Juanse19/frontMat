@@ -9,7 +9,7 @@ interface Ordenes {
   name?: string;
   description?: string;
   reference?: string;
-  orderLength?: number;
+  cutLength?: number;
   state: string;
   stateId: number;
 }
@@ -45,7 +45,7 @@ let STATUSPACKAGE: StatusPackage;
   styleUrls: ['orderPopup.component.scss'],
 })
 export class WindowComponent2 {
-
+  public orderList: Ordenes[];
   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
   @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef, static: true }) disabledEscTemplate: TemplateRef<HTMLElement>;
@@ -56,15 +56,14 @@ export class WindowComponent2 {
     private api: HttpService,
     private messageService: MessageService,
     ) {
-
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((res: any) => {
+       this.orderList=res;
+      });
 
     }
 
     data = ORDEN;
     status= STATUS;
-
-
-
 
   openWindowForm(nombreWindow: string, orden:Ordenes) {
     ORDEN = orden;

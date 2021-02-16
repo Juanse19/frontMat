@@ -37,9 +37,10 @@ interface Ordenes {
   name?: string;
   description?: string;
   reference?: string;
-  orderLength?: number;
+  cutLength?: number;
   state: string;
   stateId: number;
+  priority:number;
 }
 
 interface Data {
@@ -159,7 +160,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     || ordenes.name.toLowerCase().includes(term.toLowerCase())
     || ordenes.description.toLowerCase().includes(term.toLowerCase())
     || ordenes.reference.toLowerCase().includes(term)
-    || pipe.transform(ordenes.orderLength).includes(term);
+    || pipe.transform(ordenes.cutLength).includes(term);
 }
 
 @Component({
@@ -540,18 +541,24 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     );
   }
 
-  EditPackage(id:number,order:string,state:string, stateId:number){
+  EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number){
     ORDEN=
     {
       id:id,
       order:order,
       state:state,
       stateId:stateId,
+      priority:priority,
+      cutLength:cutLength,
     };
     
     this.orderPopup.openWindowForm("Package: "+ order,ORDEN)
     
 
+  }
+
+  CrearArrume(){
+    
   }
 
   ngOnDestroy() {

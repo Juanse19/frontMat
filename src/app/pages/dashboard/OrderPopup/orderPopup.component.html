@@ -19,12 +19,24 @@
 				<div></div>
         </ng-container> -->
 		
-      <p>Orden: {{ data.order }}</p>
+      
+		<p>Orden: {{ data.order }}
+			<nb-select [(ngModel)]="data.order">
+				<nb-option *ngFor="let option of orderList" [value]="option.order">
+				  {{ option.order }}
+				</nb-option>             
+			  </nb-select>
+		</p>
+
 	  <p><nb-select [(ngModel)]="data.stateId" (selectedChange)="ChangeState(data.id,$event)">
 		<nb-option *ngFor="let option of status" [value]="option.id">
 		  {{ option.name }}
 		</nb-option>             
 	  </nb-select></p>
-      <!-- <p>Descripcion: {{ data.description }}</p>
-      <p>Referencia: {{ data.reference }}</p>
-      <p>Tamaño Orden: {{ data.orderLength }}</p> -->
+      <input 
+		type="text" 
+		nbInput 
+		status="basic" 
+		placeholder="Buscar arrumes por orden"
+		[(ngModel)]="data.cutLength"
+		>

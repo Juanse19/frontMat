@@ -20,6 +20,7 @@
       <th scope="col"># Cortes</th>
       <th scope="col">Ancho Cortes</th>
       <th scope="col">Largo Cortes</th>
+      <th scope="col">Priority</th>
       <th scope="col">Edit</th>
     </tr>
   </thead>
@@ -35,8 +36,9 @@
     <td><ngb-highlight [result]="ordenes.cutsNumber" [term]="filter.value"></ngb-highlight></td>
     <td><ngb-highlight [result]="ordenes.cutsWidth" [term]="filter.value"></ngb-highlight></td>
     <td><ngb-highlight [result]="ordenes.cutsLength" [term]="filter.value"></ngb-highlight></td>
+    <td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
     <!-- <td><button (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength)" nbButton>EDIT</button></td> -->
-    <td><button nbButton shape="semi-round" status="primary" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength)">EDIT</button></td>
+    <td><button nbButton shape="semi-round" status="primary" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority)">EDIT</button></td>
 
   </tr>
   </tbody>

@@ -6,13 +6,14 @@
     			<div class="form-group form-inline">
       				Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"/>
 					  <span class="ml-3" *ngIf="loading$ | async">Loading...</span>
-					  <td><button nbButton shape="semi-round" status="primary" (click)="CrearArrume()">Create Arrume</button></td>
+					  <td><button nbButton shape="semi-round" status="primary" (click)="EditPackage()">Crear Arrume</button></td>
 					  <!-- <button (click)="Refresh()" nbButton>Refresh</button> -->
   				</div>
   				<table class="table table-striped">
   					<thead>
     				<tr>
-      				<th scope="col"></th>
+      				<th hidden scope="col">Id</th>
+					<th hidden scope="col">IdStatus</th>
       				<th scope="col">Orden</th>
       				<th scope="col">Nombre</th>
       				<th scope="col">Descripcion</th>
@@ -25,8 +26,8 @@
   					</thead>
   					<tbody>
   						<tr *ngFor="let ordenes of ordenesMaquina$ | async">
-						<th scope="row">{{ ordenes.id }}</th>
-						<th scope="row">{{ ordenes.state.Id }}</th>
+						<th hidden scope="row">{{ ordenes.id }}</th>
+						<th hidden scope="row">{{ ordenes.state.Id }}</th>
     					<td><ngb-highlight [result]="ordenes.order" [term]="filter.value"></ngb-highlight></td>
     					<td><ngb-highlight [result]="ordenes.name" [term]="filter.value"></ngb-highlight></td>
     					<td><ngb-highlight [result]="ordenes.description" [term]="filter.value"></ngb-highlight></td>

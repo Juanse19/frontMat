@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, PipeTransform, TemplateRef, ViewChild } from '@angular/core';
-import { NbComponentStatus, NbSelectComponent, NbWindowConfig, NbWindowRef, NbWindowService } from '@nebular/theme';
+import { NbComponentStatus, NbSelectComponent, NbWindowConfig, NbWindowRef, NbWindowService,NbToastrService, NbWindowModule } from '@nebular/theme';
 import { title } from 'process';
 import { threadId } from 'worker_threads';
 import {ApiWindowCreateOrderPopup} from './apiWindowCreateOrderPopup.services'
@@ -9,6 +9,8 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { debounceTime, delay, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { HttpHandler } from '@angular/common/http';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
 
 // import { ApiGetService } from '../OrderTable/apiGet.services';
 // import {HttpClient} from '@angular/common/http'
@@ -106,6 +108,7 @@ let ORDEN: Ordenes
 
 };
 
+let win:NbWindowRef
 
 @Component({
   providers:[ApiWindowCreateOrderPopup],
@@ -166,13 +169,11 @@ public selectedOrigen ;
 
 
   constructor(
+    private router: Router,
     private windowService: NbWindowService,
-    private apiGetComp: ApiWindowCreateOrderPopup,
+    private apiGetComp: ApiGetService,
     private api: HttpService,
-    // public desplegable: NbSelectComponent,
-    // public pipe : DecimalPipe
-    // private windowTitle:NbWindowConfig,
-    // private nombre2: titl,
+    private toasterService: NbToastrService,
     ){   
       this.MaquinasDestinoLista();
       this.MaquinasOrigenLista();
@@ -195,7 +196,7 @@ openWindowForm(nombreWindow:string, texto:string) {
       value : 'Martin 1228',
       label : 'Martin 1228'
     }
-    this.windowService.open(WindowCreateComponent, { title: nombreWindow});  
+    win=this.windowService.open(WindowCreateComponent, { title: nombreWindow});  
   
   }
 
@@ -254,6 +255,19 @@ openWindow(contentTemplate, titleValue:string, textValue:string, numberValue: nu
     console.log(orden + ", " + nombre);
   }
 
+  handleSuccessResponse() {
+    this.toasterService.success('Orden ' + this.ordenValor.nativeElement.value + ' creada con exito' );
+    this.back();
+  }
+  handleWrongResponse() {
+    this.toasterService.danger('', 'Error almacenando ordenes');
+  }
+
+  back() {
+    win.close();
+    this.router.navigate(['/pages/tables/OrderTable']);
+  }
+
   Crear(){
     // console.log(this.ordenValor.nativeElement.value);
     // console.log(this.referenciaValor.nativeElement.value);
@@ -289,9 +303,14 @@ openWindow(contentTemplate, titleValue:string, textValue:string, numberValue: nu
       signalStart: this.toggleNgModel,
       sheetScrap: this.sheetScrapValor.nativeElement.value
     }
-    // console.log(ORDENCREAR);
-    // this.apiGetComp.PostJsonCrear('http://localhost/MatBoxApi/api/Orders/CrearOrden', ORDENCREAR).subscribe(res=>res)
-    this.apiGetComp.PostJsonCrear(this.api.apiUrlMatbox + '/Orders/CrearOrden', ORDENCREAR).subscribe(res=>res)
+    if (ORDENCREAR.orden =="" && ORDENCREAR.referencia == "" && ORDENCREAR.origen && ORDENCREAR.destino){
+      this.handleWrongResponse();
+    }else{
+      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/CrearOrden', ORDENCREAR).subscribe((res:any)=>{
+        this.handleSuccessResponse();
+      });
+    }
+    
 
   }
  

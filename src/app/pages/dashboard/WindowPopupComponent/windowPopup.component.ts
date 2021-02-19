@@ -32,7 +32,7 @@ interface PropiedadesActualizar {
 }
 
 interface Ordenes {
-  id?: number;
+  id: number;
   order: string;
   name?: string;
   description?: string;

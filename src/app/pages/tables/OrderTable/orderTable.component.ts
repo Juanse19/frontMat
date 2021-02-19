@@ -103,19 +103,12 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     filter = new FormControl('');
 
     constructor(
-        private location: Location,
-        private locationStrategy: LocationStrategy,
-        private themeService: NbThemeService,
-        private http: HttpClient,
-        // private comp: JacComponent,
-        // private comp2: WindowComponent, 
         public apiGetComp: ApiGetService,
         public pipe : DecimalPipe,
         private orderPopup: WindowComponent, 
         private orderCrearPopup: WindowCreateComponent,
         private api: HttpService,
         private messageService: MessageService
-        // private comp3: WindowFormComponent
       ) {
 
         this.subscription = this.messageService.onMessage().subscribe(message => {

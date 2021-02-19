@@ -1,8 +1,9 @@
 import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
-import { NbComponentStatus, NbWindowService } from '@nebular/theme';
+import { NbComponentStatus, NbWindowService,NbWindowRef,NbToastrService } from '@nebular/theme';
 import {ApiWindowOrderPopup} from './apiWindowiOrderPopup.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { MessageService } from '../../dashboard/services/MessageService';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // import { ApiGetService } from '../OrderTable/apiGet.services';
 // import {HttpClient} from '@angular/common/http'
@@ -80,7 +81,7 @@ let ORDEN: Ordenes;
 
 }
 
-
+let win:NbWindowRef;
 @Component({
   providers: [ApiWindowOrderPopup],
   selector: 'ngx-windowOrderPopup',
@@ -134,10 +135,12 @@ public selectedOrigen ;
 
 
   constructor(
+    private router: Router,
     private windowService: NbWindowService,
     private apiGetComp: ApiWindowOrderPopup,
     private api: HttpService,
     private messageService: MessageService,
+    private toasterService: NbToastrService,
     ) {
       this.MaquinasDestinoLista();
       this.MaquinasOrigenLista();
@@ -160,7 +163,7 @@ public selectedOrigen ;
       value : orden.origen,
       label : orden.origen,
     };
-    this.windowService.open(WindowComponent, { title: nombreWindow});
+    win=this.windowService.open(WindowComponent, { title: nombreWindow});
 
   }
 
@@ -238,8 +241,20 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
 
     this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarOrden', ORDENESACTUALIZAR).subscribe((res: any) => {
       this.messageService.sendMessage('orderTable');
+      this.handleSuccessResponse();
     });
   }
+
+  handleSuccessResponse() {
+    this.toasterService.success('Orden ' + ORDEN.order + ' actualizada con exito' );
+    this.back();
+  }
+
+  back() {
+    win.close();
+    this.router.navigate(['/pages/tables/OrderTable']);
+  }
+
 
   ChangeLocation($event) {
     const selectedValue = this.options2.find(location => location.value === $event.value );

@@ -1,10 +1,13 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { NbWindowService } from '@nebular/theme';
+import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { NbWindowService,NbToastrService,NbWindowRef } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { MessageService } from '../services/MessageService';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { OrderTableComponent } from '../../tables/OrderTable/orderTable.component';
+
 interface Ordenes {
-  id?: number;
+  id: number;
   order: string;
   name?: string;
   description?: string;
@@ -20,75 +23,140 @@ interface Status {
 }
 
 interface StatusPackage {
-  idPackage:number,
-  idStatus:string,
+  id:number,
+  idStatus:number,
+  cutLength:number,
+  Order:string,
 }
 
 
-let ORDEN: Ordenes;
+let ORDEN: Ordenes=
 {
-
-}
+id:-1,
+order:'',
+state:'',
+stateId:1,
+cutLength:0,
+};
 
 let STATUS: Status;
+
+let ORDERLIST: Ordenes[];
 
 let STATUSPACKAGE: StatusPackage;
 {
 
 }
 
-
+let win:NbWindowRef;
 @Component({
   providers: [ApiGetService],
   selector: 'ngx-windowOrderPopu',
   templateUrl: './orderPopup.component.html',
   styleUrls: ['orderPopup.component.scss'],
 })
-export class WindowComponent2 {
-  public orderList: Ordenes[];
-  @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
-  @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
-  @ViewChild('disabledEsc', { read: TemplateRef, static: true }) disabledEscTemplate: TemplateRef<HTMLElement>;
+export class WindowComponent2  implements OnInit {
+  arrumeManualForm: FormGroup;
+
+  get orderForm() { return this.arrumeManualForm.get('orderForm'); }
+
+  get statusForm() { return this.arrumeManualForm.get('statusForm'); }
+
+  get cutLength() { return this.arrumeManualForm.get('cutLength'); }
+
+  // @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
+  // @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
+  // @ViewChild('disabledEsc', { read: TemplateRef, static: true }) disabledEscTemplate: TemplateRef<HTMLElement>;
 
   constructor(
     private windowService: NbWindowService,
     private apiGetComp: ApiGetService,
     private api: HttpService,
     private messageService: MessageService,
-    ) {
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((res: any) => {
-       this.orderList=res;
-      });
+    private fb: FormBuilder,
+    private toasterService: NbToastrService,
 
+    ) {
+       
+      
+
+    }
+
+    ngOnInit() {
+      this.initForm();
+      this.loadDataForm();
+    }
+
+    loadDataForm(){
+      this.arrumeManualForm.setValue({
+        id: ORDEN.id,
+        orderForm: ORDEN.order,
+        cutLengthForm: ORDEN.cutLength,
+        statusForm: ORDEN.stateId,
+    });
+    }
+
+    initForm() {
+      this.arrumeManualForm = this.fb.group({
+        id: this.fb.control(-1),
+        orderForm: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
+        statusForm: this.fb.control(1, [Validators.minLength(3), Validators.maxLength(20)]),
+        cutLengthForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
+      });
     }
 
     data = ORDEN;
     status= STATUS;
+    orderList= ORDERLIST;
 
   openWindowForm(nombreWindow: string, orden:Ordenes) {
-    ORDEN = orden;
-    this.data = orden;
+    if(orden.id){
+      ORDEN = orden;
+      this.data = orden;
+    }
+   
     
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {
-      STATUS=res;
-      this.status=STATUS;
-      this.windowService.open(WindowComponent2, { title: nombreWindow});
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((resOrder: any) => {
+        ORDERLIST=resOrder;
+        this.orderList=ORDERLIST;
+        STATUS=res;
+        this.status=STATUS;
+        win=this.windowService.open(WindowComponent2, { title: nombreWindow});
+       
+      });
     });
-    
-
   }
 
-  ChangeState(id:number, event){
+  ChangeState(){
+
+    let formulario = this.arrumeManualForm.value;
+    
 STATUSPACKAGE = {
-  idPackage:id,
-  idStatus:event,
+  id:formulario.id,
+  idStatus:formulario.statusForm,
+  cutLength:formulario.cutLengthForm,
+  Order:formulario.orderForm,
 }
-    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/PostUpdatePackageState',STATUSPACKAGE).subscribe((res: any) => {
+    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
       
         this.messageService.sendMessage('PackageUpdate');
-      
+        this.handleSuccessResponse();
     });
   }
+
+  
+  handleSuccessResponse() {
+    let formulario = this.arrumeManualForm.value;
+    this.toasterService.success('Orden ' + formulario.orderForm + ' actualizada con exito' );
+    this.back();
+  }
+
+  back() {
+    win.close();
+    //this.router.navigate(['/pages/tables/OrderTable']);
+  }
+
 
 openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: number, nameValue: string, value: number) {
 

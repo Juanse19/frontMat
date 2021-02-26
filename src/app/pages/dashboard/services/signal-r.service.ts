@@ -188,7 +188,7 @@ constructor(private api: HttpService,
       var idMachine=IdWip[clave];
       this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
       .subscribe((res: any)=>{
-        console.log(res);
+        // console.log(res);
         this.AsignarDatosWip(res);
       });
   }
@@ -207,7 +207,7 @@ ngOnInit(){
     var idMachine=IdWip[clave];
     this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
     .subscribe((res: any)=>{
-      console.log(res);
+      // console.log(res);
       this.AsignarDatosWip(res);
     });
 }

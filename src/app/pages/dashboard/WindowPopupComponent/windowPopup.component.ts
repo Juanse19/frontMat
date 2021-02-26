@@ -1,7 +1,7 @@
 
 
 import { Component, ElementRef, PipeTransform, TemplateRef, ViewChild, Renderer2,Injectable  } from '@angular/core';
-import { NbWindowConfig, NbWindowService, NbWindowRef } from '@nebular/theme';
+import { NbWindowConfig, NbWindowService, NbWindowRef,NbToastrService } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
@@ -41,6 +41,7 @@ interface Ordenes {
   state: string;
   stateId: number;
   priority:number;
+  idDevice:number;
 }
 
 interface Data {
@@ -155,6 +156,8 @@ let PROPIEDADESACTUALIZAR: PropiedadesActualizar;
 
 }
 
+let win:NbWindowRef;
+
 function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
   return ordenes.order.toLowerCase().includes(term)
     || ordenes.name.toLowerCase().includes(term.toLowerCase())
@@ -240,6 +243,7 @@ export class WindowComponent {
     private api: HttpService,
     private router: Router,
     private messageService: MessageService,
+    private toasterService: NbToastrService,
     
     ) {
 
@@ -248,6 +252,7 @@ export class WindowComponent {
           //this.messages.push(message);
           this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina).subscribe((res: any) => {
             ORDENES = res;
+            this._search$.next();
             // this._search$.pipe(
             //   tap(() => this._loading$.next(true)),
             //   debounceTime(200),
@@ -358,7 +363,7 @@ export class WindowComponent {
               name: this.nombreEstado,
               x: 5,
             };
-            this.windowRef=this.windowService.open(WindowComponent, { title: this.propiedades.description});
+            win=this.windowRef=this.windowService.open(WindowComponent, { title: this.propiedades.description});
             
           });
         });    
@@ -436,6 +441,16 @@ export class WindowComponent {
 
   }
 
+  
+  handleSuccessResponse() {
+
+    this.toasterService.success(' Información actualizada con exito' );
+    this.back();
+  }
+  back() {
+    win.close();
+    //this.router.navigate(['/pages/tables/OrderTable']);
+  }
   EditPropiedades() {
     // console.log(this.propiedades.isOn);
     // console.log(this.propiedades.valor);
@@ -457,7 +472,7 @@ export class WindowComponent {
 
     this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarPropiedadesMaquina', PROPIEDADESACTUALIZAR).subscribe((res:any) => {
       this.messageService.sendMessage('MachineColor');
-      //this.windowRef.close();
+      this.handleSuccessResponse();
     }      
       );
   }
@@ -541,7 +556,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     );
   }
 
-  EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number){
+  EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number, idDevice:number){
     ORDEN=
     {
       id:id,
@@ -550,9 +565,10 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       stateId:stateId,
       priority:priority,
       cutLength:cutLength,
+      idDevice:idDevice,
     };
     
-    this.orderPopup.openWindowForm("Package: "+ order,ORDEN)
+    this.orderPopup.openWindowForm("Package: "+ order,ORDEN, this.idMaquina)
     
 
   }

@@ -248,15 +248,22 @@ export class PagesMenu {
     ];
     
     const userMenu: NbMenuItem = {
-      title: 'Users',
+      title: 'Usuarios',
       icon: 'people-outline',
       link: '/pages/users/list',
       children: undefined,
     };
     const orderMenu: NbMenuItem = {
-      title: 'Orders',
+      title: 'Ordenes',
       icon: 'grid-outline',
       link: '/pages/tables/OrderTable',
+      children: undefined,
+    };
+
+    const reportMenu: NbMenuItem = {
+      title: 'Reporte',
+      icon: 'pie-chart-outline',
+      link: '/pages/charts/report',
       children: undefined,
     };
     
@@ -286,7 +293,7 @@ export class PagesMenu {
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
-          return [...dashboardMenu, orderMenu, userMenu,registerMenu];
+          return [...dashboardMenu, orderMenu,  reportMenu, userMenu,registerMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu];

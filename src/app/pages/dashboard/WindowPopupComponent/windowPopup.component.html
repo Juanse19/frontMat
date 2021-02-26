@@ -5,7 +5,7 @@
   			<form>
     			<div class="form-group form-inline">
       				Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"/>
-					  <span class="ml-3" *ngIf="loading$ | async">Loading...</span>
+					  <span class="ml-3" *ngIf="loading$ | async">Cargando...</span>
 					  <td><button nbButton shape="semi-round" status="primary" (click)="EditPackage()">Crear Arrume</button></td>
 					  <!-- <button (click)="Refresh()" nbButton>Refresh</button> -->
   				</div>
@@ -14,6 +14,7 @@
     				<tr>
       				<th hidden scope="col">Id</th>
 					<th hidden scope="col">IdStatus</th>
+					<th hidden scope="col">IdDevice</th>
       				<th scope="col">Orden</th>
       				<th scope="col">Nombre</th>
       				<th scope="col">Descripcion</th>
@@ -27,7 +28,8 @@
   					<tbody>
   						<tr *ngFor="let ordenes of ordenesMaquina$ | async">
 						<th hidden scope="row">{{ ordenes.id }}</th>
-						<th hidden scope="row">{{ ordenes.state.Id }}</th>
+						<th hidden scope="row">{{ ordenes.stateId }}</th>
+						<th hidden scope="row">{{ ordenes.idDevice }}</th>
     					<td><ngb-highlight [result]="ordenes.order" [term]="filter.value"></ngb-highlight></td>
     					<td><ngb-highlight [result]="ordenes.name" [term]="filter.value"></ngb-highlight></td>
     					<td><ngb-highlight [result]="ordenes.description" [term]="filter.value"></ngb-highlight></td>
@@ -36,7 +38,7 @@
 						<td><ngb-highlight [result]="ordenes.state" [term]="filter.value"></ngb-highlight></td>
 						<td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
 						<!-- <td><button (click)="Refresh(ordenes.order)" nbButton>Refresh</button></td> -->
-						<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength)" nbButton>EDIT</button></td>
+						<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.idDevice)" nbButton>EDIT</button></td>
 						</tr>
   					</tbody>
   				</table>

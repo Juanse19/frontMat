@@ -15,6 +15,7 @@ interface Ordenes {
   cutLength?: number;
   state: string;
   stateId: number;
+  idDevice:number,
 }
 
 interface Status {
@@ -27,6 +28,7 @@ interface StatusPackage {
   idStatus:number,
   cutLength:number,
   Order:string,
+  idDevice:number,
 }
 
 
@@ -37,6 +39,7 @@ order:'',
 state:'',
 stateId:1,
 cutLength:0,
+idDevice:0,
 };
 
 let STATUS: Status;
@@ -109,10 +112,20 @@ export class WindowComponent2  implements OnInit {
     status= STATUS;
     orderList= ORDERLIST;
 
-  openWindowForm(nombreWindow: string, orden:Ordenes) {
+  openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
+    }else{
+      ORDEN ={
+        id:-1,
+        order:'',
+        state:'',
+        stateId:1,
+        cutLength:0,
+        idDevice:idMaquina,
+      };
+
     }
    
     
@@ -131,18 +144,25 @@ export class WindowComponent2  implements OnInit {
   ChangeState(){
 
     let formulario = this.arrumeManualForm.value;
+
+    if(formulario.orderForm){
     
-STATUSPACKAGE = {
-  id:formulario.id,
-  idStatus:formulario.statusForm,
-  cutLength:formulario.cutLengthForm,
-  Order:formulario.orderForm,
-}
-    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
-      
-        this.messageService.sendMessage('PackageUpdate');
-        this.handleSuccessResponse();
-    });
+      STATUSPACKAGE = {
+        id:formulario.id,
+        idStatus:formulario.statusForm,
+        cutLength:formulario.cutLengthForm,
+        Order:formulario.orderForm,
+        idDevice:ORDEN.idDevice,
+      }
+          this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
+            
+              this.messageService.sendMessage('PackageUpdate');
+              this.handleSuccessResponse();
+          });
+    }else{
+      this.handleWrongResponse();
+    }
+
   }
 
   
@@ -151,6 +171,11 @@ STATUSPACKAGE = {
     this.toasterService.success('Orden ' + formulario.orderForm + ' actualizada con exito' );
     this.back();
   }
+
+  handleWrongResponse() {
+    this.toasterService.danger('', 'Error almacenando arrume');
+  }
+
 
   back() {
     win.close();

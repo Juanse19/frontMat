@@ -4,7 +4,7 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 
 @Component({
   selector: 'ngx-charts',
@@ -12,5 +12,6 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
   `,
 })
+@Injectable()
 export class ChartsComponent {
 }

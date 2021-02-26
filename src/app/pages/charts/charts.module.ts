@@ -8,7 +8,17 @@ import { NgModule } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartModule } from 'angular2-chartjs';
-import { NbCardModule } from '@nebular/theme';
+import {  NbButtonModule,
+  NbCardModule,
+  NbProgressBarModule,
+  NbTabsetModule,
+  NbUserModule,
+  NbIconModule,
+  NbSelectModule,
+  NbListModule,
+  NbSpinnerModule,
+
+} from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
 
@@ -32,6 +42,12 @@ import { EchartsMultipleXaxisComponent } from './echarts/echarts-multiple-xaxis.
 import { EchartsAreaStackComponent } from './echarts/echarts-area-stack.component';
 import { EchartsBarAnimationComponent } from './echarts/echarts-bar-animation.component';
 import { EchartsRadarComponent } from './echarts/echarts-radar.component';
+import { ECommerceChartsPanelComponent } from './charts-panel/charts-panel.component';
+import { ChartPanelHeaderComponent } from './charts-panel/chart-panel-header/chart-panel-header.component';
+import { ChartPanelSummaryComponent } from './charts-panel/chart-panel-summary/chart-panel-summary.component';
+import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.component';
+import { OrdersChartComponent } from './charts-panel/charts/orders-chart.component';
+import { ProfitChartComponent } from './charts-panel/charts/profit-chart.component';
 
 const components = [
   ChartjsBarComponent,
@@ -53,16 +69,30 @@ const components = [
   EchartsAreaStackComponent,
   EchartsBarAnimationComponent,
   EchartsRadarComponent,
+  ECommerceChartsPanelComponent,
+  ChartPanelHeaderComponent,
+  ChartPanelSummaryComponent,
+  ECommerceLegendChartComponent,
+  OrdersChartComponent,
+    ProfitChartComponent,
 ];
 
 @NgModule({
   imports: [
     ThemeModule,
-    ChartsRoutingModule,
+    NbCardModule,
+    NbUserModule,
+    NbButtonModule,
+    NbIconModule,
+    NbTabsetModule,
+    NbSelectModule,
+    NbListModule,
+    ChartModule,
     NgxEchartsModule,
     NgxChartsModule,
-    ChartModule,
-    NbCardModule,
+    ChartsRoutingModule,
+    NbProgressBarModule,
+    NbSpinnerModule,
   ],
   declarations: [...routedComponents, ...components],
 })

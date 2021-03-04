@@ -8,7 +8,10 @@ import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core
 import { NbMediaBreakpoint, NbMediaBreakpointsService, NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
 
-
+interface Machine{
+  Id:number,
+  Name:string
+}
 @Component({
   selector: 'ngx-chart-panel-header',
   styleUrls: ['./chart-panel-header.component.scss'],
@@ -21,20 +24,32 @@ export class ChartPanelHeaderComponent implements OnDestroy {
   @Output() periodChange = new EventEmitter<string>();
 
   @Input() type: string = 'week';
+  @Input() device: string = 'all';
   @Input() legend: string[] = ['', '', ''];
 
-  types: string[] = ['week', 'month', 'year'];
+  // types: string[] = ['DAY', 'HOUR', 'year'];
+  types: string[] = ['DAY', 'HOUR'];
+  devices: Machine[];
   chartLegend: {iconColor: string; title: string}[];
   breakpoint: NbMediaBreakpoint = { name: '', width: 0 };
   breakpoints: any;
   currentTheme: string;
 
   constructor(private themeService: NbThemeService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private api: HttpService,
+  private http: HttpClient,) {
     this.init();
   }
 
   init() {
+    this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
+    .subscribe((res: any)=>{
+      // console.log(res);
+      this.AsignarDatosWip(res);
+    });
+
+
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
@@ -72,6 +87,11 @@ export class ChartPanelHeaderComponent implements OnDestroy {
   changePeriod(period: string): void {
     this.type = period;
     this.periodChange.emit(period);
+  }
+
+  changeDevice(period: string): void {
+    this.type = period;
+    //this.periodChange.emit(period);
   }
 
   ngOnDestroy() {

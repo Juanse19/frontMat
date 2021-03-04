@@ -37,17 +37,18 @@ export class ChartPanelHeaderComponent implements OnDestroy {
 
   constructor(private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService,
-              private api: HttpService,
-  private http: HttpClient,) {
+  //             private api: HttpService,
+  // private http: HttpClient,
+  ) {
     this.init();
   }
 
   init() {
-    this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
-    .subscribe((res: any)=>{
-      // console.log(res);
-      this.AsignarDatosWip(res);
-    });
+    // this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
+    // .subscribe((res: any)=>{
+    //   // console.log(res);
+    //   this.AsignarDatosWip(res);
+    // });
 
 
     this.themeService.getJsTheme()

@@ -12,7 +12,8 @@ import { OrdersChartComponent } from './charts/orders-chart.component';
 import { ProfitChartComponent } from './charts/profit-chart.component';
 import { ChartData, ChartSummary } from '../../../@core/interfaces/common/chart';
 import { OrdersProfitChartData } from '../../../@core/interfaces/ecommerce/orders-profit-chart';
-
+import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'ngx-ecommerce-charts',
   styleUrls: ['./charts-panel.component.scss'],
@@ -23,7 +24,7 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   private alive = true;
 
   chartPanelSummary: ChartSummary[] = [];
-  period: string = 'week';
+  period: string = 'DAY';
   ordersChartData: ChartData;
   profitChartData: ChartData;
 
@@ -32,7 +33,10 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   @ViewChild('ordersChart', { static: true }) ordersChart: OrdersChartComponent;
   @ViewChild('profitChart', { static: true }) profitChart: ProfitChartComponent;
 
-  constructor(private ordersProfitChartService: OrdersProfitChartData) { }
+  constructor(private ordersProfitChartService: OrdersProfitChartData,
+    private api: HttpService,
+    private http: HttpClient,
+    ) { }
 
   ngOnInit(): void {
     // this.ordersProfitChartService.getOrderProfitChartSummary()
@@ -75,20 +79,14 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
       //   this.ordersHeader.legend = ordersChartData.legend;
       //   this.ordersHeader.init();
       // });
-
-
-      this.ordersChartData = {
-        chartLabel:"JS",
-        axisXLabels : ["6","7","8","9","10","11","12","13"],
-        legend:["Arrumes","Pedidos","Prom. Ancho"],
-        linesData:[
-          [6,10,30,12,25,34,32,54],
-          [7,20,53,23,65,23,32,21],
-          [8,30,8,23,8,45,5,76],
-        ],
-      };
-        this.ordersHeader.legend = ["Arrumes","Pedidos","Prom. Ancho"];
+      this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMachine?idDevice="+ 22 + "&unitedTime="+period)
+      .subscribe((res: any)=>{
+        // console.log(res);
+        this.ordersChartData=res;
+        this.ordersHeader.legend = res.legend;
         this.ordersHeader.init();
+      });
+     
   }
 
   getProfitChartData(period: string) {

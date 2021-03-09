@@ -78,7 +78,8 @@ CT1:49,
 TM:54,
 CT_1:51,
 CT_2:52,
-
+ID12:14,
+ID22:18,
 }
 
 export interface OrderProcess{

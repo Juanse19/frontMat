@@ -36,6 +36,8 @@ export class SignalRService implements OnInit {
   public dataPackageCT1: PackagesWIP[];
   public dataPackageCT2: PackagesWIP[];
   public dataPackageTM: PackagesWIP[];
+  public dataPackageID12: PackagesWIP[];
+  public dataPackageID22: PackagesWIP[];
   
   
   private hubConnectionAlarmas: signalR.HubConnection;
@@ -186,10 +188,12 @@ AsignarDatosWip(data:any){
   if (this.dataPackageWip[0].idMaquina==IdWip.CT_1)
   {
     this.dataPackageCT_1=data;
+    this.dataPackageCT_1[0].ngStyle.x=10
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.CT_2)
   {
     this.dataPackageCT_2=data;
+    this.dataPackageCT_2[0].ngStyle.x=40
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.CT1)
   {
@@ -202,6 +206,14 @@ AsignarDatosWip(data:any){
   if (this.dataPackageWip[0].idMaquina==IdWip.TM)
   {
     this.dataPackageTM=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.ID12)
+  {
+    this.dataPackageID12=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.ID22)
+  {
+    this.dataPackageID22=data;
   }
 }
 

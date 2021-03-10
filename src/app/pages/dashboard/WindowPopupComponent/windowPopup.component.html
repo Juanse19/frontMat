@@ -22,6 +22,7 @@
 					<th scope="col">Cut Length</th>
 					<th scope="col">State</th>
 					<th scope="col">Priority</th>
+					<th scope="col">TimeStamp</th>
 					<th scope="col">Edit</th>
     				</tr>
   					</thead>
@@ -37,6 +38,7 @@
 						<td><ngb-highlight [result]="ordenes.cutLength" [term]="filter.value"></ngb-highlight></td>
 						<td><ngb-highlight [result]="ordenes.state" [term]="filter.value"></ngb-highlight></td>
 						<td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
+						<td><ngb-highlight [result]="ordenes.timeStamp" [term]="filter.value"></ngb-highlight></td>
 						<!-- <td><button (click)="Refresh(ordenes.order)" nbButton>Refresh</button></td> -->
 						<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.idDevice)" nbButton>EDIT</button></td>
 						</tr>

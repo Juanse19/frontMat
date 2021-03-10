@@ -32,19 +32,12 @@
 		[(ngModel)]="inputOrder"
 		[nbAutocomplete]="autoControl"
 		>
-	 <!-- <input
-	[formControl]="inputFormControl"
-	nbInput
-	type="text"
-	placeholder="Ordenes"
-	 />-->
   <nb-autocomplete #autoControl>
 	<nb-option *ngFor="let option of orderProcess" [value]="option.order">
 	  {{ option.order }}
 	</nb-option>
   </nb-autocomplete>  
 </nb-card-body>
-
 	<div class="room-layout">
   <!-- <div class="room-selector"> -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
@@ -1215,6 +1208,12 @@
 			<rect *ngIf="sigalRService.dataPackageST15[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST15[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST15[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST15[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST15[9].order==inputOrder}"/>
 			<text x="55.99" y="311.15" class="st5">ST15</text>		</g>
 		<g id="shape221-619" transform="translate(124.399,-131.677)">
 			<title>Sheet.221</title>
@@ -1249,6 +1248,12 @@
 			<rect *ngIf="sigalRService.dataPackageST14[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST14[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST14[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST14[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST14[9].order==inputOrder}"/>
 			<text x="56.88" y="312.75" class="st5">ST14</text>		</g>
 		<g id="shape223-625" transform="translate(170.22,-181.31)">
 			<title>Sheet.223</title>
@@ -1313,6 +1318,12 @@
 			<rect *ngIf="sigalRService.dataPackageST6[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST6[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST6[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST6[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST6[9].order==inputOrder}"/>
 			<text x="58.33" y="313.72" class="st5">ST6</text>		</g>
 		<g id="shape226-635" transform="translate(258.334,-156.995)"(click)="ClicST7()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.226</title>
@@ -1342,6 +1353,12 @@
 			<rect *ngIf="sigalRService.dataPackageST7[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST7[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST7[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST7[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST7[9].order==inputOrder}"/>
 			<text x="58.27" y="310.58" class="st5">ST7</text>		</g>
 		<g id="shape227-638" transform="translate(258.331,-140.826)" (click)="ClicST8()" *ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>ST8</title>
@@ -1372,6 +1389,12 @@
 			<rect *ngIf="sigalRService.dataPackageST8[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST8[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST8[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST8[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST8[9].order==inputOrder}"/>
 			<text x="58.27" y="315.13" class="st5">ST8</text>		</g>
 		<g id="shape228-642" transform="translate(258.334,-123.69)"(click)="ClicST9()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.228</title>
@@ -1401,6 +1424,12 @@
 			<rect *ngIf="sigalRService.dataPackageST9[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST9[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST9[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST9[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST9[9].order==inputOrder}"/>
 			<text x="58.27" y="313.32" class="st5">ST9</text>		</g>
 		<g id="shape229-645" transform="translate(258.334,-109.722)"(click)="ClicST10()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.229</title>
@@ -1430,6 +1459,12 @@
 			<rect *ngIf="sigalRService.dataPackageST10[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST10[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST10[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST10[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST10[9].order==inputOrder}"/>
 			<text x="56.24" y="315.13" class="st5">ST10</text>		</g>
 		<g id="shape230-648" transform="translate(258.334,-93.6662)"(click)="ClicST11()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.230</title>
@@ -1459,6 +1494,12 @@
 			<rect *ngIf="sigalRService.dataPackageST11[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST11[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST11[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST11[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST11[9].order==inputOrder}"/>
 			<text x="56.24" y="315.2" class="st5">ST11</text>		</g>
 		<g id="shape231-651" transform="translate(258.334,-71.3928)"(click)="ClicST12()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.231</title>
@@ -1490,6 +1531,12 @@
 			<rect *ngIf="sigalRService.dataPackageST12[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST12[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST12[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST12[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST12[9].order==inputOrder}"/>
 			<text x="56.24" y="310.73" class="st5">ST12</text>		</g>
 		<g id="shape232-655" transform="translate(258.353,-49.6886)"(click)="ClicST13()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.232</title>
@@ -1519,6 +1566,12 @@
 			<rect *ngIf="sigalRService.dataPackageST13[7].visible"   y="307"  height="11" 
 			[ngStyle] = "sigalRService.dataPackageST13[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[7].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[8].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[8].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[8].order==inputOrder}"/>
+			<rect *ngIf="sigalRService.dataPackageST13[9].visible"   y="307"  height="11" 
+			[ngStyle] = "sigalRService.dataPackageST13[9].ngStyle" 	
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageST13[9].order==inputOrder}"/>
 			<text x="56.23" y="312.3" class="st5">ST13</text>		</g>
 		<g id="shape233-658" transform="translate(417.358,-178.527)"(click)="ClicST4()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.233</title>
@@ -1682,7 +1735,6 @@
 	</g>
 </svg>	
 </div>
-  <!-- </div> -->
+  
 </nb-card>
-
 

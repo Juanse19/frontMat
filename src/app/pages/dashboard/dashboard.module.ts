@@ -51,6 +51,7 @@ import {ApiGetService} from './WindowPopupComponent/apiGet.services';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WindowComponent2} from './OrderPopup/orderPopup.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { WindowComponent2} from './OrderPopup/orderPopup.component';
     NbToggleModule,
     NbInputModule,
     NbAutocompleteModule,
+    Ng2SmartTableModule,
   ],
   declarations: [
     DashboardComponent,

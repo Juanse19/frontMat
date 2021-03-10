@@ -31,6 +31,7 @@ interface Country {
   population: number;
 }
 
+
 interface Ordenes {
   id?: number;
   order: string;
@@ -88,6 +89,8 @@ let WIPLIST: Wip[]=[
 
 
 ];
+
+
 
 const COUNTRIES: Country[] = [
   {
@@ -173,12 +176,13 @@ function search2(text: string, pipe: PipeTransform): Ordenes[] {
 
 export class RoomSelectorComponent implements OnInit, OnDestroy {
   @ViewChild('autoInput') input;
-
+  
   messages: any[] = [];
   subscription: Subscription;
   inputOrder: string;
 
   public orderProcess:OrderProcess[];
+  
 
   public dataMachineColor:MachineColor = {
     color924:"White",
@@ -430,7 +434,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
 
   
     this.GetOrderProcess();
-
+    
 //mostrar colores de maquinas
 this.ColorCharge();
     
@@ -865,5 +869,7 @@ DibujarElementoSVGFor() {
     });
 
   }
+
+ 
 
 }

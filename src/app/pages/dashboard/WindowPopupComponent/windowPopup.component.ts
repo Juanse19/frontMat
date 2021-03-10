@@ -42,6 +42,7 @@ interface Ordenes {
   stateId: number;
   priority:number;
   idDevice:number;
+  timeStamp?:string;
 }
 
 interface Data {

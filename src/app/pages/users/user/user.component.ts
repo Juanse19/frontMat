@@ -52,6 +52,7 @@ export class UserComponent implements OnInit, OnDestroy {
   get lastName() { return this.userForm.get('lastName'); }
 
   get login() { return this.userForm.get('login'); }
+  
   get role() { return this.userForm.get('role'); }
 
   get email() { return this.userForm.get('email'); }

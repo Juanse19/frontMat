@@ -4,13 +4,15 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { NbMediaBreakpoint, NbMediaBreakpointsService, NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
+import { HttpService } from '../../../../@core/backend/common/api/http.service';
 
 interface Machine{
-  Id:number,
-  Name:string
+  id:number,
+  name:string
 }
 @Component({
   selector: 'ngx-chart-panel-header',
@@ -22,14 +24,17 @@ export class ChartPanelHeaderComponent implements OnDestroy {
   private alive = true;
 
   @Output() periodChange = new EventEmitter<string>();
+  @Output() periodMachineChange = new EventEmitter<number>();
 
   @Input() type: string = 'week';
   @Input() device: string = 'all';
+  @Input() machines: number;
   @Input() legend: string[] = ['', '', ''];
 
   // types: string[] = ['DAY', 'HOUR', 'year'];
   types: string[] = ['DAY', 'HOUR'];
-  devices: Machine[];
+  
+  devices: Machine[]=[];
   chartLegend: {iconColor: string; title: string}[];
   breakpoint: NbMediaBreakpoint = { name: '', width: 0 };
   breakpoints: any;
@@ -37,18 +42,20 @@ export class ChartPanelHeaderComponent implements OnDestroy {
 
   constructor(private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService,
-  //             private api: HttpService,
-  // private http: HttpClient,
+                 private api: HttpService,
+                 private http: HttpClient,
   ) {
     this.init();
   }
-
+  
   init() {
-    // this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
-    // .subscribe((res: any)=>{
-    //   // console.log(res);
-    //   this.AsignarDatosWip(res);
-    // });
+    //  debugger;
+    this.http.get(this.api.apiUrlMatbox + "/Reports/GetMachineReportList")
+    .subscribe((res: any)=>{
+      this.devices=res;
+      console.log("Report: ", this.devices=res);
+      // this.AsignarDatosWip(res);
+    });
 
 
     this.themeService.getJsTheme()
@@ -67,6 +74,9 @@ export class ChartPanelHeaderComponent implements OnDestroy {
         this.breakpoint = newValue;
       });
   }
+  // AsignarDatosWip(res: any) {
+  //   console.log("Respuesta: ",res)
+  // }
 
   setLegendItems(orderProfitLegend) {
     this.chartLegend = [
@@ -88,12 +98,16 @@ export class ChartPanelHeaderComponent implements OnDestroy {
   changePeriod(period: string): void {
     this.type = period;
     this.periodChange.emit(period);
+    console.log(period);
   }
 
-  changeDevice(period: string): void {
-    this.type = period;
-    //this.periodChange.emit(period);
+  changeDevice(machine: number): void {
+    //debugger;
+    this.machines = machine;
+    this.periodMachineChange.emit(machine);
+    console.log(machine);
   }
+  
 
   ngOnDestroy() {
     this.alive = false;

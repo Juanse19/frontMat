@@ -68,7 +68,7 @@
                               <nb-select id="role" 
                               [formControl]="role"
                               [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'"
-                              class="form-control"
+                              
                               placeholder= "Role"
                               [(selected)]="selectedRole">
                                 <nb-option *ngFor="let itemRole of listaRoles" [value]="itemRole.name">

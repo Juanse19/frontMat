@@ -10,15 +10,19 @@
       <div class="chart-container">
         <div [nbSpinner]="!ordersChartData" class="chart-container">
           <ngx-chart-panel-summary [summary]="chartPanelSummary"></ngx-chart-panel-summary>
-          <ngx-chart-panel-header #ordersHeader [type]="period"
+          <ngx-chart-panel-header #ordersHeader [type]="period" 
+                                  #machineHeader [machines]="machine"
                                   [legend]="ordersChartData?.legend"
-                                  (periodChange)="setPeriodAndGetChartData($event)">
+                                  
+                                  (periodChange)="setPeriodAndGetChartData($event)"
+                                  (periodMachineChange)="receiveMessage($event)">
           </ngx-chart-panel-header>
           <ngx-orders-chart #ordersChart *ngIf="ordersChartData" [ordersChartData]="ordersChartData"></ngx-orders-chart>
         </div>
       </div>
     </nb-tab>
     <!-- <nb-tab tabTitle="Profit" [lazyLoad]="true">
+      (machineChange)="setMachinedAndGetChartData($event)"
       <div class="chart-container">
         <div [nbSpinner]="!profitChartData" class="chart-container">
           <ngx-chart-panel-summary [summary]="chartPanelSummary"></ngx-chart-panel-summary>

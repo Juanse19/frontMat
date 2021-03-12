@@ -659,7 +659,13 @@ ClicST15() {
   this.comp2.openWindowForm(IdWip.ST15);
 }
 
+ClicID12(){
+  this.comp2.openWindowForm(IdWip.ID12)
+}
 
+ClicID22(){
+  this.comp2.openWindowForm(IdWip.ID22)
+}
 
   ClicMARTIN1228() {    
         this.comp2.openWindowForm(IdMaquinas.Martin1228); 

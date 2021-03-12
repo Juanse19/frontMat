@@ -9,7 +9,7 @@
     <nb-tab tabTitle="Orders" [active]="true">
       <div class="chart-container">
         <div [nbSpinner]="!ordersChartData" class="chart-container">
-          <ngx-chart-panel-summary [summary]="chartPanelSummary"></ngx-chart-panel-summary>
+          <ngx-chart-panel-summary [summary]="TotalOr"></ngx-chart-panel-summary>
           <ngx-chart-panel-header #ordersHeader [type]="period" 
                                   #machineHeader [machines]="machine"
                                   [legend]="ordersChartData?.legend"

@@ -1703,10 +1703,10 @@
 			<desc>ID21</desc>
 			<path transform="" d="M0 304.56 L0 319.03 L24.48 319.03 L24.48 304.56 L0 304.56 L0 304.56 Z" class="st6"/>
 			<text x="4.72" y="314.2" class="st5">ID21</text>		</g>
-		<g id="shape248-701" transform="translate(185.784,-242.908)">
+		<g id="shape248-701" transform="translate(185.784,-242.908)" (click)="ClicID22()"*ngIf="accessChecker.isGranted('edit', 'users')">
 			<title>Sheet.248</title>
 			<desc>ID22</desc>
-			<path transform="" d="M0 300.93 L0 319.03 L24.48 319.03 L24.48 300.93 L0 300.93 L0 300.93 Z" class="st6"/>
+			<path transform="" d="M0 300.93 L0 319.03 L24.48 319.03 L24.48 300.93 L0 300.93 L0 300.93 Z" class="st6" (click)="ClicID22()"*ngIf="accessChecker.isGranted('edit', 'users')" />
 			<rect *ngIf="sigalRService.dataPackageID22[0].visible" x="0" y="307" height="11" 
 			[ngStyle] = "sigalRService.dataPackageID22[0].ngStyle"
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageID22[0].order==inputOrder}"/>
@@ -1716,10 +1716,10 @@
 			<desc>ID11</desc>
 			<path transform="" d="M0 304.56 L0 319.03 L24.48 319.03 L24.48 304.56 L0 304.56 L0 304.56 Z" class="st6"/>
 			<text x="4.72" y="314.2" class="st5">ID11</text>		</g>
-		<g id="shape250-707" transform="translate(151.255,-242.908)">
+		<g id="shape250-707" transform="translate(151.255,-242.908)" (click)="ClicID12()"*ngIf="accessChecker.isGranted('edit', 'users')">
 			<title>Sheet.250</title>
 			<desc>ID12</desc>
-			<path transform="" d="M0 300.93 L0 319.03 L24.48 319.03 L24.48 300.93 L0 300.93 L0 300.93 Z" class="st6"/>
+			<path transform="" d="M0 300.93 L0 319.03 L24.48 319.03 L24.48 300.93 L0 300.93 L0 300.93 Z" class="st6" (click)="ClicID12()"*ngIf="accessChecker.isGranted('edit', 'users')" />
 			<rect *ngIf="sigalRService.dataPackageID12[0].visible" x="0" y="307" height="11" 
 			[ngStyle] = "sigalRService.dataPackageID12[0].ngStyle"
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageID12[0].order==inputOrder}"/>

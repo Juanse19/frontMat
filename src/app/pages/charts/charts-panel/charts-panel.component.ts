@@ -14,7 +14,13 @@ import { ChartData, ChartSummary } from '../../../@core/interfaces/common/chart'
 import { OrdersProfitChartData } from '../../../@core/interfaces/ecommerce/orders-profit-chart';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
-import { StringDecoder } from 'string_decoder';
+
+interface Ordenes {
+  Orders: number;
+  AssembliesProcessed: number;
+  OrdersProcessed: number
+} 
+
 @Component({
   selector: 'ngx-ecommerce-charts',
   styleUrls: ['./charts-panel.component.scss'],
@@ -29,6 +35,7 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   @Input() machine:number = 22;
   ordersChartData: ChartData;
   profitChartData: ChartData;
+  TotalOr: Ordenes[] = [];
 
   @ViewChild('ordersHeader', { static: true }) ordersHeader: ChartPanelHeaderComponent;
   @ViewChild('machineHeader', { static: true }) machineHeader: ChartPanelHeaderComponent;
@@ -40,8 +47,20 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
 
   constructor(private ordersProfitChartService: OrdersProfitChartData,
     private api: HttpService,
-    private http: HttpClient,
-    ) { }
+    private http: HttpClient,) 
+    { 
+
+      this.http.get(this.api.apiUrlMatbox + "/Reports/GetTotalOrdersList")
+      .subscribe((res: any)=>{
+        // console.log(res);
+        if(res == null){
+           return null;
+        }
+        this.TotalOr=res;
+        console.log("ReportTotal: ", this.TotalOr=res);
+      });
+
+    }
 
   ngOnInit(): void {
     // this.ordersProfitChartService.getOrderProfitChartSummary()
@@ -49,12 +68,14 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
     //   .subscribe((summary) => {
     //     this.chartPanelSummary = summary;
     //   });
+    
       this.chartPanelSummary = [
-     {title:"Ordenes", value:20},
-     {title:"Ord. Procedas", value:10},
-     {title:"Arrumes Procedos", value:200},
+     {title:"Ordenes", value:22},
+     {title:"Ord. Procedas", value:5},
+     {title:"Arrumes Procedos", value:18},
      {title:"Producto desechado", value:200},
-    ];
+    ]; 
+    console.log(this.chartPanelSummary);
     
     this.getOrdersChartData(this.period, this.machine);
     //this.getProfitChartData(this.period);

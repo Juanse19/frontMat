@@ -48,6 +48,7 @@ import { ChartPanelSummaryComponent } from './charts-panel/chart-panel-summary/c
 import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.component';
 import { OrdersChartComponent } from './charts-panel/charts/orders-chart.component';
 import { ProfitChartComponent } from './charts-panel/charts/profit-chart.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 const components = [
   ChartjsBarComponent,
@@ -93,6 +94,7 @@ const components = [
     ChartsRoutingModule,
     NbProgressBarModule,
     NbSpinnerModule,
+    Ng2SmartTableModule
   ],
   declarations: [...routedComponents, ...components],
 })

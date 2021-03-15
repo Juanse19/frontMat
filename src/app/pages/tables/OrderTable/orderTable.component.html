@@ -13,8 +13,9 @@
       <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col"></th>
+          <th scope="col">Id</th>
           <th scope="col">Orden</th>
+          <th scope="col">Batch</th>
           <!-- <th scope="col">Nombre</th> -->
           <th scope="col">Referencia</th>
           <th scope="col">Destino</th>
@@ -30,7 +31,9 @@
       <tbody>
       <tr *ngFor="let ordenes of ordenesMaquina$ | async">
         <th scope="row">{{ ordenes.id }}</th>
+        <td><ngb-highlight [result]="ordenes.id" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="ordenes.order" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="ordenes.batch" [term]="filter.value"></ngb-highlight></td>
         <!-- <td><ngb-highlight [result]="ordenes.name" [term]="filter.value"></ngb-highlight></td> -->
         <td><ngb-highlight [result]="ordenes.reference" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="ordenes.description" [term]="filter.value"></ngb-highlight></td>
@@ -41,7 +44,7 @@
         <td><ngb-highlight [result]="ordenes.cutsLength" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
         <!-- <td><button (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength)" nbButton>EDIT</button></td> -->
-        <td><button nbButton shape="semi-round" status="primary" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority)">EDIT</button></td>
+        <td><button nbButton shape="semi-round" status="primary" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDIT</button></td>
     
       </tr>
       </tbody>

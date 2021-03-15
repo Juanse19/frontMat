@@ -1656,6 +1656,9 @@
 						 L0 300.71 L0 300.71 L25.59 300.71 Z" class="st1"/>
 			<path transform="" d="M25.59 300.71 L0 300.71 L0 319.03 L42.26 319.03 L42.26 300.71 L25.59 300.71 L25.59 295.84 L0 295.84
 						 L0 300.71 L0 300.71" class="st4"/>
+						 <rect *ngIf="sigalRService.dataPackageTF2[0].visible" x="0" y="303"  height="14" 
+							[ngStyle] = "sigalRService.dataPackageTF2[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageTF2[0].order==inputOrder}"/>
 			<text x="15.31" y="309.83" class="st5">TF2</text>		</g>
 		<g id="shape240-677" transform="translate(105.728,-265.373)">
 			<title>Sheet.240</title>
@@ -1670,6 +1673,7 @@
 						 291.61 L21.39 295.21 L42.99 295.17 L43.02 318.97 L0.54 319.03 L0.51 295.24 L21.39 295.24 L21.39 295.24"
 					class="st4"/>
 		</g>
+		
 		<g id="shape242-682" transform="translate(178.122,-276.591)">
 			<title>Sheet.242</title>
 			<path transform="" d="M32.73 318.98 L1.7 319.03 L1.66 295.2 L0 295.2 L0 292.56 L13.03 292.54 L13.03 293.17 L16.78 293.17
@@ -1679,6 +1683,7 @@
 						 L16.77 291.58 L22.25 291.57 L22.24 293.18 L26.14 293.19 L26.13 291.56 L31.7 291.55 L31.7 293.2 L31.7 295.15
 						 L32.69 295.15 L32.73 318.98 L32.69 295.15 L1.66 295.2 L1.66 295.2" class="st4"/>
 		</g>
+		
 		<g id="shape243-685" transform="translate(486.758,-28.3753)" [ngStyle]="{fill: dataMachineColor.colorLaminadora}" (click)="ClicLaminadora()">
 			<title>Sheet.243</title>
 			<desc>Laminadora</desc>

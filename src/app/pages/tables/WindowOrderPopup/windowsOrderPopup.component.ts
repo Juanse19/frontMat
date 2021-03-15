@@ -26,6 +26,7 @@ interface Ordenes {
 }
 
 interface OrdenActualizar {
+  id:number;
   orden: string;
   referencia: string;
   origen: string;
@@ -227,6 +228,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
   Edit() {
 
     ORDENESACTUALIZAR = {
+      id:this.data.id,
       orden: this.data.order,
       referencia: this.referenciaValor.nativeElement.value,
       origen: this.maquinaOrigen.value,

@@ -13,11 +13,13 @@ import {ApiWindowOrderPopup} from '../WindowOrderPopup/apiWindowiOrderPopup.serv
 import {WindowCreateComponent} from '../WindowCreateOrderPopup/windowsCreateOrderPopup.component'
 import {HttpService} from '../../../@core/backend/common/api/http.service'
 import { MessageService } from '../../dashboard/services/MessageService';
+import { Identifiers } from '@angular/compiler';
 
 
   interface Ordenes {
-    id?: number;
+    id: number;
     order: string;
+    batch?: number;
     name: string;
     description: string;
     reference: string;
@@ -189,9 +191,10 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
       return of({ordenes, total});
     }
 
-    Edit(orden:string, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number){
+    Edit(orden:string, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number, idForm: number){
       ORDEN = {
         order: orden,
+        id: idForm,
         name: nombre,
         description: descripcion,
         reference: referencia,

@@ -85,7 +85,7 @@ export class UsersTableComponent implements OnDestroy {
 
   constructor(private usersService: UserData, private router: Router,
     private toastrService: NbToastrService) {
-    this.loadData();
+    this.loadData(); 
   }
 
   loadData() {

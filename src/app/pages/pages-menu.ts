@@ -266,7 +266,14 @@ export class PagesMenu {
       link: '/pages/charts/report',
       children: undefined,
     };
-    
+
+    const alarmMenu: NbMenuItem = {
+      title: 'Alarmas',
+      icon: 'bell-outline',
+      link: '/pages/tables/alarms',
+      children: undefined,
+    };
+
     const registerMenu: NbMenuItem ={
       title: 'Auth',
       icon: 'lock-outline',
@@ -293,7 +300,7 @@ export class PagesMenu {
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
-          return [...dashboardMenu, orderMenu,  reportMenu, userMenu,registerMenu];
+          return [...dashboardMenu, orderMenu, reportMenu, userMenu, alarmMenu, registerMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu];

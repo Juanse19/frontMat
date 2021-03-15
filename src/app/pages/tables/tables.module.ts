@@ -20,7 +20,8 @@ import {ApiGetService} from './OrderTable/apiGet.services'
 import {ApiWindowOrderPopup} from './WindowOrderPopup/apiWindowiOrderPopup.services'
 import {WindowComponent} from './WindowOrderPopup/windowsOrderPopup.component'
 import {ApiWindowCreateOrderPopup} from './WindowCreateOrderPopup/apiWindowCreateOrderPopup.services'
-import {WindowCreateComponent} from './WindowCreateOrderPopup/windowsCreateOrderPopup.component'
+import {WindowCreateComponent} from './WindowCreateOrderPopup/windowsCreateOrderPopup.component';
+import { AlarmsComponent } from './alarms/alarms.component'
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import {WindowCreateComponent} from './WindowCreateOrderPopup/windowsCreateOrder
     FsIconComponent,
     WindowComponent,
     WindowCreateComponent,
+    AlarmsComponent,
   ],
   providers: [
     MeasureConverterPipe,

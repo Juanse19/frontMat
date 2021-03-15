@@ -17,6 +17,7 @@ import {WindowComponentAlarm} from '../../../pages/dashboard/alarmPopup/alarmPop
 import { SignalRService } from '../../../pages/dashboard/services/signal-r.service';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -63,6 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService,
               private comp3: WindowComponentAlarm,
+              private router: Router,
               private http: HttpClient,
               private api: HttpService,
               public sigalRService: SignalRService) {
@@ -140,7 +142,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.navigateHome();
     return false;
   }
-  AbrirAlarmas(){
-   this.comp3.openWindowForm("Alarmas","");
+  // AbrirAlarmas(){
+  //  this.comp3.openWindowForm("Alarmas","");
+  // }
+
+  AbrirAlarms() {
+    this.router.navigate(['/pages/tables/alarms/']);
   }
+
 }

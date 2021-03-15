@@ -29,7 +29,7 @@
 					 badgePosition="top right"
 					 badgeStatus="danger"					 
 					 badgeText={{sigalRService.numeroAlarmas.numeroAlarmas}}
-					 (click)="AbrirAlarmas()">
+					 (click)="AbrirAlarms()">
   </nb-action>
     <nb-action class="user-action"  *nbIsGranted="['view', 'current-user']">
       <nb-user [nbContextMenu]="userMenu"

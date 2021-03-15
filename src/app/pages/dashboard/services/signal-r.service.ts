@@ -36,6 +36,7 @@ export class SignalRService implements OnInit {
   public dataPackageCT1: PackagesWIP[];
   public dataPackageCT2: PackagesWIP[];
   public dataPackageTM: PackagesWIP[];
+  public dataPackageTF1: PackagesWIP[];
   public dataPackageID12: PackagesWIP[];
   public dataPackageID22: PackagesWIP[];
   
@@ -207,6 +208,10 @@ AsignarDatosWip(data:any){
   {
     this.dataPackageTM=data;
   }
+  if (this.dataPackageWip[0].idMaquina==IdWip.TF1)
+  {
+    this.dataPackageTF1=data;
+  }  
   if (this.dataPackageWip[0].idMaquina==IdWip.ID12)
   {
     this.dataPackageID12=data;

@@ -260,6 +260,9 @@
 				<path transform="" d="M0 319.03 L25.59 319.03 L25.59 319.03 L0 319.03 Z" class="st1"/>
 				<path transform="" d="M0 319.03 L25.59 319.03 L25.59 319.03" class="st4"/>
 			</g>
+			<rect *ngIf="sigalRService.dataPackageTF1[0].visible" x="0" y="303"  height="14" 
+							[ngStyle] = "sigalRService.dataPackageTF1[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageTF1[0].order==inputOrder}"/>
 			<g id="shape50-143">
 				<text x="15.33" y="309.89" class="st5">TF1</text>			</g>
 		</g>
@@ -534,7 +537,7 @@
 						class="st1"/>
 				<path transform="" d="M0 318.35 L0 319.03 L1.15 319.03 L1.15 318.35 L0 318.35 L0 319.03 L0 319.03" class="st4"/>
 			</g>
-			<rect *ngIf="sigalRService.dataPackageCT2[0].visible" x="0" y="303" width="19" height="14" 
+			<rect *ngIf="sigalRService.dataPackageCT2[0].visible" x="0" y="303"  height="14" 
 							[ngStyle] = "sigalRService.dataPackageCT2[0].ngStyle"
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageCT2[0].order==inputOrder}"/>
 			<g id="shape53-270">
@@ -874,11 +877,11 @@
 				<title>Sheet.165</title>
 				<path transform="" d="M0 310.45 L3.49 310.45 L3.49 319.03 L0 319.03 L0 310.45 L0 310.45 Z" class="st6"/>
 			</g>
-			<rect *ngIf="sigalRService.dataPackageCT_1[0].visible" x="0" y="303" width="19" height="14" 
+			<rect *ngIf="sigalRService.dataPackageCT_1[0].visible" x="0" y="303"  height="14" 
 							[ngStyle] = "sigalRService.dataPackageCT_1[0].ngStyle"
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageCT_1[0].order==inputOrder}"/>
 
-			<rect *ngIf="sigalRService.dataPackageCT_2[0].visible" x="0" y="303" width="19" height="14" 
+			<rect *ngIf="sigalRService.dataPackageCT_2[0].visible" x="0" y="303"  height="14" 
 							[ngStyle] = "sigalRService.dataPackageCT_2[0].ngStyle"
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageCT_2[0].order==inputOrder}"/>
 			<g id="shape100-460">
@@ -903,7 +906,7 @@
 				<title>Sheet.169</title>
 				<path transform="" d="M0 319.03 L8.58 319.03 L8.58 315.7 L0 315.7 L0 319.03 L0 319.03 Z" class="st6"/>
 			</g>
-			<rect *ngIf="sigalRService.dataPackageCT1[0].visible" x="0" y="303" width="19" height="14" 
+			<rect *ngIf="sigalRService.dataPackageCT1[0].visible" x="0" y="303"  height="14" 
 							[ngStyle] = "sigalRService.dataPackageCT1[0].ngStyle"
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageCT1[0].order==inputOrder}"/>
 			<g id="shape166-470">
@@ -1063,7 +1066,7 @@
 				<title>Sheet.201</title>
 				<ellipse cx="14.0483" cy="304.984" rx="14.0483" ry="14.0483" class="st3"/>
 			</g>
-			<rect *ngIf="sigalRService.dataPackageTM[0].visible" x="0" y="303" width="19" height="14" 
+			<rect *ngIf="sigalRService.dataPackageTM[0].visible" x="0" y="303"  height="14" 
 							[ngStyle] = "sigalRService.dataPackageTM[0].ngStyle"
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageTM[0].order==inputOrder}"/>
 			<g id="shape194-557">

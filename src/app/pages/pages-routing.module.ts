@@ -39,6 +39,11 @@ const routes: Routes = [{
       loadChildren: () => import('./forms/forms.module')
         .then(m => m.FormsModule),
     },
+    // {
+    //   path: 'alarms',
+    //   loadChildren: () => import('./alarms/alarms.module')
+    //     .then(m => m.AlarmsModule),
+    // },
     {
       path: 'ui-features',
       loadChildren: () => import('./ui-features/ui-features.module')

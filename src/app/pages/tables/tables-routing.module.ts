@@ -11,6 +11,7 @@ import { TablesComponent } from './tables.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { TreeGridComponent } from './tree-grid/tree-grid.component';
 import { OrderTableComponent } from './OrderTable/orderTable.component';
+import { AlarmsComponent } from './alarms/alarms.component';
 import { SmartOrderTableComponent } from './SmartOrderTable/smartOrderTable.component';
 
 const routes: Routes = [{
@@ -28,6 +29,10 @@ const routes: Routes = [{
     {
       path: 'OrderTable',
       component: OrderTableComponent,
+    },
+    {
+      path: 'alarms',
+      component: AlarmsComponent,
     },
     {
       path: 'SmartOrderTable',

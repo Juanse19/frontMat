@@ -6,7 +6,7 @@ import {ApiGetService} from './apiGet.services';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject,Subscription } from 'rxjs';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, delay, reduce, switchMap, tap } from 'rxjs/operators';
 import {WindowComponent2 } from '../OrderPopup/orderPopup.component';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { Router, NavigationEnd } from '@angular/router';
@@ -193,6 +193,7 @@ export class WindowComponent {
 
   idMaquina=IDMAQUINA;
 
+  public select=false;
 
   propiedades = PROPIEDADES;
 
@@ -205,7 +206,7 @@ export class WindowComponent {
   colorLista = COLORLISTA;
   color = COLOR;
 
-  wipLista = WIPLIST;
+  wipLista = WIPLIST; 
   wipFree= WIPFREE;
 
   ordenesFiltro;
@@ -247,7 +248,7 @@ export class WindowComponent {
     private toasterService: NbToastrService,
     
     ) {
-
+      
       this.subscription = this.messageService.onMessage().subscribe(message => {
         if (message.text=="PackageUpdate") {
           //this.messages.push(message);
@@ -264,6 +265,9 @@ export class WindowComponent {
             //   this._Ordenes$.next(result.ordenes);
             //   this._total$.next(result.total);
             // });
+            
+            
+
           });
         } 
       });
@@ -324,7 +328,8 @@ export class WindowComponent {
 
     const {pageSize, page, searchTerm} = this._state;
 
-
+    
+    
     let ordenes = ORDENES;
 
     // 2. filter
@@ -337,6 +342,8 @@ export class WindowComponent {
     this.ordenesFiltro = ordenes;
     return of({ordenes, total});
   }
+
+  
 
   DataLoad(idMaquina: number){
     this.idMaquina=idMaquina;
@@ -422,24 +429,42 @@ export class WindowComponent {
     }
   openWindowForm(idMaquina?: number) {
     this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
-      if(res){
-        this.DataLoad(idMaquina);    
+      if(res){ 
+        // this.DataLoad(idMaquina);
+        if (idMaquina == 36 || idMaquina == 40 ) {
+          this.select = false;
+          this.DataLoad(idMaquina); 
+          console.log("Select", this.select);
+          return this.select = false;
+          
+          
+        } else {
+          this.select=true;
+        } 
       }
+      
     });
     
   }
 
+
+  
+
   ObtenerListaDeviceType() {
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerDeviceTypeLista').subscribe((res: any) => {
-      DEVICESTYPE = res;
-      });
+      DEVICESTYPE = res; 
+     
+      }); 
 
   }
+
+
   ObtenerListaColor() {
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerColorLista').subscribe((res: any) => {
       COLORLISTA = res;
+      
       });
-
+      
   }
 
   
@@ -556,11 +581,11 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       },
     );
   }
-
+  
   EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number, idDevice:number){
     ORDEN=
     {
-      id:id,
+      id:id, 
       order:order,
       state:state,
       stateId:stateId,
@@ -571,7 +596,9 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     
     this.orderPopup.openWindowForm("Package: "+ order,ORDEN, this.idMaquina)
     
-
+   
+    
+    
   }
 
   CrearArrume(){

@@ -30,7 +30,7 @@
             formControlName="email"
             [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
             [attr.aria-invalid]="email.invalid && email.touched ? true : null"
-            placeholder="Email address">
+            placeholder="Email address" [(ngModel)]="correo">
     <ngx-validation-message label="Email address" [showPattern]="email?.hasError('pattern') && email.touched"
       [showRequired]="email?.errors?.required && email.touched"></ngx-validation-message>
   </div>
@@ -46,7 +46,7 @@
             formControlName="password"
             type="password"
             [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
-            placeholder="Password">
+            placeholder="Password" [(ngModel)]="contrasena">
     <ngx-validation-message label="Password" [showMinLength]="password?.hasError('minlength') && password.touched"
       [showMaxLength]="password?.hasError('maxlength') && password.touched"
       [showRequired]="password?.errors?.required && password.touched"

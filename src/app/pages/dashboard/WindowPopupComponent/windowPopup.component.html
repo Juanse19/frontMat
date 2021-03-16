@@ -67,15 +67,16 @@
 						<nb-toggle [(ngModel)]="propiedades.isOn" status="success">{{data.name}}</nb-toggle>
 						<!-- <nb-toggle [(checked)]="checked"></nb-toggle> -->
 						<p><b>Name</b></p>
+						<input  type="text" nbInput value="{{ data.text }}" required minlength="0" maxlength="30" size="10">
 						<!-- <input type="text" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"> -->
 						<!-- <input type="text" nbInput #prioridadValor fullWidth fieldSize="small" placeholder="Input" [(ngModel)]="inputItemNgModel"> -->
-						<p>{{data.text}}</p>
+						<!-- <p>{{data.text}}</p> --> 
 
 						<!-- <p><nb-card-header>Color</nb-card-header></p> -->
 						<p><b>Color</b></p>
 						<p><nb-select [(ngModel)]="propiedades.valor" >
 							<nb-option *ngFor="let option of colorLista" [value]="option.value">
-							  {{ option.label }}
+							  {{ option.label }}  
 							</nb-option>             
 						  </nb-select></p>
 				  <!-- </nb-card> -->
@@ -84,8 +85,8 @@
 					<!-- <nb-card> -->
 						<!-- <p><nb-card-header>Tipo de dispositivo</nb-card-header></p> -->
 						<p><b>Tipo dispositivo</b></p>
-						<p><nb-select [(ngModel)]="propiedades.type">
-							<nb-option *ngFor="let option of devicesType" [value]="option.value">
+						<p><nb-select [(ngModel)]="propiedades.type" ng-disabled="select" >
+							<nb-option *ngFor="let option of devicesType" [value]="option.value"  >
 							  {{ option.label }}
 							</nb-option>             
 						  </nb-select></p>

@@ -25,6 +25,9 @@ import { InitUserService } from '../../../@theme/services/init-user.service';
 
 export class NgxLoginComponent implements OnInit {
 
+  correo = 'admin@admin.admin';
+  contrasena = 'admin';
+
   minLength: number = this.getConfigValue('forms.validation.password.minLength');
   maxLength: number = this.getConfigValue('forms.validation.password.maxLength');
   redirectDelay: number = this.getConfigValue('forms.login.redirectDelay');

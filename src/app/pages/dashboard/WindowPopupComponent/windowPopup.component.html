@@ -85,7 +85,7 @@
 					<!-- <nb-card> -->
 						<!-- <p><nb-card-header>Tipo de dispositivo</nb-card-header></p> -->
 						<p><b>Tipo dispositivo</b></p>
-						<p><nb-select [(ngModel)]="propiedades.type" ng-disabled="select" >
+						<p><nb-select [(ngModel)]="propiedades.type" [disabled]="selec">
 							<nb-option *ngFor="let option of devicesType" [value]="option.value"  >
 							  {{ option.label }}
 							</nb-option>             

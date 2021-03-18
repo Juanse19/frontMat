@@ -253,6 +253,12 @@ export class PagesMenu {
       link: '/pages/users/list',
       children: undefined,
     };
+    const animationMenu: NbMenuItem = {
+      title: 'Animacion',
+      icon: 'monitor-outline',
+      link: '/pages/animation/animationsvg',
+      children: undefined,
+    };
     const orderMenu: NbMenuItem = {
       title: 'Ordenes',
       icon: 'grid-outline',
@@ -300,7 +306,7 @@ export class PagesMenu {
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
-          return [...dashboardMenu, orderMenu, reportMenu, userMenu, alarmMenu, registerMenu];
+          return [...dashboardMenu,  orderMenu, reportMenu, userMenu, alarmMenu, registerMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu];

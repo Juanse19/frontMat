@@ -159,6 +159,7 @@ let PROPIEDADESACTUALIZAR: PropiedadesActualizar;
 
 let win:NbWindowRef;
 
+
 function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
   return ordenes.order.toLowerCase().includes(term)
     || ordenes.name.toLowerCase().includes(term.toLowerCase())
@@ -193,12 +194,14 @@ export class WindowComponent {
 
   idMaquina=IDMAQUINA;
 
-  public select=false;
+  // public select=true;
 
   propiedades = PROPIEDADES;
 
   nombreEstado: string;
   toggleNgModel = true;
+  selec = true;
+  
 
   devicesType = DEVICESTYPE;
   deviceType = DEVICETYPE;
@@ -332,6 +335,13 @@ export class WindowComponent {
     
     let ordenes = ORDENES;
 
+    // if (IDMAQUINA == 36 || IDMAQUINA == 40 ) {
+    //   this.select = false; 
+    //   console.log("Select", this.select);
+    // } else {
+    //   this.select=true;
+    // } 
+
     // 2. filter
     ordenes = ordenes.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
     const total = ordenes.length;
@@ -353,6 +363,8 @@ export class WindowComponent {
       this.wipFree=WIPFREE;
       this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerPropiedadesMaquina?idMaquina='+ idMaquina).subscribe((res: any) => {
         PROPIEDADES = res;
+        
+        
         this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipForTarget?idTarget='+ idMaquina).subscribe((res: any) => {
           WIPLIST=res;
           this.wipLista=WIPLIST;
@@ -371,15 +383,15 @@ export class WindowComponent {
               name: this.nombreEstado,
               x: 5,
             };
-            win=this.windowRef=this.windowService.open(WindowComponent, { title: this.propiedades.description});
             
+            win=this.windowRef=this.windowService.open(WindowComponent, { title: this.propiedades.description});
           });
         });    
         });
 
     });
   }
-  
+  // public selection = true;
   DataLoadBasic(idMaquina: number){
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina;
@@ -407,6 +419,7 @@ export class WindowComponent {
               x: 5,
             };
             
+            
             //this.windowService.open(WindowComponent, { title: this.propiedades.description});
           });
         });    
@@ -427,20 +440,20 @@ export class WindowComponent {
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate([currentUrl]);
     }
+
+   
   openWindowForm(idMaquina?: number) {
     this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
       if(res){ 
         // this.DataLoad(idMaquina);
-        if (idMaquina == 36 || idMaquina == 40 ) {
-          this.select = false;
+        if (idMaquina === 36 == false && idMaquina == 40 == false) {
+          this.selec = false;
           this.DataLoad(idMaquina); 
-          console.log("Select", this.select);
-          return this.select = false;
-          
-          
+          console.log("Cambio de estado", this.selec);
         } else {
-          this.select=true;
-        } 
+          this.selec=true;
+        }
+        this.DataLoad(idMaquina);
       }
       
     });
@@ -492,6 +505,16 @@ export class WindowComponent {
       isOn:this.propiedades.isOn,
       prioridad:Number(this.prioridadValor.nativeElement.value)
     };
+
+    function pro (PROPIEDADESACTUALIZAR){
+      if (PROPIEDADESACTUALIZAR.propiedades.type == 36 || PROPIEDADESACTUALIZAR.propiedades.type == 40 ) {
+          this.re = false;
+          return this.re;
+      }else{
+        this.re = true;
+      }
+    }
+    
 
     // this.colorMaquina.fillValor = 'red';
     // console.log(PROPIEDADESACTUALIZAR);

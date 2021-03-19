@@ -21,6 +21,12 @@
   stroke-width: 2;
   animation: blinkingBackground 1s infinite;
 }
+
+.showStatusFind{
+  stroke:rgb(216, 19, 19);
+  stroke-width: 2;
+  animation: blinkingBackground 1s infinite;
+}
 @keyframes blinkingBackground{
   0%		{ stroke:lime;}
   50%		{ stroke:rgba(0, 255, 0, 0.514);}

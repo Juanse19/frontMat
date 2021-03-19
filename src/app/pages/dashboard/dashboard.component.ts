@@ -35,6 +35,18 @@ interface Ordersnotwip {
   sizeDifference: number;
 }
 
+interface Predictive {
+  maquina: string;
+  metrosPor10MinCorrugador: number;
+  metrosPor10MinMaquina: number;
+  capacidadWip: number;
+  ocupacionActual: number;
+  anchoTotalAruumeOrden: number; 
+  ocupacionPredictiva: number;
+  tiempoDetencionCorrugador: number;
+  duracionDetencion: number;
+}
+
 
 // let REPORTOCUPATION: ReportOcupation[] = [
 
@@ -48,7 +60,7 @@ interface Ordersnotwip {
 export class DashboardComponent implements OnDestroy {
 
   /** Table de ocupacion del sistema */
-  settings = {
+  settings1 = {
     actions: false,
     columns: {
       id: {
@@ -86,11 +98,11 @@ export class DashboardComponent implements OnDestroy {
     },
   };
 
-  source: LocalDataSource = new LocalDataSource();
+  source1: LocalDataSource = new LocalDataSource();
   public ReportOcupation: ReportOcupation[];
 
   /** Table de ordenes que no encajan en los wips */
-  setting = {
+  settings2 = {
     actions: false,
     columns: {
       // id: {
@@ -149,8 +161,70 @@ export class DashboardComponent implements OnDestroy {
     },
   };
 
-  sources: LocalDataSource = new LocalDataSource();
+  source2: LocalDataSource = new LocalDataSource();
   public ReportOrdersnotwip: Ordersnotwip[];
+
+
+  settings3 = {
+    actions: false,
+    columns: {
+      // Maquina: {
+      //   title: 'Maquina',
+      //   type: 'string',
+      //   filter: false,
+      //   hide: true,
+
+      // },
+      maquina: {
+        title: 'Maquina',
+        type: 'string',
+        filter: false,
+      },
+      metrosPor10MinCorrugador: {
+        title: 'MetrosPor10MinCorrugador',
+        type: 'number',
+        filter: false,
+      },
+      metrosPor10MinMaquina: {
+        title: 'MetrosPor10MinMaquina',
+        type: 'number',
+        filter: false,
+      },
+      capacidadWip: {
+        title: 'CapacidadWip',
+        type: 'number',
+        filter: false,
+      },
+      ocupacionActual: {
+        title: 'OcupacionActual',
+        type: 'number',
+        filter: false,
+      },
+      anchoTotalAruumeOrden: {
+        title: 'AnchoTotalAruumeOrden',
+        type: 'number',
+        filter: false,
+      },
+      ocupacionPredictiva: {
+        title: 'OcupacionPredictiva',
+        type: 'number',
+        filter: false,
+      },
+      tiempoDetencionCorrugador: {
+        title: 'TiempoDetencionCorrugador',
+        type: 'number',
+        filter: false,
+      },
+      duracionDetencion: {
+        title: 'DuracionDetencion',
+        type: 'number',
+        filter: false,
+      },
+    },
+  };
+
+  source3: LocalDataSource = new LocalDataSource();
+  public GetPredictive: Predictive[];
 
 
   private alive = true;
@@ -167,6 +241,8 @@ export class DashboardComponent implements OnDestroy {
     this.ChargeReportOcupation();
     
     this.ChargeOrdersnotwip();
+
+    this.ChargePredictive();
 
     this.alive;
     
@@ -198,17 +274,16 @@ export class DashboardComponent implements OnDestroy {
   ChargeReportOcupation() {
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Reports/GeReportOcupation').subscribe((res: any) => {
       //REPORTOCUPATION=res;
-      console.log("Report Ocupacion:", res);
-      
+      // console.log("Report Ocupacion:", res);
       this.ReportOcupation = res;
-      this.source.load(res);
+      this.source1.load(res);
     });
     const contador = interval(60000)
     contador.subscribe((n) => {
       this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Reports/GeReportOcupation').subscribe((res: any) => {
         //REPORTOCUPATION=res;
         this.ReportOcupation = res;
-        this.source.load(res);
+        this.source1.load(res);
       });
     });
 
@@ -217,19 +292,37 @@ export class DashboardComponent implements OnDestroy {
   ChargeOrdersnotwip() {
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Reports/GetnotwipList').subscribe((res: any) => {
       //REPORTOCUPATION=res;
-      console.log("Report notwipList:", res);
-      
+      // console.log("Report notwipList:", res);
       this.ReportOrdersnotwip = res;
-      this.source.load(res);
+      this.source2.load(res);
     });
     const contador = interval(30000)
     contador.subscribe((n) => {
       this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Reports/GetnotwipList').subscribe((res: any) => {
         //REPORTOCUPATION=res;
         this.ReportOrdersnotwip = res;
-        this.source.load(res);
+        this.source2.load(res);
       });
     });
 
   }
+
+  ChargePredictive() {
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Reports/GetPredictiveList').subscribe((res: any) => {
+      //REPORTOCUPATION=res;
+      console.log("Report Predictive:", res);
+      this.GetPredictive = res;
+      this.source3.load(res);
+    });
+    const contador = interval(30000)
+    contador.subscribe((n) => {
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Reports/GetPredictiveList').subscribe((res: any) => {
+        //REPORTOCUPATION=res;
+        this.GetPredictive = res;
+        this.source3.load(res);
+      });
+    });
+
+  }
+
 }

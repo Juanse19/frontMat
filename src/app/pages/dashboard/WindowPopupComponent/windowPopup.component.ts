@@ -24,11 +24,12 @@ interface Propiedades {
 }
 
 interface PropiedadesActualizar {
+  id: number;
   descripcionMaquina: string;
   type: string;
   valor: string;
   isOn: boolean;
-  prioridad: number;
+  prioridad?: number;
 }
 
 interface Ordenes {
@@ -200,7 +201,7 @@ export class WindowComponent {
 
   nombreEstado: string;
   toggleNgModel = true;
-  selec = true;
+  public selec = false;
   
 
   devicesType = DEVICESTYPE;
@@ -237,6 +238,7 @@ export class WindowComponent {
   @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef, static: true }) disabledEscTemplate: TemplateRef<HTMLElement>;
   @ViewChild('prioridadValor') prioridadValor: ElementRef;
+  @ViewChild('nameMachine') nameMachineValor: ElementRef;
   @ViewChild('wips') eWips: ElementRef;
   
   constructor(private windowService: NbWindowService,
@@ -251,6 +253,16 @@ export class WindowComponent {
     private toasterService: NbToastrService,
     
     ) {
+
+
+
+      if (IDMAQUINA === 36 ||  IDMAQUINA === 40) {
+        this.selec = false;
+        // this.DataLoad(idMaquina); 
+        console.log("Cambio de estado", this.selec);
+      }else {
+        this.selec=true;
+      }
       
       this.subscription = this.messageService.onMessage().subscribe(message => {
         if (message.text=="PackageUpdate") {
@@ -446,13 +458,7 @@ export class WindowComponent {
     this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
       if(res){ 
         // this.DataLoad(idMaquina);
-        if (idMaquina === 36 == false && idMaquina == 40 == false) {
-          this.selec = false;
-          this.DataLoad(idMaquina); 
-          console.log("Cambio de estado", this.selec);
-        } else {
-          this.selec=true;
-        }
+      
         this.DataLoad(idMaquina);
       }
       
@@ -493,27 +499,22 @@ export class WindowComponent {
   EditPropiedades() {
     // console.log(this.propiedades.isOn);
     // console.log(this.propiedades.valor);
-    // console.log(this.propiedades.type);
+    // console.log("Estes es el type: ",this.propiedades.type);
+    
     // console.log(this.propiedades.description);
     // console.log(Number(this.prioridadValor.nativeElement.value));
-
+    
     PROPIEDADESACTUALIZAR =
     {
-      descripcionMaquina:this.propiedades.description,
+      id:IDMAQUINA,
+      descripcionMaquina:this.nameMachineValor.nativeElement.value,
       type:this.propiedades.type,
       valor:this.propiedades.valor,
-      isOn:this.propiedades.isOn,
-      prioridad:Number(this.prioridadValor.nativeElement.value)
+      isOn:this.propiedades.isOn
+      // prioridad:Number(this.prioridadValor.nativeElement.value)
     };
 
-    function pro (PROPIEDADESACTUALIZAR){
-      if (PROPIEDADESACTUALIZAR.propiedades.type == 36 || PROPIEDADESACTUALIZAR.propiedades.type == 40 ) {
-          this.re = false;
-          return this.re;
-      }else{
-        this.re = true;
-      }
-    }
+    
     
 
     // this.colorMaquina.fillValor = 'red';
@@ -619,7 +620,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     
     this.orderPopup.openWindowForm("Package: "+ order,ORDEN, this.idMaquina)
     
-   
+    
     
     
   }

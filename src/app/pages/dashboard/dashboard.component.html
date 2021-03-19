@@ -16,7 +16,7 @@
       </nb-card-header>
 
       <nb-card-body>
-        <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="ReportOcupation">
+        <ng2-smart-table class="example-smart-table" [settings]="settings1" [source]="source1">
         </ng2-smart-table>
       </nb-card-body>
     </nb-card>
@@ -27,7 +27,18 @@
       </nb-card-header>
 
       <nb-card-body>
-        <ng2-smart-table class="example-smart-table" [settings]="setting" [source]="ReportOrdersnotwip">
+        <ng2-smart-table class="example-smart-table" [settings]="settings2" [source]="source2">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card> 
+
+    <nb-card>
+      <nb-card-header>
+        Predictivo
+      </nb-card-header>
+
+      <nb-card-body>
+        <ng2-smart-table class="example-smart-table" [settings]="settings3" [source]="GetPredictive">
         </ng2-smart-table>
       </nb-card-body>
     </nb-card>

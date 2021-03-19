@@ -46,6 +46,45 @@ export interface NgStyle{
     fillOpacity:number,
 }
 
+//--- Interface Dashboard 
+export interface Ordenes {
+    id?: number;
+    order: string;
+    name: string;
+    description: string;
+    reference: string;
+    orderLength: number;
+  }
+  
+export interface Propiedades {
+    id?: number;
+    name: string;
+    description: string;
+    isOn: boolean;
+    type: string;
+    valor: string;
+    prioridad: number;
+  }
+  
+export interface Wip{
+    id?: number;
+    name: string;
+    description: string;
+  }
+  
+export interface State {
+    page: number;
+    pageSize: number;
+    searchTerm: string;
+  }
+  
+  
+export  interface SearchResult2 {
+    ordenes: Ordenes[];
+    total: number;
+  }
+  
+
 
 export const IdMaquinas = {
     Martin1228 :22,

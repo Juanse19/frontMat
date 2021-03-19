@@ -254,7 +254,7 @@ export class PagesMenu {
       children: undefined,
     };
     const animationMenu: NbMenuItem = {
-      title: 'Animacion',
+      title: 'WCS',
       icon: 'monitor-outline',
       link: '/pages/animation/animationsvg',
       children: undefined,
@@ -306,7 +306,7 @@ export class PagesMenu {
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
-          return [...dashboardMenu,  orderMenu, reportMenu, userMenu, alarmMenu, registerMenu];
+          return [...dashboardMenu, animationMenu, orderMenu, reportMenu, userMenu, alarmMenu, registerMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu];

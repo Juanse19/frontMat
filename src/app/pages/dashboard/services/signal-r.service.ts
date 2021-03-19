@@ -195,7 +195,7 @@ AsignarDatosWip(data:any){
   if (this.dataPackageWip[0].idMaquina==IdWip.CT_2)
   {
     this.dataPackageCT_2=data;
-    this.dataPackageCT_2[0].ngStyle.x=40
+    this.dataPackageCT_2[0].ngStyle.x=30
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.CT1)
   {

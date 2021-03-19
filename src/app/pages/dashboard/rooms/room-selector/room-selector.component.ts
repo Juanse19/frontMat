@@ -557,6 +557,7 @@ this.ColorCharge();
     // this.valorX = this.valorX + 10;
   const contador = interval(1000)
     contador.subscribe((n) =>{
+      this.MoverSTM();
       this.MoverCT();
       this.MoverCT1();
       this.MoverCT2();
@@ -570,6 +571,14 @@ this.ColorCharge();
     // contador3.subscribe((n) =>{
     //   this.MoverCT();
     // });
+  }
+
+  MoverSTM(){
+    // this.valorX = this.valorX + 10;
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/ST').subscribe((res: any) => {
+      // console.log(res);
+      this.valorXCT  = res.position;
+      });
   }
 
   MoverCT(){
@@ -605,8 +614,6 @@ this.ColorCharge();
 
   ClicST3() {
      var res = this.comp2.openWindowForm(IdWip.ST3);
-     
-     
   }
 
   ClicST4() {

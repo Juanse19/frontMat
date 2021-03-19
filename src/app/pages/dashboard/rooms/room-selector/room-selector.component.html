@@ -30,7 +30,7 @@
 		status="basic" 
 		placeholder="Buscar arrumes por orden"
 		[(ngModel)]="inputOrder"
-		[nbAutocomplete]="autoControl"
+		[nbAutocomplete]="autoControl" 
 		>
   <nb-autocomplete #autoControl>
 	<nb-option *ngFor="let option of orderProcess" [value]="option.order">

@@ -4,21 +4,17 @@ import { NbThemeService } from '@nebular/theme';
 import { delay, map, takeUntil } from 'rxjs/operators';
 import { Observable, Subject, of, BehaviorSubject, interval,Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { WindowComponent } from '../dashboard/WindowPopupComponent/windowPopup.component';
-import {ApiGetService} from '../dashboard/WindowPopupComponent/apiGet.services';
+import { JacComponent } from '../../JacComponent/jac.component';
+import { WindowComponent } from '../../WindowPopupComponent/windowPopup.component';
+import {ApiGetService} from '../../WindowPopupComponent/apiGet.services';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { WindowComponent2 } from './OrderPopup/orderPopup.component';
-import { HttpService } from '../../@core/backend/common/api/http.service';
+import {WindowComponent2 } from '../../OrderPopup/orderPopup.component';
+import { HttpService } from '../../../../@core/backend/common/api/http.service';
 import { NbAccessChecker } from '@nebular/security';
-import { SignalRService } from '../dashboard/services/signal-r.service';
-import { MessageService } from './../dashboard/services/MessageService';
-import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, Ordenes, State } from './../dashboard/_interfaces/MatBox.model';
-
-let ORDENES: Ordenes[] = [
-
-
-];
+import { SignalRService } from '../../services/signal-r.service';
+import { MessageService } from '../../services/MessageService';
+import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes } from '../../_interfaces/MatBox.model';
 
 @Component({
   providers: [
@@ -28,11 +24,11 @@ let ORDENES: Ordenes[] = [
     , WindowComponent2,
     // , WindowFormComponent
     ],
-  selector: 'ngx-animation',
-  templateUrl: './animation.component.html',
-  styleUrls: ['./animation.component.scss']
+  selector: 'ngx-wcs',
+  templateUrl: './wcs.component.html',
+  styleUrls: ['./wcs.component.scss']
 })
-export class AnimationComponent implements OnInit, OnDestroy {
+export class WcsComponent implements OnInit, OnDestroy {
 
   @ViewChild('autoInput') input;
 
@@ -122,7 +118,7 @@ export class AnimationComponent implements OnInit, OnDestroy {
   constructor(
     public sigalRService: SignalRService,
     private http: HttpClient,
-    // public comp2: WindowComponent,
+    public comp2: WindowComponent,
     private api: HttpService,
     public apiGetComp: ApiGetService,
     private messageService: MessageService
@@ -261,12 +257,105 @@ export class AnimationComponent implements OnInit, OnDestroy {
       });
   }
 
-//   ClicST3() {
-//     var res = this.comp2.openWindowForm(IdWip.ST3);
-//  }
+  ClicST3() {
+    var res = this.comp2.openWindowForm(IdWip.ST3);
+ }
 
-//  ClicST4() {
-//    this.comp2.openWindowForm(IdWip.ST4);
-// }
-  
+ ClicST4() {
+   this.comp2.openWindowForm(IdWip.ST4);
+}
+
+ClicST5() {
+ this.comp2.openWindowForm(IdWip.ST5);
+}
+ClicST6() {
+ this.comp2.openWindowForm(IdWip.ST6);
+}
+ClicST7() {
+ this.comp2.openWindowForm(IdWip.ST7);
+}
+
+ClicST8() {
+ this.comp2.openWindowForm(IdWip.ST8);
+}
+
+
+ClicST9() {
+ this.comp2.openWindowForm(IdWip.ST9);
+}
+
+ClicST10() {
+ this.comp2.openWindowForm(IdWip.ST10);
+}
+
+ClicST11() {
+ this.comp2.openWindowForm(IdWip.ST11);
+}
+
+
+ClicST12() {
+ this.comp2.openWindowForm(IdWip.ST12);
+}
+
+
+ClicST13() {
+ this.comp2.openWindowForm(IdWip.ST13);
+}
+
+
+ClicST14() {
+ this.comp2.openWindowForm(IdWip.ST14);
+}
+
+ClicST15() {
+ this.comp2.openWindowForm(IdWip.ST15);
+}
+
+ClicID12(){
+ this.comp2.openWindowForm(IdWip.ID12)
+}
+
+ClicID22(){
+ this.comp2.openWindowForm(IdWip.ID22)
+}
+
+ ClicMARTIN1228() {    
+       this.comp2.openWindowForm(IdMaquinas.Martin1228); 
+ }
+
+ ClicWard15000() {
+     this.comp2.openWindowForm(IdMaquinas.WARD15000);
+ }
+ ClicLaminadora() {
+   this.comp2.openWindowForm(IdMaquinas.Laminadora);
+}
+
+ClicImpresora36() {
+ 
+ this.comp2.openWindowForm(IdMaquinas.Impresora36);
+}
+
+ClicJS() {
+ this.comp2.openWindowForm(IdMaquinas.JS);
+ 
+}
+
+Clic924() {
+ this.comp2.openWindowForm(IdMaquinas.M924);
+}
+
+
+ClicSYS() {
+ this.comp2.openWindowForm(IdMaquinas.SYS);
+}
+
+ public ClicST2(): void {    
+   this.comp2.openWindowForm(IdWip.ST2);
+ }
+
+ public ClicST1(): void {
+   this.comp2.openWindowForm(IdWip.ST1);
+ }
+
+
 }

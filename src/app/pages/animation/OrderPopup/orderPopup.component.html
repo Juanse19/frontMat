@@ -1,0 +1,44 @@
+<nb-card>
+	<nb-card-header>Arrume Manual</nb-card-header>
+	<nb-card-body>
+		<div [formGroup]="arrumeManualForm" class="container">
+			<div class="form-group">
+				<label for="orderForm">Orden</label>
+					<nb-select id="orderForm"
+					formControlName="orderForm"
+					class="form-control">
+						<nb-option *ngFor="let ord of orderList" [value]="ord.order">
+						  {{ ord.order }}
+						</nb-option>             
+					  </nb-select>
+			</div>
+			<div class="form-group">
+				<label for="statusForm">Estado</label>
+				<nb-select id="statusForm"
+				formControlName="statusForm"
+				class="form-control"
+				>
+					<nb-option *ngFor="let option of status" [value]="option.id">
+					  {{ option.name }}
+					</nb-option>             
+				  </nb-select>
+			</div>
+		
+			<div class="form-group">
+				<label for="cutLengthForm">Longitud de Corte</label>
+				<input 
+				nbInput 
+				id="cutLengthForm" 
+				formControlName="cutLengthForm"
+				type="number" 
+				class="form-control"
+				status="basic" 
+				placeholder="Buscar arrumes por orden"
+				>
+			</div>
+		</div>
+	</nb-card-body>
+	<nb-card-footer>
+		<button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="ChangeState()">GUARDAR</button>
+	</nb-card-footer>
+</nb-card>

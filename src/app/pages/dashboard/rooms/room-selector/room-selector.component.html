@@ -888,7 +888,7 @@
 				<text x="26.97" y="312.43" class="st5">CT</text>			</g>
 		</g>
 		<!-- <g id="group166-462" transform="translate(386.611,-77.5512)"> -->
-			<g id="group166-462" transform="translate(386.611,-77.5512)" [ngStyle]="{'transform': 'translate(' + 386.611 + 'px, ' + valorYCT1 + 'px)'}" >
+			<g id="group166-462" [ngStyle]="{'transform': 'translate(' + 386.611 + 'px, ' + valorYCT1 + 'px)'}" >
 			<title>Sheet.166</title>
 			<desc>CT1</desc>
 			<g id="shape167-463" transform="translate(9.09608E-14,-1.1232)">
@@ -981,7 +981,7 @@
 			<g id="shape181-508">
 				<text x="4.82" y="310.88" class="st5">ST2</text>			</g>
 		</g>
-		<g id="group184-510" transform="translate(108.955,-243.66)">
+		<g id="group184-510" transform="translate(108.955,-243.66)" (click)="ClicIM1()">
 			<title>Sheet.184</title>
 			<desc>IM1</desc>
 			<g id="shape185-511">
@@ -1016,6 +1016,9 @@
 				<title>Sheet.192</title>
 				<path transform="" d="M0 319.03 L22.75 319.03" class="st2"/>
 			</g>
+			<rect *ngIf="sigalRService.dataPackageIM1[0].visible" x="0" y="303" width="19" height="14" 
+		[ngStyle] = "sigalRService.dataPackageIM1[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageIM1[0].order==inputOrder}"/>
 			<g id="shape184-533">
 				<text x="4.92" y="311.47" class="st5">IM1</text>			</g>
 		</g>
@@ -1605,10 +1608,13 @@
 			[ngStyle] = "sigalRService.dataPackageST4[7].ngStyle" 	
 			[ngClass] = "{showOrderFind: sigalRService.dataPackageST4[7].order==inputOrder}"/>
 			<text x="3.01" y="298.39" class="st5">ST4</text>		</g>
-		<g id="shape234-661" transform="translate(438.585,-176.683)">
+		<g id="shape234-661" transform="translate(438.585,-176.683)" (click)="ClicIM2()">
 			<title>Sheet.234</title>
 			<desc>IM2</desc>
 			<path transform="" d="M0 271.11 L0 319.03 L21.13 319.03 L21.24 271.11 L0 271.11 L0 271.11 Z" class="st6"/>
+			<rect *ngIf="sigalRService.dataPackageIM2[0].visible" x="0" y="303" width="19" height="14" 
+		[ngStyle] = "sigalRService.dataPackageIM2[0].ngStyle"
+			[ngClass] = "{showOrderFind: sigalRService.dataPackageIM2[0].order==inputOrder}"/>
 			<text x="4.16" y="297.47" class="st5">IM2</text>		</g>
 		<g id="shape235-664" transform="translate(463.81,-182.127)"(click)="ClicST5()"*ngIf="accessChecker.isGranted('edit', 'users')" >
 			<title>Sheet.235</title>

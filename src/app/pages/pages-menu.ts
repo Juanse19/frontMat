@@ -18,8 +18,8 @@ export class PagesMenu {
   getMenu(): Observable<NbMenuItem[]> {
     const dashboardMenu = [
       {
-        title: 'IoT Dashboard',
-        icon: 'home-outline',
+        title: 'WCS Dashboard',
+        icon: 'monitor-outline',
         link: '/pages/iot-dashboard',
         children: undefined,
       },
@@ -306,7 +306,7 @@ export class PagesMenu {
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
-          return [...dashboardMenu, animationMenu, orderMenu, reportMenu, userMenu, alarmMenu, registerMenu];
+          return [...dashboardMenu, orderMenu, reportMenu, userMenu, alarmMenu, registerMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu];

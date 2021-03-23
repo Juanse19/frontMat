@@ -24,6 +24,12 @@
     width: 30%;
   }
 
+  ngx-wcs {
+    width: 100%;
+    border-right: nb-theme(divider-width) nb-theme(divider-style) nb-theme(divider-color);
+    background-size: 85px;
+  }
+
   nb-card {
     display: flex;
     flex-direction: row;

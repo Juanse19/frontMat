@@ -711,6 +711,12 @@ ClicSYS() {
   public ClicST1(): void {
     this.comp2.openWindowForm(IdWip.ST1);
   }
+  public ClicIM1(): void {
+    this.comp2.openWindowForm(IdWip.IM1);
+  }
+  public ClicIM2(): void {
+    this.comp2.openWindowForm(IdWip.IM2);
+  }
 
   
 

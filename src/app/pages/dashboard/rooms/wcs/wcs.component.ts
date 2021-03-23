@@ -14,7 +14,7 @@ import { HttpService } from '../../../../@core/backend/common/api/http.service';
 import { NbAccessChecker } from '@nebular/security';
 import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
-import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes } from '../../_interfaces/MatBox.model';
+import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName } from '../../_interfaces/MatBox.model';
 
 @Component({
   providers: [
@@ -50,6 +50,41 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   };
 
+  public dataWipName: WipName = {
+  iD_12: "",
+  iD_22: "",
+  sT1: "",
+  sT2: "",
+  iM1: "",
+  sT3: "",
+  sT4: "",
+  sT5: "",
+  sT6: "",
+  sT7: "",
+  sT8: "",
+  sT9: "",
+  sT10: "",
+  sT11: "",
+  sT12: "",
+  sT13: "",
+  sT14: "",
+  sT15: "",
+  iM2: "",
+  iM3: "",
+  iM4: "",
+  iM5: "",
+  iM6: "",
+  iM7: "",
+  cT2: "",
+  cT1: "",
+  cT_1: "",
+  cT_2: "",
+  tm: "",
+  tF1: "",
+  tF2: "",
+  }
+
+
   public dataWipColor: WipColor = {
     colorST1: "Black",
     colorST2: "Black",
@@ -76,9 +111,9 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   };
   valorXPquetes = 0;
-  valorXCT = 0;
-  valorYCT1 = 591.798;
-  valorYCT2 = 591.798;
+  valorXCT = 126.321;
+  valorYCT1 = -96.3;
+  valorYCT2 = -94.3;
   valorZTM = 0;
 
   paqueteNombe = "paqueteST6"
@@ -116,17 +151,23 @@ export class WcsComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    public accessChecker: NbAccessChecker,
+    private location: Location,
+    private locationStrategy: LocationStrategy,
+    private themeService: NbThemeService,
     public sigalRService: SignalRService,
     private http: HttpClient,
-    public comp2: WindowComponent,
-    private api: HttpService,
+    private comp2: WindowComponent,
     public apiGetComp: ApiGetService,
+    public pipe: DecimalPipe,
+    private api: HttpService,
     private messageService: MessageService
   ) {
     this.subscription = this.messageService.onMessage().subscribe(message => {
       if (message.text=="MachineColor") {
         //this.messages.push(message);
         this.ColorCharge();
+        this.WipNameCharge();
       } 
     });
   }
@@ -160,11 +201,26 @@ export class WcsComponent implements OnInit, OnDestroy {
   .subscribe((res: any)=>{
     this.dataWipColor=res;
   });
+
   }
 
+  public WipNameCharge(){
 
+    this.http.get(this.api.apiUrlMatbox + "/Orders/WipNameList")
+    .subscribe((res: any)=>{
+      this.dataWipName=res[0];
+      console.log("WipName :", res);
+      
+    });
+
+  }
+  
   ngOnInit(): void {
     this.GetOrderProcess();
+    this.InitSignalR();
+    this.MoverCarro();
+    this.ColorCharge();
+    this.WipNameCharge();
   }
 
   InitSignalR() {
@@ -356,6 +412,65 @@ ClicSYS() {
  public ClicST1(): void {
    this.comp2.openWindowForm(IdWip.ST1);
  }
+
+ 
+ EliminarElemento(){
+  // console.log(this.paqueteRec.nativeElement);
+  // this.paqueteRec.nativeElement.visibility;
+  // var elemento = document.getElementById("paquete");
+  var elemento = document.getElementById("paqueteRec" + this.contPaqueteST6);
+
+  let objeto = {
+  
+    visibility:"hidden"
+  };
+  for (var nombre in objeto) {
+    if (objeto.hasOwnProperty(nombre)) {
+      elemento.setAttributeNS(null, nombre, objeto[nombre]);
+    }
+  }
+  if(this.contPaqueteST6 >= 1){
+  this.contPaqueteST6 = this.contPaqueteST6 -1;
+  }
+}
+
+VisibleElemento(){
+  // var elemento = document.getElementById("paquete");
+  if(this.contPaqueteST6 < 5){
+  this.contPaqueteST6 = this.contPaqueteST6 + 1;
+  var color;
+  if(this.contPaqueteST6 == 1){
+     color = "yellow"
+  }
+  if(this.contPaqueteST6 == 2){
+     color = "blue"
+  }
+  if(this.contPaqueteST6 == 3){
+     color = "red"
+  }
+  if(this.contPaqueteST6 == 4){
+     color = "green"
+  }
+  if(this.contPaqueteST6 == 5){
+    color = "gray"
+ }
+  var elemento = document.getElementById("paqueteRec" + this.contPaqueteST6);
+
+  let objeto = {
+ 
+    visibility:"visible",
+    stroke: color,
+    fill: color
+    
+  };
+  for (var nombre in objeto) {
+    if (objeto.hasOwnProperty(nombre)) {
+      elemento.setAttributeNS(null, nombre, objeto[nombre]);
+    }
+  }
+ }
+}
+
 
 
 }

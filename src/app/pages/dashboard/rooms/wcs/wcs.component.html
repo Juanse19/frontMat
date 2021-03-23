@@ -1,4 +1,21 @@
 
+<nb-card>
+	<nb-card-body class="example-items-rows">
+        <input 
+		type="text" 
+		nbInput 
+		status="basic" 
+		placeholder="Buscar arrumes por orden"
+		[(ngModel)]="inputOrder"
+		[nbAutocomplete]="autoControl" 
+		>
+  <nb-autocomplete #autoControl>
+	<nb-option *ngFor="let option of orderProcess" [value]="option.order">
+	  {{ option.order }}
+	</nb-option>
+  </nb-autocomplete>  
+</nb-card-body>
+
 <div class="room-layout">
     <svg id="Layer_0_Imagen" data-name="Layer 0 Imagen" xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 574.45 259.39">
@@ -57,12 +74,10 @@
         <image id="Layer_0_Imagen-3" data-name="Layer 0 Imagen" width="1653" height="656"
             transform="translate(129.43 72.38) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout2.png" />
         <image id="Layer_0_Imagen-4" data-name="Layer 0 Imagen" width="399" height="64"
-            transform="translate(312.56 203.72) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout3.png" />
+            transform="translate(312.56 203.72) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout3.png" (click)="ClicST13()" />
             <!-- Rectangulo ST13 -->
-            <g id="shape232-655" transform="translate(313.331,-100.826)" (click)="ClicST13()">
-                <!-- <title>Sheet.232</title>
-                <desc>ST13</desc>
-                <path transform="" d="M0 300.76 L0 319.03 L128.14 319.03 L128.14 300.76 L0 300.76 L0 300.76 Z" class="st6" (click)="ClicST13()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST13}"/> -->
+            <g id="shape232-655" transform="translate(313.331,-100.826)" >
+                
                 <rect *ngIf="sigalRService.dataPackageST13[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST13[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST13[0].order==inputOrder}"/>
@@ -93,20 +108,16 @@
                 <rect *ngIf="sigalRService.dataPackageST13[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST13[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST13[9].order==inputOrder}"/>
-                <text x="35.27" y="318.13" class="st5">ST13</text>		
+                <text x="35.27" y="318.13" class="st5">{{dataWipName.sT13}}</text>		
             </g>
            
         <image id="Layer_0_Imagen-5" data-name="Layer 0 Imagen" width="487" height="97"
             transform="translate(148.7 198.38) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout4.png" />
         <image id="Layer_0_Imagen-6" data-name="Layer 0 Imagen" width="399" height="76"
-            transform="translate(311.89 185.97) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout5.png" />
+            transform="translate(311.89 185.97) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout5.png" (click)="ClicST12()" />
             <!-- Rectangulo ST12 -->
             <g id="shape231-651" transform="translate(313.334,-117.8928)" (click)="ClicST12()">
-                <!-- <title>Sheet.231</title>
-                <desc>ST12</desc>
-                <path transform="" d="M0.01 297.62 L128.17 297.62 L128.17 319.01 L0 319.03 L0.01 297.73 L0.01 297.73 L0.01 297.62 Z"
-                        class="st1" (click)="ClicST12()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST12}"/>
-                <path transform="" d="M0.01 297.62 L128.17 297.62 L128.17 319.01 L0 319.03 L0.01 297.73 L0.01 297.73" class="st4" [ngStyle]="{stroke:dataWipColor.colorST12}"/> -->
+               
                 <rect *ngIf="sigalRService.dataPackageST12[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST12[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST12[0].order==inputOrder}"/>
@@ -137,15 +148,13 @@
                 <rect *ngIf="sigalRService.dataPackageST12[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST12[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST12[9].order==inputOrder}"/>
-                <text x="35.27" y="318.13" class="st5">ST12</text>		
+                <text x="35.27" y="318.13" class="st5">{{dataWipName.sT12}}</text>		
             </g>
         <image id="Layer_0_Imagen-7" data-name="Layer 0 Imagen" width="398" height="76"
-            transform="translate(201.74 170.31) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout6.png" />
+            transform="translate(201.74 170.31) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout6.png" (click)="ClicST15()" />
             <!-- Rectangulo ST15 -->
-            <g id="shape220-616" transform="translate(202.306,-131.7697)" (click)="ClicST15()">
-                <!-- <title>Sheet.220</title>
-                <desc>ST15</desc>
-                <path transform="" d="M127.67 319.03 L0 319.03 L0 298.48 L127.67 298.48 L127.67 319.03 L127.67 319.03 Z" class="st6"(click)="ClicST15()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST15}" /> -->
+            <g id="shape220-616" transform="translate(202.306,-131.7697)" >
+                
                 <rect *ngIf="sigalRService.dataPackageST15[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST15[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST15[0].order==inputOrder}"/>
@@ -176,16 +185,14 @@
                 <rect *ngIf="sigalRService.dataPackageST15[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST15[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST15[9].order==inputOrder}"/>
-                <text x="40.78" y="311.15" class="st5">ST15</text>		
+                <text x="40.78" y="311.15" class="st5">{{dataWipName.sT15}}</text>		
             </g>
     
         <image id="Layer_0_Imagen-8" data-name="Layer 0 Imagen" width="397" height="53"
-            transform="translate(312.13 174.42) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout7.png" />
+            transform="translate(312.13 174.42) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout7.png" (click)="ClicST11()" />
             <!-- Rectangulo ST11 -->
-            <g id="shape230-648" transform="translate(313.334,-131.899)" (click)="ClicST11()">
-                <!-- <title>Sheet.230</title>
-                <desc>ST11</desc>
-                <path transform="" d="M0 306.58 L128.17 306.58 L128.17 319.03 L0 319.03 L0 306.58 L0 306.58 Z" class="st6" (click)="ClicST11()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST11}"/> -->
+            <g id="shape230-648" transform="translate(313.334,-131.899)" >
+                
                 <rect *ngIf="sigalRService.dataPackageST11[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST11[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST11[0].order==inputOrder}"/>
@@ -216,17 +223,15 @@
                 <rect *ngIf="sigalRService.dataPackageST11[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST11[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST11[9].order==inputOrder}"/>
-                <text x="35.27" y="318.13" class="st5">ST11</text>		
+                <text x="35.27" y="318.13" class="st5">{{dataWipName.sT11}}</text>		
             </g>
     
         <image id="Layer_0_Imagen-9" data-name="Layer 0 Imagen" width="398" height="54"
-            transform="translate(312.01 162.75) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout8.png" />
+            transform="translate(312.01 162.75) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout8.png" (click)="ClicST10()" />
             <!-- Rectangulo ST10 -->
-            <g id="shape229-645" transform="translate(313.331,-145.722)" (click)="ClicST10()">
-                <!-- <title>Sheet.229</title>
-                <desc>ST10</desc>
-                <path transform="" d="M0 306.43 L0 319.03 L128.17 319.03 L128.17 306.43 L0 306.43 L0 306.43 Z" class="st6" (click)="ClicST10()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST10}/> -->
-                    <rect *ngIf="sigalRService.dataPackageST10[0].visible" x="0" y="307" height="11" 
+            <g id="shape229-645" transform="translate(313.331,-145.722)" >
+                
+                <rect *ngIf="sigalRService.dataPackageST10[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST10[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST10[0].order==inputOrder}"/>
                 <rect *ngIf="sigalRService.dataPackageST10[1].visible"  y="307" height="11" 
@@ -256,16 +261,14 @@
                 <rect *ngIf="sigalRService.dataPackageST10[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST10[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST10[9].order==inputOrder}"/>
-                <text x="35.27" y="318.13" class="st5">ST10</text>		
+                <text x="35.27" y="318.13" class="st5">{{dataWipName.sT10}}</text>		
             </g>
     
         <image id="Layer_0_Imagen-10" data-name="Layer 0 Imagen" width="400" height="58"
-            transform="translate(311.77 149.83) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout9.png" />
+            transform="translate(311.77 149.83) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout9.png" (click)="ClicST9()" />
             <!-- Rectangulo ST9 -->
-            <g id="shape228-642" transform="translate(313.334,-155.999)" (click)="ClicST9()">
-                <!-- <title>Sheet.228</title>
-                <desc>ST9</desc>
-                <path transform="" d="M128.17 302.83 L128.17 319.03 L0 319.01 L0 302.81 L128.17 302.83 L128.17 302.83 Z" class="st6" (click)="ClicST9()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST9}/> -->
+            <g id="shape228-642" transform="translate(313.334,-155.999)" >
+               
                 <rect *ngIf="sigalRService.dataPackageST9[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST9[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST9[0].order==inputOrder}"/>
@@ -296,14 +299,14 @@
                 <rect *ngIf="sigalRService.dataPackageST9[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST9[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST9[9].order==inputOrder}"/>
-                <text x="35.27" y="318.13" class="st5">ST9</text>		
+                <text x="35.27" y="318.13" class="st5">{{dataWipName.sT9}}</text>		
             </g>
     
         <image id="Layer_0_Imagen-11" data-name="Layer 0 Imagen" width="398" height="51"
-            transform="translate(312.01 137.09) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout10.png" />
+            transform="translate(312.01 137.09) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout10.png" (click)="ClicST8()"  ></image> />
             <!-- Rectangulo ST8 -->
-            <g id="shape227-638" transform="translate(313.331,-168.826)" fill="tranparent" (click)="ClicST8()"  >
-                <title>ST8</title>
+            <g id="shape227-638" transform="translate(313.331,-168.826)" fill="tranparent"   >
+                
                 <rect *ngIf="sigalRService.dataPackageST8[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST8[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST8[0].order==inputOrder}"/>
@@ -334,18 +337,16 @@
                 <rect *ngIf="sigalRService.dataPackageST8[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST8[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST8[9].order==inputOrder}"/>
-                <text x="35.27" y="318.13" class="st5">ST8</text>		
+                <text x="35.27" y="318.13" class="st5">{{dataWipName.sT8}}</text>		
             </g>        
     
         <image id="Layer_0_Imagen-12" data-name="Layer 0 Imagen" width="355" height="65"
             transform="translate(211.28 142.58) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout11.png" />
         <image id="Layer_0_Imagen-13" data-name="Layer 0 Imagen" width="401" height="67"
-            transform="translate(200.24 127.92) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout12.png" />
+            transform="translate(200.24 127.92) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout12.png" (click)="ClicST14()" />
             <!-- Rectangulo ST14 -->
-            <g id="shape222-622" transform="translate(202.539,-175.951)" (click)="ClicST14()">
-                <!-- <title>Sheet.222</title>
-                <desc>ST14</desc>
-                <path transform="" d="M129.43 319.03 L129.43 301.68 L0 301.68 L0 319.03 L129.43 319.03 L129.43 319.03 Z" class="st6" (click)="ClicST14()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]="{stroke:dataWipColor.colorST14}" /> -->
+            <g id="shape222-622" transform="translate(202.539,-175.951)" >
+                
                 <rect *ngIf="sigalRService.dataPackageST14[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST14[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST14[0].order==inputOrder}"/>
@@ -376,15 +377,13 @@
                 <rect *ngIf="sigalRService.dataPackageST14[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST14[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST14[9].order==inputOrder}"/>
-                <text x="40.78" y="312.75" class="st5">ST14</text>		
+                <text x="40.78" y="312.75" class="st5">{{dataWipName.sT14}}</text>		
             </g>
         <image id="Layer_0_Imagen-14" data-name="Layer 0 Imagen" width="398" height="75"
-            transform="translate(312.34 120.99) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout13.png" />
+            transform="translate(312.34 120.99) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout13.png" (click)="ClicST7()" />
             <!-- Rectangulo ST7 -->
-            <g id="shape226-635" transform="translate(313.331,-182.999)" (click)="ClicST7()">
-                <!-- <title>Sheet.226</title>
-                <desc>ST7</desc>
-                <path transform="" d="M0 319.03 L0 297.34 L128.17 297.76 L128.17 319 L0 319.03 L0 319.03 Z" class="st6" (click)="ClicST4()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST7}/> -->
+            <g id="shape226-635" transform="translate(313.331,-182.999)" >
+                
                 <rect *ngIf="sigalRService.dataPackageST7[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST7[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST7[0].order==inputOrder}"/>
@@ -415,17 +414,14 @@
                 <rect *ngIf="sigalRService.dataPackageST7[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST7[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST7[9].order==inputOrder}"/>
-                <text x="35.27" y="318.13" class="st5">ST7</text>		
+                <text x="35.27" y="318.13" class="st5">{{dataWipName.sT7}}</text>		
             </g>
     
         <image id="Layer_0_Imagen-15" data-name="Layer 0 Imagen" width="398" height="55"
-            transform="translate(312.34 108.39) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout14.png" />
+            transform="translate(312.34 108.39) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout14.png" (click)="ClicST6()" />
             <!-- Rectangulo ST6 -->
             <g id="shape225-631" transform="translate(314.30,-197.100)" (click)="ClicST6()">
-                <!-- <title>Sheet.225</title>
-                <desc>ST6</desc>
-                <path transform="" d="M0 303.62 L128.28 303.62 L128.28 319.03 L0 319.03 L0 303.62 L0 303.62 L0 303.62 Z"  class="st1" (click)="ClicST6()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST6}/>
-                <path transform="" d="M0 303.62 L128.28 303.62 L128.28 319.03 L0 319.03 L0 303.62 L0 303.62"  class="st4" [ngStyle]={stroke:dataWipColor.colorST6}/> -->
+                
                 <rect *ngIf="sigalRService.dataPackageST6[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST6[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST6[0].order==inputOrder}"/>
@@ -456,7 +452,7 @@
                 <rect *ngIf="sigalRService.dataPackageST6[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST6[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST6[9].order==inputOrder}"/>
-                <text x="35.27" y="318.13" class="st5">ST6</text>		
+                <text x="35.27" y="318.13" class="st5">{{dataWipName.sT6}}</text>		
             </g>
     
         <image id="Layer_0_Imagen-16" data-name="Layer 0 Imagen" width="221" height="58"
@@ -464,21 +460,14 @@
         <image id="Layer_0_Imagen-17" data-name="Layer 0 Imagen" width="93" height="91"
             transform="translate(384.54 86.55) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout16.png" />
             <!-- Rectangulo TM -->
-            <g id="group194-536" transform="translate(385.967,-213.9933)" >
-                <!-- <desc>TM</desc>
-                <g id="shape195-537" transform="translate(1.15E-13,-18.1432)" >
-                    <title>Sheet.195</title>
-                    <path transform="" d="M0 319.03 L0 312.79 L4.08 312.79 L4.08 313.58 L4.08 312.79 L0 312.79 L0 319.03 L0.95 319.03
-                                 L0.95 319.03 L0 319.03 Z" class="st1"/>
-                    <path transform="" d="M0 319.03 L0 312.79 L4.08 312.79 L4.08 313.58 L4.08 312.79 L0 312.79 L0 319.03 L0.95 319.03
-                                 L0.95 319.03" class="st4"/>
-                </g>-->
+            <g id="group194-536" transform="translate(379.967,-206.9933)" >
+               
                 
                 <rect *ngIf="sigalRService.dataPackageTM[0].visible" x="0" y="303"  height="14" 
                                 [ngStyle] = "sigalRService.dataPackageTM[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageTM[0].order==inputOrder}"/>
                 <g id="shape194-557">
-                    <!-- <text x="9.01" y="307.22" class="st5">TM</text>			 -->
+                    <text x="9.01" y="307.22" class="st5">TM</text>			
                 </g>
             </g>
     
@@ -513,7 +502,7 @@
                 <rect *ngIf="sigalRService.dataPackageST3[7].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST3[7].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST3[7].order==inputOrder}"/>
-                <text x="22.93" y="312.3" class="st5">ST3</text>		
+                <text x="22.93" y="312.3" class="st5">{{dataWipName.sT3}}</text>		
             </g>
             
             <!-- Rectangulo TF1 -->
@@ -536,7 +525,7 @@
                                 [ngStyle] = "sigalRService.dataPackageTF1[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageTF1[0].order==inputOrder}"/>
                 <g id="shape50-143">
-                    <!-- <text x="15.33" y="309.89" class="st5">TF1</text>			 -->
+                    <text x="15.33" y="309.89" class="st5">{{dataWipName.tF1}}</text>			
                 </g>
             </g>
     
@@ -553,7 +542,7 @@
                              <rect *ngIf="sigalRService.dataPackageTF2[0].visible" x="0" y="303"  height="14" 
                                 [ngStyle] = "sigalRService.dataPackageTF2[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageTF2[0].order==inputOrder}"/>
-                <!-- <text x="15.31" y="309.83" class="st5">TF2</text>		 -->
+                <text x="15.31" y="309.83" class="st5">{{dataWipName.tF2}}</text>		
             </g>
     
         <image id="Layer_0_Imagen-20" data-name="Layer 0 Imagen" width="872" height="213"
@@ -569,7 +558,7 @@
                     <rect *ngIf="sigalRService.dataPackageID12[0].visible" x="0" y="307" height="11" 
                     [ngStyle] = "sigalRService.dataPackageID12[0].ngStyle"
                     [ngClass] = "{showOrderFind: sigalRService.dataPackageID12[0].order==inputOrder}"/>
-                    <text x="4.72" y="312.38" class="st5">ID12</text>	
+                    <text x="2.72" y="316.38" class="st5">ID12</text>	
                     </g>
         </g>
         <g class="cls-3">
@@ -583,7 +572,7 @@
                     <rect *ngIf="sigalRService.dataPackageID22[0].visible" x="0" y="307" height="11" 
                     [ngStyle] = "sigalRService.dataPackageID22[0].ngStyle"
                     [ngClass] = "{showOrderFind: sigalRService.dataPackageID22[0].order==inputOrder}"/>
-                    <text x="4.72" y="312.38" class="st5">ID22</text>		
+                    <text x="3.72" y="316.38" class="st5">ID22</text>		
                 </g>
     
         </g>
@@ -604,27 +593,18 @@
                                 [ngStyle] = "sigalRService.dataPackageST1[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST1[0].order==inputOrder}"/>
                 <g id="shape170-501">
-                    <text x="4.88" y="310.81" class="st5">ST1</text>			
+                    <text x="4.88" y="313.81" class="st5">{{dataWipName.sT1}}</text>			
                 </g>
             </g>
     
             <!-- Rectangulo ST2 -->
             <g id="group181-503" transform="translate(177.9794,-245.6906)" (click)="ClicST2()"> 
-                <!-- <title>Sheet.181</title>
-                <desc>ST2</desc>
-                <g id="shape182-504">
-                    <title>Sheet.182</title>
-                    <path transform="" d="M0 297.94 L21.28 297.94 L21.28 319.03 L0 319.03 L0 297.94 Z" class="st6" (click)="ClicST2()"*ngIf="accessChecker.isGranted('edit', 'users')" [ngStyle]={stroke:dataWipColor.colorST2}/>
-                </g>
-                <g id="shape183-506">
-                    <title>Sheet.183</title>
-                    <path transform="" d="M0 297.94 L21.28 297.94 L21.28 319.03 L0 319.03 L0 297.94 Z" class="st6" [ngStyle]={stroke:dataWipColor.colorST2}/>
-                </g> -->
+                
                 <rect *ngIf="sigalRService.dataPackageST2[0].visible" x="0" y="303" width="19" height="14" 
                         [ngStyle] = "sigalRService.dataPackageST2[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST2[0].order==inputOrder}"/>
                 <g id="shape181-508">
-                    <text x="4.82" y="310.88" class="st5">ST2</text>			
+                    <text x="2.82" y="313.81" class="st5">{{dataWipName.sT2}}</text>			
                 </g>
             </g>
     
@@ -642,11 +622,12 @@
         </g>
         <image id="Layer_0_Imagen-28" data-name="Layer 0 Imagen" width="138" height="72"
             transform="translate(264.65 203.12) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout27.png" />
-        <g>
+            
+        <g id="group53-145" [ngStyle]="{'transform': 'translate(' + 294.611 + 'px, ' + valorYCT2 + 'px)'}">
             <image id="Layer_0_Imagen-29" data-name="Layer 0 Imagen" width="67" height="127"
-            transform="translate(296.48 183.14) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout28.png" />
+            transform="translate(1.48 295.14) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout28.png" />
             <!-- Rectangulo CT2 -->
-                <g id="group53-145" transform="translate(295.154,-105.2055)" >
+                <!-- <g id="group53-145" transform="translate(295.154,-105.2055)" > -->
                     <!-- <title>Sheet.53</title>
                     <desc>CT2</desc>
                     <g id="shape54-146">
@@ -657,17 +638,17 @@
                                     [ngStyle] = "sigalRService.dataPackageCT2[0].ngStyle"
                     [ngClass] = "{showOrderFind: sigalRService.dataPackageCT2[0].order==inputOrder}"/>
                     <g id="shape53-270">
-                        <!-- <text x="2.89" y="304.41" class="st5">CT2</text>			 -->
+                        <text x="2.89" y="312.43" class="st5">CT2</text>			
                     </g>
-                </g>
+                <!-- </g> -->
     
         </g>
          
-        <g >
+        <g id="group166-462" [ngStyle]="{'transform': 'translate(' + 407.611 + 'px, ' + valorYCT1 + 'px)'}" >
             <image id="Layer_0_Imagen-30" data-name="Layer 0 Imagen" width="67" height="127"
-            transform="translate(407.65 191.98) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout29.png" />
+            transform="translate(0.65 296.9164) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout29.png" />
             <!-- Rectangulo CT1 -->
-            <g id="group166-462" transform="translate(407.611,-95.5512)"  >
+            <!-- <g id="group166-462" transform="translate(407.611,-95.5512)"  > -->
                 <!-- <title>Sheet.166</title> 
                 <desc>CT1</desc> -->
                 <!-- <g id="shape167-463" transform="translate(9.09608E-14,-1.1232)">
@@ -679,16 +660,16 @@
                                 [ngStyle] = "sigalRService.dataPackageCT1[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageCT1[0].order==inputOrder}"/>
                 <g id="shape166-470">
-                    <!-- <text x="2.89" y="304.67" class="st5">CT1</text>			 -->
+                    <text x="2.89" y="312.43"  class="st5">CT1</text>			
                 </g>
-            </g>
+            <!-- </g> -->
     
         </g>
-    <g  >
+    <g  id="group100-272" [ngStyle]="{'transform': 'translate(' + valorXCT + 'px, ' + -229.715 + 'px)'}" >
         <image id="Layer_0_Imagen-31" data-name="Layer 0 Imagen" width="232" height="68"
-            transform="translate(356.65 70.87) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout30.png" />
+            transform="translate(02.65 301.87) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout30.png" />
             <!-- Rectangulo CT -->
-                    <g id="group100-272" transform="translate(358.154,-231.2025)" >
+                    <!-- <g id="group100-272" transform="translate(358.154,-231.2025)" > -->
                         <!-- <title>Sheet.100</title>
                         <desc>CT</desc>
                         <g id="shape101-273" transform="translate(8.70711,-9.06976)">
@@ -703,9 +684,9 @@
                                         [ngStyle] = "sigalRService.dataPackageCT_2[0].ngStyle"
                         [ngClass] = "{showOrderFind: sigalRService.dataPackageCT_2[0].order==inputOrder}"/>
                         <g id="shape100-460">
-                            <!-- <text x="26.97" y="312.43" class="st5">CT</text>			 -->
+                            <text x="26.97" y="312.43" class="st5">CT</text>			
                         </g>
-                    </g>
+                    <!-- </g> -->
     </g>
         <image id="Layer_0_Imagen-32" data-name="Layer 0 Imagen" width="360" height="424"
             transform="translate(429.53 86.87) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout31.png" />
@@ -738,7 +719,7 @@
                 <rect *ngIf="sigalRService.dataPackageST4[7].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST4[7].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST4[7].order==inputOrder}"/>
-                <text x="1.00" y="298.39" class="st5">ST4</text>		
+                <text x="1.00" y="298.39" class="st5">{{dataWipName.sT4}}</text>		
             </g>
     
             <!-- Rectangulo ST5 -->
@@ -770,7 +751,7 @@
                 <rect *ngIf="sigalRService.dataPackageST5[7].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST5[7].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST5[7].order==inputOrder}"/>
-                <text x="0.99" y="300.19" class="st5">ST5</text>		
+                <text x="0.99" y="300.19" class="st5">{{dataWipName.sT5}}</text>		
             </g>
     
         <image id="Layer_0_Imagen-33" data-name="Layer 0 Imagen" width="87" height="194"

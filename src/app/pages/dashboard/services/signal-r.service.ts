@@ -40,7 +40,15 @@ export class SignalRService implements OnInit {
   public dataPackageTF2: PackagesWIP[];
   public dataPackageID12: PackagesWIP[];
   public dataPackageID22: PackagesWIP[];
+  public dataPackageIM1: PackagesWIP[];
+  public dataPackageIM2: PackagesWIP[];
+  public dataPackageIM3: PackagesWIP[];
+  public dataPackageIM4: PackagesWIP[];
+  public dataPackageIM5: PackagesWIP[];
+  public dataPackageIM6: PackagesWIP[];
+  public dataPackageIM7: PackagesWIP[];
   
+
   
   private hubConnectionAlarmas: signalR.HubConnection;
   private hubConnectionPackageWip: signalR.HubConnection;
@@ -224,6 +232,34 @@ AsignarDatosWip(data:any){
   if (this.dataPackageWip[0].idMaquina==IdWip.ID22)
   {
     this.dataPackageID22=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.IM1)
+  {
+    this.dataPackageIM1=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.IM2)
+  {
+    this.dataPackageIM2=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.IM3)
+  {
+    this.dataPackageIM3=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.IM4)
+  {
+    this.dataPackageIM4=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.IM5)
+  {
+    this.dataPackageIM5=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.IM6)
+  {
+    this.dataPackageIM6=data;
+  }
+  if (this.dataPackageWip[0].idMaquina==IdWip.IM7)
+  {
+    this.dataPackageIM7=data;
   }
 }
 

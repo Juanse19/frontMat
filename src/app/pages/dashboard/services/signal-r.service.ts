@@ -150,10 +150,22 @@ AsignarDatosWip(data:any){
   if (this.dataPackageWip[0].idMaquina==IdWip.ST4)
   {
     this.dataPackageST4=data;
+    for(let i = 0; i < 8 ; i++){ 
+      this.dataPackageST4[i].ngStyle.y= (-106/105)*this.dataPackageST4[i].ngStyle.x+303;//Y=-106/105*X+303
+      this.dataPackageST4[i].ngStyle.x=0;
+      this.dataPackageST4[i].ngStyle.height=this.dataPackageST4[i].ngStyle.width;
+      this.dataPackageST4[i].ngStyle.width=15;
+    }
   }else 
   if (this.dataPackageWip[0].idMaquina==IdWip.ST5)
   {
     this.dataPackageST5=data;
+    for(let i = 0; i < 8 ; i++){ 
+      this.dataPackageST5[i].ngStyle.y= (-106/105)*this.dataPackageST5[i].ngStyle.x+303;//Y=-106/105*X+303
+      this.dataPackageST5[i].ngStyle.x=0;
+      this.dataPackageST5[i].ngStyle.height=this.dataPackageST5[i].ngStyle.width;
+      this.dataPackageST5[i].ngStyle.width=17;
+    }
   }else 
   if (this.dataPackageWip[0].idMaquina==IdWip.ST6)
   {
@@ -236,18 +248,76 @@ AsignarDatosWip(data:any){
   if (this.dataPackageWip[0].idMaquina==IdWip.IM1)
   {
     this.dataPackageIM1=data;
+    this.dataPackageIM1[1].ngStyle.x=22;
+    this.dataPackageIM1[2].ngStyle.x=43;
+    this.dataPackageIM1[3].ngStyle.x=41;
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.IM2)
   {
     this.dataPackageIM2=data;
+    for(let i = 0; i < 8 ; i++){ 
+      this.dataPackageIM2[i].ngStyle.y= (-106/105)*this.dataPackageIM2[i].ngStyle.x+303;//Y=-106/105*X+303
+      this.dataPackageIM2[i].ngStyle.x=0;
+      this.dataPackageIM2[i].ngStyle.height=this.dataPackageIM2[i].ngStyle.width;
+      this.dataPackageIM2[i].ngStyle.width=15;
+    }
+
+    // this.dataPackageIM2[1].ngStyle.y=288;
+    // this.dataPackageIM2[1].ngStyle.x=0;
+    // this.dataPackageIM2[2].ngStyle.y=273;
+    // this.dataPackageIM2[2].ngStyle.x=0;
+    // this.dataPackageIM2[3].ngStyle.y=257;
+    // this.dataPackageIM2[3].ngStyle.x=0;
+    // this.dataPackageIM2[4].ngStyle.y=242;
+    // this.dataPackageIM2[4].ngStyle.x=0;
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.IM3)
   {
     this.dataPackageIM3=data;
+     for(let i = 0; i < 8 ; i++){ 
+      this.dataPackageIM3[i].ngStyle.y= (-106/105)*this.dataPackageIM3[i].ngStyle.x+303;//Y=-106/105*X+303
+      this.dataPackageIM3[i].ngStyle.x=0;
+      this.dataPackageIM3[i].ngStyle.height=this.dataPackageIM3[i].ngStyle.width;
+      this.dataPackageIM3[i].ngStyle.width=17;
+    }
+    // this.dataPackageIM2[1].ngStyle.y=this.dataPackageIM2[1].ngStyle.x;
+    // this.dataPackageIM2[1].ngStyle.x=0
+    // this.dataPackageIM3[0].ngStyle.y=303;
+    // this.dataPackageIM3[0].ngStyle.x=0;
+    // this.dataPackageIM3[1].ngStyle.y=288;
+    // this.dataPackageIM3[1].ngStyle.x=0;
+    // this.dataPackageIM3[2].ngStyle.y=273;
+    // this.dataPackageIM3[2].ngStyle.x=0;
+    // this.dataPackageIM3[3].ngStyle.y=257;
+    // this.dataPackageIM3[3].ngStyle.x=0;
+    // this.dataPackageIM3[4].ngStyle.y=242;
+    // this.dataPackageIM3[4].ngStyle.x=0;
+    // this.dataPackageIM3[5].ngStyle.y=227;
+    // this.dataPackageIM3[5].ngStyle.x=0;
+    // this.dataPackageIM3[6].ngStyle.y=212;
+    // this.dataPackageIM3[6].ngStyle.x=0;
+    // this.dataPackageIM3[7].ngStyle.y=197;
+    // this.dataPackageIM3[7].ngStyle.x=0;
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.IM4)
   {
     this.dataPackageIM4=data;
+    for(let i = 0; i < 8 ; i++){ 
+      this.dataPackageIM4[i].ngStyle.y= (-106/105)*this.dataPackageIM4[i].ngStyle.x+303;//Y=-106/105*X+303
+      this.dataPackageIM4[i].ngStyle.x=0;
+      this.dataPackageIM4[i].ngStyle.height=this.dataPackageIM4[i].ngStyle.width;
+      this.dataPackageIM4[i].ngStyle.width=15;
+    }
+    // this.dataPackageIM4[1].ngStyle.y=303;
+    // this.dataPackageIM4[1].ngStyle.x=0;
+    // this.dataPackageIM4[1].ngStyle.y=288;
+    // this.dataPackageIM4[1].ngStyle.x=0;
+    // this.dataPackageIM4[2].ngStyle.y=273;
+    // this.dataPackageIM4[2].ngStyle.x=0;
+    // this.dataPackageIM4[3].ngStyle.y=257;
+    // this.dataPackageIM4[3].ngStyle.x=0;
+    // this.dataPackageIM4[4].ngStyle.y=242;
+    // this.dataPackageIM4[4].ngStyle.x=0;
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.IM5)
   {

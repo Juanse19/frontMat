@@ -21,6 +21,8 @@ interface Propiedades {
   type: string;
   valor: string;
   prioridad: number;
+  width: number;
+  lenght: number;
 }
 
 interface PropiedadesActualizar {

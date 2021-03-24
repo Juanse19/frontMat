@@ -310,7 +310,7 @@ export class DashboardComponent implements OnDestroy {
   ChargePredictive() {
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Reports/GetPredictiveList').subscribe((res: any) => {
       //REPORTOCUPATION=res;
-      console.log("Report Predictive:", res);
+      // console.log("Report Predictive:", res);
       this.GetPredictive = res;
       this.source3.load(res);
     });

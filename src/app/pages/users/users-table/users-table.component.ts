@@ -108,9 +108,9 @@ export class UsersTableComponent implements OnDestroy {
         .subscribe((res) => {
           if (res) {
             this.toastrService.success('', 'Item deleted!');
-            this.source.refresh();
+            this.source.refresh(); 
           } else {
-            this.toastrService.danger('', 'Something wrong.');
+            this.toastrService.danger('', 'Algo salio mal.');
           }
         });
     }

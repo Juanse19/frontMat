@@ -78,7 +78,7 @@ export class WindowComponent2  implements OnInit {
     private messageService: MessageService,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
-
+    private toastrService: NbToastrService
     ) {
        
       
@@ -141,6 +141,18 @@ export class WindowComponent2  implements OnInit {
     });
   }
 
+  deleteStatus(){
+    if (confirm('¿Estás segura de que quieres eliminar el arrume?') && STATUSPACKAGE.idStatus == 4) {
+      if (STATUSPACKAGE.idStatus === 4) {
+        this.messageService.sendMessage('PackageUpdate');
+        this.toastrService.success('', 'Arrume eliminado!');
+        this.back();
+      }else {
+        this.toastrService.danger('', 'Algo salio mal.');
+      }
+    }
+  } 
+
   ChangeState(){
 
     let formulario = this.arrumeManualForm.value;
@@ -156,8 +168,13 @@ export class WindowComponent2  implements OnInit {
       }
           this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
             
+            if (STATUSPACKAGE.idStatus === 4 ) {
+              this.deleteStatus();
+            } else {
               this.messageService.sendMessage('PackageUpdate');
               this.handleSuccessResponse();
+            }
+              
           });
     }else{
       this.handleWrongResponse();

@@ -73,8 +73,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getMenuItems() {
     const userLink = this.user ?  '/pages/users/current/' : '';
     return [
-      { title: 'Profile', link: userLink, queryParams: { profile: true } },
-      { title: 'Log out', link: '/auth/logout' },
+      { title: 'Perfil', link: userLink, queryParams: { profile: true } },
+      { title: 'Cerrar Sesión', link: '/auth/logout' },
     ];
   }
 

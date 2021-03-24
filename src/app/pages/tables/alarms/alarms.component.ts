@@ -103,15 +103,15 @@ export class AlarmsComponent implements OnDestroy {
 
   onDeleteConfirm(event): void {
    
-     console.log("Evento: ", event);
+    //  console.log("Evento: ", event);
       let alarm = {idAlarm: event.data.id};
       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postalarm?IdAlarm='+ event.data.id, alarm).subscribe((res: any) => {
-         console.log("alarmId", res);
+        //  console.log("alarmId", res);
          if (res) {
           this.toastrService.success('', '¡Alarma solucionada!');
           this.source.refresh();
         } else {
-          this.toastrService.danger('', 'Something wrong.');
+          this.toastrService.danger('', 'Algo salio mal.');
         }
       });
       event.confirm.resolve();
@@ -119,13 +119,12 @@ export class AlarmsComponent implements OnDestroy {
   }
 
   reconocer() {
-    
        this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postallalarm', "").subscribe((res: any) => {
           if (res) {
-           this.toastrService.success('', '¡Alarmas solucionada!');
+           this.toastrService.success('', '¡Alarmas solucionadas!');
            this.source.refresh();
          } else {
-           this.toastrService.danger('', 'Something wrong.');
+           this.toastrService.danger('', 'Algo salio mal.');
          }
        });
      
@@ -138,7 +137,7 @@ export class AlarmsComponent implements OnDestroy {
   Chargealarms() {
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms').subscribe((res: any) => {
       //REPORTOCUPATION=res;
-      console.log("Report Total Ordenes:", res);
+      // console.log("Report Total Ordenes:", res);
       this.Alarm = res;
       this.source.load(res);
     });

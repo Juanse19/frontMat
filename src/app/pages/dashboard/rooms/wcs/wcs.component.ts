@@ -149,6 +149,7 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   private _total$ = new BehaviorSubject<number>(0);
 
+  @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
 
   constructor(
     public accessChecker: NbAccessChecker,
@@ -413,64 +414,108 @@ ClicSYS() {
    this.comp2.openWindowForm(IdWip.ST1);
  }
 
- 
- EliminarElemento(){
-  // console.log(this.paqueteRec.nativeElement);
-  // this.paqueteRec.nativeElement.visibility;
-  // var elemento = document.getElementById("paquete");
-  var elemento = document.getElementById("paqueteRec" + this.contPaqueteST6);
+ public ClicIM1(): void {
+  this.comp2.openWindowForm(IdWip.IM1);
+}
 
-  let objeto = {
+public ClicIM2(): void {
+  this.comp2.openWindowForm(IdWip.IM2);
+}
+
+public ClicIM3(): void {
+  this.comp2.openWindowForm(IdWip.IM3);
+}
+
+public ClicIM4(): void {
+  this.comp2.openWindowForm(IdWip.IM4);
+}
+
+public ClicIM5(): void {
+  this.comp2.openWindowForm(IdWip.IM5);
+}
+
+public ClicIM6(): void {
+  this.comp2.openWindowForm(IdWip.IM6);
+}
+
+public ClicIM7(): void {
+  this.comp2.openWindowForm(IdWip.IM7);
+}
+ 
+//  EliminarElemento(){
+//   // console.log(this.paqueteRec.nativeElement);
+//   // this.paqueteRec.nativeElement.visibility;
+//   // var elemento = document.getElementById("paquete");
+//   var elemento = document.getElementById("paqueteRec" + this.contPaqueteST6);
+
+//   let objeto = {
   
-    visibility:"hidden"
-  };
-  for (var nombre in objeto) {
-    if (objeto.hasOwnProperty(nombre)) {
-      elemento.setAttributeNS(null, nombre, objeto[nombre]);
-    }
-  }
-  if(this.contPaqueteST6 >= 1){
-  this.contPaqueteST6 = this.contPaqueteST6 -1;
-  }
-}
+//     visibility:"hidden"
+//   };
+//   for (var nombre in objeto) {
+//     if (objeto.hasOwnProperty(nombre)) {
+//       elemento.setAttributeNS(null, nombre, objeto[nombre]);
+//     }
+//   }
+//   if(this.contPaqueteST6 >= 1){
+//   this.contPaqueteST6 = this.contPaqueteST6 -1;
+//   }
+// }
 
-VisibleElemento(){
-  // var elemento = document.getElementById("paquete");
-  if(this.contPaqueteST6 < 5){
-  this.contPaqueteST6 = this.contPaqueteST6 + 1;
-  var color;
-  if(this.contPaqueteST6 == 1){
-     color = "yellow"
-  }
-  if(this.contPaqueteST6 == 2){
-     color = "blue"
-  }
-  if(this.contPaqueteST6 == 3){
-     color = "red"
-  }
-  if(this.contPaqueteST6 == 4){
-     color = "green"
-  }
-  if(this.contPaqueteST6 == 5){
-    color = "gray"
- }
-  var elemento = document.getElementById("paqueteRec" + this.contPaqueteST6);
+// VisibleElemento(){
+//   // var elemento = document.getElementById("paquete");
+//   if(this.contPaqueteST6 < 5){
+//   this.contPaqueteST6 = this.contPaqueteST6 + 1;
+//   var color;
+//   if(this.contPaqueteST6 == 1){
+//      color = "yellow"
+//   }
+//   if(this.contPaqueteST6 == 2){
+//      color = "blue"
+//   }
+//   if(this.contPaqueteST6 == 3){
+//      color = "red"
+//   }
+//   if(this.contPaqueteST6 == 4){
+//      color = "green"
+//   }
+//   if(this.contPaqueteST6 == 5){
+//     color = "gray"
+//  }
+//   var elemento = document.getElementById("paqueteRec" + this.contPaqueteST6);
 
-  let objeto = {
+//   let objeto = {
  
-    visibility:"visible",
-    stroke: color,
-    fill: color
+//     visibility:"visible",
+//     stroke: color,
+//     fill: color
     
-  };
-  for (var nombre in objeto) {
-    if (objeto.hasOwnProperty(nombre)) {
-      elemento.setAttributeNS(null, nombre, objeto[nombre]);
-    }
-  }
- }
-}
+//   };
+//   for (var nombre in objeto) {
+//     if (objeto.hasOwnProperty(nombre)) {
+//       elemento.setAttributeNS(null, nombre, objeto[nombre]);
+//     }
+//   }
+//  }
+// }
+
+// Refresh() {
+//   // this.apiGetComp.Suma();
 
 
+//   this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((res: any) => {
+//     // console.log(res);
+//     // this.ordenesMaquina = res;
+//     // console.log(this.ordenesMaquina);
+//     // console.error(res);
+
+//     // console.log(res[0].VarName);
+//     // console.log(res[0].Valor);
+//     // console.log(res[0].Fecha);
+//     this.comp2.openWindow(this.contentTemplate, 'Popup ApiGet', res[0].order, res[0].idSource, res[0].name, res[0].idTarget );
+
+//   });
+
+// }
 
 }

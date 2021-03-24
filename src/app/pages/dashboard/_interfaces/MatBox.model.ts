@@ -78,6 +78,8 @@ export interface NgStyle {
   width: number,
   x: number,
   fillOpacity: number,
+  y?: number,
+  height?:number,
 }
 
 //--- Interface Dashboard 
@@ -98,6 +100,8 @@ export interface Propiedades {
   type: string;
   valor: string;
   prioridad: number;
+  width: number;
+  lenght: number;
 }
 
 export interface Wip {

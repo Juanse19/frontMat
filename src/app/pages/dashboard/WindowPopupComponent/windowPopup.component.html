@@ -73,12 +73,13 @@
 						<!-- <p>{{data.text}}</p> --> 
 
 						<!-- <p><nb-card-header>Color</nb-card-header></p> -->
+						<div #wips *ngIf="propiedades.type=='Target'">
 						<p><b>Color</b></p>
 						<p><nb-select [(ngModel)]="propiedades.valor" >
 							<nb-option *ngFor="let option of colorLista" [value]="option.value">
 							  {{ option.label }}  
 							</nb-option>             
-						  </nb-select></p>
+						  </nb-select></p></div>
 				  <!-- </nb-card> -->
 				</div>
 				<div class="col-md-6">

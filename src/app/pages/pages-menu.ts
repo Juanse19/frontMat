@@ -257,8 +257,33 @@ export class PagesMenu {
       title: 'WCS',
       icon: 'monitor-outline',
       link: '/pages/animation/animationsvg',
+      // link: '/pages/analytics/analytics',
       children: undefined,
     };
+    const analyticsMenu: NbMenuItem = {
+      title: 'Analitica',
+      icon: 'bar-chart-outline',
+      // link: '/pages/analytics/analytics',
+      children: [
+        {
+          title: 'Ocupacion',
+          link: '/pages/analytics/ocupacion',
+        },
+        {
+          title: 'Ordenes',
+          link: '/pages/analytics/ordenes',
+        },
+        {
+          title: 'Ordenes Not Wips',
+          link: '/pages/analytics/ordenesNotWips',
+        },
+        {
+          title: 'Predictivo',
+          link: '/pages/analytics/predictivo',
+        },
+      ],
+    };
+
     const orderMenu: NbMenuItem = {
       title: 'Ordenes',
       icon: 'grid-outline',
@@ -306,7 +331,7 @@ export class PagesMenu {
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
-          return [...dashboardMenu, orderMenu, reportMenu, userMenu, alarmMenu, registerMenu];
+          return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu];

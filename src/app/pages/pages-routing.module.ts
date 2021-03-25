@@ -40,6 +40,11 @@ const routes: Routes = [{
         .then(m => m.FormsModule),
     },
     {
+      path: 'analytics',
+      loadChildren: () => import('./analytics/analytics.module')
+        .then(m => m.AnalyticsModule),
+    },
+    {
       path: 'animation',
       loadChildren: () => import('./animation/animation.module')
         .then(m => m.AnimationModule),

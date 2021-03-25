@@ -6,9 +6,9 @@
 
       <form>
         <div class="form-group form-inline">
-          Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"/>
+          Buscar: <input class="form-control ml-2" type="text"  name="searchTerm" [(ngModel)]="searchTerm"/>
           <span class="ml-3" *ngIf="loading$ | async">Loading...</span>
-          <td><button nbButton shape="semi-round" status="primary" (click)="CrearOrden()">Crear Orden</button></td>
+          <td><button nbButton shape="semi-round" class="boton1" status="primary" (click)="CrearOrden()">Crear Orden</button></td>
       </div>
       <table class="table table-striped">
       <thead>
@@ -30,7 +30,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let ordenes of ordenesMaquina$ | async">
-        <th scope="row">{{ ordenes.id }}</th>
+        <!-- <th scope="row">{{ ordenes.id }}</th> -->
         <td><ngb-highlight [result]="ordenes.id" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="ordenes.order" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="ordenes.batch" [term]="filter.value"></ngb-highlight></td>
@@ -63,7 +63,7 @@
     
         </select>
       </div>
-      <td><button nbButton shape="semi-round" status="primary" (click)="Refresh()">Refrescar</button></td>
+      <td><button nbButton shape="semi-round" class="boton2" status="primary" (click)="Refresh()">Refrescar</button></td>
     
       </form>	  
     

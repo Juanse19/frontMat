@@ -70,7 +70,7 @@ interface UspReportOrders {
       public apiGetComp: ApiGetService,
       private api: HttpService,
     ) {
-      this.ChargeReportOrdens();
+      // this.ChargeReportOrdens();
       this.alive;
     }
 

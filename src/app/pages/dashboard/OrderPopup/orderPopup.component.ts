@@ -5,6 +5,8 @@ import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { MessageService } from '../services/MessageService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderTableComponent } from '../../tables/OrderTable/orderTable.component';
+import { SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2';
 
 interface Ordenes {
   id: number;
@@ -141,17 +143,81 @@ export class WindowComponent2  implements OnInit {
     });
   }
 
-  deleteStatus(){
-    if (confirm('¿Estás segura de que quieres eliminar el arrume?') && STATUSPACKAGE.idStatus == 4) {
-      if (STATUSPACKAGE.idStatus === 4) {
-        this.messageService.sendMessage('PackageUpdate');
-        this.toastrService.success('', 'Arrume eliminado!');
-        this.back();
-      }else {
-        this.toastrService.danger('', 'Algo salio mal.');
-      }
+
+  // deleteStatus(){
+  //   Swal.fire({
+  //     title: 'Estas segura?',
+  //     text: `¡No podrás revertir esto!`,
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: '¡Sí, bórralo!'
+  //   }).then(result => {
+  //     if (result.value) {
+  //         if (STATUSPACKAGE.idStatus === 4 ) {
+  //           Swal.fire('¡Eliminado!', 'El arrume ha sido eliminada.', 'success');
+  //           this.back();
+  //         } else {
+  //           Swal.fire('¡Error!', 'Hubo un error al eliminar el arrume', 'error');
+  //           this.back();
+  //         }
+  //     }
+  //   });
+
+  //   // if (confirm('¿Estás segura de que quieres eliminar el arrume?') && STATUSPACKAGE.idStatus == 4) {
+  //   //   if (STATUSPACKAGE.idStatus === 4) {
+  //   //     this.toastrService.success('', 'Arrume eliminado!');
+  //   //     this.back();
+  //   //   }else {
+  //   //     this.toastrService.danger('', 'Algo salio mal.');
+  //   //   }
+  //   // }
+  // } 
+
+  Guardar(){
+    let formulario = this.arrumeManualForm.value;
+
+    if(formulario.orderForm){
+    
+      STATUSPACKAGE = {
+        id:formulario.id,
+        idStatus:formulario.statusForm,
+        cutLength:formulario.cutLengthForm,
+        Order:formulario.orderForm,
+        idDevice:ORDEN.idDevice,
+      } 
     }
-  } 
+    if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){
+      this.ChangeState();
+    }else if("eliminar estado"){
+      Swal.fire({
+        title: 'Estas segura?',
+        text: `¡No podrás revertir esto!`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, bórralo!'
+      }).then(result => {
+        if (result.value) {
+          if (STATUSPACKAGE.idStatus === 4 ) {
+              // console.log('borrar');
+              this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
+                
+              });
+              this.messageService.sendMessage('PackageUpdate');
+              Swal.fire('¡Eliminado!', 'El arrume ha sido eliminada.', 'success');
+              // this.ChangeState();
+              this.back();
+            } else {
+              Swal.fire('¡Error!', 'Hubo un error al eliminar el arrume', 'error');
+              this.back();
+            }
+        }
+      });
+    }
+  }
 
   ChangeState(){
 
@@ -166,14 +232,11 @@ export class WindowComponent2  implements OnInit {
         Order:formulario.orderForm,
         idDevice:ORDEN.idDevice,
       }
+      
           this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
             
-            if (STATUSPACKAGE.idStatus === 4 ) {
-              this.deleteStatus();
-            } else {
-              this.messageService.sendMessage('PackageUpdate');
+            this.messageService.sendMessage('PackageUpdate');
               this.handleSuccessResponse();
-            }
               
           });
     }else{

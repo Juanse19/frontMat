@@ -60,6 +60,50 @@ export interface WipColor {
   colorST15: string,
 }
 
+export interface showStatusMachinesAlarms {
+        
+    StatusMartin: boolean,        
+    StatusJs: boolean,        
+    Status924: boolean,        
+    StatusSyS: boolean,        
+    StatusLaminadora: boolean,        
+    StatusWard: boolean,
+    Impresora: boolean,        
+    StatusCt: boolean,        
+    StatusCt1: boolean,        
+    StatusCt2: boolean,       
+    StatusiD_12: boolean,        
+    StatusiD_22: boolean,        
+    StatussT1: boolean,        
+    StatussT2: boolean,       
+    StatusiM1: boolean,       
+    StatussT3: boolean,       
+    StatussT4: boolean,       
+    StatussT5: boolean,       
+    StatussT6: boolean,       
+    StatussT7: boolean,       
+    StatussT8: boolean,       
+    StatussT9: boolean,       
+    StatussT10: boolean,      
+    StatussT11: boolean,       
+    StatussT12: boolean,      
+    StatussT13: boolean,      
+    StatussT14: boolean,       
+    StatussT15: boolean,      
+    StatusiM2: boolean,      
+    StatusiM3: boolean,       
+    StatusiM4: boolean,       
+    StatusiM5: boolean,       
+    StatusiM6: boolean,       
+    StatusiM7: boolean,       
+    StatuscT2: boolean,       
+    StatuscT1: boolean,       
+    Statustm: boolean,       
+    StatustF1: boolean,       
+    StatustF2: boolean,
+    
+}
+
 export interface PackagesWIP {
   id: number,
   order: string,
@@ -172,3 +216,4 @@ export interface OrderProcess {
   Id: number,
   Order: string,
 }
+

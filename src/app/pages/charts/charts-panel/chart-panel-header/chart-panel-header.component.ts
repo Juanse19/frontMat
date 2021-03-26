@@ -98,14 +98,14 @@ export class ChartPanelHeaderComponent implements OnDestroy {
   changePeriod(period: string): void {
     this.type = period;
     this.periodChange.emit(period);
-    console.log(period);
+    // console.log(period);
   }
 
   changeDevice(machine: number): void {
     //debugger;
     this.machines = machine;
     this.periodMachineChange.emit(machine);
-    console.log(machine);
+    // console.log(machine);
   }
   
 

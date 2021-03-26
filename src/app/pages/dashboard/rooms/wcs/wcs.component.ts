@@ -14,7 +14,7 @@ import { HttpService } from '../../../../@core/backend/common/api/http.service';
 import { NbAccessChecker } from '@nebular/security';
 import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
-import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName } from '../../_interfaces/MatBox.model';
+import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms } from '../../_interfaces/MatBox.model';
 
 @Component({
   providers: [
@@ -50,6 +50,8 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   };
 
+  // public showAlarmJs = true;
+
   public dataWipName: WipName = {
   iD_12: "",
   iD_22: "",
@@ -83,7 +85,49 @@ export class WcsComponent implements OnInit, OnDestroy {
   tF1: "",
   tF2: "",
   }
+ 
+  public showdataAlarms: showStatusMachinesAlarms = {
 
+    StatusMartin: false,        
+    StatusJs: false,        
+    Status924: false,        
+    StatusSyS: false,        
+    StatusLaminadora: false,        
+    StatusWard: false,
+    Impresora: false,        
+    StatusCt: false,        
+    StatusCt1: false,        
+    StatusCt2: false,       
+    StatusiD_12: false,        
+    StatusiD_22: false,        
+    StatussT1: false,        
+    StatussT2: false,       
+    StatusiM1: false,       
+    StatussT3: false,       
+    StatussT4: false,       
+    StatussT5: false,       
+    StatussT6: false,       
+    StatussT7: false,       
+    StatussT8: false,       
+    StatussT9: false,       
+    StatussT10: false,      
+    StatussT11: false,       
+    StatussT12: false,      
+    StatussT13: false,      
+    StatussT14: false,       
+    StatussT15: false,      
+    StatusiM2: false,      
+    StatusiM3: false,       
+    StatusiM4: false,       
+    StatusiM5: false,       
+    StatusiM6: false,       
+    StatusiM7: false,       
+    StatuscT2: false,       
+    StatuscT1: false,       
+    Statustm: false,       
+    StatustF1: false,       
+    StatustF2: false,
+  }
 
   public dataWipColor: WipColor = {
     colorST1: "Black",
@@ -210,18 +254,37 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.http.get(this.api.apiUrlMatbox + "/Orders/WipNameList")
     .subscribe((res: any)=>{
       this.dataWipName=res[0];
-      console.log("WipName :", res);
+      // console.log("WipName :", res);
       
     });
 
   }
+
+  public StatusAlarmCharge(){
+
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/es').subscribe((res: any) => {
+      // console.log(res);
+      // console.log("status alarms :", res);
+      this.showdataAlarms  = res[0];
+      });
+
+  }
   
+  showStatusAlarms(){
+    const contador = interval(1000)
+    contador.subscribe((n) =>{
+      this.StatusAlarmCharge();
+    });
+  }
+
   ngOnInit(): void {
     this.GetOrderProcess();
     this.InitSignalR();
     this.MoverCarro();
     this.ColorCharge();
     this.WipNameCharge();
+    this.showStatusAlarms();
+    // this.StatusAlarmCharge();
   }
 
   InitSignalR() {
@@ -260,7 +323,7 @@ export class WcsComponent implements OnInit, OnDestroy {
     // this.valorX = this.valorX + 10;
   const contador = interval(1000)
     contador.subscribe((n) =>{
-      this.MoverSTM();
+      // this.MoverSTM();
       this.MoverCT();
       this.MoverCT1();
       this.MoverCT2();
@@ -276,13 +339,13 @@ export class WcsComponent implements OnInit, OnDestroy {
     // });
   }
 
-  MoverSTM(){
-    // this.valorX = this.valorX + 10;
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/ST').subscribe((res: any) => {
-      // console.log(res);
-      this.valorXCT  = res.position;
-      });
-  }
+  // MoverSTM(){
+  //   // this.valorX = this.valorX + 10;
+  //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/ST').subscribe((res: any) => {
+  //     // console.log(res);
+  //     this.valorXCT  = res.position;
+  //     });
+  // }
 
   MoverCT(){
     // this.valorX = this.valorX + 10;

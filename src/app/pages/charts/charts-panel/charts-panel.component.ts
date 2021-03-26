@@ -57,7 +57,7 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
            return null;
         }
         this.TotalOr=res;
-        console.log("ReportTotal: ", this.TotalOr=res);
+        // console.log("ReportTotal: ", this.TotalOr=res);
       });
 
     }
@@ -75,7 +75,7 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
      {title:"Arrumes Procedos", value:18},
      {title:"Producto desechado", value:200},
     ]; 
-    console.log(this.chartPanelSummary);
+    // console.log(this.chartPanelSummary);
     
     this.getOrdersChartData(this.period, this.machine);
     //this.getProfitChartData(this.period);
@@ -102,8 +102,8 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   
   receiveMessage($event) {
     this.machine = $event
-    console.log($event)
-    console.log(this.machine);
+    // console.log($event)
+    // console.log(this.machine);
   }
 
   changeTab(selectedTab) {

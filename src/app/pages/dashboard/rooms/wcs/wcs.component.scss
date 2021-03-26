@@ -22,10 +22,10 @@
   animation: blinkingBackground 1s infinite;
 }
 
-.showStatusFind{
-  stroke:rgb(216, 19, 19);
-  stroke-width: 2;
-  animation: blinkingBackground 1s infinite;
+.showStatusAlarm{
+  filter: drop-shadow(1px 1px 0 red) 
+          drop-shadow(-1px -1px 0 red);
+  animation: blinkingAlarm 1s infinite;
 }
 
 .im1 {
@@ -38,6 +38,14 @@
 @keyframes blinkingBackground{
   0%		{ stroke:lime;}
   50%		{ stroke:rgba(0, 255, 0, 0.514);}
+  100%	{ stroke: transparent;}
+}
+
+@keyframes blinkingAlarm{
+  0%		{  filter: drop-shadow(1px 1px 0 red) 
+    drop-shadow(-1px -1px 0 red);}
+  50%		{  filter: drop-shadow(1px 1px 0 orange) 
+    drop-shadow(-1px -1px 0 orange);}
   100%	{ stroke: transparent;}
 }
 .st1 {fill:#f0f0f0}

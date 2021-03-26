@@ -306,7 +306,7 @@ AsignarDatosWip(data:any){
       this.dataPackageIM4[i].ngStyle.y= (-106/105)*this.dataPackageIM4[i].ngStyle.x+303;//Y=-106/105*X+303
       this.dataPackageIM4[i].ngStyle.x=0;
       this.dataPackageIM4[i].ngStyle.height=this.dataPackageIM4[i].ngStyle.width;
-      this.dataPackageIM4[i].ngStyle.width=14;
+      this.dataPackageIM4[i].ngStyle.width=15;
     }
     // this.dataPackageIM4[1].ngStyle.y=303;
     // this.dataPackageIM4[1].ngStyle.x=0;

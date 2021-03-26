@@ -9,6 +9,16 @@
 		[(ngModel)]="inputOrder"
 		[nbAutocomplete]="autoControl" 
 		>
+        <div class="cts">
+            <label   class="id1"> <b>{{dataRoutesCts.RutaCtA}}</b> </label>
+            
+            <label for="" id="id2" class="id2"> <b>{{dataRoutesCts.RutaCtB}}</b> </label>
+
+            <label for="" id="id2" class="id3"> <b>{{dataRoutesCts.RutaCt1}}</b> </label>
+
+            <label for="" id="id2" class="id4"> <b>{{dataRoutesCts.RutaCt2}}</b> </label>
+
+        </div>
   <nb-autocomplete #autoControl>
 	<nb-option *ngFor="let option of orderProcess" [value]="option.order">
 	  {{ option.order }}
@@ -567,14 +577,14 @@
             transform="translate(384.54 86.55) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout16.png" 
             [ngClass]="{showStatusAlarm: showdataAlarms.Statustm}"/>
             <!-- Rectangulo TM -->
-            <g id="group194-536" transform="translate(379.967,-206.9933)" >
+            <g id="group194-536" transform="translate(385.967,-212.9933)" >
                
                 
                 <rect *ngIf="sigalRService.dataPackageTM[0].visible" x="0" y="303"  height="14" 
                                 [ngStyle] = "sigalRService.dataPackageTM[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageTM[0].order==inputOrder}"/>
                 <g id="shape194-557">
-                    <text x="9.01" y="307.22" class="st5">TM</text>			
+                    <text x="4.01" y="313.22" class="st5">TM</text>			
                 </g>
             </g>
     

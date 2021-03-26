@@ -192,7 +192,7 @@ export class WindowComponent2  implements OnInit {
       this.ChangeState();
     }else if("eliminar estado"){
       Swal.fire({
-        title: 'Estas segura?',
+        title: 'Estas seguro?',
         text: `¡No podrás revertir esto!`,
         icon: 'warning',
         showCancelButton: true,

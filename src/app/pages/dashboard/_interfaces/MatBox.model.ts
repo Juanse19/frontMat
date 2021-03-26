@@ -104,6 +104,13 @@ export interface showStatusMachinesAlarms {
     
 }
 
+export interface RouteCTS {
+  RutaCtA: string,
+  RutaCtB: string,
+  RutaCt1: string,
+  RutaCt2: string,
+}
+
 export interface PackagesWIP {
   id: number,
   order: string,

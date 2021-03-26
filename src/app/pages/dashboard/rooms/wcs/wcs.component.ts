@@ -14,7 +14,8 @@ import { HttpService } from '../../../../@core/backend/common/api/http.service';
 import { NbAccessChecker } from '@nebular/security';
 import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
-import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms } from '../../_interfaces/MatBox.model';
+import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS } from '../../_interfaces/MatBox.model';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   providers: [
@@ -127,6 +128,13 @@ export class WcsComponent implements OnInit, OnDestroy {
     Statustm: false,       
     StatustF1: false,       
     StatustF2: false,
+  }
+  
+  public dataRoutesCts: RouteCTS = {
+    RutaCtA: "CtA",
+    RutaCtB: "CtB",
+    RutaCt1: "Ct1",
+    RutaCt2: "Ct2",
   }
 
   public dataWipColor: WipColor = {
@@ -269,6 +277,16 @@ export class WcsComponent implements OnInit, OnDestroy {
       });
 
   }
+
+  public RouteCtsCharge(){
+
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT2V').subscribe((res: any) => {
+      // console.log(res);
+      console.log("Routes :", res);
+      this.dataRoutesCts  = res[0];
+      });
+ 
+  }
   
   showStatusAlarms(){
     const contador = interval(1000)
@@ -284,6 +302,7 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.ColorCharge();
     this.WipNameCharge();
     this.showStatusAlarms();
+    this.RouteCtsCharge();
     // this.StatusAlarmCharge();
   }
 

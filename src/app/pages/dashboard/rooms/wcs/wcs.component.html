@@ -91,7 +91,7 @@
             <!-- Rectangulo ST13 -->
             <g id="shape232-655" transform="translate(313.331,-100.826)" (click)="ClicST13()">
                 
-                <rect *ngIf="sigalRService.dataPackageST13[0].visible" x="0" y="307" height="11" 
+                <rect *ngIf="sigalRService.dataPackageST13[0].visible"  y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST13[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST13[0].order==inputOrder}"/>
                 <rect *ngIf="sigalRService.dataPackageST13[1].visible"  y="307" height="11" 
@@ -128,7 +128,7 @@
             transform="translate(148.7 198.38) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout4.png" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorSYS + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorSYS  + ')'}" (click)="ClicIM7()"
-                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusSyS}"/>
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusSyS}" nbTooltip="{{dataWipName.iM7}}"/>
                 <g>
                     <text x="188.92" y="212.47" class="st5">{{dataWipName.iM7}}</text>
                 </g>
@@ -379,7 +379,8 @@
         <image id="Layer_0_Imagen-12" data-name="Layer 0 Imagen" width="355" height="65"
             transform="translate(211.28 142.58) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout11.png" (click)="ClicIM6()"
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.color924 + ')
-                drop-shadow(-5px -5px 0 ' + dataMachineColor.color924  + ')'}"/>
+                drop-shadow(-5px -5px 0 ' + dataMachineColor.color924  + ')'}"
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_925}"/>
             <!-- Rectangulos IM6 -->
             <g id="shape221-619" transform="translate(212.399,-162.677)" (click)="ClicIM6()">
                 
@@ -540,7 +541,8 @@
         <image id="Layer_0_Imagen-16" data-name="Layer 0 Imagen" width="221" height="58"
             transform="translate(244.58 107.63) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout15.png" (click)="ClicIM5()" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorJS + ')
-                drop-shadow(-5px -5px 0 ' + dataMachineColor.colorJS  + ')'}" />
+                drop-shadow(-5px -5px 0 ' + dataMachineColor.colorJS  + ')'}" 
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_Js}"/>
             <!-- Rectangulos IM5 -->
             <g id="shape223-625" transform="translate(246.22,-198.31)" (click)="ClicIM5()">
                 
@@ -664,8 +666,7 @@
             transform="translate(36.21 81.52) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout19.png"  
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorJS + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorJS  + ')'}" (click)="ClicIM5()"
-                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusJs}"
-                />
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusJs}" nbTooltip="{{dataWipName.iM5}}"/>
             <g>
                 <text x="156.92" y="111.47" class="st5">{{dataWipName.iM5}}</text>
             </g>
@@ -725,7 +726,7 @@
             transform="translate(178.24 57.42) scale(0.24)" xlink:href="./assets/img/IM1.png" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorMartin1228 + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorMartin1228  + ')'}"
-                [ngClass]="{showStatusAlarm: showdataAlarms.StatusiM1}"/>
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_Martin}"/>
 
         <!-- <image id="Layer_0_Imagen-23" data-name="Layer 0 Imagen" width="244" height="65"
             transform="translate(159.24 57.42) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout22.png" /> -->
@@ -784,7 +785,7 @@
                 transform="translate(0 0.19) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout25.png"
                 [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorMartin1228 + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorMartin1228  + ')'}" (click)="ClicIM1()"
-                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusMartin}"/>
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusMartin}" />
                 <g>
                     <text x="42.92" y="47.47" class="st5">{{dataWipName.iM1}}</text>			
                 </g>
@@ -796,7 +797,8 @@
         <image id="Layer_0_Imagen-28" data-name="Layer 0 Imagen" width="138" height="72"
             transform="translate(264.65 203.12) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout27.png" (click)="ClicIM7()" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorSYS + ')
-                drop-shadow(-5px -5px 0 ' + dataMachineColor.colorSYS  + ')'}" />
+                drop-shadow(-5px -5px 0 ' + dataMachineColor.colorSYS  + ')'}" 
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_Sys}"/>
             <!-- Rectangulo IM7 -->
             <g id="shape219-613" transform="translate(265.354,-100.5834)" (click)="ClicIM7()">
                 
@@ -836,7 +838,8 @@
             
         <g id="group53-145" [ngStyle]="{'transform': 'translate(' + 294.611 + 'px, ' + valorYCT2 + 'px)'}">
             <image id="Layer_0_Imagen-29" data-name="Layer 0 Imagen" width="67" height="127"
-            transform="translate(1.48 295.14) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout28.png" />
+            transform="translate(1.48 295.14) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout28.png" 
+            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt2}"/>
             <!-- Rectangulo CT2 -->
                 <!-- <g id="group53-145" transform="translate(295.154,-105.2055)" > -->
                     <!-- <title>Sheet.53</title>
@@ -857,7 +860,8 @@
          
         <g id="group166-462" [ngStyle]="{'transform': 'translate(' + 407.611 + 'px, ' + valorYCT1 + 'px)'}" >
             <image id="Layer_0_Imagen-30" data-name="Layer 0 Imagen" width="67" height="127"
-            transform="translate(0.65 296.9164) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout29.png" />
+            transform="translate(0.65 296.9164) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout29.png" 
+            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt1}"/>
             <!-- Rectangulo CT1 -->
             
                 <rect *ngIf="sigalRService.dataPackageCT1[0].visible" x="0" y="303"  height="12" 
@@ -871,7 +875,8 @@
         </g>
     <g  id="group100-272" [ngStyle]="{'transform': 'translate(' + valorXCT + 'px, ' + -229.715 + 'px)'}" >
         <image id="Layer_0_Imagen-31" data-name="Layer 0 Imagen" width="232" height="68"
-            transform="translate(02.65 301.87) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout30.png" />
+            transform="translate(02.65 301.87) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout30.png" 
+            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt}"/>
             <!-- Rectangulos CT -->
                    
                         <rect *ngIf="sigalRService.dataPackageCT_1[0].visible" x="0" y="303"  height="14" 
@@ -897,25 +902,27 @@
             transform="translate(428.53 86.87) scale(0.20)" xlink:href="./assets/img/IM2.png" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorWARD15000 + ')
             drop-shadow(-5px -5px 0 ' + dataMachineColor.colorWARD15000  + ')'}" 
-            [ngClass]="{showStatusAlarm: showdataAlarms.StatusiM2}"/>
+            [ngClass]="{showStatusAlarm: showdataAlarms.StatusiM2}"
+            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_Ward15000}"/>
 
         <image id="Layer_0_Imagen-50" data-name="Layer 0 Imagen" width="189" height="178"
             transform="translate(454.53 86.87) scale(0.20)" xlink:href="./assets/img/ST5.png" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataWipColor.colorST5 + ')
                 drop-shadow(-5px -5px 0 ' + dataWipColor.colorST5  + ')'}"
-                [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT5}"/>
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT5}" />
 
         <image id="Layer_0_Imagen-51" data-name="Layer 0 Imagen" width="329" height="424"
             transform="translate(449.53 86.87) scale(0.26)" xlink:href="./assets/img/IM3.png" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorLaminadora + ')
             drop-shadow(-5px -5px 0 ' + dataMachineColor.colorLaminadora  + ')'}" 
-            [ngClass]="{showStatusAlarm: showdataAlarms.StatusiM3}"/>
+            [ngClass]="{showStatusAlarm: showdataAlarms.StatusiM3}"
+            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_Laminadora}"/>
             
         <image id="Layer_0_Imagen-52" data-name="Layer 0 Imagen" width="198" height="160"
             transform="translate(491.53 86.87) scale(0.20)" xlink:href="./assets/img/IM4.png" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorImpresora36 + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorImpresora36  + ')'}" 
-                [ngClass]="{showStatusAlarm: showdataAlarms.StatusiM4}"/>
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_Impresora36}"/>
 
         <!-- <image id="Layer_0_Imagen-32" data-name="Layer 0 Imagen" width="360" height="424"
             transform="translate(429.53 86.87) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout31.png" /> -->
@@ -1075,13 +1082,16 @@
             transform="translate(505.01 118.81) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout32.png" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorImpresora36 + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorImpresora36  + ')'}" (click)="ClicIM4()"
-                [ngClass]="{showStatusAlarm: !showdataAlarms.Impresora}"/>
+                [ngClass]="{showStatusAlarm: !showdataAlarms.Impresora}" nbTooltip="{{dataWipName.iM4}}"/>
+                <!-- <g>
+                    <text x="504.92" y="132.47" class="st5">{{dataWipName.iM4}}</text>
+                </g> -->
         <g class="cls-6">
             <image id="Layer_0_Imagen-34" data-name="Layer 0 Imagen" width="467" height="237"
                 transform="translate(442.66 126.68) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout33.png" 
                 [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorWARD15000 + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorWARD15000  + ')'}" (click)="ClicIM2()"
-                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusWard}"/>
+                [ngClass]="{showStatusAlarm: !showdataAlarms.StatusWard}" />
                 <g>
                     <text x="430.92" y="174.47" class="st5">{{dataWipName.iM2}}</text>
                 </g>
@@ -1095,7 +1105,7 @@
             transform="translate(88.54 137.92) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout35.png"  
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.color924 + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.color924  + ')'}" (click)="ClicIM6()"
-                [ngClass]="{showStatusAlarm: !showdataAlarms.Status924}"/>
+                [ngClass]="{showStatusAlarm: !showdataAlarms.Status924}" nbTooltip="{{dataWipName.iM6}}"/>
                 <g>
                     <text x="126.92" y="154.47" class="st5">{{dataWipName.iM6}}</text>
                 </g>

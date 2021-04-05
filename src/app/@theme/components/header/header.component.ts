@@ -127,7 +127,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private startHttpRequestAlarmas(){    
     this.http.get(this.api.apiUrlMatbox + "/sralarms")
     .subscribe(res=>{
-      console.log(res);
+      // console.log(res);
     });
       }
 

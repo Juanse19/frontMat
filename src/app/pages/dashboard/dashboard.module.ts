@@ -19,6 +19,7 @@ import {
   NbToggleModule,
   NbInputModule,
   NbAutocompleteModule,
+  NbTooltipModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -79,6 +80,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     NbInputModule,
     NbAutocompleteModule,
     Ng2SmartTableModule,
+    NbTooltipModule,
   ],
   declarations: [
     DashboardComponent,

@@ -68,10 +68,7 @@ export interface showStatusMachinesAlarms {
     StatusSyS: boolean,        
     StatusLaminadora: boolean,        
     StatusWard: boolean,
-    Impresora: boolean,        
-    StatusCt: boolean,        
-    StatusCt1: boolean,        
-    StatusCt2: boolean,       
+    Impresora: boolean,         
     StatusiD_12: boolean,        
     StatusiD_22: boolean,        
     StatussT1: boolean,        
@@ -101,7 +98,18 @@ export interface showStatusMachinesAlarms {
     Statustm: boolean,       
     StatustF1: boolean,       
     StatustF2: boolean,
-    
+    StatusPrefeeder_Martin: boolean,
+    StatusPrefeeder_Js: boolean,
+    StatusPrefeeder_925: boolean,
+    StatusPrefeeder_Sys: boolean,
+    StatusPrefeeder_Ward15000: boolean,
+    StatusPrefeeder_Eterna: boolean,
+    StatusPrefeeder_Impresora36: boolean,
+    StatusPrefeeder_Laminadora: boolean,
+    StatusTornamesa: boolean,
+    StatusCt: boolean,
+    StatusCt1: boolean,
+    StatusCt2: boolean
 }
 
 export interface RouteCTS {

@@ -95,10 +95,7 @@ export class WcsComponent implements OnInit, OnDestroy {
     StatusSyS: true,        
     StatusLaminadora: true,        
     StatusWard: true,
-    Impresora: true,        
-    StatusCt: true,        
-    StatusCt1: true,        
-    StatusCt2: true,       
+    Impresora: true,       
     StatusiD_12: true,        
     StatusiD_22: true,        
     StatussT1: true,        
@@ -128,6 +125,18 @@ export class WcsComponent implements OnInit, OnDestroy {
     Statustm: false,       
     StatustF1: true,       
     StatustF2: true,
+    StatusPrefeeder_Martin: true,
+    StatusPrefeeder_Js: true,
+    StatusPrefeeder_925: true,
+    StatusPrefeeder_Sys: true,
+    StatusPrefeeder_Ward15000: true,
+    StatusPrefeeder_Eterna: true,
+    StatusPrefeeder_Impresora36: true,
+    StatusPrefeeder_Laminadora: true,
+    StatusTornamesa: true, 
+    StatusCt: true,        
+    StatusCt1: true,        
+    StatusCt2: true,
   }
   
   public dataRoutesCts: RouteCTS = {
@@ -279,7 +288,7 @@ export class WcsComponent implements OnInit, OnDestroy {
 
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/es').subscribe((res: any) => {
       // console.log(res);
-      console.log("status alarms :", res[0]);
+      // console.log("status alarms :", res[0]);
       this.showdataAlarms  = res[0];
       });
 
@@ -289,7 +298,7 @@ export class WcsComponent implements OnInit, OnDestroy {
 
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT2V').subscribe((res: any) => {
       // console.log(res);
-      console.log("Routes :", res);
+      // console.log("Routes :", res);
       this.dataRoutesCts  = res[0];
       });
  

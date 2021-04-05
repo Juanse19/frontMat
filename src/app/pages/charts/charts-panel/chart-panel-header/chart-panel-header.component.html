@@ -12,8 +12,10 @@
   </nb-option>
 </nb-select>
 
-<nb-select class="period-select" [selected]="machines" (selectedChange)="changeDevice($event)">
+<div >
+<nb-select class="period-select" [selected]="machines"  (selectedChange)="changeDevice($event)">
   <nb-option *ngFor="let machine of devices" [value]="machine.id">
     {{ machine.name }}
   </nb-option>
 </nb-select>
+</div>

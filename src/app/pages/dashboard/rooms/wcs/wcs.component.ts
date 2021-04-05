@@ -89,34 +89,34 @@ export class WcsComponent implements OnInit, OnDestroy {
  
   public showdataAlarms: showStatusMachinesAlarms = {
 
-    StatusMartin: false,        
-    StatusJs: false,        
-    Status924: false,        
-    StatusSyS: false,        
-    StatusLaminadora: false,        
-    StatusWard: false,
-    Impresora: false,        
-    StatusCt: false,        
-    StatusCt1: false,        
-    StatusCt2: false,       
-    StatusiD_12: false,        
-    StatusiD_22: false,        
-    StatussT1: false,        
-    StatussT2: false,       
+    StatusMartin: true,        
+    StatusJs: true,        
+    Status924: true,        
+    StatusSyS: true,        
+    StatusLaminadora: true,        
+    StatusWard: true,
+    Impresora: true,        
+    StatusCt: true,        
+    StatusCt1: true,        
+    StatusCt2: true,       
+    StatusiD_12: true,        
+    StatusiD_22: true,        
+    StatussT1: true,        
+    StatussT2: true,       
     StatusiM1: false,       
-    StatussT3: false,       
-    StatussT4: false,       
-    StatussT5: false,       
-    StatussT6: false,       
-    StatussT7: false,       
-    StatussT8: false,       
-    StatussT9: false,       
-    StatussT10: false,      
-    StatussT11: false,       
-    StatussT12: false,      
-    StatussT13: false,      
-    StatussT14: false,       
-    StatussT15: false,      
+    StatussT3: true,       
+    StatussT4: true,       
+    StatussT5: true,       
+    StatussT6: true,       
+    StatussT7: true,       
+    StatussT8: true,       
+    StatussT9: true,       
+    StatussT10: true,      
+    StatussT11: true,       
+    StatussT12: true,      
+    StatussT13: true,      
+    StatussT14: true,       
+    StatussT15: true,      
     StatusiM2: false,      
     StatusiM3: false,       
     StatusiM4: false,       
@@ -126,8 +126,8 @@ export class WcsComponent implements OnInit, OnDestroy {
     StatuscT2: false,       
     StatuscT1: false,       
     Statustm: false,       
-    StatustF1: false,       
-    StatustF2: false,
+    StatustF1: true,       
+    StatustF2: true,
   }
   
   public dataRoutesCts: RouteCTS = {
@@ -268,11 +268,18 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   }
 
+  showStatusName(){
+    const contador = interval(2000)
+    contador.subscribe((n) =>{
+      this.WipNameCharge();
+    });
+  }
+
   public StatusAlarmCharge(){
 
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/es').subscribe((res: any) => {
       // console.log(res);
-      // console.log("status alarms :", res);
+      console.log("status alarms :", res[0]);
       this.showdataAlarms  = res[0];
       });
 

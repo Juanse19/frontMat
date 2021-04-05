@@ -5,6 +5,7 @@ import { OcupacionComponent } from './ocupacion/ocupacion.component';
 import { OrdenesComponent } from './ordenes/ordenes.component';
 import { OrdenesNoWipsComponent } from './ordenes-no-wips/ordenes-no-wips.component';
 import { PredictivoComponent } from './predictivo/predictivo.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 const routes: Routes = [{
@@ -26,6 +27,10 @@ const routes: Routes = [{
     {
       path: 'predictivo',
       component: PredictivoComponent,
+    },
+    {
+      path: 'reportes',
+      component: ReportsComponent,
     },
   ],
 }];

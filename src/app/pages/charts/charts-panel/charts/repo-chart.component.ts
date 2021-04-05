@@ -12,14 +12,14 @@ import { ChartData } from '../../../../@core/interfaces/common/chart';
 import { LayoutService } from '../../../../@core/utils/layout.service';
 
 @Component({
-  selector: 'ngx-orders-chart',
+  selector: 'ngx-repo-chart',
   styleUrls: ['./charts-common.component.scss'],
-  templateUrl:'./orders-chart.component.html',
+  templateUrl:'./repo-chart.component.html',
 })
-export class OrdersChartComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class RepoChartComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   @Input()
-  ordersChartData: ChartData;
+  repoChartData: ChartData;
 
   private alive = true;
 
@@ -28,7 +28,7 @@ export class OrdersChartComponent implements AfterViewInit, OnDestroy, OnChanges
 
   ngOnChanges(): void {
     if (this.option) {
-      this.updateOrdersChartOptions(this.ordersChartData);
+      this.updateRepoChartOptions(this.repoChartData);
     }
   }
 
@@ -57,7 +57,7 @@ export class OrdersChartComponent implements AfterViewInit, OnDestroy, OnChanges
         const eTheme: any = config.variables.orders;
 
         this.setOptions(eTheme);
-        this.updateOrdersChartOptions(this.ordersChartData);
+        this.updateRepoChartOptions(this.repoChartData);
       });
   }
 
@@ -265,10 +265,10 @@ export class OrdersChartComponent implements AfterViewInit, OnDestroy, OnChanges
     };
   }
 
-  updateOrdersChartOptions(ordersChartData: ChartData) {
+  updateRepoChartOptions(repoChartData: ChartData) {
     const options = this.option;
-    const series = this.getNewSeries(options.series, ordersChartData.linesData);
-    const xAxis = this.getNewXAxis(options.xAxis, this.prepAxisXLabels(ordersChartData.axisXLabels));
+    const series = this.getNewSeries(options.series, repoChartData.linesData);
+    const xAxis = this.getNewXAxis(options.xAxis, this.prepAxisXLabels(repoChartData.axisXLabels));
 
     this.option = {
       ...options,

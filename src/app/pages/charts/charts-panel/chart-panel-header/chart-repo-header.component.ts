@@ -15,28 +15,24 @@ interface Machine{
   name:string
 }
 @Component({
-  selector: 'ngx-chart-panel-header',
+  selector: 'ngx-chart-repo-header',
   styleUrls: ['./chart-panel-header.component.scss'],
-  templateUrl: './chart-panel-header.component.html',
+  templateUrl: './chart-repo-header.component.html',
 })
-export class ChartPanelHeaderComponent implements OnDestroy {
+export class ChartRepoHeaderComponent implements OnDestroy {
 
   private alive = true;
 
-  // mostrar:Boolean = true;
-
   @Output() periodChange = new EventEmitter<string>();
-  @Output() periodMachineChange = new EventEmitter<number>();
 
   @Input() type: string = 'week';
   @Input() device: string = 'all';
-  @Input() machines: number;
   @Input() legend: string[] = ['', '', ''];
 
   // types: string[] = ['DAY', 'HOUR', 'year'];
   types: string[] = ['DAY', 'HOUR'];
   
-  devices: Machine[]=[];
+  
   chartLegend: {iconColor: string; title: string}[];
   breakpoint: NbMediaBreakpoint = { name: '', width: 0 };
   breakpoints: any;
@@ -52,13 +48,7 @@ export class ChartPanelHeaderComponent implements OnDestroy {
   
   init() {
     //  debugger;
-    this.http.get(this.api.apiUrlMatbox + "/Reports/GetMachineReportList")
-    .subscribe((res: any)=>{
-      this.devices=res;
-      
-      // console.log("Report: ", this.devices=res);
-      // this.AsignarDatosWip(res);
-    });
+   
 
 
     this.themeService.getJsTheme()
@@ -104,12 +94,6 @@ export class ChartPanelHeaderComponent implements OnDestroy {
     // console.log(period);
   }
 
-  changeDevice(machine: number): void {
-    //debugger;
-    this.machines = machine;
-    this.periodMachineChange.emit(machine);
-    // console.log(machine);
-  }
   
 
   ngOnDestroy() {

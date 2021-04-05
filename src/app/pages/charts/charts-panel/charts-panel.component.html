@@ -6,7 +6,7 @@
 
 <nb-card size="large">
   <nb-tabset fullWidth (changeTab)="changeTab($event)">
-    <nb-tab tabTitle="Orders" [active]="true">
+    <nb-tab tabTitle="Ordenes" [active]="true">
       <div class="chart-container">
         <div [nbSpinner]="!ordersChartData" class="chart-container">
           <ngx-chart-panel-summary [summary]="TotalOr"></ngx-chart-panel-summary>
@@ -22,10 +22,8 @@
       </div>
     </nb-tab>
     <!-- <nb-tab tabTitle="Profit" [lazyLoad]="true">
-      (machineChange)="setMachinedAndGetChartData($event)"
       <div class="chart-container">
         <div [nbSpinner]="!profitChartData" class="chart-container">
-          <ngx-chart-panel-summary [summary]="chartPanelSummary"></ngx-chart-panel-summary>
           <ngx-chart-panel-header #profitHeader [type]="period"
                                   [legend]="profitChartData?.legend"
                                   (periodChange)="setPeriodAndGetChartData($event)">
@@ -34,5 +32,33 @@
         </div>
       </div>
     </nb-tab> -->
+   
+<!-- Url -->
+    <!-- <nb-tab tabTitle="Reports" [active]="true">
+      <div class="chart-container">
+        <div [nbSpinner]="!reportChartData" class="chart-container">
+          <ngx-chart-repo-header #reportHeader [type]="period"
+                                  [legend]="reportChartData?.legend"
+                                  (periodChange)="setPeriodAndGetChartData($event)">
+          </ngx-chart-repo-header>
+          <ngx-orders-chart #ordersChart *ngIf="reportChartData" [ordersChartData]="reportChartData"></ngx-orders-chart>
+        </div>
+      </div>
+    </nb-tab> -->
+ 
+    <!-- Repo -->
+
+    <!-- <nb-tab tabTitle="Orden" [active]="true">
+      <div class="chart-container">
+        <div [nbSpinner]="!repoChartData" class="chart-container">
+          <ngx-chart-repo-header #repoHeader [type]="period"
+                                  [legend]="repoChartData?.legend"
+                                  (periodChange)="setReportAndGetChartData($event)">
+          </ngx-chart-repo-header>
+          <ngx-repo-chart #repoChart *ngIf="repoChartData" [repoChartData]="repoChartData"></ngx-repo-chart>
+        </div>
+      </div>
+    </nb-tab> -->
+    
   </nb-tabset>
 </nb-card>

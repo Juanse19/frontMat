@@ -12,6 +12,7 @@ import { EchartsComponent } from './echarts/echarts.component';
 import { D3Component } from './d3/d3.component';
 import { ChartjsComponent } from './chartjs/chartjs.component';
 import { ReportComponent } from './report/report.component';
+import { ChartsReportComponent } from './charts-report/charts-report.component';
 
 const routes: Routes = [{
   path: '',
@@ -28,7 +29,11 @@ const routes: Routes = [{
   },{
      path: 'report',
     component: ReportComponent,
-  }],
+  },{
+     path: 'charts-report',
+    component: ChartsReportComponent,
+  }
+],
 }];
 
 @NgModule({
@@ -44,4 +49,5 @@ export const routedComponents = [
   D3Component,
   ChartjsComponent,
   ReportComponent,
+  ChartsReportComponent,
 ];

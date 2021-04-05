@@ -274,7 +274,7 @@ export class PagesMenu {
           link: '/pages/analytics/ordenes',
         },
         {
-          title: 'Ordenes Not Wips',
+          title: 'Ordenes No Wips',
           link: '/pages/analytics/ordenesNotWips',
         },
         {
@@ -291,11 +291,31 @@ export class PagesMenu {
       children: undefined,
     };
 
-    const reportMenu: NbMenuItem = {
-      title: 'Reporte',
+    // const reportMenu: NbMenuItem = {
+    //   title: 'Reporte',
+    //   icon: 'pie-chart-outline',
+    //   link: '/pages/charts/report',
+    //   children: undefined,
+    // };
+
+    const repoMenu: NbMenuItem = {
+      title: 'Reportes',
       icon: 'pie-chart-outline',
-      link: '/pages/charts/report',
-      children: undefined,
+      // link: '/pages/charts/charts-report',
+      children:[
+        {
+          title: 'Reporte Ordenes',
+          link: '/pages/charts/report',
+        },
+        {
+          title: 'Reporte ',
+          link: '/pages/charts/charts-report',
+        },
+        // {
+        //   title: 'Reportes de maquinas ',
+        //   link: '/pages/analytics/reportes',
+        // },
+      ],
     };
 
     const alarmMenu: NbMenuItem = {
@@ -308,7 +328,7 @@ export class PagesMenu {
     const registerMenu: NbMenuItem ={
       title: 'Auth',
       icon: 'lock-outline',
-      children: [
+      children: [ 
         {
           title: 'Login',
           link: '/auth/login',
@@ -331,8 +351,8 @@ export class PagesMenu {
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
-          return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu];
+          // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
+          return [...dashboardMenu, orderMenu, repoMenu, analyticsMenu, userMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu];

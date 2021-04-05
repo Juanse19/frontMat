@@ -6,7 +6,7 @@
 
       <form>
         <div class="form-group form-inline">
-          Buscar: <input class="form-control ml-2" type="text"  name="searchTerm" [(ngModel)]="searchTerm"/>
+          Buscar: <input class="form-control ml-2" type="text"  name="searchTerm" placeholder="Buscar ordenes" [(ngModel)]="searchTerm"/>
           <span class="ml-3" *ngIf="loading$ | async">Loading...</span>
           <td><button nbButton shape="semi-round" class="boton1" status="primary" (click)="CrearOrden()">Crear Orden</button></td>
       </div>
@@ -24,8 +24,8 @@
           <th scope="col"># Cortes</th>
           <th scope="col">Ancho Cortes</th>
           <th scope="col">Largo Cortes</th>
-          <th scope="col">Priority</th>
-          <th scope="col">Edit</th>
+          <th scope="col">Prioridad</th>
+          <th scope="col">Editar</th>
         </tr>
       </thead>
       <tbody>
@@ -44,7 +44,7 @@
         <td><ngb-highlight [result]="ordenes.cutsLength" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
         <!-- <td><button (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength)" nbButton>EDIT</button></td> -->
-        <td><button nbButton shape="semi-round" status="primary" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDIT</button></td>
+        <td><button nbButton shape="semi-round" status="primary" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDITAR</button></td>
     
       </tr>
       </tbody>

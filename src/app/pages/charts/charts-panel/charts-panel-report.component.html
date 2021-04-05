@@ -1,0 +1,40 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Single Application / Multi Application License.
+  ~ See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
+  -->
+
+  <nb-card size="large">
+    <nb-tabset fullWidth (changeTab)="changeTab($event)">
+      
+     
+  <!-- Url -->
+      <nb-tab tabTitle="Reports" [active]="true"> 
+        <div class="chart-container">
+          <div [nbSpinner]="!reportChartData" class="chart-container">
+            <ngx-chart-repo-header #reportHeader [type]="period"
+                                    [legend]="reportChartData?.legend"
+                                    (periodChange)="setReportAndGetChartData($event)">
+            </ngx-chart-repo-header>
+            <ngx-repo-chart #repoChart *ngIf="reportChartData" [repoChartData]="reportChartData"></ngx-repo-chart>
+          </div>
+        </div>
+      </nb-tab>
+   
+      <!-- Repo -->
+  
+      <nb-tab tabTitle="Orden" [active]="true">
+        <div class="chart-container">
+          <div [nbSpinner]="!repoChartData" class="chart-container">
+            <ngx-chart-repo-header #repoHeader [type]="period"
+                                    [legend]="repoChartData?.legend"
+                                    (periodChange)="setReportAndGetChartData($event)">
+            </ngx-chart-repo-header>
+            <ngx-repo-chart #repoChart *ngIf="repoChartData" [repoChartData]="repoChartData"></ngx-repo-chart>
+          </div>
+        </div>
+      </nb-tab>
+      
+    </nb-tabset>
+  </nb-card>
+  

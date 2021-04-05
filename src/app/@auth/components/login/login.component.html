@@ -4,8 +4,8 @@
   ~ See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
   -->
 
-<h1 id="title" class="title">Iniciar Sesión</h1>
-<p class="sub-title">Bienvenido a <b>MATBox!</b>.</p>
+<h1 id="title" class="title">Inicia Sesión</h1>
+<p class="sub-title">¡Hola! Inicie sesión con su correo electrónico.</p>
 
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
   <p class="alert-title"><b>Oh snap!</b></p>
@@ -15,7 +15,7 @@
 </nb-alert>
 
 <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
-  <p class="alert-title"><b>Hooray!</b></p>
+  <p class="alert-title"><b>¡Hurra!</b></p>
   <ul class="alert-message-list">
     <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
   </ul>

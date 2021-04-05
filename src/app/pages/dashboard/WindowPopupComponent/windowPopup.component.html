@@ -4,7 +4,7 @@
 		<ng-template ngbNavContent>			
   			<form>
     			<div class="form-group form-inline">
-					Buscar: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"/>
+					Buscar: <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar arrumes por orden" [(ngModel)]="searchTerm"/>
 					  <span class="ml-3" *ngIf="loading$ | async">Cargando...</span>
 					  <td><button nbButton shape="semi-round" class="boton3" status="primary" (click)="EditPackage()">Crear Arrume</button></td>
 					  <!-- <button (click)="Refresh()" nbButton>Refresh</button> -->
@@ -21,9 +21,9 @@
       				<th scope="col">Referencia</th>
 					<th scope="col">Cut Length</th>
 					<th scope="col">State</th>
-					<th scope="col">Priority</th>
+					<th scope="col">Prioridad</th>
 					<th scope="col">TimeStamp</th>
-					<th scope="col">Edit</th>
+					<th scope="col">Editar</th>
     				</tr>
   					</thead>
   					<tbody>
@@ -40,7 +40,7 @@
 						<td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
 						<td><ngb-highlight [result]="ordenes.timeStamp" [term]="filter.value"></ngb-highlight></td>
 						<!-- <td><button (click)="Refresh(ordenes.order)" nbButton>Refresh</button></td> -->
-						<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.idDevice)" nbButton>EDIT</button></td>
+						<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.idDevice)" nbButton>EDITAR</button></td>
 						</tr>
   					</tbody>
   				</table>

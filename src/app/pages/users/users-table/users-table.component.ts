@@ -38,15 +38,15 @@ export class UsersTableComponent implements OnDestroy {
     },
     columns: {
       firstName: {
-        title: 'First Name',
+        title: 'Primer nombre',
         type: 'string',
       },
       lastName: {
-        title: 'Last Name',
+        title: 'Apellido',
         type: 'string',
       },
       login: {
-        title: 'User Name',
+        title: 'Nombre de usuario',
         type: 'string',
       },
       email: {
@@ -54,30 +54,30 @@ export class UsersTableComponent implements OnDestroy {
         type: 'string',
       },
       age: {
-        title: 'Age',
+        title: 'Edad',
         filter: {
           type: 'custom',
           component: NgxFilterByNumberComponent,
         },
       },
-      street: {
-        title: 'Street',
-        type: 'string',
-        valuePrepareFunction: (cell, element) =>
-          this.customDisplay(element.address, element.address.street),
-      },
-      city: {
-        title: 'City',
-        type: 'string',
-        valuePrepareFunction: (cell, element) =>
-          this.customDisplay(element.address, element.address.city),
-      },
-      zipcode: {
-        title: 'Zip Code',
-        type: 'number',
-        valuePrepareFunction: (cell, element) =>
-          this.customDisplay(element.address, element.address.zipCode),
-      },
+      // street: {
+      //   title: 'Street',
+      //   type: 'string',
+      //   valuePrepareFunction: (cell, element) =>
+      //     this.customDisplay(element.address, element.address.street),
+      // },
+      // city: {
+      //   title: 'City',
+      //   type: 'string',
+      //   valuePrepareFunction: (cell, element) =>
+      //     this.customDisplay(element.address, element.address.city),
+      // },
+      // zipcode: {
+      //   title: 'Zip Code',
+      //   type: 'number',
+      //   valuePrepareFunction: (cell, element) =>
+      //     this.customDisplay(element.address, element.address.zipCode),
+      // },
     },
   };
 

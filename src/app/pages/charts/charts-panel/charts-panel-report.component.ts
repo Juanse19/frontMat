@@ -15,6 +15,7 @@ import { OrdersProfitChartData } from '../../../@core/interfaces/ecommerce/order
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
 import { RepoChartComponent } from './charts/repo-chart.component';
+import { ChartRepoHeaderComponent } from './chart-panel-header/chart-repo-header.component';
 
 interface Ordenes {
   Orders: number;
@@ -23,11 +24,11 @@ interface Ordenes {
 } 
 
 @Component({
-  selector: 'ngx-ecommerce-charts',
+  selector: 'ngx-charts-repo',
   styleUrls: ['./charts-panel.component.scss'],
-  templateUrl: './charts-panel.component.html',
+  templateUrl: './charts-panel-report.component.html',
 })
-export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
+export class ChartsPanelReportComponent implements OnInit, OnDestroy {
 
   private alive = true;
 
@@ -43,8 +44,8 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   @ViewChild('ordersHeader', { static: true }) ordersHeader: ChartPanelHeaderComponent;
   // @ViewChild('machineHeader', { static: true }) machineHeader: ChartPanelHeaderComponent;
   @ViewChild('profitHeader', { static: true }) profitHeader: ChartPanelHeaderComponent;
-  @ViewChild('reportHeader', { static: true }) reportHeader: ChartPanelHeaderComponent;
-  @ViewChild('repoHeader', { static: true }) repoHeader: ChartPanelHeaderComponent;
+  @ViewChild('reportHeader', { static: true }) reportHeader: ChartRepoHeaderComponent;
+  @ViewChild('repoHeader', { static: true }) repoHeader: ChartRepoHeaderComponent;
   @ViewChild('ordersChart', { static: true }) ordersChart: OrdersChartComponent;
   @ViewChild('repoChart', { static: true }) repoChart: RepoChartComponent;
   @ViewChild('profitChart', { static: true }) profitChart: ProfitChartComponent;
@@ -76,37 +77,37 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
     //     this.chartPanelSummary = summary;
     //   });
     
-      this.chartPanelSummary = [
-     {title:"Ordenes", value:22},
-     {title:"Ord. Procedas", value:5},
-     {title:"Arrumes Procedos", value:18},
-     {title:"Producto desechado", value:200},
-    ]; 
+    //   this.chartPanelSummary = [
+    //  {title:"Ordenes", value:22},
+    //  {title:"Ord. Procedas", value:5},
+    //  {title:"Arrumes Procedos", value:18},
+    //  {title:"Producto desechado", value:200},
+    // ]; 
     // console.log(this.chartPanelSummary);
     
-    this.getOrdersChartData(this.period, this.machine);
-    // this.getReportReciruleDisposed(this.period);
-    // this.getReportRecircule(this.period)
+    // this.getOrdersChartData(this.period, this.machine);
+    this.getReportReciruleDisposed(this.period);
+    this.getReportRecircule(this.period)
     //this.getProfitChartData(this.period);
   }
 
-  setPeriodAndGetChartData(value: string): void {
-    if (this.period !== value) {
-      this.period = value;
-    }
+  // setPeriodAndGetChartData(value: string): void {
+  //   if (this.period !== value) {
+  //     this.period = value;
+  //   }
 
-    this.getOrdersChartData(this.period ,this.machine);
-    // this.getProfitChartData(value);
+  //   this.getOrdersChartData(this.period ,this.machine);
+  //   // this.getProfitChartData(value);
     
-  }
+  // }
 
   setReportAndGetChartData(value: string): void {
     if (this.period !== value) {
       this.period = value;
     }
 
-    // this.getReportReciruleDisposed(this.period);
-    // this.getReportRecircule(this.period);
+    this.getReportReciruleDisposed(value);
+    this.getReportRecircule(value);
   }
 
   
@@ -121,34 +122,34 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
       this.profitChart && this.profitChart.resizeChart();
     } else {
       this.repoChart && this.repoChart.resizeChart();
-      this.ordersChart && this.ordersChart.resizeChart();
+      // this.ordersChart && this.ordersChart.resizeChart();
     }
   }
 
-  getOrdersChartData(period: String, machine: number) {
-    // this.ordersProfitChartService.getOrdersChartData(period)
-      // .pipe(takeWhile(() => this.alive))
-      // .subscribe(ordersChartData => {
-      //   this.ordersChartData = ordersChartData;
-      //   this.ordersHeader.legend = ordersChartData.legend;
-      //   this.ordersHeader.init();
-      // });
-      // this.machineHeader.machines = machine;
-      // console.log("period: ", period)
-      // console.log("Machine: ", machine)
-      this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMachine?idDevice="+ machine + "&unitedTime="+period)
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any)=>{
-        console.log('Respuesta de ordenes',res);
-        if(res == null){
-           return null;
-        }
-        this.ordersChartData=res;
-        this.ordersHeader.legend = res.legend;
-        this.ordersHeader.init();
-      });
+  // getOrdersChartData(period: String, machine: number) {
+  //   // this.ordersProfitChartService.getOrdersChartData(period)
+  //     // .pipe(takeWhile(() => this.alive))
+  //     // .subscribe(ordersChartData => {
+  //     //   this.ordersChartData = ordersChartData;
+  //     //   this.ordersHeader.legend = ordersChartData.legend;
+  //     //   this.ordersHeader.init();
+  //     // });
+  //     // this.machineHeader.machines = machine;
+  //     // console.log("period: ", period)
+  //     // console.log("Machine: ", machine)
+  //     this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMachine?idDevice="+ machine + "&unitedTime="+period)
+  //     .pipe(takeWhile(() => this.alive))
+  //     .subscribe((res: any)=>{
+  //       console.log('Respuesta de ordenes',res);
+  //       if(res == null){
+  //          return null;
+  //       }
+  //       this.ordersChartData=res;
+  //       this.ordersHeader.legend = res.legend;
+  //       this.ordersHeader.init();
+  //     });
      
-  }
+  // }
 
   // getProfitChartData(period: string) {
   //   this.ordersProfitChartService.getProfitChartData(period)
@@ -160,33 +161,33 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   //     });
   // }
 
-  // getReportReciruleDisposed(period: String){
-  //   this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposed?unitedTime="+period)
-  //   .pipe(takeWhile(() => this.alive))
-  //     .subscribe((res: any)=>{  
-  //       console.log('Get Recircule', res);
-  //       if(res == null){
-  //          return null;
-  //       }
-  //       this.reportChartData=res;
-  //       this.reportHeader.legend = res.legend;
-  //       this.reportHeader.init();
-  //     });
-  // }
+  getReportReciruleDisposed(period: String){
+    this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposed?unitedTime="+period)
+    .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any)=>{  
+        console.log('Get Recircule', res);
+        if(res == null){
+           return null;
+        }
+        this.reportChartData=res;
+        this.reportHeader.legend = res.legend;
+        this.reportHeader.init();
+      });
+  }
 
-  // getReportRecircule(period: String){
-  //   this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposedPerc?unitedTime="+period)
-  //     .pipe(takeWhile(() => this.alive))
-  //     .subscribe((res: any)=>{  
-  //       console.log('Get Repo', res);
-  //       if(res == null){
-  //          return null;
-  //       }
-  //       this.repoChartData=res;
-  //       this.repoHeader.legend = res.legend;
-  //       this.repoHeader.init();
-  //     });
-  // }
+  getReportRecircule(period: String){
+    this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposedPerc?unitedTime="+period)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any)=>{  
+        console.log('Get Repo', res);
+        if(res == null){
+           return null;
+        }
+        this.repoChartData=res;
+        this.repoHeader.legend = res.legend;
+        this.repoHeader.init();
+      });
+  }
 
   ngOnDestroy() {
     this.alive = false;

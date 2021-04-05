@@ -43,12 +43,17 @@ import { EchartsAreaStackComponent } from './echarts/echarts-area-stack.componen
 import { EchartsBarAnimationComponent } from './echarts/echarts-bar-animation.component';
 import { EchartsRadarComponent } from './echarts/echarts-radar.component';
 import { ECommerceChartsPanelComponent } from './charts-panel/charts-panel.component';
+import { ChartsPanelReportComponent } from './charts-panel/charts-panel-report.component';
 import { ChartPanelHeaderComponent } from './charts-panel/chart-panel-header/chart-panel-header.component';
 import { ChartPanelSummaryComponent } from './charts-panel/chart-panel-summary/chart-panel-summary.component';
 import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.component';
 import { OrdersChartComponent } from './charts-panel/charts/orders-chart.component';
 import { ProfitChartComponent } from './charts-panel/charts/profit-chart.component';
+import { RepoChartComponent } from './charts-panel/charts/repo-chart.component';
+import { ChartRepoHeaderComponent } from './charts-panel/chart-panel-header/chart-repo-header.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { from } from 'rxjs';
+import { ChartsReportComponent } from './charts-report/charts-report.component';
 
 const components = [
   ChartjsBarComponent,
@@ -71,11 +76,14 @@ const components = [
   EchartsBarAnimationComponent,
   EchartsRadarComponent,
   ECommerceChartsPanelComponent,
+  ChartsPanelReportComponent,
   ChartPanelHeaderComponent,
   ChartPanelSummaryComponent,
   ECommerceLegendChartComponent,
   OrdersChartComponent,
-    ProfitChartComponent,
+  ProfitChartComponent,
+  RepoChartComponent,
+  ChartRepoHeaderComponent,
 ];
 
 @NgModule({

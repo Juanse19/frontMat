@@ -19,10 +19,11 @@ import { OrdenesComponent } from './ordenes/ordenes.component';
 import { AnalyticsComponent } from './analytics.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ThemeModule } from '../../@theme/theme.module';
+import { ReportsComponent } from './reports/reports.component';
 
 
 @NgModule({
-  declarations: [PredictivoComponent, OcupacionComponent, OrdenesNoWipsComponent, OrdenesComponent, AnalyticsComponent],
+  declarations: [PredictivoComponent, OcupacionComponent, OrdenesNoWipsComponent, OrdenesComponent, AnalyticsComponent, ReportsComponent],
   imports: [
     CommonModule,
     AnalyticsRoutingModule,

@@ -24,32 +24,30 @@ interface Ordenes {
 } 
 
 @Component({
-  selector: 'ngx-charts-repo',
+  selector: 'ngx-charts-repots2',
   styleUrls: ['./charts-panel.component.scss'],
-  templateUrl: './charts-panel-report.component.html',
+  templateUrl: './charts-panel-reports2.component.html',
 })
-export class ChartsPanelReportComponent implements OnInit, OnDestroy {
+export class ChartsPanelReports2Component implements OnInit, OnDestroy {
 
   private alive = true;
 
   chartPanelSummary: ChartSummary[] = [];
   period: string = 'DAY';
-  machine:number = 22;
-  ordersChartData: ChartData;
+//   machine:number = 22;
+//   ordersChartData: ChartData;
+//   reportChartData: ChartData;
   ReportSystemAcumStopData: ChartData;
-  ReportFullWipData: ChartData;
-  reportChartData: ChartData;
-  repoChartData: ChartData;
-  profitChartData: ChartData;
-  profitMotorChartData: ChartData;
+//   repoChartData: ChartData;
+//   profitChartData: ChartData;
+//   profitMotorChartData: ChartData;
   TotalOr: Ordenes[] = [];
 
   @ViewChild('ordersHeader', { static: true }) ordersHeader: ChartPanelHeaderComponent;
   // @ViewChild('machineHeader', { static: true }) machineHeader: ChartPanelHeaderComponent;
   // @ViewChild('profitHeader', { static: true }) profitHeader: ChartPanelHeaderComponent;
-  @ViewChild('profitHeader', { static: true }) profitHeader: ChartRepoHeaderComponent;
   @ViewChild('ReportSystemHeader', { static: true }) ReportSystemHeader: ChartRepoHeaderComponent;
-  @ViewChild('ReportFullWipHeader', { static: true }) ReportFullWipHeader: ChartRepoHeaderComponent;
+  @ViewChild('profitHeader', { static: true }) profitHeader: ChartRepoHeaderComponent;
   @ViewChild('reportHeader', { static: true }) reportHeader: ChartRepoHeaderComponent;
   @ViewChild('repoHeader', { static: true }) repoHeader: ChartRepoHeaderComponent;
   @ViewChild('ordersChart', { static: true }) ordersChart: OrdersChartComponent;
@@ -92,11 +90,10 @@ export class ChartsPanelReportComponent implements OnInit, OnDestroy {
     // console.log(this.chartPanelSummary);
     
     // this.getOrdersChartData(this.period, this.machine);
-    this.getReportReciruleDisposed(this.period);
-    this.getReportRecircule(this.period)
-    this.getProfitChartData(this.period);
     this.getReportSystemAcumStop(this.period);
-    this.getReportFullWip(this.period);
+    // this.getReportReciruleDisposed(this.period);
+    // this.getReportRecircule(this.period)
+    // this.getProfitChartData(this.period);
   }
 
   // setPeriodAndGetChartData(value: string): void {
@@ -114,19 +111,18 @@ export class ChartsPanelReportComponent implements OnInit, OnDestroy {
       this.period = value;
     }
 
-    this.getReportReciruleDisposed(value);
-    this.getReportRecircule(value);
-    this.getProfitChartData(value);
     this.getReportSystemAcumStop(value);
-    this.getReportFullWip(value);
+    // this.getReportReciruleDisposed(value);
+    // this.getReportRecircule(value);
+    // this.getProfitChartData(value);
   }
 
   
-  // receiveMessage($event) {
-  //   this.machine = $event
-  //   // console.log($event)
-  //   // console.log(this.machine);
-  // }
+//   receiveMessage($event) {
+//     this.machine = $event
+//     // console.log($event)
+//     // console.log(this.machine);
+//   }
 
   changeTab(selectedTab) {
     if (selectedTab.tabTitle === 'Profit') {
@@ -172,57 +168,25 @@ export class ChartsPanelReportComponent implements OnInit, OnDestroy {
   //     });
   // }
 
-  //Repot 3
-  getProfitChartData(period: String) {
-    this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMotorHour?unitedTime="+period)
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{  
-      console.log('Get Profit', res);
-      if(res == null){
-         return null;
-      }
-        this.profitChartData = res;
-        this.profitHeader.legend = res.legend;
-        this.profitHeader.init();
-      });
-  }
+//   getProfitChartData(period: String) {
+//     this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMotorHour?unitedTime="+period)
+//     .pipe(takeWhile(() => this.alive))
+//     .subscribe((res: any)=>{  
+//       console.log('Get Profit', res);
+//       if(res == null){
+//          return null;
+//       }
+//         this.profitChartData = res;
+//         this.profitHeader.legend = res.legend;
+//         this.profitHeader.init();
+//       });
+//   }
 
-  //Repot 1
-  getReportReciruleDisposed(period: String){
-    this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposed?unitedTime="+period)
-    .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any)=>{  
-        // console.log('Get Recircule', res);
-        if(res == null){
-           return null;
-        }
-        this.reportChartData=res;
-        this.reportHeader.legend = res.legend;
-        this.reportHeader.init();
-      });
-  }
-
-  //Repot 2
-  getReportRecircule(period: String){
-    this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposedPerc?unitedTime="+period)
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any)=>{  
-        // console.log('Get Repo', res);
-        if(res == null){
-           return null;
-        }
-        this.repoChartData=res;
-        this.repoHeader.legend = res.legend;
-        this.repoHeader.init();
-      });
-  }
-
-  //Repot 4
   getReportSystemAcumStop(period: String){
     this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportSystemAcumStopRecirculateStopLossNetwrok?unitedTime="+period)
     .pipe(takeWhile(() => this.alive))
       .subscribe((res: any)=>{  
-        console.log('Get Recircule', res);
+        console.log('Get Recircule', res); 
         if(res == null){
            return null;
         }
@@ -232,20 +196,19 @@ export class ChartsPanelReportComponent implements OnInit, OnDestroy {
       });
   }
 
-  //Repot 5
-  getReportFullWip(period: String){
-    this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportFullWipTime?unitedTime="+period)
-    .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any)=>{  
-        console.log('Get Recircule', res);
-        if(res == null){
-           return null;
-        }
-        this.ReportFullWipData=res;
-        this.ReportFullWipHeader.legend = res.legend;
-        this.ReportFullWipHeader.init();
-      });
-  }
+//   getReportRecircule(period: String){
+//     this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposedPerc?unitedTime="+period)
+//       .pipe(takeWhile(() => this.alive))
+//       .subscribe((res: any)=>{  
+//         // console.log('Get Repo', res);
+//         if(res == null){
+//            return null;
+//         }
+//         this.repoChartData=res;
+//         this.repoHeader.legend = res.legend;
+//         this.repoHeader.init();
+//       });
+//   }
 
   ngOnDestroy() {
     this.alive = false;

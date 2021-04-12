@@ -582,7 +582,7 @@
 
         <image id="Layer_0_Imagen-17" data-name="Layer 0 Imagen" width="93" height="91"
             transform="translate(384.54 86.55) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout16.png" 
-            [ngClass]="{showStatusAlarm: !showdataAlarms.Statustm}"/>
+            [ngClass]="{showStatusAlarm: showdataAlarms.Statustm}"/>
             <!-- Rectangulo TM -->
             <g id="group194-536" transform="translate(385.967,-212.9933)" >
                
@@ -839,7 +839,8 @@
         <g id="group53-145" [ngStyle]="{'transform': 'translate(' + 294.611 + 'px, ' + valorYCT2 + 'px)'}">
             <image id="Layer_0_Imagen-29" data-name="Layer 0 Imagen" width="67" height="127"
             transform="translate(1.48 295.14) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout28.png" 
-            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt2}"/>
+            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt2}"
+            nbTooltip="{{dataWipName.cT2}}"/>
             <!-- Rectangulo CT2 -->
                 <!-- <g id="group53-145" transform="translate(295.154,-105.2055)" > -->
                     <!-- <title>Sheet.53</title>
@@ -861,7 +862,8 @@
         <g id="group166-462" [ngStyle]="{'transform': 'translate(' + 407.611 + 'px, ' + valorYCT1 + 'px)'}" >
             <image id="Layer_0_Imagen-30" data-name="Layer 0 Imagen" width="67" height="127"
             transform="translate(0.65 296.9164) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout29.png" 
-            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt1}"/>
+            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt1}"
+            nbTooltip="{{dataWipName.cT1}}"/>
             <!-- Rectangulo CT1 -->
             
                 <rect *ngIf="sigalRService.dataPackageCT1[0].visible" x="0" y="303"  height="12" 
@@ -876,7 +878,9 @@
     <g  id="group100-272" [ngStyle]="{'transform': 'translate(' + valorXCT + 'px, ' + -229.715 + 'px)'}" >
         <image id="Layer_0_Imagen-31" data-name="Layer 0 Imagen" width="232" height="68"
             transform="translate(02.65 301.87) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout30.png" 
-            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt}"/>
+            [ngClass]="{showStatusAlarm: !showdataAlarms.StatusCt}"
+            nbTooltip="{{dataWipName.cT_1}}"
+            nbTooltip="{{dataWipName.cT_1}}"/>
             <!-- Rectangulos CT -->
                    
                         <rect *ngIf="sigalRService.dataPackageCT_1[0].visible" x="0" y="303"  height="14" 

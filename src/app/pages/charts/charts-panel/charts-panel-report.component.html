@@ -8,8 +8,8 @@
     <nb-tabset fullWidth (changeTab)="changeTab($event)">
       
      
-  <!-- Url -->
-      <nb-tab tabTitle="Reports" [active]="true"> 
+  <!-- Repot 1 -->
+      <nb-tab tabTitle="Producto no conforme" [active]="true"> 
         <div class="chart-container">
           <div [nbSpinner]="!reportChartData" class="chart-container">
             <ngx-chart-repo-header #reportHeader [type]="period"
@@ -21,9 +21,9 @@
         </div>
       </nb-tab>
    
-      <!-- Repo -->
+     <!-- Repot 2 -->
   
-      <nb-tab tabTitle="Orden" [active]="true">
+      <nb-tab tabTitle="porcentaje de utilización" [active]="true">
         <div class="chart-container">
           <div [nbSpinner]="!repoChartData" class="chart-container">
             <ngx-chart-repo-header #repoHeader [type]="period"
@@ -31,6 +31,46 @@
                                     (periodChange)="setReportAndGetChartData($event)">
             </ngx-chart-repo-header>
             <ngx-repo-chart #repoChart *ngIf="repoChartData" [repoChartData]="repoChartData"></ngx-repo-chart>
+          </div>
+        </div>
+      </nb-tab>
+
+      <!-- Repot 3 -->
+      <nb-tab tabTitle="Horometro" [lazyLoad]="true">
+        <div [nbSpinner]="!profitChartData" class="chart-container">
+          <!-- <ngx-chart-panel-summary [summary]="chartPanelSummary"></ngx-chart-panel-summary> -->
+          <ngx-chart-repo-header #profitHeader [type]="period"
+                                  [legend]="profitChartData?.legend"
+                                  (periodChange)="setReportAndGetChartData($event)">
+          </ngx-chart-repo-header>
+          <ngx-profit-chart #profitChart *ngIf="profitChartData" [profitChartData]="profitChartData"></ngx-profit-chart>
+        </div>
+      </nb-tab>
+
+      <!-- Repot 4 -->
+
+      <nb-tab tabTitle="Sistema de acumulación" [active]="true"> 
+        <div class="chart-container">
+          <div [nbSpinner]="!ReportSystemAcumStopData" class="chart-container">
+            <ngx-chart-repo-header #ReportSystemHeader [type]="period"
+                                    [legend]="ReportSystemAcumStopData?.legend"
+                                    (periodChange)="setReportAndGetChartData($event)">
+            </ngx-chart-repo-header>
+            <ngx-repo-chart #repoChart *ngIf="ReportSystemAcumStopData" [repoChartData]="ReportSystemAcumStopData"></ngx-repo-chart>
+          </div>
+        </div>
+      </nb-tab>
+
+      <!-- Repot 5 -->
+
+      <nb-tab tabTitle="Tiempo wip" [active]="true"> 
+        <div class="chart-container">
+          <div [nbSpinner]="!ReportFullWipData" class="chart-container">
+            <ngx-chart-repo-header #ReportFullWipHeader [type]="period"
+                                    [legend]="ReportFullWipData?.legend"
+                                    (periodChange)="setReportAndGetChartData($event)">
+            </ngx-chart-repo-header>
+            <ngx-repo-chart #repoChart *ngIf="ReportFullWipData" [repoChartData]="ReportFullWipData"></ngx-repo-chart>
           </div>
         </div>
       </nb-tab>

@@ -40,7 +40,9 @@ $legend-canceled-color: #3f4fda;
     overflow: hidden;
   }
 
-  ngx-profit-chart,
+  ngx-profit-chart{
+    padding: 0 1.25rem;
+  }
   
   ngx-repo-chart{
     padding: 0 1.25rem;

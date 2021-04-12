@@ -35,7 +35,8 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   period: string = 'DAY';
   machine:number = 22;
   ordersChartData: ChartData;
-  reportChartData: ChartData;
+  reportMachineChartData: ChartData;
+  reportMachineStopTimeChartData: ChartData;
   repoChartData: ChartData;
   profitChartData: ChartData;
   TotalOr: Ordenes[] = [];
@@ -44,6 +45,7 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   // @ViewChild('machineHeader', { static: true }) machineHeader: ChartPanelHeaderComponent;
   @ViewChild('profitHeader', { static: true }) profitHeader: ChartPanelHeaderComponent;
   @ViewChild('reportHeader', { static: true }) reportHeader: ChartPanelHeaderComponent;
+  @ViewChild('reportMachineHeader', { static: true }) reportMachineHeader: ChartPanelHeaderComponent;
   @ViewChild('repoHeader', { static: true }) repoHeader: ChartPanelHeaderComponent;
   @ViewChild('ordersChart', { static: true }) ordersChart: OrdersChartComponent;
   @ViewChild('repoChart', { static: true }) repoChart: RepoChartComponent;
@@ -85,6 +87,8 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
     // console.log(this.chartPanelSummary);
     
     this.getOrdersChartData(this.period, this.machine);
+    this.getReportMachineWip(this.period, this.machine);
+    this.getReportMachineStopTime(this.period, this.machine);
     // this.getReportReciruleDisposed(this.period);
     // this.getReportRecircule(this.period)
     //this.getProfitChartData(this.period);
@@ -97,20 +101,27 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
 
     this.getOrdersChartData(this.period ,this.machine);
     // this.getProfitChartData(value);
-    
+    this.getReportMachineWip(this.period, this.machine);
+    this.getReportMachineStopTime(this.period, this.machine);
   }
 
-  setReportAndGetChartData(value: string): void {
-    if (this.period !== value) {
-      this.period = value;
-    }
+  // setReportAndGetChartData(value: string): void {
+  //   if (this.period !== value) {
+  //     this.period = value;
+  //   }
 
-    // this.getReportReciruleDisposed(this.period);
-    // this.getReportRecircule(this.period);
-  }
+  //   // this.getReportReciruleDisposed(this.period);
+  //   // this.getReportRecircule(this.period);
+  // }
 
   
   receiveMessage($event) {
+    this.machine = $event
+    // console.log($event)
+    // console.log(this.machine);
+  }
+
+  receiveMess($event) {
     this.machine = $event
     // console.log($event)
     // console.log(this.machine);
@@ -139,7 +150,7 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
       this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMachine?idDevice="+ machine + "&unitedTime="+period)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any)=>{
-        console.log('Respuesta de ordenes',res);
+        // console.log('Respuesta de ordenes',res);
         if(res == null){
            return null;
         }
@@ -160,33 +171,33 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
   //     });
   // }
 
-  // getReportReciruleDisposed(period: String){
-  //   this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposed?unitedTime="+period)
-  //   .pipe(takeWhile(() => this.alive))
-  //     .subscribe((res: any)=>{  
-  //       console.log('Get Recircule', res);
-  //       if(res == null){
-  //          return null;
-  //       }
-  //       this.reportChartData=res;
-  //       this.reportHeader.legend = res.legend;
-  //       this.reportHeader.init();
-  //     });
-  // }
+  getReportMachineWip(period: String, machine: number){
+    this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMachineWipAlarmAndReturn?idDevice="+ machine + "&unitedTime="+period)
+    .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any)=>{  
+        // console.log('Get Recircule', res); 
+        if(res == null){
+           return null;
+        }
+        this.reportMachineChartData=res;
+        this.reportHeader.legend = res.legend;
+        this.reportHeader.init();
+      });
+  }
 
-  // getReportRecircule(period: String){
-  //   this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportReciruleDisposedPerc?unitedTime="+period)
-  //     .pipe(takeWhile(() => this.alive))
-  //     .subscribe((res: any)=>{  
-  //       console.log('Get Repo', res);
-  //       if(res == null){
-  //          return null;
-  //       }
-  //       this.repoChartData=res;
-  //       this.repoHeader.legend = res.legend;
-  //       this.repoHeader.init();
-  //     });
-  // }
+  getReportMachineStopTime(period: String, machine: number){
+    this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMachineStopTime?idDevice="+ machine + "&unitedTime="+period)
+    .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any)=>{  
+        console.log('Get Recircule', res); 
+        if(res == null){
+           return null;
+        }
+        this.reportMachineStopTimeChartData=res;
+        this.reportMachineHeader.legend = res.legend;
+        this.reportMachineHeader.init();
+      });
+  }
 
   ngOnDestroy() {
     this.alive = false;

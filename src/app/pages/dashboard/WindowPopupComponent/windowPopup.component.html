@@ -4,7 +4,7 @@
 		<ng-template ngbNavContent>			
   			<form>
     			<div class="form-group form-inline">
-					Buscar: <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar arrumes por orden" [(ngModel)]="searchTerm"/>
+					Buscar: <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar arrumes " [(ngModel)]="searchTerm"/>
 					  <span class="ml-3" *ngIf="loading$ | async">Cargando...</span>
 					  <td><button nbButton shape="semi-round" class="boton3" status="primary" (click)="EditPackage()">Crear Arrume</button></td>
 					  <!-- <button (click)="Refresh()" nbButton>Refresh</button> -->
@@ -19,10 +19,10 @@
       				<th scope="col">Nombre</th>
       				<th scope="col">Descripcion</th>
       				<th scope="col">Referencia</th>
-					<th scope="col">Cut Length</th>
-					<th scope="col">State</th>
+					<th scope="col">Largo Cortes</th>
+					<th scope="col">Estado</th>
 					<th scope="col">Prioridad</th>
-					<th scope="col">TimeStamp</th>
+					<th scope="col">Fecha</th>
 					<th scope="col">Editar</th>
     				</tr>
   					</thead>
@@ -66,7 +66,7 @@
 						<p><b>Estado</b></p>
 						<nb-toggle [(ngModel)]="propiedades.isOn" status="success">{{data.name}}</nb-toggle>
 						<!-- <nb-toggle [(checked)]="checked"></nb-toggle> -->
-						<p><b>Name</b></p>
+						<p><b>Nombre</b></p>
 						<input  type="text" nbInput #nameMachine value="{{ data.text }}" required minlength="0" maxlength="30" size="10">
 						<!-- <input type="text" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"> -->
 						<!-- <input type="text" nbInput #prioridadValor fullWidth fieldSize="small" placeholder="Input" [(ngModel)]="inputItemNgModel"> -->

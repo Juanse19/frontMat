@@ -185,7 +185,7 @@ export class WindowComponent2  implements OnInit {
         idStatus:formulario.statusForm,
         cutLength:formulario.cutLengthForm,
         Order:formulario.orderForm,
-        idDevice:ORDEN.idDevice,
+        idDevice:ORDEN.idDevice, 
       } 
     }
     if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){
@@ -205,7 +205,7 @@ export class WindowComponent2  implements OnInit {
               // console.log('borrar');
               this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
                 
-              });
+              }); 
               this.messageService.sendMessage('PackageUpdate');
               Swal.fire('¡Eliminado!', 'El arrume ha sido eliminada.', 'success');
               // this.ChangeState();

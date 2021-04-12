@@ -59,7 +59,7 @@ export class ProfitChartComponent implements AfterViewInit, OnDestroy, OnChanges
         axisPointer: {
           type: 'shadow',
           shadowStyle: {
-            color: 'rgba(0, 0, 0, 0.3)',
+            color: 'rgb(0, 214, 143)',
           },
         },
       },

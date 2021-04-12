@@ -1,0 +1,54 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Single Application / Multi Application License.
+  ~ See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
+  -->
+
+  <nb-card size="large">
+    <nb-tabset fullWidth (changeTab)="changeTab($event)">
+      
+     
+  <!-- Repot 1 -->
+
+      <nb-tab tabTitle="Producto no conforme" [active]="true"> 
+        <div class="chart-container">
+          <div [nbSpinner]="!ReportSystemAcumStopData" class="chart-container">
+            <ngx-chart-repo-header #ReportSystemHeader [type]="period"
+                                    [legend]="ReportSystemAcumStopData?.legend"
+                                    (periodChange)="setReportAndGetChartData($event)">
+            </ngx-chart-repo-header>
+            <ngx-repo-chart #repoChart *ngIf="ReportSystemAcumStopData" [repoChartData]="ReportSystemAcumStopData"></ngx-repo-chart>
+          </div>
+        </div>
+      </nb-tab>
+   
+      <!-- Repot 2 -->
+  
+      <!-- <nb-tab tabTitle="porcentaje de utilización" [active]="true">
+        <div class="chart-container">
+          <div [nbSpinner]="!repoChartData" class="chart-container">
+            <ngx-chart-repo-header #repoHeader [type]="period"
+                                    [legend]="repoChartData?.legend"
+                                    (periodChange)="setReportAndGetChartData($event)">
+            </ngx-chart-repo-header>
+            <ngx-repo-chart #repoChart *ngIf="repoChartData" [repoChartData]="repoChartData"></ngx-repo-chart>
+          </div>
+        </div>
+      </nb-tab> -->
+
+      <!-- Repot 3 -->
+
+       <!-- <nb-tab tabTitle="Horometro" [lazyLoad]="true">
+        <div [nbSpinner]="!profitChartData" class="chart-container">
+          <ngx-chart-panel-summary [summary]="chartPanelSummary"></ngx-chart-panel-summary>
+          <ngx-chart-repo-header #profitHeader [type]="period"
+                                  [legend]="profitChartData?.legend"
+                                  (periodChange)="setReportAndGetChartData($event)">
+          </ngx-chart-repo-header>
+          <ngx-profit-chart #profitChart *ngIf="profitChartData" [profitChartData]="profitChartData"></ngx-profit-chart>
+        </div>
+      </nb-tab>  -->
+      
+    </nb-tabset>
+  </nb-card>
+  

@@ -13,6 +13,7 @@ import { D3Component } from './d3/d3.component';
 import { ChartjsComponent } from './chartjs/chartjs.component';
 import { ReportComponent } from './report/report.component';
 import { ChartsReportComponent } from './charts-report/charts-report.component';
+import { ChartRepots2Component } from './chart-repots2/chart-repots2.component';
 
 const routes: Routes = [{
   path: '',
@@ -32,7 +33,10 @@ const routes: Routes = [{
   },{
      path: 'charts-report',
     component: ChartsReportComponent,
-  }
+  },{
+    path: 'charts-reports2',
+   component: ChartRepots2Component,
+ }
 ],
 }];
 

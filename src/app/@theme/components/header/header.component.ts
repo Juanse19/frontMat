@@ -18,6 +18,8 @@ import { SignalRService } from '../../../pages/dashboard/services/signal-r.servi
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { ApiGetService } from '../../../pages/dashboard/OrderPopup/apiGet.services';
 
 @Component({
   selector: 'ngx-header',
@@ -32,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: User;
+  sicProcess: boolean = true;
 
   themes = [
     {
@@ -66,8 +69,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private comp3: WindowComponentAlarm,
               private router: Router,
               private http: HttpClient,
+              private apiGetComp: ApiGetService,
               private api: HttpService,
               public sigalRService: SignalRService) {
+
   }
 
   getMenuItems() {
@@ -79,6 +84,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    
 
     this.sigalRService.startConnectionAlarmas();
       this.startHttpRequestAlarmas();  
@@ -148,6 +155,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   AbrirAlarms() {
     this.router.navigate(['/pages/tables/alarms/']);
+  }
+
+  Actualizar(){
+    Swal.fire({
+      title: 'Desea sincronizar?',
+      text: `¡Sincronizara Syncro y Sic!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, Sincronizar!'
+    }).then(result => {
+      if (result.value) {
+        // this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/SyncOrder')
+        // .subscribe((res: any) => {
+        //   console.log('Sic: ',res);
+        //   this.sicProcess = res;
+        //   Swal.fire('¡Se sincronizo Exitosamente', 'success');
+        // });
+    //   this.http.get(this.api.apiUrlMatbox + "/Orders/SyncOrder")
+    //   .subscribe((res:any)=>{
+    //   Swal.fire('¡Se sincronizo Exitosamente', 'success');
+    // });
+    // Swal.fire('¡Se sincronizo Exitosamente', 'success');
+
+    this.http.get(this.api.apiUrlMatbox + "/Orders/SyncOrder", { observe: 'response' })
+  .pipe()
+  .subscribe(resp => {
+    if (resp.status === 200 ) {
+      console.log(true)
+    } else {
+      console.log(false)
+    }
+  }, err => console.log(err));
+      }
+    });
   }
 
 }

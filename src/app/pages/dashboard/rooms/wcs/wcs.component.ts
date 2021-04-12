@@ -133,7 +133,7 @@ export class WcsComponent implements OnInit, OnDestroy {
     StatusPrefeeder_Eterna: true,
     StatusPrefeeder_Impresora36: true,
     StatusPrefeeder_Laminadora: true,
-    StatusTornamesa: true, 
+    StatusTornamesa: false, 
     StatusCt: true,        
     StatusCt1: true,        
     StatusCt2: true,
@@ -303,6 +303,13 @@ export class WcsComponent implements OnInit, OnDestroy {
       });
  
   }
+
+  showSatatusRouteCts(){
+    const contador = interval(1000)
+    contador.subscribe((n) =>{
+      this.RouteCtsCharge();
+    });
+  }
   
   showStatusAlarms(){
     const contador = interval(1000)
@@ -319,6 +326,8 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.WipNameCharge();
     this.showStatusAlarms();
     this.RouteCtsCharge();
+    // this.showStatusName();
+    this.showSatatusRouteCts();
     // this.StatusAlarmCharge();
   }
 

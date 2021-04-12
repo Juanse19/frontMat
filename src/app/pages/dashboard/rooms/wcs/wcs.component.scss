@@ -12,7 +12,7 @@
 };
 
  @include nb-install-component() {
-   .room-selector {
+   .wcs {
      max-width: 100%!important;
  }
  
@@ -23,8 +23,8 @@
 }
 
 .showStatusAlarm{
-  filter: drop-shadow(1px 1px 0 red) 
-          drop-shadow(-1px -1px 0 red);
+  filter: drop-shadow(4px 4px 0 red) 
+          drop-shadow(-4px -4px 0 red);
   animation: blinkingAlarm 1s infinite;
 }
 

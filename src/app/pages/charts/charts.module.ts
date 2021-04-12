@@ -44,6 +44,7 @@ import { EchartsBarAnimationComponent } from './echarts/echarts-bar-animation.co
 import { EchartsRadarComponent } from './echarts/echarts-radar.component';
 import { ECommerceChartsPanelComponent } from './charts-panel/charts-panel.component';
 import { ChartsPanelReportComponent } from './charts-panel/charts-panel-report.component';
+import { ChartsPanelReports2Component } from './charts-panel/charts-panel-reports2.component';
 import { ChartPanelHeaderComponent } from './charts-panel/chart-panel-header/chart-panel-header.component';
 import { ChartPanelSummaryComponent } from './charts-panel/chart-panel-summary/chart-panel-summary.component';
 import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.component';
@@ -54,6 +55,7 @@ import { ChartRepoHeaderComponent } from './charts-panel/chart-panel-header/char
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { from } from 'rxjs';
 import { ChartsReportComponent } from './charts-report/charts-report.component';
+import { ChartRepots2Component } from './chart-repots2/chart-repots2.component';
 
 const components = [
   ChartjsBarComponent,
@@ -77,6 +79,7 @@ const components = [
   EchartsRadarComponent,
   ECommerceChartsPanelComponent,
   ChartsPanelReportComponent,
+  ChartsPanelReports2Component,
   ChartPanelHeaderComponent,
   ChartPanelSummaryComponent,
   ECommerceLegendChartComponent,
@@ -104,6 +107,6 @@ const components = [
     NbSpinnerModule,
     Ng2SmartTableModule
   ],
-  declarations: [...routedComponents, ...components],
+  declarations: [...routedComponents, ...components, ChartRepots2Component],
 })
 export class ChartsModule {}

@@ -18,7 +18,7 @@ export class PagesMenu {
   getMenu(): Observable<NbMenuItem[]> {
     const dashboardMenu = [
       {
-        title: 'WCS Dashboard',
+        title: 'Dashboard',
         icon: 'monitor-outline',
         link: '/pages/iot-dashboard',
         children: undefined,
@@ -266,7 +266,7 @@ export class PagesMenu {
       // link: '/pages/analytics/analytics',
       children: [
         {
-          title: 'Ocupacion',
+          title: 'Ocupación',
           link: '/pages/analytics/ocupacion',
         },
         {
@@ -274,7 +274,7 @@ export class PagesMenu {
           link: '/pages/analytics/ordenes',
         },
         {
-          title: 'Ordenes No Wips',
+          title: 'Ordenes no transportables',
           link: '/pages/analytics/ordenesNotWips',
         },
         {
@@ -304,16 +304,16 @@ export class PagesMenu {
       // link: '/pages/charts/charts-report',
       children:[
         {
-          title: 'Reporte Ordenes',
+          title: 'Reporte Maquina',
           link: '/pages/charts/report',
         },
         {
-          title: 'Reporte ',
+          title: 'Reporte Sistema',
           link: '/pages/charts/charts-report',
         },
         // {
-        //   title: 'Reportes de maquinas ',
-        //   link: '/pages/analytics/reportes',
+        //   title: 'Reportes',
+        //   link: '/pages/charts/charts-reports2',
         // },
       ],
     };

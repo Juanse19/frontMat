@@ -8,16 +8,16 @@
 <p class="sub-title">¡Hola! Inicie sesión con su correo electrónico.</p>
 
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
-  <p class="alert-title"><b>Oh snap!</b></p>
+  <p class="alert-title"><b>¡Oh cielos!</b></p>
   <ul class="alert-message-list">
-    <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    <li *ngFor="let error of errors" class="alert-message">La combinación de inicio de sesión / correo electrónico no es correcta, inténtelo de nuevo.</li>
   </ul>
 </nb-alert>
 
 <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
   <p class="alert-title"><b>¡Hurra!</b></p>
   <ul class="alert-message-list">
-    <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+    <li *ngFor="let message of messages" class="alert-message">Has ingresado exitosamente.</li>
   </ul>
 </nb-alert>
 
@@ -28,7 +28,7 @@
             fullWidth
             id="input-email"
             formControlName="email"
-            [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+            [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : 'basic'"
             [attr.aria-invalid]="email.invalid && email.touched ? true : null"
             placeholder="Email address" [(ngModel)]="correo">
     <ngx-validation-message label="Email address" [showPattern]="email?.hasError('pattern') && email.touched"
@@ -38,14 +38,14 @@
   <div class="form-control-group">
     <span class="label-with-link">
       <label class="label" for="input-password">Contraseña:</label>
-      <a class="forgot-password caption-2" routerLink="../request-password">¿Has olvidado tu contraseña?</a>
+      
     </span>
     <input  nbInput
             fullWidth
             id="input-password"
             formControlName="password"
             type="password"
-            [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
+            [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : 'basic'"
             placeholder="Password" [(ngModel)]="contrasena">
     <ngx-validation-message label="Password" [showMinLength]="password?.hasError('minlength') && password.touched"
       [showMaxLength]="password?.hasError('maxlength') && password.touched"

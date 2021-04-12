@@ -8,4 +8,7 @@ export const ROLES = {
   GUEST: 'guest',
   USER: 'user',
   ADMIN: 'admin',
+  PROGRA: 'Programador',
+  SUPER: 'Supervisor',
+  OPER: 'Operario'
 };

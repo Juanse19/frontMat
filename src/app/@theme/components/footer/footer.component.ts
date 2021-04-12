@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
   selector: 'ngx-footer',
   styleUrls: ['./footer.component.scss'],
   template: `
-    <span class="created-by">Created with ♥ by <b>
+    <span class="created-by">Creado por <b>
       <a href="https://matec.com.co" target="_blank">Matec Logística</a></b> {{ currentYear }}</span>
     
   `,

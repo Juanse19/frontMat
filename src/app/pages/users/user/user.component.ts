@@ -30,8 +30,8 @@ interface Roles {
 
 export enum UserFormMode {
   VIEW = 'View',
-  EDIT = 'Edit',
-  ADD = 'Add',
+  EDIT = 'Editar',
+  ADD = 'Agregar',
   EDIT_SELF = 'EditSelf',
 }
 

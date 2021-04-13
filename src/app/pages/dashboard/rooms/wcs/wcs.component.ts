@@ -211,6 +211,9 @@ export class WcsComponent implements OnInit, OnDestroy {
   private _total$ = new BehaviorSubject<number>(0);
 
   private flagMoverCarro=true;
+  private flagAlamrs=true;
+  private flagName=true;
+  private flagRoute=true;
 
   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
 
@@ -274,14 +277,18 @@ export class WcsComponent implements OnInit, OnDestroy {
     .subscribe((res: any)=>{
       this.dataWipName=res[0];
       // console.log("WipName :", res);
-      
+      this.flagAlamrs=true;
+      this.showStatusName();
     });
 
   }
 
   showStatusName(){
     const contador = interval(2000)
-    contador.subscribe((n) =>{
+    .pipe(
+      takeWhile(y=>this.flagName)
+    ).subscribe((n) =>{
+      this.flagName=false;
       this.WipNameCharge();
     });
   }
@@ -292,6 +299,8 @@ export class WcsComponent implements OnInit, OnDestroy {
       // console.log(res);
       // console.log("status alarms :", res[0]);
       this.showdataAlarms  = res[0];
+      this.flagAlamrs=true;
+      this.showStatusAlarms();
       });
 
   }
@@ -302,20 +311,28 @@ export class WcsComponent implements OnInit, OnDestroy {
       // console.log(res);
       // console.log("Routes :", res);
       this.dataRoutesCts  = res[0];
+      this.flagRoute=true;
+      this.showSatatusRouteCts();
       });
  
   }
 
   showSatatusRouteCts(){
     const contador = interval(1000)
-    contador.subscribe((n) =>{
+    .pipe(
+      takeWhile(z=>this.flagRoute)
+    ).subscribe((n) =>{
+      this.flagRoute=false;
       this.RouteCtsCharge();
     });
   }
   
   showStatusAlarms(){
     const contador = interval(1000)
-    contador.subscribe((n) =>{
+    .pipe(
+      takeWhile(z=>this.flagAlamrs)
+    ).subscribe((n) =>{
+      this.flagAlamrs=false;
       this.StatusAlarmCharge();
     });
   }
@@ -385,6 +402,8 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT').subscribe((res: any) => {
       // console.log(res);
       this.valorXCT  = res.position;
+      this.flagMoverCarro=true;
+      this.MoverCarro();
       });
   }
   MoverCT1(){
@@ -392,6 +411,8 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT1').subscribe((res: any) => {
       // console.log(res);
       this.valorYCT1  = res.position;
+      this.flagMoverCarro=true;
+      this.MoverCarro();
       });
   }
   MoverCT2(){
@@ -399,6 +420,8 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT2').subscribe((res: any) => {
       // console.log(res);
       this.valorYCT2  = res.position;
+      this.flagMoverCarro=true;
+      this.MoverCarro();
       });
   }
 

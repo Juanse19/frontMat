@@ -188,9 +188,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       console.log(false)
     }
-  }, err => console.log(err));
+  } , err => console.log(err));
+  Swal.fire('¡Se sincronizo Exitosamente', 'success');
       }
     });
+    
   }
 
 }

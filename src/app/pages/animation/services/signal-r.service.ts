@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
-import {IdWip, MachineColor, PackagesWIP} from '../_interfaces/MatBox.model';
+import {IdWip, MachineColor, PackagesWIP} from '../../dashboard/_interfaces/MatBox.model';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
 

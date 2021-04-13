@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output, ViewChild , TemplateRef, PipeTransform, ElementRef} from '@angular/core';
 import { Location, LocationStrategy } from '@angular/common';
 import { NbThemeService } from '@nebular/theme';
-import { delay, map, takeUntil } from 'rxjs/operators';
+import { delay, map, takeUntil, takeWhile } from 'rxjs/operators';
 import { Observable, Subject, of, BehaviorSubject, interval,Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { JacComponent } from '../../JacComponent/jac.component';
@@ -210,6 +210,8 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   private _total$ = new BehaviorSubject<number>(0);
 
+  private flagMoverCarro=true;
+
   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
 
   constructor(
@@ -364,32 +366,19 @@ export class WcsComponent implements OnInit, OnDestroy {
   }
 
   MoverCarro(){
-    // this.valorX = this.valorX + 10;
+
   const contador = interval(1000)
-    contador.subscribe((n) =>{
+  .pipe(
+    takeWhile(x=>this.flagMoverCarro)
+  ).subscribe((n) =>{
+    this.flagMoverCarro=false;
       // this.MoverSTM();
       this.MoverCT();
       this.MoverCT1();
       this.MoverCT2();
       this.MoverTM();
     });
-    // const contador2 = interval(1000)
-    // contador2.subscribe((n) =>{
-    //   this.MoverCT();
-    // });
-    // const contador3 = interval(1000)
-    // contador3.subscribe((n) =>{
-    //   this.MoverCT();
-    // });
   }
-
-  // MoverSTM(){
-  //   // this.valorX = this.valorX + 10;
-  //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/ST').subscribe((res: any) => {
-  //     // console.log(res);
-  //     this.valorXCT  = res.position;
-  //     });
-  // }
 
   MoverCT(){
     // this.valorX = this.valorX + 10;
@@ -416,8 +405,9 @@ export class WcsComponent implements OnInit, OnDestroy {
   MoverTM(){
     // this.valorX = this.valorX + 10;
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/TM').subscribe((res: any) => {
-      // console.log(res);
       this.valorZTM  = res.position;
+      this.flagMoverCarro=true;
+      this.MoverCarro();
       });
   }
 

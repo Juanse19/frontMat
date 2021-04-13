@@ -104,7 +104,7 @@ this.hubConnectionPackageWip = new signalR.HubConnectionBuilder()
 this.hubConnectionPackageWip.serverTimeoutInMilliseconds = 5000;
 
 this.hubConnectionPackageWip.on('transfershowpackagedata', (data)=>{
-  this.hubConnectionPackageWip.stop();
+  this.hubConnectionPackageWip.stop;
   if(data.length>0){
 
     // console.log(data+id);
@@ -113,7 +113,13 @@ this.hubConnectionPackageWip.on('transfershowpackagedata', (data)=>{
     // console.log(this.dataPackages);
     
   this.AsignarDatosWip(data);
-  this.startConnectionPackageWip(id);
+  // this.startConnectionPackageWip(id);
+  this.hubConnectionPackageWip
+.start()
+.then(()=>console.log('Connection started PAckage'))
+.catch(err=>console.log('Error while starting PAckage: ' + err,
+this.startConnectionPackageWip(id)
+));
   }
 });
 

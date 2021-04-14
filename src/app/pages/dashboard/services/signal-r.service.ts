@@ -336,16 +336,16 @@ public GetDataManual(){
 
 let i=0;
 
-let maquinas:string[]=[];
+let deviceArray:string[]=[];
 for (var clave in IdWip){
 
-  maquinas.push(IdWip[clave]);
+  deviceArray.push(IdWip[clave]);
 
 }
 
 
 // this.intervalSubscriptions = interval(1000)
-from(maquinas)
+from(deviceArray)
 .pipe(
   takeWhile(() => this.alive),
 mergeMap((idDevice) => interval(1000)

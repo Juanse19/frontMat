@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output, ViewChild , TemplateRef, PipeTransform, ElementRef} from '@angular/core';
 import { Location, LocationStrategy } from '@angular/common';
 import { NbThemeService } from '@nebular/theme';
-import { delay, map, takeUntil, takeWhile } from 'rxjs/operators';
+import { delay, map, takeUntil, takeWhile, timeout,switchMap } from 'rxjs/operators';
 import { Observable, Subject, of, BehaviorSubject, interval,Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { JacComponent } from '../../JacComponent/jac.component';
@@ -16,6 +16,7 @@ import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
 import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS } from '../../_interfaces/MatBox.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { truncateSync } from 'node:fs';
 
 @Component({
   providers: [
@@ -35,6 +36,14 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   messages: any[] = [];
   subscription: Subscription;
+  
+  intervalSubscriptionRouteName: Subscription;
+  intervalSubscriptionCT: Subscription;
+  intervalSubscriptionCT1: Subscription;
+  intervalSubscriptionCT2: Subscription;
+  intervalSubscriptionTM: Subscription;
+  intervalSubscriptionStatusAlarm:Subscription;
+
   inputOrder: string;
 
   public orderProcess: OrderProcess[];
@@ -210,10 +219,7 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   private _total$ = new BehaviorSubject<number>(0);
 
-  private flagMoverCarro=true;
-  private flagAlamrs=true;
-  private flagName=true;
-  private flagRoute=true;
+  private alive=true;
 
   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
 
@@ -276,66 +282,54 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.http.get(this.api.apiUrlMatbox + "/Orders/WipNameList")
     .subscribe((res: any)=>{
       this.dataWipName=res[0];
-      // console.log("WipName :", res);
-      this.flagAlamrs=true;
-      this.showStatusName();
     });
 
   }
 
-  showStatusName(){
-    const contador = interval(2000)
-    .pipe(
-      takeWhile(y=>this.flagName)
-    ).subscribe((n) =>{
-      this.flagName=false;
-      this.WipNameCharge();
-    });
-  }
+
 
   public StatusAlarmCharge(){
 
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/es').subscribe((res: any) => {
-      // console.log(res);
-      // console.log("status alarms :", res[0]);
-      this.showdataAlarms  = res[0];
-      this.flagAlamrs=true;
-      this.showStatusAlarms();
-      });
+    if (this.intervalSubscriptionStatusAlarm) {
+      this.intervalSubscriptionStatusAlarm.unsubscribe();
+    }
+    
+       
+    this.intervalSubscriptionStatusAlarm = interval(1000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/es')),
+    )
+    .subscribe((res: any) => {
+        this.showdataAlarms  = res[0];
+    });
+
+    // this.apiGetComp.GetJson(this.api.apiUrlNode + '/es')
+    //   .pipe(takeWhile(() =>this.flagMoverCarro))
+    // .subscribe((res: any) => {
+    //   this.showdataAlarms  = res[0];
+    //   });
 
   }
 
   public RouteCtsCharge(){
 
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT2V').subscribe((res: any) => {
-      // console.log(res);
-      // console.log("Routes :", res);
+    if (this.intervalSubscriptionRouteName) {
+      this.intervalSubscriptionRouteName.unsubscribe();
+    }
+    
+    this.intervalSubscriptionRouteName = interval(1000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/CT2V')),
+    )
+    .subscribe((res: any) => {
       this.dataRoutesCts  = res[0];
-      this.flagRoute=true;
-      this.showSatatusRouteCts();
-      });
+    });
+
  
   }
 
-  showSatatusRouteCts(){
-    const contador = interval(1000)
-    .pipe(
-      takeWhile(z=>this.flagRoute)
-    ).subscribe((n) =>{
-      this.flagRoute=false;
-      this.RouteCtsCharge();
-    });
-  }
-  
-  showStatusAlarms(){
-    const contador = interval(1000)
-    .pipe(
-      takeWhile(z=>this.flagAlamrs)
-    ).subscribe((n) =>{
-      this.flagAlamrs=false;
-      this.StatusAlarmCharge();
-    });
-  }
 
   ngOnInit(): void {
     this.GetOrderProcess();
@@ -343,20 +337,22 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.MoverCarro();
     this.ColorCharge();
     this.WipNameCharge();
-    this.showStatusAlarms();
+    // this.showStatusAlarms();
     this.RouteCtsCharge();
     // this.showStatusName();
-    this.showSatatusRouteCts();
+    // this.showSatatusRouteCts();
     // this.StatusAlarmCharge();
   }
 
   InitSignalR() {
+    this.sigalRService.GetDataManual();
     for (var clave in IdWip) {
       var idMachine = IdWip[clave];
 
-      this.sigalRService.startConnectionPackageWip(idMachine);
-      this.startHttpRequestPackage(idMachine);
+      // this.sigalRService.startConnectionPackageWip(idMachine);
+      // this.startHttpRequestPackage(idMachine);
     }
+
   }
 
   private startHttpRequestPackage(id) {
@@ -378,60 +374,117 @@ export class WcsComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-
-
+    this.alive=false;
+    this.sigalRService.alive=false;
   }
 
   MoverCarro(){
-
-  const contador = interval(1000)
-  .pipe(
-    takeWhile(x=>this.flagMoverCarro)
-  ).subscribe((n) =>{
-    this.flagMoverCarro=false;
-      // this.MoverSTM();
+    
+    this.StatusAlarmCharge();
+    this.RouteCtsCharge();
       this.MoverCT();
       this.MoverCT1();
       this.MoverCT2();
       this.MoverTM();
-    });
   }
 
   MoverCT(){
-    // this.valorX = this.valorX + 10;
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT').subscribe((res: any) => {
-      // console.log(res);
+
+    if (this.intervalSubscriptionCT) {
+      this.intervalSubscriptionCT.unsubscribe();
+    }
+
+    this.intervalSubscriptionCT = interval(1000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/CT')),
+    )
+    .subscribe((res: any) => {
       this.valorXCT  = res.position;
-      this.flagMoverCarro=true;
-      this.MoverCarro();
-      });
+    });
+
+  //   // this.valorX = this.valorX + 10;
+  //  this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT')
+  //   .pipe(
+  //     takeWhile(() =>this.flagMoverCarro)
+  //     )
+  //   .subscribe((res: any) => {
+  //     this.valorXCT  = res.position;
+  //     });
   }
   MoverCT1(){
-    // this.valorX = this.valorX + 10;
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT1').subscribe((res: any) => {
-      // console.log(res);
+
+    if (this.intervalSubscriptionCT1) {
+      this.intervalSubscriptionCT1.unsubscribe();
+    }
+
+
+    this.intervalSubscriptionCT1 = interval(1000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/CT1')),
+    )
+    .subscribe((res: any) => {
       this.valorYCT1  = res.position;
-      this.flagMoverCarro=true;
-      this.MoverCarro();
-      });
+    });
+
+
+    //  this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT1')
+    //   .pipe(
+    //  takeWhile(() =>this.flagMoverCarro)
+    //   )
+    // .subscribe((res: any) => {
+    //   this.valorYCT1  = res.position;
+    //   });
   }
   MoverCT2(){
-    // this.valorX = this.valorX + 10;
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT2').subscribe((res: any) => {
-      // console.log(res);
+
+    if (this.intervalSubscriptionCT2) {
+      this.intervalSubscriptionCT2.unsubscribe();
+    }
+
+
+    this.intervalSubscriptionCT2 = interval(1000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/CT2')),
+    )
+    .subscribe((res: any) => {
       this.valorYCT2  = res.position;
-      this.flagMoverCarro=true;
-      this.MoverCarro();
-      });
+    });
+
+    //  this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT2')    
+    //   .pipe(takeWhile(() =>this.flagMoverCarro)
+    //   )
+    // .subscribe((res: any) => {
+    //   this.valorYCT2  = res.position;
+    //   });
   }
 
   MoverTM(){
-    // this.valorX = this.valorX + 10;
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/TM').subscribe((res: any) => {
+
+    if (this.intervalSubscriptionTM) {
+      this.intervalSubscriptionTM.unsubscribe();
+    }
+
+
+
+    this.intervalSubscriptionTM = interval(1000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/TM')),
+    )
+    .subscribe((res: any) => {
       this.valorZTM  = res.position;
-      this.flagMoverCarro=true;
-      this.MoverCarro();
-      });
+    });
+
+    // this.apiGetComp.GetJson(this.api.apiUrlNode + '/TM')
+    //   .pipe(
+    //  takeWhile(() =>this.flagMoverCarro)
+    //   )
+    // .subscribe((res: any) => {
+    //   this.valorZTM  = res.position;
+    //   });
   }
 
   ClicST3() {
@@ -562,80 +615,5 @@ public ClicIM7(): void {
   this.comp2.openWindowForm(IdWip.IM7);
 }
  
-//  EliminarElemento(){
-//   // console.log(this.paqueteRec.nativeElement);
-//   // this.paqueteRec.nativeElement.visibility;
-//   // var elemento = document.getElementById("paquete");
-//   var elemento = document.getElementById("paqueteRec" + this.contPaqueteST6);
-
-//   let objeto = {
-  
-//     visibility:"hidden"
-//   };
-//   for (var nombre in objeto) {
-//     if (objeto.hasOwnProperty(nombre)) {
-//       elemento.setAttributeNS(null, nombre, objeto[nombre]);
-//     }
-//   }
-//   if(this.contPaqueteST6 >= 1){
-//   this.contPaqueteST6 = this.contPaqueteST6 -1;
-//   }
-// }
-
-// VisibleElemento(){
-//   // var elemento = document.getElementById("paquete");
-//   if(this.contPaqueteST6 < 5){
-//   this.contPaqueteST6 = this.contPaqueteST6 + 1;
-//   var color;
-//   if(this.contPaqueteST6 == 1){
-//      color = "yellow"
-//   }
-//   if(this.contPaqueteST6 == 2){
-//      color = "blue"
-//   }
-//   if(this.contPaqueteST6 == 3){
-//      color = "red"
-//   }
-//   if(this.contPaqueteST6 == 4){
-//      color = "green"
-//   }
-//   if(this.contPaqueteST6 == 5){
-//     color = "gray"
-//  }
-//   var elemento = document.getElementById("paqueteRec" + this.contPaqueteST6);
-
-//   let objeto = {
- 
-//     visibility:"visible",
-//     stroke: color,
-//     fill: color
-    
-//   };
-//   for (var nombre in objeto) {
-//     if (objeto.hasOwnProperty(nombre)) {
-//       elemento.setAttributeNS(null, nombre, objeto[nombre]);
-//     }
-//   }
-//  }
-// }
-
-// Refresh() {
-//   // this.apiGetComp.Suma();
-
-
-//   this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((res: any) => {
-//     // console.log(res);
-//     // this.ordenesMaquina = res;
-//     // console.log(this.ordenesMaquina);
-//     // console.error(res);
-
-//     // console.log(res[0].VarName);
-//     // console.log(res[0].Valor);
-//     // console.log(res[0].Fecha);
-//     this.comp2.openWindow(this.contentTemplate, 'Popup ApiGet', res[0].order, res[0].idSource, res[0].name, res[0].idTarget );
-
-//   });
-
-// }
 
 }

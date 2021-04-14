@@ -1,8 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
-import {IdWip, MachineColor, PackagesWIP} from '../_interfaces/MatBox.model';
+import {IdMaquinas, IdWip, MachineColor, PackagesWIP} from '../_interfaces/MatBox.model';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
+import { delay, map, mergeMap, subscribeOn, switchMap, takeUntil, takeWhile } from 'rxjs/operators';
+import { interval, Subscription,from } from 'rxjs';
 
 // const options = {
 //   transport: signalR.HttpTransportType.ServerSentEvents,
@@ -48,12 +50,13 @@ export class SignalRService implements OnInit {
   public dataPackageIM6: PackagesWIP[];
   public dataPackageIM7: PackagesWIP[];
   
+  private intervalSubscriptions:  Subscription;
 
+  public alive=true;
   
   private hubConnectionAlarmas: signalR.HubConnection;
   private hubConnectionPackageWip: signalR.HubConnection;
-  
-  
+    
 
   public startConnectionAlarmas = () => {
     this.ngOnInit();
@@ -68,7 +71,7 @@ export class SignalRService implements OnInit {
   this.hubConnectionAlarmas = new signalR.HubConnectionBuilder()
   .withUrl(this.api.apiUrlMatSignalR + '/sralarms',options)
   .build();
-  this.hubConnectionAlarmas.serverTimeoutInMilliseconds = 120000;
+  this.hubConnectionAlarmas.serverTimeoutInMilliseconds = 4000;
   
   this.hubConnectionAlarmas.on('transferalarmdata', (data)=>{
     this.numeroAlarmas=data;
@@ -101,12 +104,12 @@ public startConnectionPackageWip = (id:number) => {
 this.hubConnectionPackageWip = new signalR.HubConnectionBuilder()
 .withUrl(this.api.apiUrlMatSignalR + '/showpackage?idMaquina=' + id ,options)
 .build();
-this.hubConnectionPackageWip.serverTimeoutInMilliseconds = 5000;
+this.hubConnectionPackageWip.serverTimeoutInMilliseconds = 4000;
 
 this.hubConnectionPackageWip.on('transfershowpackagedata', (data)=>{
   
   if(data.length>0){
-    this.hubConnectionPackageWip.stop;
+    // this.hubConnectionPackageWip.stop;
     // console.log(data+id);
     // this.datas[id]=data;
     this.dataPackages=data;
@@ -114,12 +117,12 @@ this.hubConnectionPackageWip.on('transfershowpackagedata', (data)=>{
     
   this.AsignarDatosWip(data);
   // this.startConnectionPackageWip(id);
-  this.hubConnectionPackageWip
-.start()
-.then(()=>console.log('Connection started PAckage'))
-.catch(err=>console.log('Error while starting PAckage: ' + err,
-this.startConnectionPackageWip(id)
-));
+//   this.hubConnectionPackageWip
+// .start()
+// .then(()=>console.log('Connection started PAckage'))
+// .catch(err=>console.log('Error while starting PAckage: ' + err
+// // this.startConnectionPackageWip(id)
+// ));
   }
 });
 
@@ -269,14 +272,6 @@ AsignarDatosWip(data:any){
       this.dataPackageIM2[i].ngStyle.width=15;
     }
 
-    // this.dataPackageIM2[1].ngStyle.y=288;
-    // this.dataPackageIM2[1].ngStyle.x=0;
-    // this.dataPackageIM2[2].ngStyle.y=273;
-    // this.dataPackageIM2[2].ngStyle.x=0;
-    // this.dataPackageIM2[3].ngStyle.y=257;
-    // this.dataPackageIM2[3].ngStyle.x=0;
-    // this.dataPackageIM2[4].ngStyle.y=242;
-    // this.dataPackageIM2[4].ngStyle.x=0;
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.IM3)
   {
@@ -287,24 +282,6 @@ AsignarDatosWip(data:any){
       this.dataPackageIM3[i].ngStyle.height=this.dataPackageIM3[i].ngStyle.width;
       this.dataPackageIM3[i].ngStyle.width=17;
     }
-    // this.dataPackageIM2[1].ngStyle.y=this.dataPackageIM2[1].ngStyle.x;
-    // this.dataPackageIM2[1].ngStyle.x=0
-    // this.dataPackageIM3[0].ngStyle.y=303;
-    // this.dataPackageIM3[0].ngStyle.x=0;
-    // this.dataPackageIM3[1].ngStyle.y=288;
-    // this.dataPackageIM3[1].ngStyle.x=0;
-    // this.dataPackageIM3[2].ngStyle.y=273;
-    // this.dataPackageIM3[2].ngStyle.x=0;
-    // this.dataPackageIM3[3].ngStyle.y=257;
-    // this.dataPackageIM3[3].ngStyle.x=0;
-    // this.dataPackageIM3[4].ngStyle.y=242;
-    // this.dataPackageIM3[4].ngStyle.x=0;
-    // this.dataPackageIM3[5].ngStyle.y=227;
-    // this.dataPackageIM3[5].ngStyle.x=0;
-    // this.dataPackageIM3[6].ngStyle.y=212;
-    // this.dataPackageIM3[6].ngStyle.x=0;
-    // this.dataPackageIM3[7].ngStyle.y=197;
-    // this.dataPackageIM3[7].ngStyle.x=0;
   }
   if (this.dataPackageWip[0].idMaquina==IdWip.IM4)
   {
@@ -343,33 +320,65 @@ AsignarDatosWip(data:any){
 constructor(private api: HttpService,
   private http: HttpClient,
   ){    
-    for (var clave in IdWip){
-      var idMachine=IdWip[clave];
-      this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
-      .subscribe((res: any)=>{
-        // console.log(res);
-        this.AsignarDatosWip(res);
-      });
-  }
+
   }
   
 ngOnInit(){
 
-  // this.http.get(this.api.apiUrlMatbox + "/Orders/GetMachineColor")
-  // .subscribe((res: any)=>{
-  //   console.log(res);
-  //   this.dataMachineColor=res;
-  // });
-  
-
-  for (var clave in IdWip){
-    var idMachine=IdWip[clave];
-    this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
-    .subscribe((res: any)=>{
-      // console.log(res);
-      this.AsignarDatosWip(res);
-    });
 }
+
+public GetDataManual(){
+  this.alive=true;
+
+  if (this.intervalSubscriptions) {
+    this.intervalSubscriptions.unsubscribe();
+  }
+
+let i=0;
+
+let maquinas:string[]=[];
+for (var clave in IdWip){
+
+  maquinas.push(IdWip[clave]);
+
+}
+
+
+// this.intervalSubscriptions = interval(1000)
+from(maquinas)
+.pipe(
+  takeWhile(() => this.alive),
+mergeMap((idDevice) => interval(1000)
+.pipe(
+  takeWhile(() => this.alive)
+  ,switchMap(() => this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idDevice)),
+))
+)
+.subscribe((res: any) => {
+          this.AsignarDatosWip(res);
+        });
+      
+  //     var idMachine=IdWip[clave];
+
+  //        let intervalSubscription = new interval(1000)
+  //       .pipe(
+  //         takeWhile(() => this.alive),
+  //         switchMap(() => this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)),
+  //       )
+  //       .subscribe((res: any) => {
+  //         this.AsignarDatosWip(res);
+  //       });
+  //  this.intervalSubscriptions.push(intervalSubscription);
+         
+      // var idMachine=IdWip[clave];
+      // this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
+      // .subscribe((res: any)=>{
+      //   // console.log(res);
+      //   this.AsignarDatosWip(res);
+      // });
+
+
+
 
 }
 

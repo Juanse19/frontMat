@@ -17,6 +17,8 @@ import { UsersComponent } from './users.component';
 import { UserComponent } from './user/user.component';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { ComponentsModule } from '../../@components/components.module';
+
+import { NgxResetPasswordComponent} from '../../@auth/components';
 // components
 
 import {
@@ -67,6 +69,8 @@ const  NB_MODULES = [
   ],
   entryComponents: [
   ],
-  providers: [],
+  providers: [
+    NgxResetPasswordComponent
+  ],
 })
 export class UsersModule { }

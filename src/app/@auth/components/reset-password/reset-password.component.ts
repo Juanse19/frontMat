@@ -5,7 +5,7 @@
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult, NbAuthJWTToken } from '@nebular/auth';
 import { runInThisContext } from 'node:vm';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
@@ -31,7 +31,7 @@ export class NgxResetPasswordComponent implements OnInit {
   errors: string[] = [];
   messages: string[] = [];
   user: any = {};
-  userToken: any = {};
+  userId: string;
   resetPasswordForm: FormGroup;
 
   constructor(protected service: NbAuthService,
@@ -39,15 +39,10 @@ export class NgxResetPasswordComponent implements OnInit {
     protected cd: ChangeDetectorRef,
     protected fb: FormBuilder,
     protected router: Router,
-    private api: HttpService,
-  private http: HttpClient,) {
-      this.service.onTokenChange()
-      .subscribe((token: NbAuthJWTToken) => {
-        if (token.isValid()) {
-          this.userToken = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable 
-        }
+    private route: ActivatedRoute,
 
-      });
+  ) {
+    this.userId = this.route.snapshot.paramMap.get('id');
      }
 
   ngOnInit(): void {
@@ -70,15 +65,8 @@ export class NgxResetPasswordComponent implements OnInit {
     this.errors = this.messages = [];
     this.submitted = true;
     this.user = this.resetPasswordForm.value;
-let restorePass=
-    {
-      "email": "admin@admin.admin",
-      "newPassword": "admin",
-      "confirmPassword": "admin",
-      "token": this.userToken.access_token,
-    }
-
-    this.http.post(this.api.apiUrl + "/auth/restore-pass", restorePass).subscribe((result:any)=>{
+this.user.password += ';' + this.userId; 
+    this.service.resetPassword(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
       if (result.isSuccess()) {
         this.messages = result.getMessages();
@@ -94,23 +82,6 @@ let restorePass=
       }
       this.cd.detectChanges();
     });
-    
-    // this.service.resetPassword(this.strategy, this.user).subscribe((result: NbAuthResult) => {
-    //   this.submitted = false;
-    //   if (result.isSuccess()) {
-    //     this.messages = result.getMessages();
-    //   } else {
-    //     this.errors = result.getErrors();
-    //   }
-
-    //   const redirect = result.getRedirect();
-    //   if (redirect) {
-    //     setTimeout(() => {
-    //       return this.router.navigateByUrl(redirect);
-    //     }, this.redirectDelay);
-    //   }
-    //   this.cd.detectChanges();
-    // });
   }
 
   getConfigValue(key: string): any {

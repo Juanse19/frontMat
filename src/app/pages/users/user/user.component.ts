@@ -4,7 +4,7 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { takeUntil, takeWhile} from 'rxjs/operators';
 import { NbToastrService } from '@nebular/theme';
 
 import {User, UserData} from '../../../@core/interfaces/common/users';
-import {EMAIL_PATTERN, NUMBERS_PATTERN} from '../../../@auth/components';
+import {EMAIL_PATTERN, NgxResetPasswordComponent, NUMBERS_PATTERN} from '../../../@auth/components';
 import {NbAuthOAuth2JWTToken, NbTokenService} from '@nebular/auth';
 import {UserStore} from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
@@ -40,6 +40,9 @@ export enum UserFormMode {
   selector: 'ngx-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class UserComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
@@ -83,19 +86,11 @@ export class UserComponent implements OnInit, OnDestroy {
               private toasterService: NbToastrService,
               private fb: FormBuilder,
               private httpService: HttpService,
-              private apiGetComp: ApiGetService,) {
+              private apiGetComp: ApiGetService,
+              public resetPassword: NgxResetPasswordComponent) {
                 this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles').subscribe((res: any) => {
                   this.listaRoles=res;
                 });
-
-                // if (this.accessChecker.isGranted('edit', 'users')) {
-                //   this.selec = false;
-                //   // this.DataLoad(idMaquina); 
-                //   // console.log("Cambio de estado", this.selec);
-                // }else {
-                //   this.selec=true;
-                // }
-
                 this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
                   if(res){ 
                     this.select = false;
@@ -191,7 +186,8 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   changepass(){
-    this.router.navigate(['/auth/reset-password']);
+    // this.resetPassword.userId=this.userForm.value.id;
+    this.router.navigate(['/auth/reset-password/'+this.userForm.value.id]);
   }
 
   save() {

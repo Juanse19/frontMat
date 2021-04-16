@@ -15,40 +15,40 @@ import { interval, Subscription,from } from 'rxjs';
   providedIn: 'root'
 })
 export class SignalRService implements OnInit {
-  public dataPackages:PackagesWIP[];
+  public dataPackages:PackagesWIP[]=[];
   public numeroAlarmas : {numeroAlarmas:number} = {numeroAlarmas:0}
-  public dataPackageWip: PackagesWIP[];
-  public dataPackageST1: PackagesWIP[];
-  public dataPackageST2: PackagesWIP[];
-  public dataPackageST3: PackagesWIP[];
-  public dataPackageST4: PackagesWIP[];
-  public dataPackageST5: PackagesWIP[];
-  public dataPackageST6: PackagesWIP[];
-  public dataPackageST7: PackagesWIP[];
-  public dataPackageST8: PackagesWIP[];
-  public dataPackageST9: PackagesWIP[];
-  public dataPackageST10: PackagesWIP[];
-  public dataPackageST11: PackagesWIP[];
-  public dataPackageST12: PackagesWIP[];
-  public dataPackageST13: PackagesWIP[];
-  public dataPackageST14: PackagesWIP[];
-  public dataPackageST15: PackagesWIP[];
-  public dataPackageCT_1: PackagesWIP[];
-  public dataPackageCT_2: PackagesWIP[];
-  public dataPackageCT1: PackagesWIP[];
-  public dataPackageCT2: PackagesWIP[];
-  public dataPackageTM: PackagesWIP[];
-  public dataPackageTF1: PackagesWIP[];
-  public dataPackageTF2: PackagesWIP[];
-  public dataPackageID12: PackagesWIP[];
-  public dataPackageID22: PackagesWIP[];
-  public dataPackageIM1: PackagesWIP[];
-  public dataPackageIM2: PackagesWIP[];
-  public dataPackageIM3: PackagesWIP[];
-  public dataPackageIM4: PackagesWIP[];
-  public dataPackageIM5: PackagesWIP[];
-  public dataPackageIM6: PackagesWIP[];
-  public dataPackageIM7: PackagesWIP[];
+  public dataPackageWip: PackagesWIP[]=this.dataPackages;
+  public dataPackageST1: PackagesWIP[]=this.dataPackages;
+  public dataPackageST2: PackagesWIP[]=this.dataPackages;
+  public dataPackageST3: PackagesWIP[]=this.dataPackages;
+  public dataPackageST4: PackagesWIP[]=this.dataPackages;
+  public dataPackageST5: PackagesWIP[]=this.dataPackages;
+  public dataPackageST6: PackagesWIP[]=this.dataPackages;
+  public dataPackageST7: PackagesWIP[]=this.dataPackages;
+  public dataPackageST8: PackagesWIP[]=this.dataPackages;
+  public dataPackageST9: PackagesWIP[]=this.dataPackages;
+  public dataPackageST10: PackagesWIP[]=this.dataPackages;
+  public dataPackageST11: PackagesWIP[]=this.dataPackages;
+  public dataPackageST12: PackagesWIP[]=this.dataPackages;
+  public dataPackageST13: PackagesWIP[]=this.dataPackages;
+  public dataPackageST14: PackagesWIP[]=this.dataPackages;
+  public dataPackageST15: PackagesWIP[]=this.dataPackages;
+  public dataPackageCT_1: PackagesWIP[]=this.dataPackages;
+  public dataPackageCT_2: PackagesWIP[]=this.dataPackages;
+  public dataPackageCT1: PackagesWIP[]=this.dataPackages;
+  public dataPackageCT2: PackagesWIP[]=this.dataPackages;
+  public dataPackageTM: PackagesWIP[]=this.dataPackages;
+  public dataPackageTF1: PackagesWIP[]=this.dataPackages;
+  public dataPackageTF2: PackagesWIP[]=this.dataPackages;
+  public dataPackageID12: PackagesWIP[]=this.dataPackages;
+  public dataPackageID22: PackagesWIP[]=this.dataPackages;
+  public dataPackageIM1: PackagesWIP[]=this.dataPackages;
+  public dataPackageIM2: PackagesWIP[]=this.dataPackages;
+  public dataPackageIM3: PackagesWIP[]=this.dataPackages;
+  public dataPackageIM4: PackagesWIP[]=this.dataPackages;
+  public dataPackageIM5: PackagesWIP[]=this.dataPackages;
+  public dataPackageIM6: PackagesWIP[]=this.dataPackages;
+  public dataPackageIM7: PackagesWIP[]=this.dataPackages;
   
   private intervalSubscriptions:  Subscription;
 
@@ -320,10 +320,37 @@ AsignarDatosWip(data:any){
 constructor(private api: HttpService,
   private http: HttpClient,
   ){    
-
+    this.packageInit();
   }
   
 ngOnInit(){
+
+}
+
+private packageInit(){
+let emptyPackage:PackagesWIP={
+  cutLength:1,
+  description:"",
+  id:-1,
+  idMaquina:1,
+  name:"",
+  visible:false,
+  order:"",
+  valor:"",
+  state:0,
+  ngStyle:{
+    fill:"0",
+    width:1,
+    fillOpacity:0,
+    x:0,
+    height:1,
+    y:0
+  }
+};
+for(let i=0; i<10;i++){
+  this.dataPackages.push(emptyPackage);
+}
+
 
 }
 
@@ -342,8 +369,6 @@ for (var clave in IdWip){
   deviceArray.push(IdWip[clave]);
 
 }
-
-
 // this.intervalSubscriptions = interval(1000)
 from(deviceArray)
 .pipe(
@@ -358,28 +383,6 @@ mergeMap((idDevice) => interval(1000)
           this.AsignarDatosWip(res);
         });
       
-  //     var idMachine=IdWip[clave];
-
-  //        let intervalSubscription = new interval(1000)
-  //       .pipe(
-  //         takeWhile(() => this.alive),
-  //         switchMap(() => this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)),
-  //       )
-  //       .subscribe((res: any) => {
-  //         this.AsignarDatosWip(res);
-  //       });
-  //  this.intervalSubscriptions.push(intervalSubscription);
-         
-      // var idMachine=IdWip[clave];
-      // this.http.get(this.api.apiUrlMatbox + "/Orders/GetPackagesWIP?idDevice="+ idMachine)
-      // .subscribe((res: any)=>{
-      //   // console.log(res);
-      //   this.AsignarDatosWip(res);
-      // });
-
-
-
-
 }
 
 

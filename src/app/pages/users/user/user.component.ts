@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil} from 'rxjs/operators';
+import { takeUntil, takeWhile} from 'rxjs/operators';
 
 import { NbToastrService } from '@nebular/theme';
 
@@ -46,6 +46,7 @@ export class UserComponent implements OnInit, OnDestroy {
   selectedRole;
   listaRoles:Roles[]=[];
   public select = false;
+  private alive = true;
 
   protected readonly unsubscribe$ = new Subject<void>();
 
@@ -198,12 +199,16 @@ export class UserComponent implements OnInit, OnDestroy {
 
     let observable = new Observable<User>();
     if (this.mode === UserFormMode.EDIT_SELF) {
-      this.usersService.updateCurrent(user).subscribe((result: any) => {
+      this.usersService.updateCurrent(user)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((result: any) => {
         var userRole = {
           IdUser:user.id,
           Role:user.role
         };
-        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole).subscribe();
+        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe();
           this.tokenService.set(new NbAuthOAuth2JWTToken(result, 'email', new Date()));
           this.handleSuccessResponse();
         },
@@ -223,7 +228,9 @@ export class UserComponent implements OnInit, OnDestroy {
           IdUser:user.id,
           Role:user.role
         };
-        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole).subscribe();
+        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe();
        
         this.handleSuccessResponse();
       },
@@ -248,5 +255,6 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+    this.alive = false;
   }
 }

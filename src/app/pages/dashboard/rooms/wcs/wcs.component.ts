@@ -266,11 +266,13 @@ export class WcsComponent implements OnInit, OnDestroy {
   public ColorCharge(){
     
   this.http.get(this.api.apiUrlMatbox + "/Orders/GetMachineColor")
+  .pipe(takeWhile(() => this.alive))
   .subscribe((res: any)=>{
     this.dataMachineColor=res;
   });
 
   this.http.get(this.api.apiUrlMatbox + "/Orders/GetWipColor")
+  .pipe(takeWhile(() => this.alive))
   .subscribe((res: any)=>{
     this.dataWipColor=res;
   });
@@ -280,6 +282,7 @@ export class WcsComponent implements OnInit, OnDestroy {
   public WipNameCharge(){
 
     this.http.get(this.api.apiUrlMatbox + "/Orders/WipNameList")
+    .pipe(takeWhile(() => this.alive))
     .subscribe((res: any)=>{
       this.dataWipName=res[0];
     });
@@ -357,6 +360,7 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   private startHttpRequestPackage(id) {
     this.http.get(this.api.apiUrlMatbox + "/showpackage?idMaquina=" + id)
+    .pipe(takeWhile(() => this.alive))
       .subscribe(res => {
         // console.log(res);
       });
@@ -364,6 +368,7 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   private GetOrderProcess(){    
     this.http.get(this.api.apiUrlMatbox + "/Orders/GetOrderProcess")
+    .pipe(takeWhile(() => this.alive))
     .subscribe((res:any)=>{
       this.orderProcess=res;
     });

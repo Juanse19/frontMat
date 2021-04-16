@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit }
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthSocialLink, NbAuthService, NbAuthResult } from '@nebular/auth';
+import { takeWhile } from 'rxjs/operators';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { getDeepFromObject } from '../../helpers';
 import { EMAIL_PATTERN } from '../constants';
@@ -40,6 +41,7 @@ export class NgxRegisterComponent implements OnInit {
   messages: string[] = [];
   user: any = {};
   listaRoles:Roles[]=[];
+  private alive = true;
 
 
   registerForm: FormGroup;
@@ -52,7 +54,9 @@ export class NgxRegisterComponent implements OnInit {
     private apiGetComp: ApiGetService,
     ) {
       
-      this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles').subscribe((res: any) => {
+      this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
         this.listaRoles=res;
       });
   }

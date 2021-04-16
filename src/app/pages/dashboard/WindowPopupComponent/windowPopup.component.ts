@@ -271,7 +271,9 @@ export class WindowComponent {
       this.subscription = this.messageService.onMessage().subscribe(message => {
         if (message.text=="PackageUpdate") {
           //this.messages.push(message);
-          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina).subscribe((res: any) => {
+          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
             ORDENES = res;
             this._search$.next();
             // this._search$.pipe(
@@ -374,17 +376,25 @@ export class WindowComponent {
   DataLoad(idMaquina: number){
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina;
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipFree?idTarget='+ idMaquina).subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipFree?idTarget='+ idMaquina)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       WIPFREE = res;
       this.wipFree=WIPFREE;
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerPropiedadesMaquina?idMaquina='+ idMaquina).subscribe((res: any) => {
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerPropiedadesMaquina?idMaquina='+ idMaquina)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
         PROPIEDADES = res;
         
         
-        this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipForTarget?idTarget='+ idMaquina).subscribe((res: any) => {
+        this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipForTarget?idTarget='+ idMaquina)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any) => {
           WIPLIST=res;
           this.wipLista=WIPLIST;
-          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina).subscribe((res: any) => {
+          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
             ORDENES = res;
             this.propiedades = PROPIEDADES;
             if (this.propiedades.isOn == true) {
@@ -459,7 +469,9 @@ export class WindowComponent {
 
    
   openWindowForm(idMaquina?: number) {
-    this.accessChecker.isGranted('edit', 'machine').subscribe((res: any) => {
+    this.accessChecker.isGranted('edit', 'machine')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       if(res){ 
         // this.DataLoad(idMaquina);
       
@@ -563,7 +575,9 @@ export class WindowComponent {
             idTarget:this.idMaquina,
             idWip:item.id,
           };
-          this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/DelWipTarget', WIPTARGET).subscribe((res: any) => {
+          this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/DelWipTarget', WIPTARGET)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
             this.DataLoadBasic(this.idMaquina);  
           });
         

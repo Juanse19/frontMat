@@ -352,7 +352,7 @@ export class PagesMenu {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          return [...dashboardMenu, orderMenu, repoMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
+          return [...dashboardMenu, orderMenu, repoMenu, analyticsMenu, userMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu, ];

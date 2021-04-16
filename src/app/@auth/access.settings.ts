@@ -91,17 +91,30 @@
 //   }
 
 export const authSettings = {
-  guest: {
-    view: ['devices', 'current-user']
+  operario: {
+    view: ['devices', 'current-user','dashboard','iot-dashboard']
   },
-  user: {
-    parent: 'guest',
-      view: ['devices', 'current-user'],
+  // operario: {
+  //   view: ['dashboard', 'current-user']
+  // },
+  supervisor: {
+    parent: 'operario',
+      view: ['devices', 'current-user','dashboard','iot-dashboard','report','reports', 'fullMenu'],
       edit: ['devices', 'current-user'],
   },
+  programador: {
+    parent: 'supervisor',
+      view: ['devices', 'current-user', 'users', 'dashboard', 'iot-dashboard','dashboard','report','reports','order','ordertable','machine'],
+      edit: ['devices', 'current-user',  'dashboard', 'iot-dashboard','dashboard','report','reports','order','ordertable','machine'],
+  },
   admin: {
-    parent: 'user',
+    parent: 'programador',
       view: ['devices', 'current-user', 'users'],
       edit: ['devices', 'current-user', 'users'],
   },
+  
+  // supervisor: {
+  //   parent: 'user',
+  //     view: ['devices', 'current-user', 'super']
+  // },
 };

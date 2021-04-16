@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'ngx-reset-password-page',
   styleUrls: ['./reset-password.component.scss'],
-  templateUrl: './reset-password.component.html',
+  templateUrl: './reset-password.component.html', 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxResetPasswordComponent implements OnInit {

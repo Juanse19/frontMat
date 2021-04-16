@@ -347,7 +347,7 @@ export class PagesMenu {
         },
       ],
     };
-    return this.accessChecker.isGranted('view', 'users')
+    return this.accessChecker.isGranted('view', 'fullMenu')
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
@@ -355,7 +355,7 @@ export class PagesMenu {
           return [...dashboardMenu, orderMenu, repoMenu, analyticsMenu, userMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
-          return [...dashboardMenu];
+          return [...dashboardMenu, ];
         }
       }));
   }

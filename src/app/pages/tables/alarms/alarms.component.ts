@@ -5,6 +5,7 @@ import { SmartTableData } from '../../../@core/interfaces/common/smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { NbToastrService } from '@nebular/theme';
+import { takeWhile } from 'rxjs/operators';
 
 interface Alarmas {
   id: number;
@@ -105,7 +106,9 @@ export class AlarmsComponent implements OnDestroy {
    
     //  console.log("Evento: ", event);
       let alarm = {idAlarm: event.data.id};
-      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postalarm?IdAlarm='+ event.data.id, alarm).subscribe((res: any) => {
+      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postalarm?IdAlarm='+ event.data.id, alarm)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
         //  console.log("alarmId", res);
          if (res) {
           this.toastrService.success('', '¡Alarma solucionada!');
@@ -119,7 +122,9 @@ export class AlarmsComponent implements OnDestroy {
   }
 
   reconocer() {
-       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postallalarm', "").subscribe((res: any) => {
+       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postallalarm', "")
+       .pipe(takeWhile(() => this.alive))
+       .subscribe((res: any) => {
           if (res) {
            this.toastrService.success('', '¡Alarmas solucionadas!');
            this.source.refresh();
@@ -130,12 +135,10 @@ export class AlarmsComponent implements OnDestroy {
      
   }
 
-  ngOnDestroy() {
-    this.alive = false;
-  }
-
   Chargealarms() {
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms').subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       //REPORTOCUPATION=res;
       // console.log("Report Total Ordenes:", res);
       this.Alarm = res;
@@ -143,7 +146,9 @@ export class AlarmsComponent implements OnDestroy {
     });
     const contador = interval(60000)
     contador.subscribe((n) => {
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms').subscribe((res: any) => {
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
         //REPORTOCUPATION=res;
         this.Alarm = res;
         this.source.load(res);
@@ -151,5 +156,11 @@ export class AlarmsComponent implements OnDestroy {
     });
 
   }
+
+  ngOnDestroy() {
+    this.alive = false;
+  }
+
+  
 
 }

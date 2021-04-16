@@ -7,13 +7,14 @@ import { HttpClient } from '@angular/common/http';
 import { i18nMetaToDocStmt } from '@angular/compiler/src/render3/view/i18n/meta';
 import {ApiGetService} from '../OrderTable/apiGet.services'
 import { DecimalPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms'; 
 import {WindowComponent} from '../WindowOrderPopup/windowsOrderPopup.component'
 import {ApiWindowOrderPopup} from '../WindowOrderPopup/apiWindowiOrderPopup.services'
 import {WindowCreateComponent} from '../WindowCreateOrderPopup/windowsCreateOrderPopup.component'
 import {HttpService} from '../../../@core/backend/common/api/http.service'
 import { MessageService } from '../../dashboard/services/MessageService';
 import { Identifiers } from '@angular/compiler';
+import { NbAccessChecker } from '@nebular/security';
 
 
   interface Ordenes {
@@ -105,6 +106,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     filter = new FormControl('');
 
     constructor(
+      public accessChecker: NbAccessChecker,
         public apiGetComp: ApiGetService,
         public pipe : DecimalPipe,
         private orderPopup: WindowComponent, 
@@ -206,7 +208,15 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         priority: parPrority,
       }
       // console.log(ORDEN);
-      this.orderPopup.openWindowForm("Propiedades de la Orden " + ORDEN.order , "", ORDEN);
+      this.accessChecker.isGranted('edit', 'ordertable').subscribe((res: any) => {
+        if(res){ 
+          // this.DataLoad(idMaquina);
+        
+          this.orderPopup.openWindowForm("Propiedades de la Orden " + ORDEN.order , "", ORDEN);
+        }
+        
+      });
+      
     }
 
     Refresh(){
@@ -217,8 +227,19 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         this._search$.next();
     }
     
+
+    
+
     CrearOrden(){
-      this.orderCrearPopup.openWindowForm("CREAR ORDEN","");
+      this.accessChecker.isGranted('edit', 'ordertable').subscribe((res: any) => {
+        if(res){ 
+          // this.DataLoad(idMaquina);
+        
+          this.orderCrearPopup.openWindowForm("CREAR ORDEN","");
+        }
+        
+      });
+      
 
     }
   

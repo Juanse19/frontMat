@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil} from 'rxjs/operators';
+import { takeUntil, takeWhile} from 'rxjs/operators';
 
 import { NbToastrService } from '@nebular/theme';
 
@@ -20,6 +20,7 @@ import {NbAuthOAuth2JWTToken, NbTokenService} from '@nebular/auth';
 import {UserStore} from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
+import { NbAccessChecker } from '@nebular/security';
 
 
 interface Roles {
@@ -32,7 +33,7 @@ export enum UserFormMode {
   VIEW = 'View',
   EDIT = 'Editar',
   ADD = 'Agregar',
-  EDIT_SELF = 'EditSelf',
+  EDIT_SELF = 'Editar Self',
 }
 
 @Component({
@@ -44,6 +45,8 @@ export class UserComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   selectedRole;
   listaRoles:Roles[]=[];
+  public select = false;
+  private alive = true;
 
   protected readonly unsubscribe$ = new Subject<void>();
 
@@ -70,7 +73,9 @@ export class UserComponent implements OnInit, OnDestroy {
     this.mode = viewMode;
   }
 
-  constructor(private usersService: UserData,
+  constructor(
+              public accessChecker: NbAccessChecker,
+              private usersService: UserData,
               private router: Router,
               private route: ActivatedRoute,
               private tokenService: NbTokenService,
@@ -81,6 +86,23 @@ export class UserComponent implements OnInit, OnDestroy {
               private apiGetComp: ApiGetService,) {
                 this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles').subscribe((res: any) => {
                   this.listaRoles=res;
+                });
+
+                // if (this.accessChecker.isGranted('edit', 'users')) {
+                //   this.selec = false;
+                //   // this.DataLoad(idMaquina); 
+                //   // console.log("Cambio de estado", this.selec);
+                // }else {
+                //   this.selec=true;
+                // }
+
+                this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
+                  if(res){ 
+                    this.select = false;
+                  }else {
+                    this.select=true;
+                  }
+                  
                 });
   }
 
@@ -114,6 +136,7 @@ export class UserComponent implements OnInit, OnDestroy {
     return this.mode !== UserFormMode.VIEW;
   }
 
+  
 
   loadUserData() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -167,17 +190,25 @@ export class UserComponent implements OnInit, OnDestroy {
     return user;
   }
 
+  changepass(){
+    this.router.navigate(['/auth/reset-password']);
+  }
+
   save() {
     const user: User = this.convertToUser(this.userForm.value);
 
     let observable = new Observable<User>();
     if (this.mode === UserFormMode.EDIT_SELF) {
-      this.usersService.updateCurrent(user).subscribe((result: any) => {
+      this.usersService.updateCurrent(user)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((result: any) => {
         var userRole = {
           IdUser:user.id,
           Role:user.role
         };
-        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole).subscribe();
+        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe();
           this.tokenService.set(new NbAuthOAuth2JWTToken(result, 'email', new Date()));
           this.handleSuccessResponse();
         },
@@ -197,7 +228,9 @@ export class UserComponent implements OnInit, OnDestroy {
           IdUser:user.id,
           Role:user.role
         };
-        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole).subscribe();
+        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe();
        
         this.handleSuccessResponse();
       },
@@ -212,7 +245,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   handleWrongResponse() {
-    this.toasterService.danger('', `This email has already taken!`);
+    this.toasterService.danger('', `¡Este correo electrónico ya se tomó!`);
   }
 
   back() {
@@ -222,5 +255,6 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+    this.alive = false;
   }
 }

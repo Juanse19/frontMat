@@ -6,7 +6,7 @@ import {ApiGetService} from './apiGet.services';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject,Subscription } from 'rxjs';
-import { debounceTime, delay, reduce, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, delay, reduce, switchMap, takeWhile, tap } from 'rxjs/operators';
 import {WindowComponent2 } from '../OrderPopup/orderPopup.component';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { Router, NavigationEnd } from '@angular/router';
@@ -193,6 +193,8 @@ export class WindowComponent {
 
   };
 
+  private alive = true;
+
   mySubscription: any;
 
   idMaquina=IDMAQUINA;
@@ -269,7 +271,9 @@ export class WindowComponent {
       this.subscription = this.messageService.onMessage().subscribe(message => {
         if (message.text=="PackageUpdate") {
           //this.messages.push(message);
-          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina).subscribe((res: any) => {
+          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
             ORDENES = res;
             this._search$.next();
             // this._search$.pipe(
@@ -372,17 +376,25 @@ export class WindowComponent {
   DataLoad(idMaquina: number){
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina;
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipFree?idTarget='+ idMaquina).subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipFree?idTarget='+ idMaquina)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       WIPFREE = res;
       this.wipFree=WIPFREE;
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerPropiedadesMaquina?idMaquina='+ idMaquina).subscribe((res: any) => {
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerPropiedadesMaquina?idMaquina='+ idMaquina)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
         PROPIEDADES = res;
         
         
-        this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipForTarget?idTarget='+ idMaquina).subscribe((res: any) => {
+        this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipForTarget?idTarget='+ idMaquina)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any) => {
           WIPLIST=res;
           this.wipLista=WIPLIST;
-          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina).subscribe((res: any) => {
+          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
             ORDENES = res;
             this.propiedades = PROPIEDADES;
             if (this.propiedades.isOn == true) {
@@ -457,7 +469,9 @@ export class WindowComponent {
 
    
   openWindowForm(idMaquina?: number) {
-    this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
+    this.accessChecker.isGranted('edit', 'machine')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       if(res){ 
         // this.DataLoad(idMaquina);
       
@@ -472,7 +486,9 @@ export class WindowComponent {
   
 
   ObtenerListaDeviceType() {
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerDeviceTypeLista').subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerDeviceTypeLista')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       DEVICESTYPE = res; 
      
       }); 
@@ -481,7 +497,9 @@ export class WindowComponent {
 
 
   ObtenerListaColor() {
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerColorLista').subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerColorLista')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       COLORLISTA = res;
       
       });
@@ -510,7 +528,7 @@ export class WindowComponent {
     {
       id:IDMAQUINA,
       descripcionMaquina:this.nameMachineValor.nativeElement.value,
-      type:this.propiedades.type,
+      type:this.propiedades.type, 
       valor:this.propiedades.valor,
       isOn:this.propiedades.isOn
       // prioridad:Number(this.prioridadValor.nativeElement.value)
@@ -522,7 +540,9 @@ export class WindowComponent {
     // this.colorMaquina.fillValor = 'red';
     // console.log(PROPIEDADESACTUALIZAR);
 
-    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarPropiedadesMaquina', PROPIEDADESACTUALIZAR).subscribe((res:any) => {
+    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarPropiedadesMaquina', PROPIEDADESACTUALIZAR)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res:any) => {
       this.messageService.sendMessage('MachineColor');
       this.handleSuccessResponse();
     }      
@@ -539,7 +559,9 @@ export class WindowComponent {
             idTarget:this.idMaquina,
             idWip:item.id,
           };
-          this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/PutWipTarget', WIPTARGET).subscribe((res: any) => {
+          this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/PutWipTarget', WIPTARGET)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
             this.DataLoadBasic(this.idMaquina);  
           });
         
@@ -553,7 +575,9 @@ export class WindowComponent {
             idTarget:this.idMaquina,
             idWip:item.id,
           };
-          this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/DelWipTarget', WIPTARGET).subscribe((res: any) => {
+          this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/DelWipTarget', WIPTARGET)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
             this.DataLoadBasic(this.idMaquina);  
           });
         
@@ -638,5 +662,6 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     if (this.subscription) {
       this.subscription.unsubscribe();
   }
+  this.alive = false;
   }
 }

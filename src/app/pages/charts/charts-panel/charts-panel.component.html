@@ -21,8 +21,8 @@
         </div>
       </div>
     </nb-tab>
-   
-    <nb-tab tabTitle="Alarmas de wips de Maquinas" [active]="true">
+    
+    <nb-tab tabTitle="Tiempo de parada de las máquinas" [active]="true">
       <div class="chart-container">
         <div [nbSpinner]="!reportMachineChartData" class="chart-container">
           <ngx-chart-panel-header #reportMachineHeader [type]="period" 
@@ -37,7 +37,7 @@
       </div>
     </nb-tab>
    
-    <nb-tab tabTitle="Tiempo de parada de las máquinas" [active]="true">
+    <nb-tab tabTitle="Alarmas de wips de Maquinas" [active]="true">
       <div class="chart-container">
         <div [nbSpinner]="!reportMachineStopTimeChartData" class="chart-container">
           <ngx-chart-panel-header #reportHeader [type]="period" 

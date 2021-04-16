@@ -6,8 +6,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult } from '@nebular/auth';
+import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult, NbAuthJWTToken } from '@nebular/auth';
+import { runInThisContext } from 'node:vm';
+import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { authSettings } from '../../access.settings';
 import { getDeepFromObject } from '../../helpers';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'ngx-reset-password-page',
@@ -27,13 +31,24 @@ export class NgxResetPasswordComponent implements OnInit {
   errors: string[] = [];
   messages: string[] = [];
   user: any = {};
+  userToken: any = {};
   resetPasswordForm: FormGroup;
 
   constructor(protected service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     protected cd: ChangeDetectorRef,
     protected fb: FormBuilder,
-    protected router: Router) { }
+    protected router: Router,
+    private api: HttpService,
+  private http: HttpClient,) {
+      this.service.onTokenChange()
+      .subscribe((token: NbAuthJWTToken) => {
+        if (token.isValid()) {
+          this.userToken = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable 
+        }
+
+      });
+     }
 
   ngOnInit(): void {
     const passwordValidators = [
@@ -55,8 +70,15 @@ export class NgxResetPasswordComponent implements OnInit {
     this.errors = this.messages = [];
     this.submitted = true;
     this.user = this.resetPasswordForm.value;
+let restorePass=
+    {
+      "email": "admin@admin.admin",
+      "newPassword": "admin",
+      "confirmPassword": "admin",
+      "token": this.userToken.access_token,
+    }
 
-    this.service.resetPassword(this.strategy, this.user).subscribe((result: NbAuthResult) => {
+    this.http.post(this.api.apiUrl + "/auth/restore-pass", restorePass).subscribe((result:any)=>{
       this.submitted = false;
       if (result.isSuccess()) {
         this.messages = result.getMessages();
@@ -72,6 +94,23 @@ export class NgxResetPasswordComponent implements OnInit {
       }
       this.cd.detectChanges();
     });
+    
+    // this.service.resetPassword(this.strategy, this.user).subscribe((result: NbAuthResult) => {
+    //   this.submitted = false;
+    //   if (result.isSuccess()) {
+    //     this.messages = result.getMessages();
+    //   } else {
+    //     this.errors = result.getErrors();
+    //   }
+
+    //   const redirect = result.getRedirect();
+    //   if (redirect) {
+    //     setTimeout(() => {
+    //       return this.router.navigateByUrl(redirect);
+    //     }, this.redirectDelay);
+    //   }
+    //   this.cd.detectChanges();
+    // });
   }
 
   getConfigValue(key: string): any {

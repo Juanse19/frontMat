@@ -4,7 +4,7 @@
   ~ See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
   -->
 
-  <h1 id="title" class="title">Register</h1>
+  <h1 id="title" class="title">Registrarse</h1>
 
   <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
     <p class="alert-title"><b>Oh snap!</b></p>
@@ -37,12 +37,12 @@
                               [showMaxLength]="login?.hasError('maxlength') && login.touched"
                               [minLength]="minLoginLength"
                               [maxLength]="maxLoginLength"
-                              [showRequired]="login?.errors?.required && login.touched">
+                              [showRequired]="login?.errors?.Requerido && login.touched">
       </ngx-validation-message>
     </div>
   
     <div class="form-control-group">
-      <label for="input-email">Email address:</label>
+      <label for="input-email">Correo:</label>
       <input  nbInput
               fullWidth
               fieldSize="large"
@@ -50,9 +50,9 @@
               formControlName="email"
               [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
               [attr.aria-invalid]="email.invalid && email.touched ? true : null"
-              placeholder="Email address">
-      <ngx-validation-message label="Email address" [showPattern]="email?.hasError('pattern') && email.touched"
-        [showRequired]="email?.errors?.required && email.touched"></ngx-validation-message>
+              placeholder="Correo">
+      <ngx-validation-message label="Correo" [showPattern]="email?.hasError('pattern') && email.touched"
+        [showRequired]="email?.errors?.Requerido && email.touched"></ngx-validation-message>
     </div>
     
     <div class="form-control-group">
@@ -80,12 +80,12 @@
                             [showMaxLength]="role?.hasError('maxlength')" 
                             minLength=3
                             maxLength=20
-                            [showRequired]="role?.errors?.required && role.touched"
+                            [showRequired]="role?.errors?.Requerido && role.touched"
                             ></ngx-validation-message>
     </div>
   
     <div class="form-control-group">
-      <label for="input-password">Password:</label>
+      <label for="input-password">Contraseña:</label>
       <input  nbInput
               fullWidth
               fieldSize="large"
@@ -93,16 +93,16 @@
               formControlName="password"
               type="password"
               [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
-              placeholder="Password">
-      <ngx-validation-message label="Password" [showMinLength]="password?.hasError('minlength') && password.touched"
+              placeholder="Contraseña">
+      <ngx-validation-message label="Contraseña" [showMinLength]="password?.hasError('minlength') && password.touched"
         [showMaxLength]="password?.hasError('maxlength') && password.touched"
-        [showRequired]="password?.errors?.required && password.touched"
+        [showRequired]="password?.errors?.Requerido && password.touched"
         [minLength]="minLength"
         [maxLength]="maxLength"></ngx-validation-message>
     </div>
   
     <div class="form-control-group">
-      <label for="input-re-password">Confirm Password:</label>
+      <label for="input-re-password">Confirmar Contraseña:</label>
       <input  nbInput
               fullWidth
               fieldSize="large"
@@ -111,31 +111,31 @@
               type="password"
               [status]="confirmPassword.dirty ? (confirmPassword.invalid || password.value != confirmPassword.value  ? 'danger' : 'success') : ''"
               placeholder="Password">
-      <ngx-validation-message label="Confirm Password"
+      <ngx-validation-message label="Confirmar Contraseña "
         [showMinLength]="confirmPassword?.hasError('minlength') && confirmPassword.touched"
         [showMaxLength]="confirmPassword?.hasError('maxlength') && confirmPassword.touched"
-        [showRequired]="confirmPassword?.errors?.required && confirmPassword.touched"
+        [showRequired]="confirmPassword?.errors?.Requerido && confirmPassword.touched"
         [minLength]="minLength"
         [maxLength]="maxLength"></ngx-validation-message>
       <p class="caption status-danger" *ngIf="password.value != confirmPassword.value">
-          Password and confirm password does not match!
+       ¡La contraseña y la contraseña de confirmación no coinciden!
       </p>
     </div>
   
     <div class="form-control-group accept-group" *ngIf="getConfigValue('forms.register.terms')">
       <nb-checkbox formControlName="terms" [required]="getConfigValue('forms.register.terms')">
-        Agree to <a href="#" target="_blank"><strong>Terms & Conditions</strong></a>
+        Acepta los <a href="#" target="_blank"><strong>términos y condiciones</strong></a>
       </nb-checkbox>
     </div>
   
     <button nbButton fullWidth status="primary" size="large" [disabled]="submitted || !registerForm.valid || !terms?.value
               || password.value != confirmPassword.value || !selectedRole"
       [class.btn-pulse]="submitted" (click)="register()">
-      Register
+      Registrarse
     </button>
   </div>
   
-  <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
+  <!-- <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
     or enter with:
     <div class="socials">
       <ng-container *ngFor="let socialLink of socialLinks">
@@ -157,9 +157,9 @@
         </a>
       </ng-container>
     </div>
-  </section>
+  </section> -->
    
-  <section class="another-action" aria-label="Sign in">
+  <!-- <section class="another-action" aria-label="Sign in">
     Already have an account? <a class="text-link" routerLink="../login">Log in</a>
-  </section>
+  </section> -->
   

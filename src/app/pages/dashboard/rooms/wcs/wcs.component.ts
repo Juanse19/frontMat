@@ -11,7 +11,7 @@ import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import {WindowComponent2 } from '../../OrderPopup/orderPopup.component';
 import { HttpService } from '../../../../@core/backend/common/api/http.service';
-import { NbAccessChecker } from '@nebular/security';
+
 import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
 import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS } from '../../_interfaces/MatBox.model';
@@ -224,7 +224,7 @@ export class WcsComponent implements OnInit, OnDestroy {
   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
 
   constructor(
-    public accessChecker: NbAccessChecker,
+    // public accessChecker: NbAccessChecker,
     private location: Location,
     private locationStrategy: LocationStrategy,
     private themeService: NbThemeService,

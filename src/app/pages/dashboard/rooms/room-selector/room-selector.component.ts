@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { JacComponent } from '../../JacComponent/jac.component';
 import { WindowComponent } from '../../WindowPopupComponent/windowPopup.component';
 import {ApiGetService} from '../../WindowPopupComponent/apiGet.services';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common'; 
 import { FormControl } from '@angular/forms';
 import {WindowComponent2 } from '../../OrderPopup/orderPopup.component';
 import { HttpService } from '../../../../@core/backend/common/api/http.service';

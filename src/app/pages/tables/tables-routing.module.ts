@@ -13,6 +13,8 @@ import { TreeGridComponent } from './tree-grid/tree-grid.component';
 import { OrderTableComponent } from './OrderTable/orderTable.component';
 import { AlarmsComponent } from './alarms/alarms.component';
 import { SmartOrderTableComponent } from './SmartOrderTable/smartOrderTable.component';
+import { AdminGuard } from '../../@auth/admin.guard';
+import { UserGuard } from '../../@auth/user.guard';
 
 const routes: Routes = [{
   path: '',

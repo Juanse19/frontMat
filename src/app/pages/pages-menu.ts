@@ -347,15 +347,15 @@ export class PagesMenu {
         },
       ],
     };
-    return this.accessChecker.isGranted('view', 'users')
+    return this.accessChecker.isGranted('view', 'fullMenu')
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          return [...dashboardMenu, orderMenu, repoMenu, analyticsMenu, userMenu, alarmMenu];
+          return [...dashboardMenu, orderMenu, repoMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
         } else {
           //return [...dashboardMenu, ...menu];
-          return [...dashboardMenu];
+          return [...dashboardMenu, ];
         }
       }));
   }

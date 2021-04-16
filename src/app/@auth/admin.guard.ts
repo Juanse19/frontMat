@@ -14,7 +14,7 @@ import { ROLES } from './roles';
 export class AdminGuard implements CanActivate {
   constructor(private roleProvider: NbRoleProvider) {}
 
-  canActivate(
+  canActivate( 
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {

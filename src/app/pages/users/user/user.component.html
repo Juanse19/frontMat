@@ -87,6 +87,7 @@
         <br />
  <nb-select id="role" placeholder= "Role"
                                 [formControl]="role"
+                                [disabled]="select"
                                 [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'"                             
                                 [(selected)]="selectedRole">
                                   <nb-option *ngFor="let itemRole of listaRoles" [value]="itemRole.name">
@@ -118,6 +119,7 @@
   <nb-card-footer>
     <button nbButton status="primary" [disabled]="!userForm.valid" (click)="save()" hero>Guardar</button>
     <button nbButton status="info" (click)="back()" hero>Atras</button>
+    <button nbButton status="secondary" (click)="changepass()" hero>Cambiar contraseña</button>
   </nb-card-footer>
 </nb-card>
 

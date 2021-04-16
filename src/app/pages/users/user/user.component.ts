@@ -20,6 +20,7 @@ import {NbAuthOAuth2JWTToken, NbTokenService} from '@nebular/auth';
 import {UserStore} from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
+import { NbAccessChecker } from '@nebular/security';
 
 
 interface Roles {
@@ -32,7 +33,7 @@ export enum UserFormMode {
   VIEW = 'View',
   EDIT = 'Editar',
   ADD = 'Agregar',
-  EDIT_SELF = 'EditSelf',
+  EDIT_SELF = 'Editar Self',
 }
 
 @Component({
@@ -44,6 +45,7 @@ export class UserComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   selectedRole;
   listaRoles:Roles[]=[];
+  public select = false;
 
   protected readonly unsubscribe$ = new Subject<void>();
 
@@ -70,7 +72,9 @@ export class UserComponent implements OnInit, OnDestroy {
     this.mode = viewMode;
   }
 
-  constructor(private usersService: UserData,
+  constructor(
+              public accessChecker: NbAccessChecker,
+              private usersService: UserData,
               private router: Router,
               private route: ActivatedRoute,
               private tokenService: NbTokenService,
@@ -81,6 +85,23 @@ export class UserComponent implements OnInit, OnDestroy {
               private apiGetComp: ApiGetService,) {
                 this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles').subscribe((res: any) => {
                   this.listaRoles=res;
+                });
+
+                // if (this.accessChecker.isGranted('edit', 'users')) {
+                //   this.selec = false;
+                //   // this.DataLoad(idMaquina); 
+                //   // console.log("Cambio de estado", this.selec);
+                // }else {
+                //   this.selec=true;
+                // }
+
+                this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
+                  if(res){ 
+                    this.select = false;
+                  }else {
+                    this.select=true;
+                  }
+                  
                 });
   }
 
@@ -114,6 +135,7 @@ export class UserComponent implements OnInit, OnDestroy {
     return this.mode !== UserFormMode.VIEW;
   }
 
+  
 
   loadUserData() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -167,6 +189,10 @@ export class UserComponent implements OnInit, OnDestroy {
     return user;
   }
 
+  changepass(){
+    this.router.navigate(['/auth/reset-password']);
+  }
+
   save() {
     const user: User = this.convertToUser(this.userForm.value);
 
@@ -212,7 +238,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   handleWrongResponse() {
-    this.toasterService.danger('', `This email has already taken!`);
+    this.toasterService.danger('', `¡Este correo electrónico ya se tomó!`);
   }
 
   back() {

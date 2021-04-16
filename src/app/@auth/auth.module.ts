@@ -18,6 +18,7 @@ import {
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './admin.guard';
+import { UserGuard } from './user.guard';
 import { AuthPipe } from './auth.pipe';
 import { RoleProvider } from './role.provider';
 import { NbRoleProvider, NbSecurityModule } from '@nebular/security';
@@ -48,7 +49,7 @@ import { authOptions } from './auth.settings';
 // import { authSettings } from './access.settings';
 import { authSettings } from './access.settings';
 
-const GUARDS = [AuthGuard, AdminGuard];
+const GUARDS = [AuthGuard, AdminGuard, UserGuard];
 const PIPES = [AuthPipe];
 const COMPONENTS = [
   NgxLoginComponent,

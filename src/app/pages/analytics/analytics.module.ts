@@ -18,7 +18,7 @@ import { OrdenesNoWipsComponent } from './ordenes-no-wips/ordenes-no-wips.compon
 import { OrdenesComponent } from './ordenes/ordenes.component';
 import { AnalyticsComponent } from './analytics.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { ThemeModule } from '../../@theme/theme.module';
+import { ThemeModule } from '../../@theme/theme.module'; 
 import { ReportsComponent } from './reports/reports.component';
 
 
@@ -28,7 +28,7 @@ import { ReportsComponent } from './reports/reports.component';
     CommonModule,
     AnalyticsRoutingModule,
     Ng2SmartTableModule,
-    ThemeModule,
+    ThemeModule, 
     NbCardModule,
     NbUserModule,
     NbButtonModule,

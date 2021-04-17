@@ -45,10 +45,15 @@ const routes: Routes = [{
         .then(m => m.AnalyticsModule),
     },
     {
-      path: 'animation',
-      loadChildren: () => import('./animation/animation.module')
-        .then(m => m.AnimationModule),
+      path: 'sic-syncro',
+      loadChildren: () => import('./sic-syncro/sic-syncro.module')
+        .then(m => m.SicSyncroModule),
     },
+    // {
+    //   path: 'animation',
+    //   loadChildren: () => import('./animation/animation.module')
+    //     .then(m => m.AnimationModule),
+    // },
     {
       path: 'ui-features',
       loadChildren: () => import('./ui-features/ui-features.module')

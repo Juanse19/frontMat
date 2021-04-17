@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnimationSvgComponent } from './animation-svg.component';
+import { SicComponent } from './sic.component';
 
-describe('AnimationSvgComponent', () => {
-  let component: AnimationSvgComponent;
-  let fixture: ComponentFixture<AnimationSvgComponent>;
+describe('SicComponent', () => {
+  let component: SicComponent;
+  let fixture: ComponentFixture<SicComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnimationSvgComponent ]
+      declarations: [ SicComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AnimationSvgComponent);
+    fixture = TestBed.createComponent(SicComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

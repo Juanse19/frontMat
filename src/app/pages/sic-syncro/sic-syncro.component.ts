@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngx-analytics',
+  selector: 'ngx-sic-syncro',
   template: `<router-outlet></router-outlet>`, 
 })
-export class AnalyticsComponent implements OnInit {
+export class SicSyncroComponent implements OnInit {
 
   constructor() { }
 

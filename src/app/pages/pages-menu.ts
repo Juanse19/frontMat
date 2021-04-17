@@ -284,6 +284,22 @@ export class PagesMenu {
       ],
     };
 
+    const sicsyncroMenu: NbMenuItem = {
+      title: 'Información',
+      icon: 'archive-outline',
+      // link: '/pages/analytics/analytics',
+      children: [
+        {
+          title: 'Sic',
+          link: '/pages/sic-syncro/Sic',
+        },
+        {
+          title: 'Syncro',
+          link: '/pages/sic-syncro/syncro',
+        },
+      ],
+    };
+
     const orderMenu: NbMenuItem = {
       title: 'Ordenes',
       icon: 'grid-outline',
@@ -352,7 +368,7 @@ export class PagesMenu {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          return [...dashboardMenu, orderMenu, repoMenu, analyticsMenu, userMenu, alarmMenu];
+          return [...dashboardMenu, orderMenu, sicsyncroMenu, repoMenu, analyticsMenu, userMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu, ];

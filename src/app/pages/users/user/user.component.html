@@ -119,7 +119,7 @@
     </div>
   </nb-card-body>
   <nb-card-footer>
-    <button nbButton status="primary"  [disabled]="!userForm.valid" (click)="save()" hero>Guardar</button>
+    <button nbButton status="primary" [disabled]="select" [disabled]="!userForm.valid" (click)="save()" hero>Guardar</button>
     <button nbButton status="info" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero>Atras</button>
     <button nbButton status="secondary" *ngIf="!mostrar" [disabled]="select" (click)="changepass()" hero>Cambiar contraseña</button>
   </nb-card-footer>

@@ -371,7 +371,7 @@ export class PagesMenu {
           return [...dashboardMenu, orderMenu, sicsyncroMenu, repoMenu, analyticsMenu, userMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
-          return [...dashboardMenu, ];
+          return [...dashboardMenu, alarmMenu];
         }
       }));
   }

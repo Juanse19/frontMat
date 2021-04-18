@@ -20,6 +20,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ApiGetService } from '../../../pages/dashboard/OrderPopup/apiGet.services';
+import { NbAccessChecker } from '@nebular/security';
 
 @Component({
   selector: 'ngx-header',
@@ -35,6 +36,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userPictureOnly: boolean = false;
   user: User;
   sicProcess: boolean = true;
+    public select = false;
+    private alive = true;
+    mostrar: Boolean;
 
   themes = [
     {
@@ -59,7 +63,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userMenu = this.getMenuItems();
 
-  constructor(private sidebarService: NbSidebarService,
+  constructor(
+              public accessChecker: NbAccessChecker,
+              private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userStore: UserStore,
@@ -72,6 +78,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private apiGetComp: ApiGetService,
               private api: HttpService,
               public sigalRService: SignalRService) {
+
+                this.accessChecker.isGranted('edit', 'ordertable').subscribe((res: any) => {
+                  if(res){ 
+                    this.select = false;
+                    this.mostrar = false;
+                  }else {
+                    this.select=true;
+                    this.mostrar=true;
+                  }
+                });
 
   }
 

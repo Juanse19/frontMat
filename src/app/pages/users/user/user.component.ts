@@ -50,6 +50,7 @@ export class UserComponent implements OnInit, OnDestroy {
   listaRoles:Roles[]=[];
   public select = false;
   private alive = true;
+  mostrar: Boolean;
 
   protected readonly unsubscribe$ = new Subject<void>();
 
@@ -94,8 +95,10 @@ export class UserComponent implements OnInit, OnDestroy {
                 this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
                   if(res){ 
                     this.select = false;
+                    this.mostrar = false;
                   }else {
                     this.select=true;
+                    this.mostrar=true;
                   }
                   
                 });
@@ -245,6 +248,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   back() {
+    // this.mostrar= false;
     this.router.navigate(['/pages/users/list']);
   }
 

@@ -20,7 +20,7 @@
   <!-- <nb-actions>
     <button nbButton status="primary" >Acualizar</button>
   </nb-actions> -->
-  <button nbButton status="primary" (click)="Actualizar()">Sincronizar</button>
+  <button nbButton status="primary" *ngIf="!mostrar" [disabled]="select" (click)="Actualizar()">Sincronizar</button> 
   <nb-actions size="small"> 
 
     <!-- <nb-action class="control-item">

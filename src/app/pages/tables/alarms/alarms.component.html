@@ -5,12 +5,12 @@
         <nb-card-header>
             <!-- Alarmas -->
         </nb-card-header>
-
+ 
         <nb-card-body>
             <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
             </ng2-smart-table>
         </nb-card-body>
         <nb-card-footer>
-            <button type="submit" (click)="reconocer()" class="btn btn-primary">Reconocer alarmas</button>
+            <button type="submit" *ngIf="!mostrar" [disabled]="select" (click)="reconocer()" class="btn btn-primary">Reconocer alarmas</button>
           </nb-card-footer>
     </nb-card>

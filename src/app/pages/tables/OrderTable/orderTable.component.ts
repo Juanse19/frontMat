@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output, ViewChild , TemplateRef, PipeTransform} from '@angular/core';
 import { Location, LocationStrategy } from '@angular/common';
 import { NbThemeService } from '@nebular/theme';
-import { map, takeUntil, startWith, debounceTime, tap, switchMap, delay } from 'rxjs/operators';
+import { map, takeUntil, startWith, debounceTime, tap, switchMap, delay, takeWhile } from 'rxjs/operators';
 import { Observable, Subject, of, BehaviorSubject,Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { i18nMetaToDocStmt } from '@angular/compiler/src/render3/view/i18n/meta';
@@ -92,7 +92,9 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
 
     };
 
-  
+    public select = false;
+    private alive = true;
+    mostrar: Boolean;
 
     total: number ;
 
@@ -106,7 +108,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     filter = new FormControl('');
 
     constructor(
-      public accessChecker: NbAccessChecker,
+        public accessChecker: NbAccessChecker,
         public apiGetComp: ApiGetService,
         public pipe : DecimalPipe,
         private orderPopup: WindowComponent, 
@@ -114,26 +116,41 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         private api: HttpService,
         private messageService: MessageService
       ) {
-
-        this.subscription = this.messageService.onMessage().subscribe(message => {
+        
+        this.subscription = this.messageService.onMessage()
+        .pipe(takeWhile(() => this.alive))
+        .subscribe(message => {
           if (message.text=="orderTable") {
             //this.messages.push(message);
             this.CargarTabla();
           }
         });
         this._search$.pipe(
+          takeWhile(() => this.alive),
           tap(() => this._loading$.next(true)),
           debounceTime(200),
           switchMap(() => this._search()),
           delay(200),
           tap(() => this._loading$.next(false))
-        ).subscribe(result => {
+        )
+        .pipe(takeWhile(() => this.alive))
+        .subscribe(result => {
           this._Ordenes$.next(result.ordenes);
           this._total$.next(result.total);
         });
     
         this._search$.next();
         this.CargarTabla();
+        this.alive;
+        this.accessChecker.isGranted('edit', 'ordertable').subscribe((res: any) => {
+          if(res){ 
+            this.select = false;
+            this.mostrar = false;
+          }else {
+            this.select=true;
+            this.mostrar=true;
+          }
+        });
 
       }
 
@@ -158,7 +175,9 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     ngOnInit(): void {
         // throw new Error('Method not implemented.');
         // console.log("entrooo")
-        this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders').subscribe((res:any)=>{
+        this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res:any)=>{
         // console.log(res)
         ORDENES = res;     
         });
@@ -168,12 +187,12 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     }  
 
     CargarTabla(){
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders').subscribe((res:any)=>{
-        // console.log(res)
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res:any)=>{
         ORDENES = res;     
         });
         this._search$.next();
-
     }  
 
     _search(): Observable<SearchResult2> {
@@ -208,19 +227,26 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         priority: parPrority,
       }
       // console.log(ORDEN);
-      this.accessChecker.isGranted('edit', 'ordertable').subscribe((res: any) => {
+      
+      this.accessChecker.isGranted('edit', 'ordertable')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
         if(res){ 
-          // this.DataLoad(idMaquina);
-        
           this.orderPopup.openWindowForm("Propiedades de la Orden " + ORDEN.order , "", ORDEN);
+          this.select = false;
+          this.mostrar = false;
+        }else {
+          this.select=true;
+          this.mostrar=true;
         }
-        
       });
       
     }
 
     Refresh(){
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders').subscribe((res:any)=>{
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res:any)=>{
         // console.log(res)
         ORDENES = res;     
         });
@@ -231,17 +257,20 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     
 
     CrearOrden(){
-      this.accessChecker.isGranted('edit', 'ordertable').subscribe((res: any) => {
+      this.accessChecker.isGranted('edit', 'ordertable')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => { 
         if(res){ 
-          // this.DataLoad(idMaquina);
-        
           this.orderCrearPopup.openWindowForm("CREAR ORDEN","");
+          this.select = false;
+        }else {
+          this.select=true;
         }
-        
       });
-      
-
     }
   
+    ngOnDestroy() {
+      this.alive = false;
+    }
 
 }

@@ -8,7 +8,7 @@
         <div class="form-group form-inline">
           Buscar: <input class="form-control ml-2" type="text"  name="searchTerm" placeholder="Buscar ordenes" [(ngModel)]="searchTerm"/>
           <span class="ml-3" *ngIf="loading$ | async">Loading...</span>
-          <td><button nbButton shape="semi-round" class="boton1" status="primary" (click)="CrearOrden()" *ngIf="accessChecker.isGranted('edit', 'ordertable')">Crear Orden</button></td>
+          <td><button nbButton shape="semi-round" class="boton1" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="CrearOrden()" >Crear Orden</button></td>
       </div>
       <table class="table table-striped">
       <thead>
@@ -44,7 +44,7 @@
         <td><ngb-highlight [result]="ordenes.cutsLength" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
         <!-- <td><button (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength)" nbButton>EDIT</button></td> -->
-        <td><button nbButton shape="semi-round" status="primary" *ngIf="accessChecker.isGranted('edit', 'ordertable')" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDITAR</button></td>
+        <td><button nbButton shape="semi-round" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDITAR</button></td>
     
       </tr>
       </tbody>

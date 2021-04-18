@@ -4,25 +4,9 @@ import { interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { Sic } from '../../../pages/dashboard/_interfaces/MatBox.model';
 
-interface ReportSic {
-id: number,
-listaCorteSIC: number,
-listaCorrtrim: number,
-orden: number,
-pedido: number,
-tarjeta: string,
-longitudOrden_Planeado: number,
-numeroCortes: number,
-largoLamina_Planeado: number,
-anchoLamina_Planeado: number,
-espesorLamina_Planeado: number,
-origen: string,
-destino: string,
-hojasParaHacer_Planeado: number,
-estado: string
 
-}
 
 @Component({
   selector: 'ngx-sic',
@@ -33,13 +17,13 @@ export class SicComponent implements OnInit {
 
   private alive = true;
   
-  /** Table de ocupacion del sistema */
+  /** Table de infromación Sic */
   settings5 = {
     actions: false,
     columns: {
       id: {
         title: 'ID',
-        type: 'number',
+        type: 'number', 
         filter: false,
         hide: true,
 
@@ -118,7 +102,7 @@ export class SicComponent implements OnInit {
   };
 
   source5: LocalDataSource = new LocalDataSource();
-  public ReportSic: ReportSic[];
+  public ReportSic: Sic[];
 
   constructor( 
     public apiGetComp: ApiGetService,
@@ -150,6 +134,10 @@ export class SicComponent implements OnInit {
       });
     });
 
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

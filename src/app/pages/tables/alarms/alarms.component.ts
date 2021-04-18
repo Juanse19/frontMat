@@ -6,6 +6,7 @@ import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { NbToastrService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
+import { NbAccessChecker } from '@nebular/security';
 
 interface Alarmas {
   id: number;
@@ -27,6 +28,10 @@ let ALARMAS: Alarmas[] = [
   styleUrls: ['./alarms.component.scss']
 })
 export class AlarmsComponent implements OnDestroy {
+
+  public select = false;
+  private alive = true;
+  mostrar: Boolean;
 
   alarmas = ALARMAS;
 
@@ -81,15 +86,25 @@ export class AlarmsComponent implements OnDestroy {
   source: LocalDataSource = new LocalDataSource();
   public Alarm: Alarmas[];
 
-  private alive = true;
-
-
-  constructor(private toastrService: NbToastrService,
+  constructor(
+    public accessChecker: NbAccessChecker,
+    private toastrService: NbToastrService,
     public apiGetComp: ApiGetService,
     private api: HttpService,
   ) {
     this.Chargealarms();
     this.alive;
+    this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+        this.select = false;
+        this.mostrar = false;
+      }else {
+        this.select=true;
+        this.mostrar=true;
+      }
+    });
   }
 
   // onedit($event: any) {
@@ -104,8 +119,11 @@ export class AlarmsComponent implements OnDestroy {
 
   onDeleteConfirm(event): void {
    
-    //  console.log("Evento: ", event);
-      let alarm = {idAlarm: event.data.id};
+    this.accessChecker.isGranted('edit', 'ordertable')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        if(res){ 
+          let alarm = {idAlarm: event.data.id};
       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postalarm?IdAlarm='+ event.data.id, alarm)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
@@ -118,6 +136,15 @@ export class AlarmsComponent implements OnDestroy {
         }
       });
       event.confirm.resolve();
+          this.select = false;
+          this.mostrar = false;
+        }else {
+          this.select=true;
+          this.mostrar=true;
+        }
+      });
+    //  console.log("Evento: ", event);
+      
     
   }
 

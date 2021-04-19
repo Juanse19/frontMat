@@ -74,10 +74,10 @@ this.user.password += ';' + this.userId;
         this.errors = result.getErrors();
       }
 
-      const redirect = result.getRedirect();
+      const redirect = result.getRedirect(); 
       if (redirect) {
         setTimeout(() => {
-          return this.router.navigateByUrl(redirect);
+          return this.router.navigateByUrl('/pages/users/list');
         }, this.redirectDelay);
       }
       this.cd.detectChanges();

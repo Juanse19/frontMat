@@ -4,12 +4,13 @@
 
     <nb-card style="padding: 20px;">
 
-      <form>
+      <form> 
         <div class="form-group form-inline">
           Buscar: <input class="form-control ml-2" type="text"  name="searchTerm" placeholder="Buscar ordenes" [(ngModel)]="searchTerm"/>
           <span class="ml-3" *ngIf="loading$ | async">Loading...</span>
           <td><button nbButton shape="semi-round" class="boton1" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="CrearOrden()" >Crear Orden</button></td>
       </div>
+      <nb-card-body>
       <table class="table table-striped">
       <thead>
         <tr>
@@ -25,7 +26,7 @@
           <th scope="col">Ancho Cortes</th>
           <th scope="col">Largo Cortes</th>
           <th scope="col">Prioridad</th>
-          <th scope="col">Editar</th>
+          <th scope="col" *ngIf="!mostrar">Editar</th>
         </tr>
       </thead>
       <tbody>
@@ -49,7 +50,7 @@
       </tr>
       </tbody>
       </table>
-      
+    </nb-card-body>
         <div class="d-flex justify-content-between p-2">
       
          <ngb-pagination

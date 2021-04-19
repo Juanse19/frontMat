@@ -33,7 +33,7 @@ export enum UserFormMode {
   VIEW = 'View',
   EDIT = 'Editar',
   ADD = 'Agregar',
-  EDIT_SELF = 'Editar Self',
+  EDIT_SELF = 'Editar propio',
 }
 
 @Component({

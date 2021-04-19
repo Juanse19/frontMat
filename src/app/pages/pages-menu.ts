@@ -285,7 +285,7 @@ export class PagesMenu {
     };
 
     const sicsyncroMenu: NbMenuItem = {
-      title: 'Información',
+      title: 'Inducción',
       icon: 'archive-outline',
       // link: '/pages/analytics/analytics',
       children: [

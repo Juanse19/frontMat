@@ -144,36 +144,6 @@ export class WindowComponent2  implements OnInit {
   }
 
 
-  // deleteStatus(){
-  //   Swal.fire({
-  //     title: 'Estas segura?',
-  //     text: `¡No podrás revertir esto!`,
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: '¡Sí, bórralo!'
-  //   }).then(result => {
-  //     if (result.value) {
-  //         if (STATUSPACKAGE.idStatus === 4 ) {
-  //           Swal.fire('¡Eliminado!', 'El arrume ha sido eliminada.', 'success');
-  //           this.back();
-  //         } else {
-  //           Swal.fire('¡Error!', 'Hubo un error al eliminar el arrume', 'error');
-  //           this.back();
-  //         }
-  //     }
-  //   });
-
-  //   // if (confirm('¿Estás segura de que quieres eliminar el arrume?') && STATUSPACKAGE.idStatus == 4) {
-  //   //   if (STATUSPACKAGE.idStatus === 4) {
-  //   //     this.toastrService.success('', 'Arrume eliminado!');
-  //   //     this.back();
-  //   //   }else {
-  //   //     this.toastrService.danger('', 'Algo salio mal.');
-  //   //   }
-  //   // }
-  // } 
 
   Guardar(){
     let formulario = this.arrumeManualForm.value;
@@ -189,7 +159,13 @@ export class WindowComponent2  implements OnInit {
       } 
     }
     if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){
-      this.ChangeState();
+      // this.ChangeState();
+      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
+            
+                   this.messageService.sendMessage('PackageUpdate');
+                     this.handleSuccessResponse();
+                    
+                 });
     }else if("eliminar estado"){
       Swal.fire({
         title: 'Estas seguro?',
@@ -219,31 +195,31 @@ export class WindowComponent2  implements OnInit {
     }
   }
 
-  ChangeState(){
+  // ChangeState(){
 
-    let formulario = this.arrumeManualForm.value;
+  //   let formulario = this.arrumeManualForm.value;
 
-    if(formulario.orderForm){
+  //   if(formulario.orderForm){
     
-      STATUSPACKAGE = {
-        id:formulario.id,
-        idStatus:formulario.statusForm,
-        cutLength:formulario.cutLengthForm,
-        Order:formulario.orderForm,
-        idDevice:ORDEN.idDevice,
-      }
+  //     STATUSPACKAGE = {
+  //       id:formulario.id,
+  //       idStatus:formulario.statusForm,
+  //       cutLength:formulario.cutLengthForm,
+  //       Order:formulario.orderForm,
+  //       idDevice:ORDEN.idDevice,
+  //     }
       
-          this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
+  //         this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
             
-            this.messageService.sendMessage('PackageUpdate');
-              this.handleSuccessResponse();
+  //           this.messageService.sendMessage('PackageUpdate');
+  //             this.handleSuccessResponse();
               
-          });
-    }else{
-      this.handleWrongResponse();
-    }
+  //         });
+  //   }else{
+  //     this.handleWrongResponse();
+  //   }
 
-  }
+  // }
 
   
   handleSuccessResponse() {

@@ -41,6 +41,8 @@ interface Ordenes {
   description?: string;
   reference?: string;
   cutLength?: number;
+  cutsCount?:number;
+  cutsCountOriginal?: number;
   state: string;
   stateId: number;
   priority:number;
@@ -168,7 +170,8 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     || ordenes.name.toLowerCase().includes(term.toLowerCase())
     || ordenes.description.toLowerCase().includes(term.toLowerCase())
     || ordenes.reference.toLowerCase().includes(term)
-    || pipe.transform(ordenes.cutLength).includes(term);
+    || pipe.transform(ordenes.cutLength).includes(term)
+    || pipe.transform(ordenes.cutsCount).includes(term)
 }
 
 @Component({
@@ -632,7 +635,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     );
   }
   
-  EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number, idDevice:number){
+  EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number, cutsCount:number, idDevice:number){
     ORDEN=
     {
       id:id, 
@@ -641,6 +644,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       stateId:stateId,
       priority:priority,
       cutLength:cutLength,
+      cutsCount:cutsCount,
       idDevice:idDevice,
     };
     

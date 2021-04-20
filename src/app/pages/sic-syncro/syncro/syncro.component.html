@@ -4,7 +4,7 @@
     </nb-card-header>
 
     <nb-card-body>
-      <ng2-smart-table class="example-smart-table" [settings]="settings6" [source]="source6">
+      <ng2-smart-table class="example-smart-table" [settings]="settings6" [source]="source6" (delete)="onDelete($event)">
       </ng2-smart-table>
     </nb-card-body>
   </nb-card>

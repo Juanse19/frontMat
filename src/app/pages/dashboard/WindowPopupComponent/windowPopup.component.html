@@ -20,6 +20,8 @@
       				<th scope="col">Descripcion</th>
       				<th scope="col">Referencia</th>
 					<th scope="col">Largo Cortes</th>
+					<th scope="col">Cantidad Cortes</th>
+					<th scope="col">Cantidad Cortes Iniciales</th>
 					<th scope="col">Estado</th>
 					<th scope="col">Prioridad</th>
 					<th scope="col">Fecha</th>
@@ -36,11 +38,13 @@
     					<td><ngb-highlight [result]="ordenes.description" [term]="filter.value"></ngb-highlight></td>
     					<td><ngb-highlight [result]="ordenes.reference" [term]="filter.value"></ngb-highlight></td>
 						<td><ngb-highlight [result]="ordenes.cutLength" [term]="filter.value"></ngb-highlight></td>
+						<td><ngb-highlight [result]="ordenes.cutsCount" [term]="filter.value"></ngb-highlight></td>
+						<td><ngb-highlight [result]="ordenes.cutsCountOriginal" [term]="filter.value"></ngb-highlight></td>
 						<td><ngb-highlight [result]="ordenes.state" [term]="filter.value"></ngb-highlight></td>
 						<td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
 						<td><ngb-highlight [result]="ordenes.timeStamp" [term]="filter.value"></ngb-highlight></td>
 						<!-- <td><button (click)="Refresh(ordenes.order)" nbButton>Refresh</button></td> -->
-						<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.idDevice)" nbButton>EDITAR</button></td>
+						<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.cutsCount, ordenes.idDevice)" nbButton>EDITAR</button></td>
 						</tr>
   					</tbody>
   				</table>

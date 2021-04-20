@@ -19,7 +19,14 @@ export class SyncroComponent implements OnInit {
 
   /** Table de información Syncro */
   settings6 = {
-    actions: false,
+    actions: {
+      add: false,
+      edit: false,
+    },
+    
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+    },
     columns: {
       id: {
         title: 'ID',
@@ -754,6 +761,22 @@ export class SyncroComponent implements OnInit {
       });
     });
 
+  }
+
+  onDelete($event: any) {
+    if (confirm('Are you sure wants to delete item?') && $event.data.id) {
+      // this.usersService
+      //   .delete($event.data.id)
+      //   .pipe(takeWhile(() => this.alive))
+      //   .subscribe((res) => {
+      //     // if (res) {
+      //     //   this.toastrService.success('', 'Item deleted!');
+      //     //   this.source.refresh(); 
+      //     // } else {
+      //     //   this.toastrService.danger('', 'Algo salio mal.');
+      //     // }
+      //   });
+    }
   }
 
   ngOnDestroy() {

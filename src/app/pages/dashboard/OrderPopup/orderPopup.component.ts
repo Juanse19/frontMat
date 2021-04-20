@@ -15,6 +15,7 @@ interface Ordenes {
   description?: string;
   reference?: string;
   cutLength?: number;
+  cutsCount?:number;
   state: string;
   stateId: number;
   idDevice:number,
@@ -29,6 +30,7 @@ interface StatusPackage {
   id:number,
   idStatus:number,
   cutLength:number,
+  cutCount:number,
   Order:string,
   idDevice:number,
 }
@@ -41,6 +43,7 @@ order:'',
 state:'',
 stateId:1,
 cutLength:0,
+cutsCount:0,
 idDevice:0,
 };
 
@@ -66,8 +69,11 @@ export class WindowComponent2  implements OnInit {
   get orderForm() { return this.arrumeManualForm.get('orderForm'); }
 
   get statusForm() { return this.arrumeManualForm.get('statusForm'); }
-
+  
   get cutLength() { return this.arrumeManualForm.get('cutLength'); }
+
+  get cutCount() { return this.arrumeManualForm.get('cutCount'); }
+  
 
   // @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
   // @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
@@ -97,6 +103,8 @@ export class WindowComponent2  implements OnInit {
         id: ORDEN.id,
         orderForm: ORDEN.order,
         cutLengthForm: ORDEN.cutLength,
+        cutCountForm: ORDEN.cutsCount,
+        // cutForm: ORDEN.cutsCount,
         statusForm: ORDEN.stateId,
     });
     }
@@ -107,6 +115,7 @@ export class WindowComponent2  implements OnInit {
         orderForm: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
         statusForm: this.fb.control(1, [Validators.minLength(3), Validators.maxLength(20)]),
         cutLengthForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
+        cutCountForm: this.fb.control(2, [Validators.minLength(3), Validators.maxLength(20)]),
       });
     }
 
@@ -124,7 +133,8 @@ export class WindowComponent2  implements OnInit {
         order:'',
         state:'',
         stateId:1,
-        cutLength:0,
+        cutLength:0,     
+        cutsCount:0,
         idDevice:idMaquina,
       };
 
@@ -156,6 +166,7 @@ export class WindowComponent2  implements OnInit {
         cutLength:formulario.cutLengthForm,
         Order:formulario.orderForm,
         idDevice:ORDEN.idDevice, 
+        cutCount:formulario.cutCountForm,
       } 
     }
     if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){

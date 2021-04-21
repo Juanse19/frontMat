@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: User;
   sicProcess: boolean = true;
     public select = false;
-    private alive = true;
     mostrar: Boolean;
 
   themes = [
@@ -103,8 +102,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     
 
-    this.sigalRService.startConnectionAlarmas();
-      this.startHttpRequestAlarmas();  
+    // this.sigalRService.startConnectionAlarmas();
+      // this.startHttpRequestAlarmas();  
+      this.sigalRService.GetDataAlarmManual();
 
     this.currentTheme = this.themeService.currentTheme;
 
@@ -136,6 +136,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    this.sigalRService.aliveAlarm=false;
   }
 
   changeTheme(themeName: string) {

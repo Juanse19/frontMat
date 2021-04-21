@@ -51,8 +51,11 @@ export class SignalRService implements OnInit {
   public dataPackageIM7: PackagesWIP[]=this.dataPackages;
   
   private intervalSubscriptions:  Subscription;
+  private intervalSubscriptionsAlarm:  Subscription;
+
 
   public alive=true;
+  public aliveAlarm= true;
   
   private hubConnectionAlarmas: signalR.HubConnection;
   private hubConnectionPackageWip: signalR.HubConnection;
@@ -135,13 +138,7 @@ this.startConnectionPackageWip(id)
 
 }
 
-// public addTransferMachineColorDataListener = () => {
-// this.hubConnectionMachineColor.on('transfermachinecolordata', (data)=>{
-// this.dataMachineColor=data;
-// console.log(data);
 
-// })
-// }
 
 AsignarDatosWip(data:any){
   this.dataPackageWip=data;
@@ -385,6 +382,26 @@ mergeMap((idDevice) => interval(1000)
       
 }
 
+
+public GetDataAlarmManual(){
+  this.aliveAlarm=true;
+
+  if (this.intervalSubscriptionsAlarm) {
+    this.intervalSubscriptionsAlarm.unsubscribe();
+  }
+
+  this.intervalSubscriptionsAlarm = interval(5000)
+  .pipe(
+    takeWhile(() => this.aliveAlarm),
+    switchMap(() => this.http.get(this.api.apiUrlMatbox + '/Alarms/GetAlarmNumber')),
+  )
+  .subscribe((res: any) => {
+    this.numeroAlarmas=res;
+  });
+
+
+
+}
 
 
 }

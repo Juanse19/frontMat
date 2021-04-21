@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { NbToastrService } from '@nebular/theme';
 import { LocalDataSource } from 'ng2-smart-table';
 import { interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { Syncro } from '../../../pages/dashboard/_interfaces/MatBox.model';
+import { NbAccessChecker } from '@nebular/security';
+import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -15,7 +19,9 @@ import { Syncro } from '../../../pages/dashboard/_interfaces/MatBox.model';
 })
 export class SyncroComponent implements OnInit {
 
+  public select = false;
   private alive = true;
+  mostrar: Boolean;
 
   /** Table de información Syncro */
   settings6 = {
@@ -26,6 +32,7 @@ export class SyncroComponent implements OnInit {
     
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true,
     },
     columns: {
       id: {
@@ -728,14 +735,29 @@ export class SyncroComponent implements OnInit {
     },
   };
 
-  source6: LocalDataSource = new LocalDataSource();
+  source: LocalDataSource = new LocalDataSource();
   public ReportSic: Syncro[];
 
   constructor(
+    public accessChecker: NbAccessChecker,
+    private toastrService: NbToastrService,
     public apiGetComp: ApiGetService,
+    private http: HttpClient,
     private api: HttpService
   ) {
       this.ChargeReportSyncro();
+      this.alive;
+    this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+        this.select = false;
+        this.mostrar = false;
+      }else {
+        this.select=true;
+        this.mostrar=true;
+      }
+    });
    }
 
   ngOnInit(): void {
@@ -748,7 +770,10 @@ export class SyncroComponent implements OnInit {
       //REPORTOCUPATION=res;
       // console.log("Report Ocupacion:", res);
       this.ReportSic = res;
-      this.source6.load(res);
+      if(res == null){
+        return null;
+     }
+      this.source.load(res);
     });
     const contador = interval(60000)
     contador.subscribe((n) => {
@@ -757,27 +782,82 @@ export class SyncroComponent implements OnInit {
       .subscribe((res: any) => {
         //REPORTOCUPATION=res;
         this.ReportSic = res;
-        this.source6.load(res);
+        if(res == null){
+          console.log("No hay data", res);
+          return null;
+       }
+        this.source.load(res);
       });
     });
 
   }
 
-  onDelete($event: any) {
-    if (confirm('Are you sure wants to delete item?') && $event.data.id) {
-      // this.usersService
-      //   .delete($event.data.id)
-      //   .pipe(takeWhile(() => this.alive))
-      //   .subscribe((res) => {
-      //     // if (res) {
-      //     //   this.toastrService.success('', 'Item deleted!');
-      //     //   this.source.refresh(); 
-      //     // } else {
-      //     //   this.toastrService.danger('', 'Algo salio mal.');
-      //     // }
-      //   });
+  onDeleteConfirm(event) {
+    this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+    Swal.fire({
+    title: 'Desea eliminar?',
+    text: `¡Eliminará un campo en Syncro!`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '¡Sí, Eliminar!'
+  }).then(result => {
+    if (result.value) {
+  this.apiGetComp.PostJson(this.api.apiUrlMatbox + "/Orders/DeleteOrderSyncro?id="+event.data.id,event.data.id)
+  // .pipe()
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res:any) => {
+          // if (res) {
+          //   this.toastrService.success('', 'Item deleted!');
+          //   this.source5.refresh(); 
+          // } else {
+          //   this.toastrService.danger('', 'Algo salio mal.');
+          // }
+        });
+        Swal.fire('¡Se Eliminó Exitosamente', 'success');
+        event.confirm.resolve();
+        this.source.refresh();
     }
-  }
+  });
+          this.source.refresh();
+          this.select = false;
+          this.mostrar = false;
+        }else {
+          this.select=true;
+          this.mostrar=true;
+        }
+      });
+}
+
+eliminarTodos(){
+  Swal.fire({
+    title: 'Desea eliminar?',
+    text: `¡Eliminará toda la tabla Syncro!`,
+    icon: 'warning',
+    showCancelButton: true,
+    timer: 3000,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '¡Sí, Eliminar!'
+  }).then(result => {
+    if (result.value) {
+      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/DeleteOrderSyncroAll',"")
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        if(res == null){
+          return null;
+       } 
+      });
+      Swal.fire('¡Se Eliminó Exitosamente', 'success');
+      this.select=true;
+    }
+  });
+  
+}
 
   ngOnDestroy() {
     this.alive = false;

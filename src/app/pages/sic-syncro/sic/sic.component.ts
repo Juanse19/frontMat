@@ -8,6 +8,7 @@ import { Sic } from '../../../pages/dashboard/_interfaces/MatBox.model';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { NbToastrService } from '@nebular/theme';
+import { NbAccessChecker } from '@nebular/security';
 
 
 
@@ -18,7 +19,9 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class SicComponent implements OnInit {
 
+  public select = false;
   private alive = true;
+  mostrar: Boolean;
   
   /** Table de infromación Sic */
   settings5 = {
@@ -116,6 +119,7 @@ export class SicComponent implements OnInit {
   public ReportSic: Sic[];
 
   constructor( 
+    public accessChecker: NbAccessChecker,
     public apiGetComp: ApiGetService,
     private http: HttpClient,
     private toastrService: NbToastrService,
@@ -123,6 +127,17 @@ export class SicComponent implements OnInit {
     
     ) { 
       this.ChargeReportSic();
+      this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+        this.select = false;
+        this.mostrar = false;
+      }else {
+        this.select=true;
+        this.mostrar=true;
+      }
+    });
     }
 
   ngOnInit(): void {
@@ -150,77 +165,78 @@ export class SicComponent implements OnInit {
 
   }
 
-  onDelete($event: any) {
-  //   Swal.fire({
-  //     title: 'Desea eliminar?',
-  //     text: `¡Eliminará un campo en Sic!`,
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: '¡Sí, Eliminar!'
-  //   }).then(result => {
-  //     if (result.value) {
-  //       // this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/DeleteOrderSic', $event.data.id)
-  //       // .pipe(takeWhile(() => this.alive))
-  //       // .subscribe((res: any) => {
-  //       //   console.log('Eliminado: ',res);
-  //       //   Swal.fire('¡Se eliminó Exitosamente', 'success');
-  //       // });
-  //   //   this.http.get(this.api.apiUrlMatbox + "/Orders/SyncOrder")
-  //   //   .subscribe((res:any)=>{
-  //   //   Swal.fire('¡Se sincronizo Exitosamente', 'success');
-  //   // });
-  //   // Swal.fire('¡Se sincronizo Exitosamente', 'success');
-
-  // // this.http.delete(this.api.apiUrlMatbox + "/Orders/DeleteOrderSic", $event.data.id+  { observe: 'response' })
-  // // .pipe()
-  // // .subscribe(resp => {
-    
-  // // } , err => console.log(err));
-  // //Swal.fire('¡Se Eliminó Exitosamente', 'success');
-  //     }
-  //   });
-
-  //   if (confirm('Are you sure wants to delete item?') && $event.data.id) {
-  //     // this.usersService
-  //     //   .delete($event.data.id)
-  //     //   .pipe(takeWhile(() => this.alive))
-  //     //   .subscribe((res) => {
-  //     //     // if (res) {
-  //     //     //   this.toastrService.success('', 'Item deleted!');
-  //     //     //   this.source.refresh(); 
-  //     //     // } else {
-  //     //     //   this.toastrService.danger('', 'Algo salio mal.');
-  //     //     // }
-  //     //   });
-  //     this.http.delete(this.api.apiUrlMatbox + "/Orders/DeleteOrderSic", $event.data.id+  { observe: 'response' })
-  // .pipe()
-  // .subscribe(resp => {
-    
-  // });
-
-  //   }
-
-  
-  }
 
   onDeleteConfirm(event) {
+    this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+      Swal.fire({
+      title: 'Desea eliminar?',
+      text: `¡Eliminará un campo en Sic!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, Eliminar!'
+    }).then(result => {
+      if (result.value) {
+    this.apiGetComp.PostJson(this.api.apiUrlMatbox + "/Orders/DeleteOrderSic?id="+event.data.id,event.data.id)
+    // .pipe()
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res:any) => {
+            
+          });
+          Swal.fire('¡Se Eliminó Exitosamente', 'success');
+          event.confirm.resolve();
+          this.source5.refresh();
+      }
+    });
+          this.source5.refresh();   
+          this.select = false;
+          this.mostrar = false;
+        }else {
+          this.select=true;
+          this.mostrar=true;
+        }
+      });
+  
+  //   let sicDate = {id: event.data.id};
+  //   if (confirm('Are you sure wants to delete item?') && event.data.id) {
+  //     this.apiGetComp.PostJson(this.api.apiUrlMatbox + "/Orders/DeleteOrderSic?id="+event.data.id,event.data.id)
+  // // .pipe()
+  //       .pipe(takeWhile(() => this.alive))
+  //       .subscribe((res:any) => {
+  //         if (res) {
+  //           this.toastrService.success('', 'Item deleted!');
+  //           this.source.refresh(); 
+  //         } else {
+  //           this.toastrService.danger('', 'Algo salio mal.');
+  //         }
+  //       });
+  //   }
+  }
 
-    let sicDate = {id: event.data.id};
-    if (confirm('Are you sure wants to delete item?') && event.data.id) {
-      this.http.delete(this.api.apiUrlMatbox + "/Orders/DeleteOrderSic?id="+event.data.id)
-  // .pipe()
+  eliminaTodos(){
+    Swal.fire({
+      title: 'Desea eliminar?',
+      text: `¡Eliminará toda la tabla Sic!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, Eliminar!'
+    }).then(result => {
+      if (result.value) {
+        this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/DeleteOrderSicAll',"")
         .pipe(takeWhile(() => this.alive))
-        .subscribe((res:any) => {
-          if (res) {
-            this.toastrService.success('', 'Item deleted!');
-            this.source5.refresh(); 
-          } else {
-            this.toastrService.danger('', 'Algo salio mal.');
-          }
+        .subscribe((res: any) => {
+          
         });
-    }
+        Swal.fire('¡Se Eliminó Exitosamente', 'success');
+        this.select=true;
+      }
+    });
   }
 
   ngOnDestroy() {

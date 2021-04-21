@@ -10,6 +10,7 @@ interface UspReportOrders {
   Order: string;
   CutsNumberTotal: number;
   CurrenCouts: number;
+  OrdenesMachineCount: number;
   Diference: number;
  }
 
@@ -47,12 +48,17 @@ export class OrdenesComponent implements OnInit {
         filter: false,
       },
       currenCouts: {
-        title: 'Recuentos actuales',
+        title: 'Arrumes Salida Corrugador',
+        type: 'number',
+        filter: false,
+      },
+      ordenesMachineCount: {
+        title: 'Arrumes Entrada Maquina',
         type: 'number',
         filter: false,
       },
       diference: {
-        title: 'Diferencia',
+        title: 'Pendientes por Atender',
         type: 'number',
         filter: false,
       },

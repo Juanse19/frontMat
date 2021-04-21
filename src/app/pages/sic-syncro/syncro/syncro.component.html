@@ -4,7 +4,10 @@
     </nb-card-header>
 
     <nb-card-body>
-      <ng2-smart-table class="example-smart-table" [settings]="settings6" [source]="source6" (delete)="onDelete($event)">
+      <ng2-smart-table class="example-smart-table" [settings]="settings6" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
       </ng2-smart-table>
     </nb-card-body>
+    <nb-card-footer>
+      <button type="submit" *ngIf="!mostrar" [disabled]="select" (click)="eliminarTodos()" class="btn btn-primary">Eliminar todo</button>
+    </nb-card-footer>
   </nb-card>

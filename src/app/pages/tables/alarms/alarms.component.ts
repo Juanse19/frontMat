@@ -129,7 +129,7 @@ export class AlarmsComponent implements OnDestroy {
       .subscribe((res: any) => {
         //  console.log("alarmId", res);
          if (res) {
-          this.toastrService.success('', '¡Alarma solucionada!');
+          this.toastrService.success('', '¡Alarma solucionada!'); 
           this.source.refresh();
         } else {
           this.toastrService.danger('', 'Algo salio mal.');
@@ -154,6 +154,7 @@ export class AlarmsComponent implements OnDestroy {
        .subscribe((res: any) => {
           if (res) {
            this.toastrService.success('', '¡Alarmas solucionadas!');
+           this.select=true;
            this.source.refresh();
          } else {
            this.toastrService.danger('', 'Algo salio mal.');

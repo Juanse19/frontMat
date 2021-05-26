@@ -12,6 +12,8 @@ import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { NbAccessChecker } from '@nebular/security'
 import { MessageService } from '../services/MessageService';
+import { User, UserData } from '../../../@core/interfaces/common/users';
+import { UserStore } from '../../../@core/stores/user.store';
 
 interface Propiedades {
   id?: number;
@@ -258,6 +260,7 @@ export class WindowComponent {
     private router: Router,
     private messageService: MessageService,
     private toasterService: NbToastrService,
+    private userStore: UserStore,
     
     ) {
 
@@ -527,6 +530,8 @@ export class WindowComponent {
     // console.log(this.propiedades.description);
     // console.log(Number(this.prioridadValor.nativeElement.value));
     
+    
+
     PROPIEDADESACTUALIZAR =
     {
       id:IDMAQUINA,
@@ -537,8 +542,19 @@ export class WindowComponent {
       // prioridad:Number(this.prioridadValor.nativeElement.value)
     };
 
-    
-    
+     
+    const currentUserId = this.userStore.getUser().firstName;
+  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+  var respons = 
+  {
+    user: currentUserId,
+    message:"Modificó propiedades de la maquina "+ PROPIEDADESACTUALIZAR.descripcionMaquina 
+};
+  this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+        //  console.log("Envió: ", res);
+      });
 
     // this.colorMaquina.fillValor = 'red';
     // console.log(PROPIEDADESACTUALIZAR);

@@ -8,11 +8,11 @@ import { Component, OnDestroy, OnInit, Injectable } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, takeWhile } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserStore } from '../../../@core/stores/user.store';
 import { SettingsData } from '../../../@core/interfaces/common/settings';
-import { User } from '../../../@core/interfaces/common/users';
+import { User, UserData } from '../../../@core/interfaces/common/users';
 import {WindowComponentAlarm} from '../../../pages/dashboard/alarmPopup/alarmPopup.component';
 import { SignalRService } from '../../../pages/dashboard/services/signal-r.service';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: User;
   sicProcess: boolean = true;
     public select = false;
+    private alive = true;
     mostrar: Boolean;
 
   themes = [
@@ -68,6 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userStore: UserStore,
+              private usersService: UserData,
               private settingsService: SettingsData,
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService,
@@ -197,15 +199,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // });
     // Swal.fire('¡Se sincronizo Exitosamente', 'success');
 
+    // let users = {user: event.user.id};
+  const currentUserId = this.userStore.getUser().firstName;
+  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+  var respons = 
+  {
+    user: currentUserId,
+    message:"Sincronización de ordenes"
+};
+  this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+        //  console.log("Envió: ", res);
+      });
+
     this.http.get(this.api.apiUrlMatbox + "/Orders/SyncOrder", { observe: 'response' })
   .pipe()
-  .subscribe(resp => {
-    if (resp.status === 200 ) {
-      console.log(true)
+  .subscribe(user => {
+    if (user.status === 200 ) { 
+      // console.log("es: ", true)
+      // let users = {user: event.user.id};
+      // this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser?user='+ event.user.id, '&message=' + "Se sincronizo Exitosamente")
+      // .pipe(takeWhile(() => this.alive))
+      // .subscribe((res: any) => {
+      //   //  console.log("alarmId", res);
+        
+      // });
     } else {
       console.log(false)
     }
   } , err => console.log(err));
+  
   Swal.fire('¡Se sincronizo Exitosamente', 'success');
       }
     });

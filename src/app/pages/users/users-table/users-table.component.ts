@@ -46,20 +46,20 @@ export class UsersTableComponent implements OnDestroy {
         type: 'string',
       },
       login: {
-        title: 'Nombre de usuario',
+        title: 'Usuario',
         type: 'string',
       },
       email: {
         title: 'Email',
         type: 'string',
       },
-      age: {
-        title: 'Edad',
-        filter: {
-          type: 'custom',
-          component: NgxFilterByNumberComponent,
-        },
-      },
+      // age: {
+      //   title: 'Edad',
+      //   filter: {
+      //     type: 'custom',
+      //     component: NgxFilterByNumberComponent,
+      //   },
+      // },
       // street: {
       //   title: 'Street',
       //   type: 'string',

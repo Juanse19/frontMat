@@ -84,6 +84,15 @@ this.user.password += ';' + this.userId;
     });
   }
 
+  back($event: any) {
+    // this.mostrar= false;
+    this.router.navigate([`/pages/users/edit/${$event.data.id}`]);
+  }
+
+  onEdit($event: any) {
+    this.router.navigate([`/pages/users/edit/${$event.data.id}`]);
+  }
+
   getConfigValue(key: string): any {
     return getDeepFromObject(this.options, key, null);
   }

@@ -5,45 +5,28 @@
   -->
 
 <nb-card>
-  <nb-card-header>{{mode}} usuario</nb-card-header>
-  <nb-card-body>
-    <div [formGroup]="userForm" class="container">
-      <div class="form-group">
-        <label for="firstName">Primer nombre</label>
-        <input nbInput id="firstName" formControlName="firstName"
-               [status]="(firstName?.hasError('minlength') || firstName?.hasError('maxlength')) ? 'danger' : 'primary'"
-               class="form-control" placeholder="Primer nombre">
-        <ngx-validation-message label="First Name"
-                                [showMinLength]="firstName?.hasError('minlength')"
-                                [showMaxLength]="firstName?.hasError('maxlength')" minLength=3
-                                maxLength=20></ngx-validation-message>
-      </div>
+    <nb-card-header>{{mode}} usuario</nb-card-header>
+    <nb-card-body>
+        <div [formGroup]="userForm" class="container">
+            <div class="form-group">
+                <label for="firstName">Primer nombre</label>
+                <input nbInput id="firstName" formControlName="firstName" [status]="(firstName?.hasError('minlength') || firstName?.hasError('maxlength')) ? 'danger' : 'primary'" class="form-control" placeholder="Primer nombre">
+                <ngx-validation-message label="First Name" [showMinLength]="firstName?.hasError('minlength')" [showMaxLength]="firstName?.hasError('maxlength')" minLength=3 maxLength=20></ngx-validation-message>
+            </div>
 
-      <div class="form-group">
-        <label for="lastName">Apellido</label>
-        <input nbInput id="lastName" formControlName="lastName"
-               [status]="(lastName?.hasError('minlength') || lastName?.hasError('maxlength')) ? 'danger' : 'primary'"
-               class="form-control" placeholder="Apellido">
-        <ngx-validation-message label="Last Name"
-                                [showMinLength]="lastName?.hasError('minlength')"
-                                [showMaxLength]="lastName?.hasError('maxlength')" minLength=3
-                                maxLength=20></ngx-validation-message>
-      </div>
+            <div class="form-group">
+                <label for="lastName">Apellido</label>
+                <input nbInput id="lastName" formControlName="lastName" [status]="(lastName?.hasError('minlength') || lastName?.hasError('maxlength')) ? 'danger' : 'primary'" class="form-control" placeholder="Apellido">
+                <ngx-validation-message label="Last Name" [showMinLength]="lastName?.hasError('minlength')" [showMaxLength]="lastName?.hasError('maxlength')" minLength=3 maxLength=20></ngx-validation-message>
+            </div>
 
-      <div class="form-group">
-        <label for="inputLogin">Acceso</label>
-        <input nbInput id="inputLogin" [disabled]="select" formControlName="login"
-               [status]="(login?.errors?.required || login?.hasError('minlength') || login?.hasError('maxlength')) && login.touched ? 'danger' : 'primary'"
-               class="form-control" placeholder="Acceso">
-        <ngx-validation-message label="Login"
-                                [showMinLength]="login?.hasError('minlength')"
-                                [showMaxLength]="login?.hasError('maxlength')"
-                                [showRequired]="login?.errors?.required && login.touched"
-                                minLength=6
-                                maxLength=20></ngx-validation-message>
-      </div>
+            <div class="form-group">
+                <label for="inputLogin">Usuario</label>
+                <input nbInput id="inputLogin" [disabled]="select" formControlName="login" [status]="(login?.errors?.required || login?.hasError('minlength') || login?.hasError('maxlength')) && login.touched ? 'danger' : 'primary'" class="form-control" placeholder="Acceso">
+                <ngx-validation-message label="Login" [showMinLength]="login?.hasError('minlength')" [showMaxLength]="login?.hasError('maxlength')" [showRequired]="login?.errors?.required && login.touched" minLength=6 maxLength=20></ngx-validation-message>
+            </div>
 
-      <div class="form-group">
+            <!-- <div class="form-group">
         <label for="inputAge">Edad</label>
         <input nbInput id="inputAge" formControlName="age"
                [status]="(age?.errors?.required || age?.errors?.min || age?.errors?.max || age?.hasError('pattern')) && age.touched? 'danger' : 'primary'"
@@ -53,22 +36,16 @@
                                 [showMax]="age?.errors?.max && age.touched"
                                 [showRequired]="age?.errors?.required && age.touched"
                                 [showPattern]="age?.hasError('pattern')" min=1 max=120></ngx-validation-message>
-      </div>
+      </div> -->
 
-      <div class="form-group">
-        <label for="inputEmail">Email</label>
-        <input nbInput id="inputEmail" formControlName="email"
-               [disabled]="select"
-               [status]="(email?.errors?.required || email?.hasError('pattern')) && email.touched ? 'danger' : 'primary'"
-               class="form-control"
-               placeholder="Email">
-        <ngx-validation-message label="Email"
-                                [showPattern]="email?.hasError('pattern') && email.touched"
-                                [showRequired]="email?.errors?.required && email.touched" min=1 max=120></ngx-validation-message>
-      </div>
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input nbInput id="inputEmail" formControlName="email" [disabled]="select" [status]="(email?.errors?.required || email?.hasError('pattern')) && email.touched ? 'danger' : 'primary'" class="form-control" placeholder="Email">
+                <ngx-validation-message label="Email" [showPattern]="email?.hasError('pattern') && email.touched" [showRequired]="email?.errors?.required && email.touched" min=1 max=120></ngx-validation-message>
+            </div>
 
-   
-      <div class="form-group" formGroupName="address">
+
+            <!-- <div class="form-group" formGroupName="address">
         <label for="inputStreet">Calle</label>
         <input nbInput class="form-control" id="inputStreet" placeholder="Calle" formControlName="street">
       </div>
@@ -76,29 +53,24 @@
       <div class="form-group" formGroupName="address">
         <label for="inputCity">Ciudad</label>
         <input nbInput class="form-control" id="inputCity" placeholder="Ciudad" formControlName="city">
-      </div>
-<!-- 
+      </div> -->
+            <!-- 
       <div class="form-group" formGroupName="address">
         <label for="inputZipCode">Zip Code</label>
         <input nbInput class="form-control" id="inputZipCode" placeholder="Zip Code" formControlName="zipCode">
       </div> -->
-    
-      <div class="form-group" >
-        <label for="role" >Role: </label>
-        <br />
- <nb-select id="role" placeholder= "Role"
-                                [formControl]="role"
-                                [disabled]="select"
-                                
-                                [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'"                             
-                                [(selected)]="selectedRole">
-                                  <nb-option *ngFor="let itemRole of listaRoles" [value]="itemRole.name">
-                                    {{ itemRole.name }}
-                                  </nb-option>             
-                              </nb-select>
 
-        <!-- <input nbInput class="form-control" id="role" placeholder="role" formControlName="role"> -->
-                                <!-- <nb-select id="role" 
+            <div class="form-group">
+                <label for="role">Role: </label>
+                <br />
+                <nb-select id="role" placeholder="Role" [formControl]="role" [disabled]="select" [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'" [(selected)]="selectedRole">
+                    <nb-option *ngFor="let itemRole of listaRoles" [value]="itemRole.name">
+                        {{ itemRole.name }}
+                    </nb-option>
+                </nb-select>
+
+                <!-- <input nbInput class="form-control" id="role" placeholder="role" formControlName="role"> -->
+                <!-- <nb-select id="role" 
                                 [formControl]="role"
                                 [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'"
                                 class="form-control"
@@ -115,13 +87,12 @@
                               maxLength=20
                               [showRequired]="role?.errors?.required && role.touched"
                               ></ngx-validation-message> -->
-      </div>
-    </div>
-  </nb-card-body>
-  <nb-card-footer *ngIf="!mostrar">
-    <button nbButton status="primary" *ngIf="!select"  [disabled]="!userForm.valid" (click)="save()" hero>Guardar</button>
-    <button nbButton status="info" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero>Atras</button>
-    <button nbButton status="secondary" *ngIf="!mostrar" [disabled]="select" (click)="changepass()" hero>Cambiar contraseña</button>
-  </nb-card-footer>
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer *ngIf="!mostrar">
+        <button nbButton status="primary" *ngIf="!select" [disabled]="!userForm.valid" (click)="save()" hero>Guardar</button>
+        <button nbButton status="info" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero>Atras</button>
+        <button nbButton status="secondary" *ngIf="!mostrar" [disabled]="select" (click)="changepass()" hero>Cambiar contraseña</button>
+    </nb-card-footer>
 </nb-card>
-

@@ -116,6 +116,11 @@ export class UsersTableComponent implements OnDestroy {
     }
   }
 
+  add(){
+    return this.router.navigateByUrl('/auth/register');
+  }
+
+
   ngOnDestroy() {
     this.alive = false;
   }

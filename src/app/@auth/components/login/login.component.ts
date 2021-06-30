@@ -16,6 +16,9 @@ import { getDeepFromObject } from '../../helpers';
 import { NbThemeService } from '@nebular/theme';
 import { EMAIL_PATTERN } from '../constants';
 import { InitUserService } from '../../../@theme/services/init-user.service';
+import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-login',
@@ -25,8 +28,8 @@ import { InitUserService } from '../../../@theme/services/init-user.service';
 
 export class NgxLoginComponent implements OnInit {
 
-  correo = 'admin@admin.admin';
-  contrasena = 'admin';
+  // correo = 'admin@admin.admin';
+  // contrasena = 'admin';
 
   minLength: number = this.getConfigValue('forms.validation.password.minLength');
   maxLength: number = this.getConfigValue('forms.validation.password.maxLength');
@@ -54,7 +57,9 @@ export class NgxLoginComponent implements OnInit {
     protected themeService: NbThemeService,
     private fb: FormBuilder,
     protected router: Router,
-    protected initUserService: InitUserService) { }
+    protected initUserService: InitUserService,
+    private apiGetComp: ApiGetService,
+    private api: HttpService,) { }
 
   ngOnInit(): void {
     const emailValidators = [
@@ -80,6 +85,20 @@ export class NgxLoginComponent implements OnInit {
     this.errors = [];
     this.messages = [];
     this.submitted = true;
+
+    var respons = 
+    {
+      // user: currentUserId,
+      user: this.user.email,
+      message:"Inicio sesión" 
+  };
+  
+  this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
+  .pipe(takeWhile(() => this.alive))
+  .subscribe((res: any) => {
+      //  console.log("Envió: ", res);
+    });
+
     this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
 

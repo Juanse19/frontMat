@@ -26,17 +26,10 @@
                 <ngx-validation-message label="Login" [showMinLength]="login?.hasError('minlength')" [showMaxLength]="login?.hasError('maxlength')" [showRequired]="login?.errors?.required && login.touched" minLength=6 maxLength=20></ngx-validation-message>
             </div>
 
-            <!-- <div class="form-group">
-        <label for="inputAge">Edad</label>
-        <input nbInput id="inputAge" formControlName="age"
-               [status]="(age?.errors?.required || age?.errors?.min || age?.errors?.max || age?.hasError('pattern')) && age.touched? 'danger' : 'primary'"
-               class="form-control" placeholder="Edad">
-        <ngx-validation-message label="Age"
-                                [showMin]="age?.errors?.min && age.touched"
-                                [showMax]="age?.errors?.max && age.touched"
-                                [showRequired]="age?.errors?.required && age.touched"
-                                [showPattern]="age?.hasError('pattern')" min=1 max=120></ngx-validation-message>
-      </div> -->
+            <div class="form-group">
+                <label for="inputAge">Edad</label>
+                <input nbInput id="inputAge" formControlName="age" [status]="(age?.errors?.required || age?.errors?.min || age?.errors?.max || age?.hasError('pattern')) && age.touched? 'danger' : 'primary'" class="form-control" placeholder="Edad">
+            </div>
 
             <div class="form-group">
                 <label for="inputEmail">Email</label>

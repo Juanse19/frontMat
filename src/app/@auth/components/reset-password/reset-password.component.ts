@@ -9,9 +9,12 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult, NbAuthJWTToken } from '@nebular/auth';
 import { runInThisContext } from 'node:vm';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { authSettings } from '../../access.settings';
 import { getDeepFromObject } from '../../helpers';
 import { HttpClient } from '@angular/common/http';
+import { UserStore } from '../../../@core/stores/user.store';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-reset-password-page',
@@ -27,6 +30,8 @@ export class NgxResetPasswordComponent implements OnInit {
   strategy: string = this.getConfigValue('forms.resetPassword.strategy');
   isPasswordRequired: boolean = this.getConfigValue('forms.validation.password.required');
 
+  private alive = true;
+
   submitted = false;
   errors: string[] = [];
   messages: string[] = [];
@@ -40,7 +45,9 @@ export class NgxResetPasswordComponent implements OnInit {
     protected fb: FormBuilder,
     protected router: Router,
     private route: ActivatedRoute,
-
+    private userStore: UserStore,
+    private api: HttpService,
+    private apiGetComp: ApiGetService,
   ) {
     this.userId = this.route.snapshot.paramMap.get('id');
      }
@@ -66,6 +73,20 @@ export class NgxResetPasswordComponent implements OnInit {
     this.submitted = true;
     this.user = this.resetPasswordForm.value;
 this.user.password += ';' + this.userId; 
+
+const currentUserId = this.userStore.getUser().firstName;
+  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+  var respons = 
+  {
+    user: currentUserId,
+    message:"Cambio la contraseña" 
+};
+this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
+.pipe(takeWhile(() => this.alive))
+.subscribe((res: any) => {
+    //  console.log("Envió: ", res);
+  });
+
     this.service.resetPassword(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
       if (result.isSuccess()) {

@@ -1,0 +1,8 @@
+
+		SELECT Logs.Id, Message, Level, Exception, Users.FirstName UserId , CONVERT(VARCHAR(19),TimeStamp,120) TimeStamp 
+		FROM dbo.Logs 
+		INNER JOIN iot_core.Users ON Users.Id= Logs.UserId
+		WHERE State=0
+		ORDER BY Id DESC
+		OFFSET 1 ROWS 
+		FETCH NEXT 10 ROWS ONLY

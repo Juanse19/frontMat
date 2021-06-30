@@ -116,7 +116,7 @@ export class UserComponent implements OnInit, OnDestroy {
       firstName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       lastName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       login: this.fb.control('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-      age: this.fb.control('', [Validators.required, Validators.min(1),
+      age: this.fb.control('', [ Validators.min(1),
         Validators.max(120), Validators.pattern(NUMBERS_PATTERN)]),
       email: this.fb.control('', [
         Validators.required,

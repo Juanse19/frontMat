@@ -1,13 +1,30 @@
 <nb-card>
-    <nb-card-header>
-        Alarmas
-    </nb-card-header>
+    <nb-tabset>
+        <nb-tab tabTitle="Alarmas">
+            <nb-card>
+                <nb-card-header>
+                    Alarmas
+                </nb-card-header>
 
-    <nb-card-body>
-        <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
-        </ng2-smart-table>
-    </nb-card-body>
-    <nb-card-footer>
-        <button type="submit" *ngIf="!mostrar" [disabled]="select" (click)="reconocer()" class="btn btn-primary">Reconocer alarmas</button>
-    </nb-card-footer>
+                <nb-card-body>
+                    <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+                    </ng2-smart-table>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button type="submit" *ngIf="!mostrar" [disabled]="select" (click)="reconocer()" class="btn btn-primary">Reconocer alarmas</button>
+                </nb-card-footer>
+            </nb-card>
+        </nb-tab>
+        <nb-tab tabTitle="Historico Alarmas">
+            <nb-card>
+                <nb-card-header>
+                    Historico Alarmas
+                </nb-card-header>
+                <nb-card-body>
+                    <ng2-smart-table class="example-smart-table" [settings]="setting" [source]="source1">
+                    </ng2-smart-table>
+                </nb-card-body>
+            </nb-card>
+        </nb-tab>
+    </nb-tabset>
 </nb-card>

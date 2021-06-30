@@ -13,7 +13,7 @@ interface Alarmas {
   message: string;
   level: string;
   exception: string;
-  userId: number;
+  userId: string;
   timeStamp: string;
 }
 
@@ -71,8 +71,8 @@ export class AlarmsComponent implements OnDestroy {
       //   filter: false,
       // },
       userId: {
-        title: 'usuario',
-        type: 'number',
+        title: 'Usuario',
+        type: 'string',
         filter: false,
       },
       timeStamp: {
@@ -86,13 +86,60 @@ export class AlarmsComponent implements OnDestroy {
   source: LocalDataSource = new LocalDataSource();
   public Alarm: Alarmas[];
 
+  // History AlARMS
+  setting = {
+    // actions: false,
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    
+    columns: {
+      id: {
+        title: 'ID',
+        type: 'number',
+        filter: false,
+        hide: true,
+
+      },
+      message: {
+        title: 'Mensaje',
+        type: 'string',
+        filter: true,
+      },
+      level: {
+        title: 'Nivel',
+        type: 'string',
+        filter: false,
+      },
+      // exception: {
+      //   title: 'excepción',
+      //   type: 'string',
+      //   filter: false,
+      // },
+      userId: {
+        title: 'Usuario',
+        type: 'string',
+        filter: false,
+      },
+      timeStamp: {
+        title: 'Tiempo',
+        type: 'string',
+        filter: false,
+      },
+    },
+  };
+
+  source1: LocalDataSource = new LocalDataSource();
+  public Alarms: Alarmas[];
+
   constructor(
     public accessChecker: NbAccessChecker,
     private toastrService: NbToastrService,
     public apiGetComp: ApiGetService,
     private api: HttpService,
   ) {
-    this.Chargealarms();
     this.alive;
     this.accessChecker.isGranted('edit', 'ordertable')
     .pipe(takeWhile(() => this.alive))
@@ -105,6 +152,11 @@ export class AlarmsComponent implements OnDestroy {
         this.mostrar=true;
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.Chargealarms();
+    this.ChargeHistoryalarms();
   }
 
   // onedit($event: any) {
@@ -182,7 +234,26 @@ export class AlarmsComponent implements OnDestroy {
         this.source.load(res);
       });
     });
+  }
 
+  ChargeHistoryalarms() {
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/alarms')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      console.log("HAlarms: ", res);
+      
+      this.Alarms = res;
+      this.source1.load(res);
+    });
+    const contador = interval(60000)
+    contador.subscribe((n) => {
+      this.apiGetComp.GetJson(this.api.apiUrlNode + '/alarms')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.Alarms = res;
+        this.source1.load(res);
+      });
+    });
   }
 
   ngOnDestroy() {

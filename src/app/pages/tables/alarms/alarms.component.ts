@@ -208,6 +208,7 @@ export class AlarmsComponent implements OnDestroy {
            this.toastrService.success('', '¡Alarmas solucionadas!');
            this.select=true;
            this.source.refresh();
+           this.Chargealarms();
          } else {
            this.toastrService.danger('', 'Algo salio mal.');
          }
@@ -240,7 +241,7 @@ export class AlarmsComponent implements OnDestroy {
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/alarms')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
-      console.log("HAlarms: ", res);
+      // console.log("HAlarms: ", res);
       
       this.Alarms = res;
       this.source1.load(res);

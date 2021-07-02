@@ -42,6 +42,21 @@ export class SyncroComponent implements OnInit {
         hide: true,
 
       },
+      officeID: {
+        title: 'officeID',
+        type: 'string',
+        filter: false,
+      },
+      createDate: {
+        title: 'CreateDate',
+        type: 'string',
+        filter: false,
+      },
+      updateDate: {
+        title: 'UpdateDate',
+        type: 'string',
+        filter: false,
+      },
       position: {
         title: 'Posición',
         type: 'string',
@@ -727,11 +742,7 @@ export class SyncroComponent implements OnInit {
       //   type: 'string',
       //   filter: false,
       // },
-      officeID: {
-        title: 'officeID',
-        type: 'string',
-        filter: false,
-      },
+      
     },
   };
 
@@ -848,6 +859,7 @@ eliminarTodos(){
       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/DeleteOrderSyncroAll',"")
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
+        this.ChargeReportSyncro();
         if(res == null){
           return null;
        } 

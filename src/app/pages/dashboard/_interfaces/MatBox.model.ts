@@ -201,6 +201,8 @@ export interface Sic {
 
 export interface Syncro {
   id: number,
+  createDate: string,
+  updateDate: string,
   position: string,
   setupID: string,
   modID: string,

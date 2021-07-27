@@ -551,7 +551,7 @@ export class WindowComponent {
     message:"Modificó propiedades de la maquina "+ PROPIEDADESACTUALIZAR.descripcionMaquina 
 };
   this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
-    .pipe(takeWhile(() => this.alive))
+    .pipe(takeWhile(() => this.alive)) 
     .subscribe((res: any) => {
         //  console.log("Envió: ", res);
       });

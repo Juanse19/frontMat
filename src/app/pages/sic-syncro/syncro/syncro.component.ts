@@ -775,7 +775,7 @@ export class SyncroComponent implements OnInit {
   }
 
   ChargeReportSyncro() {
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetOrderSyncro')
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/GetOrderSyncro')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
       //REPORTOCUPATION=res;
@@ -788,7 +788,7 @@ export class SyncroComponent implements OnInit {
     });
     const contador = interval(60000)
     contador.subscribe((n) => {
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetOrderSyncro')
+      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/GetOrderSyncro')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         //REPORTOCUPATION=res;

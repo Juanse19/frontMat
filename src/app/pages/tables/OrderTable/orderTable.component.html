@@ -1,79 +1,101 @@
 <div class="row">
-  <!-- <div class="col-xxxl-9 col-xl-12"> -->
-  <div class="col-md-12 col-lg-12 col-xxxl-12">
+    <!-- <div class="col-xxxl-9 col-xl-12"> -->
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
 
-    <nb-card style="padding: 20px;">
+        <nb-card style="padding: 20px;">
 
-      <form> 
-        <div class="form-group form-inline">
-          Buscar: <input class="form-control ml-2" type="text"  name="searchTerm" placeholder="Buscar ordenes" [(ngModel)]="searchTerm"/>
-          <span class="ml-3" *ngIf="loading$ | async">Loading...</span>
-          <td><button nbButton shape="semi-round" class="boton1" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="CrearOrden()" >Crear Orden</button></td>
-      </div>
-      <nb-card-body>
-      <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Orden</th>
-          <th scope="col">Batch</th>
-          <!-- <th scope="col">Nombre</th> -->
-          <th scope="col">Referencia</th>
-          <th scope="col">Destino</th>
-          <th scope="col">Origen</th>
-          <th scope="col">Longitud</th>
-          <th scope="col"># Cortes</th>
-          <th scope="col">Ancho Cortes</th>
-          <th scope="col">Largo Cortes</th>
-          <th scope="col">Prioridad</th>
-          <th scope="col" *ngIf="!mostrar">Editar</th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let ordenes of ordenesMaquina$ | async">
-        <!-- <th scope="row">{{ ordenes.id }}</th> -->
-        <td><ngb-highlight [result]="ordenes.id" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.order" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.batch" [term]="filter.value"></ngb-highlight></td>
-        <!-- <td><ngb-highlight [result]="ordenes.name" [term]="filter.value"></ngb-highlight></td> -->
-        <td><ngb-highlight [result]="ordenes.reference" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.description" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.origen" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.orderLength" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.cutsNumber" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.cutsWidth" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.cutsLength" [term]="filter.value"></ngb-highlight></td>
-        <td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
-        <!-- <td><button (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength)" nbButton>EDIT</button></td> -->
-        <td><button nbButton shape="semi-round" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDITAR</button></td>
-    
-      </tr>
-      </tbody>
-      </table>
-    </nb-card-body>
-        <div class="d-flex justify-content-between p-2">
-      
-         <ngb-pagination
-         [collectionSize]="(total$ | async)!" [(page)]="page" [pageSize]="pageSize">
-        </ngb-pagination>
-        <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">
+            <form>
+                <div class="form-group form-inline">
+                    Buscar: <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar ordenes" [(ngModel)]="searchTerm" />
+                    <span class="ml-3" *ngIf="loading$ | async">Loading...</span>
+                    <td><button nbButton shape="semi-round" class="boton2" status="primary" (click)="Refresh()">Refrescar</button></td>
+                    <td><button nbButton shape="semi-round" class="boton1" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="CrearOrden()">Crear Orden</button></td>
+                </div>
+                <nb-card-body>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Orden</th>
+                                <th scope="col">Batch</th>
+                                <!-- <th scope="col">Nombre</th> -->
+                                <th scope="col">Referencia</th>
+                                <th scope="col">Destino</th>
+                                <th scope="col">Origen</th>
+                                <th scope="col">Longitud</th>
+                                <th scope="col"># Cortes</th>
+                                <th scope="col">Ancho Cortes</th>
+                                <th scope="col">Largo Cortes</th>
+                                <th scope="col">Prioridad</th>
+                                <th scope="col" *ngIf="!mostrar">Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ordenes of ordenesMaquina$ | async">
+                                <!-- <th scope="row">{{ ordenes.id }}</th> -->
+                                <td>
+                                    <ngb-highlight [result]="ordenes.id" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.order" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.batch" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <!-- <td><ngb-highlight [result]="ordenes.name" [term]="filter.value"></ngb-highlight></td> -->
+                                <td>
+                                    <ngb-highlight [result]="ordenes.reference" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.description" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.origen" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.orderLength" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.cutsNumber" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.cutsWidth" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.cutsLength" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <td>
+                                    <ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight>
+                                </td>
+                                <!-- <td><button (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength)" nbButton>EDIT</button></td> -->
+                                <td><button nbButton shape="semi-round" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDITAR</button></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </nb-card-body>
+                <div class="d-flex justify-content-between p-2">
+
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="page" [pageSize]="pageSize">
+                    </ngb-pagination>
+                    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">
           <!-- <option [ngValue]="2">2 items per page</option> -->
           <option [ngValue]="5">5 items per page</option>
           <option [ngValue]="10">10 items per page</option>
           <option [ngValue]="15">15 items per page</option>
     
         </select>
-      </div>
-      <td><button nbButton shape="semi-round" class="boton2" status="primary" (click)="Refresh()">Refrescar</button></td>
-    
-      </form>	  
-    
-    
-    </nb-card>
-    
-    
-    
-    <!-- <ngx-temperature></ngx-temperature> -->
+                </div>
 
-  </div>
+
+            </form>
+
+
+        </nb-card>
+
+
+
+        <!-- <ngx-temperature></ngx-temperature> -->
+
+    </div>
 </div>

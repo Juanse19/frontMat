@@ -1,3 +1,5 @@
+
+// import { states } from './../../conveyor/_interfaces/MatBag.model';
 /*
  * Copyright (c) Akveo 2019. All Rights Reserved.
  * Licensed under the Single Application / Multi Application License.
@@ -21,6 +23,7 @@ import {UserStore} from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
 import { NbAccessChecker } from '@nebular/security';
+import * as crypto from 'crypto-js'; 
 
 
 interface Roles {
@@ -28,6 +31,32 @@ interface Roles {
   name: string;
 }
 
+interface licens {
+  Id?: string;
+  Parameter?: string;
+  Value?: string;
+}
+
+interface states {
+  states: string;
+  Name: string;
+}
+
+interface licensActive {
+  Licens_id: number;
+}
+
+interface licen {
+  Value: string;
+}
+
+let LICENS: licen[] = [
+
+];
+
+let LICENDa: licen; 
+
+let IDLICEN: number;
 
 export enum UserFormMode {
   VIEW = 'View',
@@ -47,10 +76,21 @@ export enum UserFormMode {
 export class UserComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   selectedRole;
+  selectedLis;
+  selectedState;
   listaRoles:Roles[]=[];
+  listaLicens:states[]=[];
+  listaUsers:states[]=[];
+  licenTotalData: licen[]=[];
+  licData = IDLICEN;
+  licenAcitveTotalData: licensActive[]=[];
   public select = false;
+  public selectLicen = false;
   private alive = true;
   mostrar: Boolean;
+  ocultar: Boolean;
+  isDisabled: Boolean;
+  desPass: string = '1234';
 
   protected readonly unsubscribe$ = new Subject<void>();
 
@@ -66,11 +106,16 @@ export class UserComponent implements OnInit, OnDestroy {
 
   get age() { return this.userForm.get('age'); }
 
+  get state() { return this.userForm.get('state'); }
+
+  get licens() { return this.userForm.get('licens'); }
+
   get street() { return this.userForm.get('address').get('street'); }
 
   get city() { return this.userForm.get('address').get('city'); }
 
   get zipCode() { return this.userForm.get('address').get('zipCode'); }
+
 
   mode: UserFormMode;
   setViewMode(viewMode: UserFormMode) {
@@ -88,10 +133,44 @@ export class UserComponent implements OnInit, OnDestroy {
               private fb: FormBuilder,
               private httpService: HttpService,
               private apiGetComp: ApiGetService,
+              private api: HttpService,
               public resetPassword: NgxResetPasswordComponent) {
-                this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles').subscribe((res: any) => {
+                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getroles').subscribe((res: any) => {
                   this.listaRoles=res;
+                  // console.log('roles', this.listaRoles.length);
                 });
+
+                // this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/api/getlicenses').subscribe((res: any) => {
+                //   this.listaLicens=res;
+                // });
+
+                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getuserstate').subscribe((res: any) => {
+                  this.listaUsers=res;
+                  this.listaLicens=res;
+                  // console.log('Status: ', this.listaUsers);
+                });
+
+                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getlicenses').subscribe((res: any) => {
+                  // this.licenTotalData=res;
+                  this.licData = crypto.AES.decrypt(res[0].Value.trim(), this.desPass.trim()).toString(crypto.enc.Utf8);
+                  
+                  // console.log('Licencia Encriptada: ', res[0].Value);
+                  // console.log('Total Licens: ', this.licenTotalData[0]);
+                });
+
+                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getvalidation').subscribe((res: any) => {
+                  this.licenAcitveTotalData=res;
+                  // console.log('Total Licens Activas: ', this.licenAcitveTotalData[0].Licens_id);
+                  // if (this.licenAcitveTotalData[0].Licens_id > this.licenTotalData[0].Value) {
+                  //   console.log('no tienes mas licencias');
+                  //   this.selectLicen=true;
+                  // }else{
+                  //   console.log('Aun te quedan licencias por asignar');
+                    
+                  // }
+                  // console.log('asignadas', this.licenAcitveTotalData[0].Licens_id >= this.licData ?  'no asignar licencia' : 'Asignar licencia');
+                });
+                
                 this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
                   if(res){ 
                     this.select = false;
@@ -99,6 +178,8 @@ export class UserComponent implements OnInit, OnDestroy {
                   }else {
                     this.select=true;
                     this.mostrar=true;
+                    this.selectLicen = true;
+                    this.isDisabled = true;
                   }
                   
                 });
@@ -112,7 +193,10 @@ export class UserComponent implements OnInit, OnDestroy {
   initUserForm() {
     this.userForm = this.fb.group({
       id: this.fb.control(''),
-      role: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
+      role: this.fb.control(''),
+      licens: this.fb.control('', [ Validators.min(1),
+        Validators.max(120), Validators.pattern(NUMBERS_PATTERN)]),
+      state: this.fb.control(''),
       firstName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       lastName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       login: this.fb.control('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
@@ -127,7 +211,7 @@ export class UserComponent implements OnInit, OnDestroy {
         city: this.fb.control(''),
         zipCode: this.fb.control(''),
       }),
-    });
+    }); 
   }
 
   get canEdit(): boolean {
@@ -149,6 +233,8 @@ export class UserComponent implements OnInit, OnDestroy {
         this.loadUser(id);
       } else {
         this.setViewMode(UserFormMode.ADD);
+        this.ocultar=true;
+        
       }
     }
   }
@@ -158,25 +244,115 @@ export class UserComponent implements OnInit, OnDestroy {
       ? this.usersService.getCurrentUser() : this.usersService.get(id);
     loadUser
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((user) => {
-        this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getrolebyuser?idUser='+user.id).subscribe((res: any) => {
-          user.role=res.name;
-        
-        this.userForm.setValue({
-          id: user.id ? user.id : '',
-          role: user.role ? user.role : '',
-          firstName: user.firstName ? user.firstName : '',
-          lastName: user.lastName ? user.lastName : '',
-          login: user.login ? user.login : '',
-          age: user.age ? user.age : '',
-          email: user.email,
-          address: {
-            street: (user.address && user.address.street) ? user.address.street : '',
-            city: (user.address && user.address.city) ? user.address.city : '',
-            zipCode: (user.address && user.address.zipCode) ? user.address.zipCode : '',
+      .subscribe((user) => { 
+        // debugger
+        if(user.licens_id === null )
+          {
+            this.apiGetComp.GetJson(this.api.apiUrlNode +'/userrole/getrolebyuser?idUser='+user.id).subscribe((res: any) => {
+              // console.log('data Rols: ', res);
+              
+              if (res == undefined) {
+                return user.role = '';
+              }  
+              else if (res.length == 0) {
+                // console.log('No hay rol');
+              }
+              else {
+                user.role=res[0].name;
+              }
+              // debugger
+              if (this.licenAcitveTotalData[0].Licens_id >= this.licData || user.licens_id == undefined ) {
+                // console.log('no tienes mas licencias');
+                if (user.licens_id == 2) {
+                  this.selectLicen=true;
+                } else if (user.licens_id == undefined) {
+                  this.selectLicen=true;
+                } else if (user.licens_id == 0) {
+                  this.selectLicen=true;
+                }
+                
+              } 
+
+              // console.log('data rol:', user.role);
+              // console.log('data rol:', user.role, 'DataLicens:', user.licens_id);
+             
+            this.userForm.setValue({
+              id: user.id ? user.id : '',
+              role: user.role ? user.role : '',
+              firstName: user.firstName ? user.firstName : '',
+              lastName: user.lastName ? user.lastName : '',
+              login: user.login ? user.login : '',
+              age: user.age ? user.age : '',
+              state: user.states ? user.states : '',
+              licens: user.licens_id ? user.licens_id : '',
+              email: user.email,
+              address: {
+                street: (user.address && user.address.street) ? user.address.street : '',
+                city: (user.address && user.address.city) ? user.address.city : '',
+                zipCode: (user.address && user.address.zipCode) ? user.address.zipCode : '',
+              },
+            });
           },
-        });
-      });
+        );
+          }  else {
+            // this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/api/getlicenbyuser?LicenID='+user.licens_id).subscribe((res: any) => {
+            //   if (res == undefined) {
+            //     user.licens_id = null;
+            //   }else {
+            //    user.licens_id=res[0].Id;
+            //   }  
+            // if (this.licenAcitveTotalData[0].Licens_id >= this.licenTotalData[0].Value) {
+            //   console.log('no tienes mas licencias');
+            //   this.selectLicen=true;
+            //   alert('no se puede asignar más licencia')
+            // }
+            this.apiGetComp.GetJson(this.api.apiUrlNode +'/userrole/getrolebyuser?idUser='+user.id).subscribe((res: any) => {
+              // debugger
+              // console.log('data Rols: ', res);
+              
+              if (res == undefined) {
+                return user.role = '';
+              }  
+              else if (res.length == 0) {
+                // console.log('No hay rol');
+              }
+              else {
+                user.role=res[0].name;
+              }
+              if (this.licenAcitveTotalData[0].Licens_id >= this.licData) {
+                // console.log('no tienes mas licencias');
+                if (user.licens_id == 2) {
+                  this.selectLicen=true;
+                } else if (user.licens_id == undefined) {
+                  this.selectLicen=true;
+                } else if (user.licens_id == 0) {
+                  this.selectLicen=true;
+                }
+                
+              }  
+              // console.log('data rol:', user.role);
+              // console.log('data rol:', user.role, 'DataLicens:', user.licens_id);
+            this.userForm.setValue({
+              id: user.id ? user.id : '',
+              role: user.role ? user.role : '',
+              firstName: user.firstName ? user.firstName : '',
+              lastName: user.lastName ? user.lastName : '',
+              login: user.login ? user.login : '',
+              age: user.age ? user.age : '',
+              state: user.states ? user.states : '',
+              licens: user.licens_id ? user.licens_id : '',
+              email: user.email,
+              address: {
+                street: (user.address && user.address.street) ? user.address.street : '',
+                city: (user.address && user.address.city) ? user.address.city : '',
+                zipCode: (user.address && user.address.zipCode) ? user.address.zipCode : '',
+              },
+            });
+          },
+        );
+      // });
+     }
+  
         // this is a place for value changes handling
         // this.userForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe((value) => {   });
       });
@@ -195,17 +371,72 @@ export class UserComponent implements OnInit, OnDestroy {
 
   save() {
     const user: User = this.convertToUser(this.userForm.value);
+    // debugger
+    // if (this.licenAcitveTotalData[0].Licens_id >= this.licenTotalData[0].Value) {
+    //   console.log('no tienes mas licencias');
+    //   alert('no tienes mas licencia')
+    // }else{
+    //   console.log('Aun te quedan licencias por asignar');
+    //   // alert('Aun te quedan licencias por asignar')
+    // }
+    
+    if (this.licenAcitveTotalData[0].Licens_id >= this.licData) {
+      // console.log('no tienes mas licencias');
+      if (user.licens_id == 2) {
+        this.selectLicen=true;
+      }
+    } else {
+      console.log('aun tenes licencias');
+      
+    }
 
     let observable = new Observable<User>();
     if (this.mode === UserFormMode.EDIT_SELF) {
+      debugger
+      const currentUserId = this.userStore.getUser().id;
+      const currentUser = this.userStore.getUser().firstName;
+  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+      var respons = 
+        {
+            user: currentUser,
+            message:"Edito usuario", 
+            users: currentUserId,
+    };
+      this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any) => {
+        //  console.log("Envió: ", res);
+          }); 
+          
+          
+
       this.usersService.updateCurrent(user)
       .pipe(takeWhile(() => this.alive))
-      .subscribe((result: any) => {
+      .subscribe((result: any) => {   
+        // debugger;
+      this.apiGetComp.PostJson(this.api.apiUrlNode + '/update', user)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        // console.log('data update', user, res);
+      });
+      // debugger
+      var respon = 
+      {
+          user: user.id,
+          sesion: 0, 
+          
+    };
+    this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respon)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+      //  console.log("Envió: ", res);
+        });
+
         var userRole = {
           IdUser:user.id,
           Role:user.role
         };
-        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole)
+        this.apiGetComp.PostJson(this.api.apiUrlNode + '/userrole/postupdateroleuser',userRole)
         .pipe(takeWhile(() => this.alive))
         .subscribe();
           this.tokenService.set(new NbAuthOAuth2JWTToken(result, 'email', new Date()));
@@ -223,23 +454,44 @@ export class UserComponent implements OnInit, OnDestroy {
     observable
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => {
+        // debugger;
+      this.apiGetComp.PostJson(this.api.apiUrlNode + '/update', user)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        // console.log('data update', user);
+      });
+
+      // debugger
+      var respon = 
+      {
+          user: user.id,
+          sesion: 0, 
+          
+    };
+    this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respon)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+      //  console.log("Envió: ", res);
+        });
+
         var userRole = {
           IdUser:user.id,
           Role:user.role
         };
-        this.apiGetComp.PostJson(this.httpService.apiUrlMatbox + '/userrole/postupdateroleuser',userRole)
+        this.apiGetComp.PostJson(this.api.apiUrlNode + '/userrole/postupdateroleuser',userRole)
         .pipe(takeWhile(() => this.alive))
         .subscribe();
-       
+
         this.handleSuccessResponse();
       },
       err => {
       this.handleWrongResponse();
     });
+  // }
   }
 
   handleSuccessResponse() {
-    this.toasterService.success('', `Item ${this.mode === UserFormMode.ADD ? 'created' : 'updated'}!`);
+    this.toasterService.success('', `Usuario ${this.mode === UserFormMode.ADD ? 'Creado' : 'Actualizado'}!`);
     this.back();
   }
 

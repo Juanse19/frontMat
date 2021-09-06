@@ -97,143 +97,143 @@ interface Country {
 })
 export class WindowComponentAlarm {
 
-    countries = COUNTRIES;
-    alarmas = ALARMAS;
-    alaramsFiltro;
-    // page = 1;
-    // pageSize = 10;
-    collectionSize = ALARMAS.length;
+//     countries = COUNTRIES;
+//     alarmas = ALARMAS;
+//     alaramsFiltro;
+//     // page = 1;
+//     // pageSize = 10;
+//     collectionSize = ALARMAS.length;
 
-    private _state: State = {
-      page: 1,
-      pageSize: 5,
-      searchTerm: '',
+//     private _state: State = {
+//       page: 1,
+//       pageSize: 5,
+//       searchTerm: '',
   
-    };
+//     };
 
-    filter = new FormControl('');
+//     filter = new FormControl('');
 
-  private _loading$ = new BehaviorSubject<boolean>(true);
-  private _search$ = new Subject<void>();
-    // private _countries$ = new BehaviorSubject<Country[]>([]);
-  private _Alarmas$ = new BehaviorSubject<Alarmas[]>([]);
+//   private _loading$ = new BehaviorSubject<boolean>(true);
+//   private _search$ = new Subject<void>();
+//     // private _countries$ = new BehaviorSubject<Country[]>([]);
+//   private _Alarmas$ = new BehaviorSubject<Alarmas[]>([]);
 
-  private _total$ = new BehaviorSubject<number>(0);
+//   private _total$ = new BehaviorSubject<number>(0);
 
-//   dataPost: OrdenActualizar;
-  statuses: NbComponentStatus[] = ['basic'];
+// //   dataPost: OrdenActualizar;
+//   statuses: NbComponentStatus[] = ['basic'];
 
-  options = [
-    { value: 'STAKER#1', label: 'STAKER#1' },
-    { value: 'STAKER#2', label: 'STAKER#2' },
-    // { value: 'This is value 3', label: 'Option 3' },
-    // { value: 'This is value 4', label: 'Option 4' },
-  ];
-  option;
+//   options = [
+//     { value: 'STAKER#1', label: 'STAKER#1' },
+//     { value: 'STAKER#2', label: 'STAKER#2' },
+//     // { value: 'This is value 3', label: 'Option 3' },
+//     // { value: 'This is value 4', label: 'Option 4' },
+//   ];
+//   option;
 
-  options2 = [
-    { value: 'Martin 1228', label: 'Martin 1228' },
-    { value: 'JS', label: 'JS' },
-    { value: '924', label: '924' },
-    { value: 'S&S', label: 'S&S' },
-  ];
-  option2;
+//   options2 = [
+//     { value: 'Martin 1228', label: 'Martin 1228' },
+//     { value: 'JS', label: 'JS' },
+//     { value: '924', label: '924' },
+//     { value: 'S&S', label: 'S&S' },
+//   ];
+//   option2;
 
   
 
-public selectedDestino ;
-public selectedOrigen ;
+// public selectedDestino ;
+// public selectedOrigen ;
 
-  @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
-  @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
-  @ViewChild('disabledEsc', { read: TemplateRef, static: true }) disabledEscTemplate: TemplateRef<HTMLElement>;
-
-
+//   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
+//   @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
+//   @ViewChild('disabledEsc', { read: TemplateRef, static: true }) disabledEscTemplate: TemplateRef<HTMLElement>;
 
 
-  // @ViewChild('desplegableValor') desplegableValor:NbSelectComponent;
 
 
-  constructor(
-    private windowService: NbWindowService,
-    private apiGetComp: ApiGetService,
-    public pipe: DecimalPipe,
-    private api: HttpService,
-    // public desplegable: NbSelectComponent,
-    // public pipe : DecimalPipe
-    // private windowTitle:NbWindowConfig,
-    // private nombre2: titl,
-    ) {
-      this.refreshAlarms();
-      this._search$.pipe(
-        tap(() => this._loading$.next(true)),
-        debounceTime(200),
-        switchMap(() => this._search()),
-        delay(200),
-        tap(() => this._loading$.next(false)),
-      ).subscribe(result => {
-        this._Alarmas$.next(result.alarmas);
-        this._total$.next(result.total);
-      });
+//   // @ViewChild('desplegableValor') desplegableValor:NbSelectComponent;
 
-      this._search$.next();
-    //   this.MaquinasDestinoLista();
-    //   this.MaquinasOrigenLista();
-    }
 
-    // data = ORDEN;
-    dataOption2;
+//   constructor(
+//     private windowService: NbWindowService,
+//     private apiGetComp: ApiGetService,
+//     public pipe: DecimalPipe,
+//     private api: HttpService,
+//     // public desplegable: NbSelectComponent,
+//     // public pipe : DecimalPipe
+//     // private windowTitle:NbWindowConfig,
+//     // private nombre2: titl,
+//     ) {
+//       this.refreshAlarms();
+//       this._search$.pipe(
+//         tap(() => this._loading$.next(true)),
+//         debounceTime(200),
+//         switchMap(() => this._search()),
+//         delay(200),
+//         tap(() => this._loading$.next(false)),
+//       ).subscribe(result => {
+//         this._Alarmas$.next(result.alarmas);
+//         this._total$.next(result.total);
+//       });
 
-    get alarmas$() { return this._Alarmas$.asObservable(); }
-    get total$() { return this._total$.asObservable(); }
-    get loading$() { return this._loading$.asObservable(); }
-    get page() { return this._state.page; }
-    get pageSize() { return this._state.pageSize; }
-    get searchTerm() { return this._state.searchTerm; }
+//       this._search$.next();
+//     //   this.MaquinasDestinoLista();
+//     //   this.MaquinasOrigenLista();
+//     }
 
-    set page(page: number) { this._set({page}); }
-    set pageSize(pageSize: number) { this._set({pageSize}); }
-    set searchTerm(searchTerm: string) { this._set({searchTerm}); }
+//     // data = ORDEN;
+//     dataOption2;
 
-    private _set(patch: Partial<State>) {
-      Object.assign(this._state, patch);
-      this._search$.next();
-    }
+//     get alarmas$() { return this._Alarmas$.asObservable(); }
+//     get total$() { return this._total$.asObservable(); }
+//     get loading$() { return this._loading$.asObservable(); }
+//     get page() { return this._state.page; }
+//     get pageSize() { return this._state.pageSize; }
+//     get searchTerm() { return this._state.searchTerm; }
+
+//     set page(page: number) { this._set({page}); }
+//     set pageSize(pageSize: number) { this._set({pageSize}); }
+//     set searchTerm(searchTerm: string) { this._set({searchTerm}); }
+
+//     private _set(patch: Partial<State>) {
+//       Object.assign(this._state, patch);
+//       this._search$.next();
+//     }
   
-    _search(): Observable<SearchResult2> {
+//     _search(): Observable<SearchResult2> {
   
-      const {pageSize, page, searchTerm} = this._state;
+//       const {pageSize, page, searchTerm} = this._state;
 
-      let alarmas = ALARMAS;
+//       let alarmas = ALARMAS;
   
-      // 2. filter
-      alarmas = alarmas.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
-      const total = alarmas.length;
+//       // 2. filter
+//       alarmas = alarmas.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
+//       const total = alarmas.length;
   
-      // 3. paginate
-      alarmas = alarmas.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-      // return of({countries, total});
-      this.alaramsFiltro = alarmas;
-      return of({alarmas, total});
-    }
+//       // 3. paginate
+//       alarmas = alarmas.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+//       // return of({countries, total});
+//       this.alaramsFiltro = alarmas;
+//       return of({alarmas, total});
+//     }
 
-  openWindowForm(nombreWindow: string, texto: string) {
-    // this.MaquinasDestinoLista();
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms').subscribe((res: any) => {
-      ALARMAS = res;
-      console.log(ALARMAS)
-      this.windowService.open(WindowComponentAlarm, { title: nombreWindow});
-  })
-  }
+//   openWindowForm(nombreWindow: string, texto: string) {
+//     // this.MaquinasDestinoLista();
+//     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms').subscribe((res: any) => {
+//       ALARMAS = res;
+//       console.log(ALARMAS)
+//       this.windowService.open(WindowComponentAlarm, { title: nombreWindow});
+//   })
+//   }
 
-  refreshAlarms() {
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms').subscribe((res: any) => {
-      ALARMAS = res;
-    this.alarmas = ALARMAS
-      .map((alarms, i) => ({id: i + 1, ...alarms}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  })
- }
+//   refreshAlarms() {
+//     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/GetAlarms').subscribe((res: any) => {
+//       ALARMAS = res;
+//     this.alarmas = ALARMAS
+//       .map((alarms, i) => ({id: i + 1, ...alarms}))
+//       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+//   })
+//  }
 //   MaquinasDestinoLista() {
 
 //     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerMaquinasDestinoLista').subscribe((res: any) => {
@@ -250,38 +250,38 @@ public selectedOrigen ;
 //   }
 
 
-openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: number, nameValue: string, value: number) {
+// openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: number, nameValue: string, value: number) {
 
-    this.windowService.open(
-      contentTemplate,
-      {
-        title: titleValue,
-        context: {
-          text: textValue,
-          number: numberValue,
-          name: nameValue,
-          x: value,
-        },
-      },
-    );
-  }
+//     this.windowService.open(
+//       contentTemplate,
+//       {
+//         title: titleValue,
+//         context: {
+//           text: textValue,
+//           number: numberValue,
+//           name: nameValue,
+//           x: value,
+//         },
+//       },
+//     );
+//   }
 
-  openWindow2(contentTemplate2, titleValue: string, orderValue: string, nameValue: string, descripcionValue: string, referenciaValue: string, orderLengthValue: number) {
-    this.windowService.open(
-      contentTemplate2,
-      {
-        title: titleValue,
-        context: {
-          orden: orderValue,
-          nombre: nameValue,
-          descripcion: descripcionValue,
-          referencia: referenciaValue,
-          orderLength: orderLengthValue,
+//   openWindow2(contentTemplate2, titleValue: string, orderValue: string, nameValue: string, descripcionValue: string, referenciaValue: string, orderLengthValue: number) {
+//     this.windowService.open(
+//       contentTemplate2,
+//       {
+//         title: titleValue,
+//         context: {
+//           orden: orderValue,
+//           nombre: nameValue,
+//           descripcion: descripcionValue,
+//           referencia: referenciaValue,
+//           orderLength: orderLengthValue,
 
-        },
-      },
-    );
-  }
+//         },
+//       },
+//     );
+//   }
 
 
 

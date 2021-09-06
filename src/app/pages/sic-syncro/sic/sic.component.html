@@ -4,10 +4,33 @@
     </nb-card-header>
 
     <nb-card-body>
-      <ng2-smart-table class="example-smart-table" [settings]="settings5" [source]="ReportSic" (deleteConfirm)="onDeleteConfirm($event)" >
-      </ng2-smart-table>
+      <!-- <ng2-smart-table class="example-smart-table" [settings]="settings5" [source]="ReportSic" (deleteConfirm)="onDeleteConfirm($event)" >
+      </ng2-smart-table> -->
+
+      <ejs-grid [dataSource]='ReportSic' [editSettings]='editSettings' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  (actionBegin)="actionBegin($event)"  [allowPaging]="true"
+      [pageSettings]="pageSettings" [filterSettings]="filterOptions" 
+      [allowFiltering]="true" width=155%>
+          <e-columns>
+            <e-column headerText='Administrar Sic' width='120' [commands]='commands'></e-column>
+              <e-column field='listaCorteSIC' headerText='ListaCorte' width=70></e-column>
+              <e-column field='listaCorrtrim' headerText='ListaTrim' width=75></e-column>
+              <e-column field='orden' headerText='Orden' width=100></e-column>
+              <e-column field='pedido' headerText='Pedido' width=100></e-column>
+              <e-column field='tarjeta' headerText='Tarjeta' width=110></e-column>
+              <e-column field='longitudOrden_Planeado' headerText='LogitudOrden' width=110></e-column>
+              <e-column field='numeroCortes' headerText='NumeroCorte' width=110></e-column>
+              <e-column field='largoLamina_Planeado' headerText='LargoLamina' width=115></e-column>
+              <e-column field='anchoLamina_Planeado' headerText='AnchoLamina' width=110></e-column>
+              <e-column field='espesorLamina_Planeado' headerText='EspesorLamina' width=110></e-column>
+              <e-column field='origen' headerText='Origen' width=110></e-column>
+              <e-column field='destino' headerText='Destino' width=110></e-column>
+              <e-column field='hojasParaHacer_Planeado' headerText='HojasParaHacer' width=110></e-column>
+              <e-column field='estado' headerText='Estado' width=110></e-column>
+          </e-columns>
+      </ejs-grid>
+
     </nb-card-body>
-    <nb-card-footer>
+    <!-- <nb-card-footer>
       <button type="submit" *ngIf="!mostrar" [disabled]="select" (click)="eliminaTodos()" class="btn btn-primary">Eliminar Todo</button>
-    </nb-card-footer>
+    </nb-card-footer> -->
   </nb-card> 

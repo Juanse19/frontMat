@@ -20,8 +20,11 @@ import { AnalyticsComponent } from './analytics.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ThemeModule } from '../../@theme/theme.module'; 
 import { ReportsComponent } from './reports/reports.component';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 
-
+ 
 @NgModule({
   declarations: [PredictivoComponent, OcupacionComponent, OrdenesNoWipsComponent, OrdenesComponent, AnalyticsComponent, ReportsComponent],
   imports: [
@@ -34,6 +37,12 @@ import { ReportsComponent } from './reports/reports.component';
     NbButtonModule,
     NbIconModule,
     NbTabsetModule,
-  ]
+    GridModule,
+    DropDownListAllModule,
+  ],
+  providers: [PageService,
+    SortService,
+    FilterService,
+    GroupService],
 })
 export class AnalyticsModule { }

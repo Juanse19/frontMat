@@ -9,8 +9,8 @@ import { Syncro } from '../../../pages/dashboard/_interfaces/MatBox.model';
 import { NbAccessChecker } from '@nebular/security';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
-
-
+import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, CommandModel } from '@syncfusion/ej2-angular-grids';
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 @Component({
   selector: 'ngx-syncro',
@@ -22,6 +22,13 @@ export class SyncroComponent implements OnInit {
   public select = false;
   private alive = true;
   mostrar: Boolean;
+
+  public pageSettings: PageSettingsModel;
+  public editSettings: Object;
+  public toolbar: ToolbarItems[] | object;
+  public editparams: Object;
+  public commands: CommandModel[];
+  public filterOptions: FilterSettingsModel;
 
   /** Table de información Syncro */
   settings6 = {
@@ -747,7 +754,7 @@ export class SyncroComponent implements OnInit {
   };
 
   source: LocalDataSource = new LocalDataSource();
-  public ReportSic: Syncro[];
+  public ReportSyncro: Syncro[];
 
   constructor(
     public accessChecker: NbAccessChecker,
@@ -756,7 +763,7 @@ export class SyncroComponent implements OnInit {
     private http: HttpClient,
     private api: HttpService
   ) {
-      this.ChargeReportSyncro();
+      
       this.alive;
     this.accessChecker.isGranted('edit', 'ordertable')
     .pipe(takeWhile(() => this.alive))
@@ -772,6 +779,41 @@ export class SyncroComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    this.editSettings = {
+      allowEditing: true,
+      allowAdding: true,
+      allowDeleting: true,
+      mode: 'Normal',
+      allowEditOnDblClick: false
+    };
+
+    this.pageSettings = { pageSizes: true, pageSize: 10 };
+    this.filterOptions = {
+    type: 'Menu',
+    }
+
+    this.ChargeReportSyncro();
+
+    this.toolbar = [
+      //  {text: 'Delete', prefixIcon: 'fas fa-check'},
+     { text: 'Eliminar todo', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }];
+
+     this.commands = [
+      // { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
+      { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } },
+      { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
+      { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
+
+  }
+
+  clickHandler(args: ClickEventArgs): void {
+    if (args.item.id === 'Click') {
+      // console.log('click: ', args);
+      // debugger
+      this.eliminarTodos();
+        // alert('Custom Toolbar Click...');
+    }
   }
 
   ChargeReportSyncro() {
@@ -780,7 +822,7 @@ export class SyncroComponent implements OnInit {
     .subscribe((res: any) => {
       //REPORTOCUPATION=res;
       // console.log("Report Ocupacion:", res);
-      this.ReportSic = res;
+      this.ReportSyncro = res;
       if(res == null){
         return null;
      }
@@ -792,7 +834,7 @@ export class SyncroComponent implements OnInit {
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         //REPORTOCUPATION=res;
-        this.ReportSic = res;
+        this.ReportSyncro = res;
         if(res == null){
           console.log("No hay data", res);
           return null;
@@ -801,6 +843,54 @@ export class SyncroComponent implements OnInit {
       });
     });
 
+  }
+
+  actionBegin(args) {
+    if (( args.requestType === 'delete')) {
+      // const Id = 'Id';
+      this.accessChecker.isGranted('edit', 'ordertable')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        if(res){ 
+      Swal.fire({
+      title: 'Desea eliminar?',
+      text: `¡Eliminará un campo en Syncro!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, Eliminar!'
+    }).then(result => {
+      if (result.value) {
+    this.apiGetComp.PostJson(this.api.apiUrlMatbox + "/Orders/DeleteOrderSyncro?id="+ args.data[0].id, args.data[0].id)
+    // .pipe()
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res:any) => {
+            // if (res) {
+            //   this.toastrService.success('', 'Item deleted!');
+            //   this.source5.refresh(); 
+            // } else {
+            //   this.toastrService.danger('', 'Algo salio mal.');
+            // }
+            this.ChargeReportSyncro();
+          });
+          Swal.fire('¡Se Eliminó Exitosamente', 'success');
+          // event.confirm.resolve();
+          this.source.refresh();
+      }
+    });
+            this.source.refresh();
+            this.select = false;
+            this.mostrar = false;
+            args.cancel = true;
+          }else {
+            this.select=true;
+            this.mostrar=true;
+            args.cancel = true;
+          }
+        });
+    }
+  
   }
 
   onDeleteConfirm(event) {

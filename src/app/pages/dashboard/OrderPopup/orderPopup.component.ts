@@ -98,6 +98,10 @@ export class WindowComponent2  implements OnInit {
       this.loadDataForm();
     }
 
+    public fields: Object = { text: 'order', value: 'order' };
+
+    public states: Object = { text: 'name', value: 'id' };
+
     loadDataForm(){
       this.arrumeManualForm.setValue({
         id: ORDEN.id,
@@ -169,6 +173,33 @@ export class WindowComponent2  implements OnInit {
         cutCount:formulario.cutCountForm,
       } 
     }
+
+    if (formulario.cutLengthForm == 0 && formulario.cutCountForm == 0) {
+      // alert('No ingresaste Longitud ni cantidad')
+      Swal.fire({
+        icon: 'error',
+        timer: 2000,
+        title: 'Oops...',
+        text: 'Ingresa la Longitud de corte y cantidad cortes!'
+      })
+    } else if (formulario.cutLengthForm == 0) {
+      // alert('No ingresaste Longitud ')
+      Swal.fire({
+        icon: 'error',
+        timer: 2000,
+        title: 'Oops...',
+        text: 'Ingresaste la Longitud de corte!'
+      })
+    } else if (formulario.cutCountForm == 0) {
+      // alert('No ingresaste cantidad')
+      Swal.fire({
+        icon: 'error',
+        timer: 2000,
+        title: 'Oops...',
+        text: 'Ingresaste la cantidad cortes!'
+      })
+    } else {
+
     if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){
       // this.ChangeState();
       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
@@ -204,6 +235,7 @@ export class WindowComponent2  implements OnInit {
         }
       });
     }
+  }
   }
 
   // ChangeState(){

@@ -445,7 +445,7 @@
                 <rect *ngIf="sigalRService.dataPackageST14[9].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST14[9].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST14[9].order==inputOrder}"/>
-                <text x="40.78" y="314.75" class="st5">{{dataWipName.sT14}}</text>		
+                <text x="40.78" y="314.75" class="st5" (click)="ClicST14()">{{dataWipName.sT14}}</text>		
             </g>
         <image id="Layer_0_Imagen-14" data-name="Layer 0 Imagen" width="398" height="75"
             transform="translate(312.34 120.99) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout13.png" (click)="ClicST7()" 

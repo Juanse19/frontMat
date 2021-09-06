@@ -16,7 +16,10 @@ import { SicComponent } from './sic/sic.component';
 import { SyncroComponent } from './syncro/syncro.component';
 import { SicSyncroComponent } from './sic-syncro.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { ThemeModule } from '../../@theme/theme.module'; 
+import { ThemeModule } from '../../@theme/theme.module';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns'; 
 
 
 @NgModule({
@@ -31,6 +34,12 @@ import { ThemeModule } from '../../@theme/theme.module';
     NbButtonModule,
     NbIconModule,
     NbTabsetModule,
-  ]
+    GridModule,
+    DropDownListAllModule,
+  ],
+  providers: [PageService,
+    SortService,
+    FilterService,
+    GroupService],
 })
 export class SicSyncroModule { }

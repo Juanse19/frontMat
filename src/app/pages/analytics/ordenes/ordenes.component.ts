@@ -3,6 +3,7 @@ import { interval } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { GridComponent, PageSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 interface UspReportOrders {
   Id: number;
@@ -20,6 +21,12 @@ interface UspReportOrders {
   styleUrls: ['./ordenes.component.scss']
 })
 export class OrdenesComponent implements OnInit {
+
+  public pageSettings: PageSettingsModel;
+
+  public filterOptions: FilterSettingsModel;
+
+  private alive = true;
 
   /** Table de Ordenes */
   settings = {
@@ -73,10 +80,18 @@ export class OrdenesComponent implements OnInit {
     public apiGetComp: ApiGetService,
     private api: HttpService
   ) { 
-    this.ChargeReportOrdens();
+    
   }
 
   ngOnInit(): void {
+
+    this.pageSettings = { pageSizes: true, pageSize: 10 };
+    this.filterOptions = {
+    type: 'Menu',
+    }
+
+    this.ChargeReportOrdens();
+
   }
  
   ChargeReportOrdens() {
@@ -95,6 +110,10 @@ export class OrdenesComponent implements OnInit {
       });
     });
 
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

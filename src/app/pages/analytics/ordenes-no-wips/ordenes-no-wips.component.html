@@ -5,7 +5,22 @@
     </nb-card-header>
 
     <nb-card-body>
-      <ng2-smart-table class="example-smart-table" [settings]="settings2" [source]="source2">
-      </ng2-smart-table>
+      <!-- <ng2-smart-table class="example-smart-table" [settings]="settings2" [source]="source2">
+      </ng2-smart-table> -->
+
+      <ejs-grid [dataSource]='ReportOrdersnotwip' [allowPaging]="true" [pageSettings]='pageSettings' 
+            [filterSettings]='filterOptions' [allowFiltering]="true" width=100%>
+                <e-columns>
+                    <e-column field='batch' headerText='Batch' width=70></e-column>
+                    <e-column field='order' headerText='Orden' width=75></e-column>
+                    <e-column field='cutsLength' headerText='Longitud cortes' width=100></e-column>
+                    <e-column field='cutsWidth' headerText='Ancho corte' width=100></e-column>
+                    <e-column field='anchoWip' headerText='Ancho Wip' width=110></e-column>
+                    <e-column field='target' headerText='Target' width=110></e-column>
+                    <e-column field='wip' headerText='Wip' width=110></e-column>
+                    <e-column field='sizeDifference' headerText='Diferencia tamaño' width=110></e-column>
+                </e-columns>
+            </ejs-grid>
+
     </nb-card-body>
   </nb-card> 

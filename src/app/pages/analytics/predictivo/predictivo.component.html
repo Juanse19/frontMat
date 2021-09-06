@@ -5,7 +5,23 @@
     </nb-card-header>
 
     <nb-card-body>
-      <ng2-smart-table class="example-smart-table" [settings]="settings3" [source]="GetPredictive">
-      </ng2-smart-table>
+      <!-- <ng2-smart-table class="example-smart-table" [settings]="settings3" [source]="GetPredictive">
+      </ng2-smart-table> -->
+
+      <ejs-grid [dataSource]='GetPredictive' [allowPaging]="true" [pageSettings]='pageSettings' 
+      [filterSettings]='filterOptions' [allowFiltering]="true" width=125%>
+          <e-columns>
+              <e-column field='maquina' headerText='Maquina' width=70></e-column>
+              <e-column field='metrosPor10MinCorrugador' headerText='MetrosPor10MinCorrugador' width=75></e-column>
+              <e-column field='metrosPor10MinMaquina' headerText='MetrosPor10MinMaquina' width=100></e-column>
+              <e-column field='capacidadWip' headerText='CapacidadWip' width=100></e-column>
+              <e-column field='ocupacionActual' headerText='OcupacionActual' width=110></e-column>
+              <e-column field='anchoTotalAruumeOrden' headerText='AnchoTotalAruumeOrden' width=110></e-column>
+              <e-column field='ocupacionPredictiva' headerText='OcupacionPredictiva' width=110></e-column>
+              <e-column field='tiempoDetencionCorrugador' headerText='TiempoDetencionCorrugador' width=115></e-column>
+              <e-column field='duracionDetencion' headerText='DuracionDetencion' width=110></e-column>
+          </e-columns>
+      </ejs-grid>
+
     </nb-card-body>
   </nb-card>

@@ -253,6 +253,23 @@ export class PagesMenu {
       link: '/pages/users/list',
       children: undefined,
     };
+
+    const configurationMenu: NbMenuItem = {
+      title: 'Configuración',
+      icon: 'settings-outline',
+      // link: '/pages/analytics/analytics',
+      children: [ 
+        {
+          title: 'Usuarios',
+          link: '/pages/users/list',
+        },
+        {
+          title: 'Licencia',
+          link: '/pages/users/licenses',
+        }
+      ],
+    };
+
     const animationMenu: NbMenuItem = {
       title: 'WCS',
       icon: 'monitor-outline',
@@ -368,7 +385,7 @@ export class PagesMenu {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          return [...dashboardMenu, orderMenu, sicsyncroMenu, repoMenu, analyticsMenu, userMenu, alarmMenu];
+          return [...dashboardMenu, orderMenu, sicsyncroMenu, repoMenu, analyticsMenu, configurationMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu, alarmMenu];

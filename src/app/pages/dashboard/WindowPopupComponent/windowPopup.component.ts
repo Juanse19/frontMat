@@ -14,6 +14,8 @@ import { NbAccessChecker } from '@nebular/security'
 import { MessageService } from '../services/MessageService';
 import { User, UserData } from '../../../@core/interfaces/common/users';
 import { UserStore } from '../../../@core/stores/user.store';
+import { LocalDataSource } from 'ng2-smart-table';
+import Swal from 'sweetalert2';
 
 interface Propiedades {
   id?: number;
@@ -97,6 +99,13 @@ interface SearchResult2 {
   total: number;
 }
 
+interface Alias {
+  Id: number;
+  IdAlias: number;
+  Name: string;
+  Alias: string;
+}
+
 let ORDENES: Ordenes[] = [
 
 
@@ -159,6 +168,11 @@ let PROPIEDADES: Propiedades;
 
 }
 
+let ALIAS: Alias;
+{
+
+}
+
 let PROPIEDADESACTUALIZAR: PropiedadesActualizar;
 {
 
@@ -198,11 +212,15 @@ export class WindowComponent {
 
   };
 
+  public select = false;
   private alive = true;
+  mostrar: Boolean;
 
   mySubscription: any;
 
   idMaquina=IDMAQUINA;
+
+  aliasData = ALIAS;
 
   // public select=true;
 
@@ -377,11 +395,98 @@ export class WindowComponent {
     return of({ordenes, total});
   }
 
-  
+  settings = {
+    actions: {
+      add: true,
+      edit: true,
+      delete: true,
+    },
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmCreate: true,
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true,
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true,
+    },
+    columns: {
+      Id: {
+        title: 'ID',
+        type: 'number', 
+        filter: false,
+        hide: true,
+        editable: false,
+        addable: false
+      },
+      IdAlias: {
+        title: 'IdAlias',
+        type: 'number',
+        filter: false,
+        editable: false,
+        addable: false
+      },
+      Name: {
+        title: 'Nombre',
+        type: 'string',
+        filter: false,
+        editable: false,
+        addable: false
+      },
+      Alias: {
+        title: 'Alias',
+        type: 'string',
+        filter: false,
+      },
+     
+    },
+  };
+
+  source: LocalDataSource = new LocalDataSource();
+
+  onSearch(query: string = '') {
+    this.source.setFilter([
+      // fields we want to include in the search
+      {
+        field: 'Id',
+        search: query
+      },
+      {
+        field: 'IdAlias',
+        search: query
+      },
+      {
+        field: 'Nombre',
+        search: query
+      },
+      {
+        field: 'Alias',
+        search: query
+      }
+    ], false);
+    // second parameter specifying whether to perform 'AND' or 'OR' search 
+    // (meaning all columns should contain search query or at least one)
+    // 'AND' by default, so changing to 'OR' by setting false here
+  }
 
   DataLoad(idMaquina: number){
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina;
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/GetAliasById?Id='+ idMaquina)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      ALIAS = res;
+      this.aliasData=ALIAS;
+      this.source.load(res);
+      // console.log('alias: ', this.aliasData);
+
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipFree?idTarget='+ idMaquina)
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
@@ -420,7 +525,7 @@ export class WindowComponent {
           });
         });    
         });
-
+      });
     });
   }
   // public selection = true;
@@ -459,6 +564,97 @@ export class WindowComponent {
 
     });
   }
+
+  // onEdit($event: any) {
+  //   console.log('edit: ', $event);
+  // }
+
+  onDeleteConfirm(event) {
+    this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+      Swal.fire({
+      title: 'Desea eliminar?',
+      text: `¡Eliminará un campo en Alias!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, Eliminar!'
+    }).then(result => {
+      debugger
+      if (result.value) {
+    this.apiGetComp.PostJson(this.api.apiUrlNode + "/api/DeleteAliasById?Id=",event.data.IdAlias)
+    // .pipe()
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res:any) => {
+            
+          });
+          Swal.fire('¡Se Eliminó Exitosamente', 'success');
+          event.confirm.resolve();
+          this.source.refresh();
+      }
+    });
+          this.source.refresh();   
+          this.select = false;
+          this.mostrar = false;
+        }else {
+          this.select=true;
+          this.mostrar=true;
+        }
+      });
+  }
+
+  onCreateConfirm(event, idMaquina: number) {
+    // console.log("Create Event In Console")
+    
+    this.idMaquina=idMaquina;
+    IDMAQUINA=idMaquina;
+    console.log('device', idMaquina);
+    
+    var respons = 
+            {
+              Alias: event.newData.Alias,
+              IdDevice: this.aliasData.Id
+            };  
+
+    console.log('Respons', respons);
+
+    this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/InsertAliasById', respons)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      this.aliasData=res;
+      this.source.load(res);
+      event.confirm.resolve();
+      console.log('Create: ', this.aliasData);
+    });
+    event.confirm.resolve();
+    // console.log('Se agregó',event.newData);
+
+  }
+
+  onSaveConfirm(event) {
+    // console.log("Edit Event In Console")
+
+    var respons = 
+            {
+              Alias: event.newData.Alias,
+              IdAlias: event.newData.IdAlias
+            };  
+    
+    this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/UpdateAliasById',  respons)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      this.aliasData=res;
+      this.source.load(res);
+      this.source.refresh();
+      console.log('Edit: ', this.aliasData);
+    });
+    // event.confirm.resolve();
+    // console.log('Se editó',event.newData);
+  }
+
   reloadCurrentRoute() {
     let currentUrl = this.router.url;
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
@@ -512,6 +708,13 @@ export class WindowComponent {
       
   }
 
+//   ngOnInit(): void {
+//     this.apiget();
+//   }
+  
+// apiget(){
+//   console.log('Test Alias');
+// }
   
   handleSuccessResponse() {
 

@@ -54,6 +54,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WindowComponent2} from './OrderPopup/orderPopup.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 
 @NgModule({
   imports: [
@@ -81,6 +82,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     NbAutocompleteModule,
     Ng2SmartTableModule,
     NbTooltipModule,
+    DropDownListModule,
   ],
   declarations: [
     DashboardComponent,

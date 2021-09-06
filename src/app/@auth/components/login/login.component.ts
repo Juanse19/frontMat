@@ -19,6 +19,17 @@ import { InitUserService } from '../../../@theme/services/init-user.service';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { takeWhile } from 'rxjs/operators';
+import { NbToastrService } from "@nebular/theme";
+import { UserStore } from "../../../@core/stores/user.store";
+import Swal from "sweetalert2";
+import { Subscription } from 'rxjs';
+
+interface dataLicens {
+  Id: number;
+  Lat: number;
+  States: number;
+  Licens_id: string;
+}
 
 @Component({
   selector: 'ngx-login',
@@ -30,6 +41,8 @@ export class NgxLoginComponent implements OnInit {
 
   // correo = 'admin@admin.admin';
   // contrasena = 'admin';
+
+  intervalSubscriptionSesion: Subscription;
 
   minLength: number = this.getConfigValue('forms.validation.password.minLength');
   maxLength: number = this.getConfigValue('forms.validation.password.maxLength');
@@ -47,6 +60,10 @@ export class NgxLoginComponent implements OnInit {
   submitted: boolean = false;
   loginForm: FormGroup;
   alive: boolean = true;
+  currentUserId: number;
+
+  public validData: dataLicens[] = [];
+  public timer: number;
 
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }
@@ -58,8 +75,10 @@ export class NgxLoginComponent implements OnInit {
     private fb: FormBuilder,
     protected router: Router,
     protected initUserService: InitUserService,
+    private userStore: UserStore,
+    private api: HttpService,
     private apiGetComp: ApiGetService,
-    private api: HttpService,) { }
+    private toasterService: NbToastrService) { }
 
   ngOnInit(): void {
     const emailValidators = [
@@ -99,24 +118,148 @@ export class NgxLoginComponent implements OnInit {
       //  console.log("Envió: ", res);
     });
 
-    this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
-      this.submitted = false;
+    this.apiGetComp
+      .GetJson(
+        this.api.apiUrlNode + "/api/getlEmailuser?Email=" + this.user.email
+      )
+      .subscribe((res: any) => {
+        this.validData = res;
+        // debugger
+        // console.log('Email ValidData: ', this.validData[0].Id)
+        // console.log('Email ValidData: ', this.validData[0].States)
+        // debugger
+        if (
+          (this.validData[0].Lat === 0 &&
+            this.validData[0].Licens_id === "1" &&
+            this.validData[0].States === 1) ||
+          this.validData[0].Lat === null
+        ) {
+          // debugger;
+          var respon = {
+            user: this.validData[0].Id,
+            sesion: 1,
+          };
+          this.apiGetComp
+            .PostJson(this.api.apiUrlNode + "/updateSesion", respon)
+            .pipe(takeWhile(() => this.alive))
+            .subscribe((res: any) => {
+              //  console.log("Envió: ", res);
+            });
+          this.service
+            .authenticate(this.strategy, this.user)
+            .subscribe((result: NbAuthResult) => {
+              this.submitted = false;
 
-      if (result.isSuccess()) {
-        this.messages = result.getMessages();
-        this.initUserService.initCurrentUser().subscribe();
-      } else {
-        this.errors = result.getErrors();
-      }
+              if (result.isSuccess()) {
+                this.messages = result.getMessages();
+                this.initUserService.initCurrentUser().subscribe();
+              } else {
+                this.errors = result.getErrors();
+              }
 
-      const redirect = result.getRedirect();
-      if (redirect) {
-        setTimeout(() => {
-          return this.router.navigateByUrl(redirect);
-        }, this.redirectDelay);
-      }
-      this.cd.detectChanges();
-    });
+              const redirect = result.getRedirect();
+              if (redirect) {
+                setTimeout(() => {
+                  return this.router.navigateByUrl(redirect);
+                }, this.redirectDelay);
+              }
+              this.cd.detectChanges();
+            });
+        } else if (this.validData[0].Licens_id === "2") {
+          // debugger
+          console.log("licencia de usuario inactiva");
+          this.toasterService.danger(
+            "",
+            `¡Licencia Inactiva, por favor comuniquese con el administrador!`
+          );
+        } else if (this.validData[0].Licens_id === null) {
+          console.log("No tiene tiene licencia ");
+          this.toasterService.danger("", `¡No tiene tiene licencia!`);
+        } else if (
+          this.validData[0].States === 2 ||
+          this.validData[0].States === null
+        ) {
+          console.log("Usuario Inactivo");
+          this.toasterService.danger("", `¡Usuario Inactivo!`);
+        } else {
+          
+          Swal.fire({
+            title: "Sesión encontrada",
+            text: `Actualmente tienes una sesión iniciada en nuestra plataforma, debes finalizar para continuar.  
+            ¿Desea cerrar la sesión activa?`,
+            // timer: 10000,
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "SI",
+            cancelButtonText: "No",
+          }).then((result) => {
+            if (result.value) {
+              let timers = 4500;
+
+              var respon = {
+                user: this.validData[0].Id,
+                sesion: 0,
+              };
+
+              this.apiGetComp
+                .PostJson(this.api.apiUrlNode + "/updateSesion", respon)
+                .pipe(takeWhile(() => this.alive))
+                .subscribe((res: any) => {
+                  console.log("Se actualizó: ", res);
+                });
+              // Swal.fire(
+              //   '¡Sesión cerrada',
+              //   'La sesión que tenías abierta se he cerrado exitosamente, ahora puedes ingresar nuevamente.',
+              //   'warning',
+
+              Swal.fire({
+                title: "¡Cargando!",
+                text: "Esperando que cerrar sesión",
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                timer: timers,
+                onOpen: () => {
+                  Swal.showLoading();
+                }, 
+              }).then((result) => {
+                if (result.value === this.timer) {
+                  // debugger;
+
+                  console.log("closed by timer!!!!");
+                  this.apiGetComp
+                    .GetJson(
+                      this.api.apiUrlNode +
+                        "/api/getlEmailuser?Email=" +
+                        this.user.email
+                    )
+                    .pipe(takeWhile(() => this.alive))
+                    .subscribe((res: any) => {
+                      this.validData = res;
+
+                      if (this.validData[0].Lat == 1) {
+                        Swal.fire({
+                          title: "El usuario continua con la sesión, Vuelva ha intentar!",
+                          icon: "warning",
+                          timer: 2000,
+                          showConfirmButton: false,
+                        });
+                      } else {
+                        Swal.fire({
+                          title: "Se finalizó la seseón, Ya puede iniciar sesión!",
+                          icon: "success",
+                          timer: 2000,
+                          showConfirmButton: false,
+                        });
+                      }
+                    });
+                }
+              });
+            }
+          });
+        }
+      });
   }
 
   getConfigValue(key: string): any {

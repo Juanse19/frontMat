@@ -4,10 +4,90 @@
     </nb-card-header>
 
     <nb-card-body>
-      <ng2-smart-table class="example-smart-table" [settings]="settings6" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
-      </ng2-smart-table>
+      <!-- <ng2-smart-table class="example-smart-table" [settings]="settings6" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+      </ng2-smart-table> -->
+
+      <ejs-grid [dataSource]='ReportSyncro' [editSettings]='editSettings' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  (actionBegin)="actionBegin($event)"  [allowPaging]="true"
+      [pageSettings]="pageSettings" [filterSettings]="filterOptions" 
+      [allowFiltering]="true" width=225%>
+          <e-columns>
+            <e-column headerText='Administrar Syncro' width='120' [commands]='commands'></e-column>
+              <e-column field='officeID' headerText='officeID' width=90></e-column>
+              <e-column field='createDate' headerText='CreateDate' width=75></e-column>
+              <e-column field='updateDate' headerText='UpdateDate' width=100></e-column>
+              <e-column field='position' headerText='Posición' width=100></e-column>
+              <e-column field='setupID' headerText='ConfiguraciónId' width=110></e-column>
+              <e-column field='modID' headerText='ModId' width=110></e-column>
+              <e-column field='webWidth' headerText='AnchoWeb' width=110></e-column>
+              <e-column field='trimType' headerText='Tipoajuste' width=115></e-column>
+              <e-column field='valid' headerText='Válido' width=110></e-column>
+              <e-column field='scoreGap' headerText='PuntajeBrecha' width=110></e-column>
+              <e-column field='qualityID' headerText='IDcalidad' width=110></e-column>
+              <e-column field='trim' headerText='Prueba' width=110></e-column>
+              <e-column field='slitsTandem' headerText='RanurasTándem' width=110></e-column>
+              <e-column field='scoresTandem' headerText='PuntajesTándem' width=110></e-column>
+              <e-column field='shaftMask' headerText='EjeMascara' width=110></e-column>
+              <e-column field='constantSystem' headerText='SistemaConstante' width=110></e-column>
+              <e-column field='knifeOnly' headerText='knifeOnly' width=110></e-column>
+              <e-column field='noChange_STK_0' headerText='SinCambiosSTK0' width=110></e-column>
+              <e-column field='noChange_STK_1' headerText='SinCambiosSTK1' width=110></e-column>
+              <e-column field='noChange_STK_2' headerText='SinCambiosSTK2' width=110></e-column>
+              <e-column field='cutToMark0' headerText='CortarMarca0' width=110></e-column>
+              <e-column field='cutToMark1' headerText='CortarMarca1' width=110></e-column>
+              <e-column field='cutToMark2' headerText='CortarMarca2' width=110></e-column>
+              <e-column field='orderNumber0' headerText='NumeroOrden0' width=110></e-column>
+              <e-column field='delivery0' headerText='entrega0' width=110></e-column>
+              <e-column field='customerName0' headerText='NombreCliente0' width=110></e-column>
+              <e-column field='sheetWidth0' headerText='AnchoHoja0' width=110></e-column>
+              <e-column field='outs0' headerText='Salidas0' width=110></e-column>
+              <e-column field='scoreMeasures0' headerText='Medidaspuntuación0' width=110></e-column>
+              <e-column field='scoreType0' headerText='TipoPuntaje0' width=110></e-column>
+              <e-column field='positType0' headerText='PostularTipo0' width=110></e-column>
+              <e-column field='teleTwinOffset0' headerText='TeleTwinDesplazamiento0' width=110></e-column>
+              <e-column field='scoreGap0' headerText='PuntuaciónGap0' width=110></e-column>
+              <e-column field='levelName0' headerText='NivelNombre0' width=110></e-column>
+              <e-column field='sheetLength0' headerText='Longitudhoja0' width=110></e-column>
+              <e-column field='segmentSheetCount0' headerText='RecuentoHojasSegmento0' width=110></e-column>
+              <e-column field='sheetsPerStack0' headerText='HojasporPila0' width=110></e-column>
+              <e-column field='stacksPerPallet0' headerText='PilasPorPalé0' width=110></e-column>
+              <e-column field='sending0' headerText='Enviando0' width=110></e-column>
+              <e-column field='orderNumber1' headerText='NumeroOrden1' width=110></e-column>
+              <e-column field='delivery1' headerText='entrega1' width=110></e-column>
+              <e-column field='customerName1' headerText='NombreCliente1' width=110></e-column>
+              <e-column field='sheetWidth1' headerText='AnchoHoja1' width=110></e-column>
+              <e-column field='outs1' headerText='Salidas1' width=110></e-column>
+              <e-column field='scoreMeasures1' headerText='Medidaspuntuación1' width=110></e-column>
+              <e-column field='scoreType1' headerText='TipoPuntaje1' width=110></e-column>
+              <e-column field='positType1' headerText='PostularTipo1' width=110></e-column>
+              <e-column field='teleTwinOffset1' headerText='TeleTwinDesplazamiento1' width=110></e-column>
+              <e-column field='scoreGap1' headerText='PuntuaciónGap1' width=110></e-column>
+              <e-column field='levelName1' headerText='NivelNombre1' width=110></e-column>
+              <e-column field='sheetLength1' headerText='Longitudhoja1' width=110></e-column>
+              <e-column field='segmentSheetCount1' headerText='RecuentoHojasSegmento1' width=110></e-column>
+              <e-column field='sheetsPerStack1' headerText='HojasporPila1' width=110></e-column>
+              <e-column field='stacksPerPallet1' headerText='PilasPorPalé1' width=110></e-column>
+              <e-column field='sending1' headerText='Enviando1' width=110></e-column>
+              <e-column field='orderNumber2' headerText='NumeroOrden2' width=110></e-column>
+              <e-column field='delivery2' headerText='entrega2' width=110></e-column>
+              <e-column field='customerName2' headerText='NombreCliente2' width=110></e-column>
+              <e-column field='sheetWidth2' headerText='AnchoHoja2' width=110></e-column>
+              <e-column field='outs2' headerText='Salidas2' width=110></e-column>
+              <e-column field='scoreMeasures2' headerText='Medidaspuntuación2' width=110></e-column>
+              <e-column field='scoreType2' headerText='TipoPuntaje2' width=110></e-column>
+              <e-column field='positType2' headerText='PostularTipo2' width=110></e-column>
+              <e-column field='teleTwinOffset2' headerText='TeleTwinDesplazamiento2' width=110></e-column>
+              <e-column field='scoreGap2' headerText='PuntuaciónGap2' width=110></e-column>
+              <e-column field='levelName2' headerText='NivelNombre2' width=110></e-column>
+              <e-column field='sheetLength2' headerText='Longitudhoja2' width=110></e-column>
+              <e-column field='segmentSheetCount2' headerText='RecuentoHojasSegmento2' width=110></e-column>
+              <e-column field='sheetsPerStack2' headerText='HojasporPila2' width=110></e-column>
+              <e-column field='stacksPerPallet2' headerText='PilasPorPalé2' width=110></e-column>
+              <e-column field='sending2' headerText='Enviando2' width=110></e-column>
+          </e-columns>
+      </ejs-grid>
+
     </nb-card-body>
-    <nb-card-footer>
+    <!-- <nb-card-footer>
       <button type="submit" *ngIf="!mostrar" [disabled]="select" (click)="eliminarTodos()" class="btn btn-primary">Eliminar todo</button>
-    </nb-card-footer>
+    </nb-card-footer> -->
   </nb-card>

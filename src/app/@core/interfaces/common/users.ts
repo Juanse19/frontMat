@@ -16,10 +16,13 @@ export interface User {
   email: string;
   name?: string;
   age: number;
+  states: number;
+  licens_id: number;
   login: string;
   picture: string;
   address: Address;
   settings: Settings;
+  
 }
 
 export interface Address {

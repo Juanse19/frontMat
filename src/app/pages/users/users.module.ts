@@ -5,12 +5,15 @@
  */
 
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { UsersRoutingModule } from './users-routing.module';
 import { AuthModule } from '../../@auth/auth.module';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 
 // components
 import { UsersComponent } from './users.component';
@@ -34,7 +37,10 @@ import {
   NbIconModule,
   NbSpinnerModule,
   NbDatepickerModule,
+  NbCheckboxModule,
 } from '@nebular/theme';
+import { LicenseComponent } from './license/license.component';
+import { EditLicenComponent } from './edit-licen/edit-licen.component';
 
 const  NB_MODULES = [
   NbActionsModule,
@@ -50,6 +56,7 @@ const  NB_MODULES = [
   NbSpinnerModule,
   NbDatepickerModule,
   NbInputModule,
+  NbCheckboxModule,
 ];
 
 @NgModule({
@@ -59,18 +66,27 @@ const  NB_MODULES = [
     Ng2SmartTableModule,
     UsersRoutingModule,
     ComponentsModule,
+    FormsModule,
     ReactiveFormsModule,
+    GridModule,
+    DropDownListAllModule,
     ...NB_MODULES,
   ],
   declarations: [
     UsersComponent,
     UsersTableComponent,
     UserComponent,
+    LicenseComponent,
+    EditLicenComponent,
   ],
   entryComponents: [
   ],
   providers: [
-    NgxResetPasswordComponent
+    NgxResetPasswordComponent,
+    PageService,
+    SortService,
+    FilterService,
+    GroupService,
   ],
 })
 export class UsersModule { }

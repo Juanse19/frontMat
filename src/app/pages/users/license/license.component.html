@@ -1,0 +1,26 @@
+<nb-card>
+    <nb-card-header> licencias</nb-card-header>
+    <nb-card-body>
+        <div class="container">
+            <form [formGroup]="licenForm">
+                <div class="form-group">
+                    <!-- Asignacion de Licencia de acceso -->
+                    <label for="Value">Número de licencias asignadas</label>
+                    <input nbInput  formControlName="Value" disabled="mostrar"  [status]="(Value?.hasError('minlength') || Value?.hasError('maxlength')) ? 'danger' : 'primary'" class="form-control" placeholder="Licencia de acceso">
+                    <ngx-validation-message label="Value" [showMinLength]="Value?.hasError('minlength')" [showMaxLength]="Value?.hasError('maxlength')" minLength=3 maxLength=20></ngx-validation-message>
+                </div>
+            </form>
+        </div>
+
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="info" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero>Atras</button>
+        <!-- <button nbButton status="primary" *ngIf="!select" (click)="edit()" hero data-toggle="modal" data-target="#exampleModalCenter">Editar</button> -->
+        <button nbButton status="primary" *ngIf="!select" (click)="modals()" hero data-toggle="modal" data-target="#exampleModalCenter">Editar</button>
+    </nb-card-footer>
+
+    <!-- <div class="row">
+        <ngx-edit-licen></ngx-edit-licen>
+    </div> -->
+
+</nb-card>

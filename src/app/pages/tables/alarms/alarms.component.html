@@ -2,14 +2,28 @@
     <nb-tabset>
         <nb-tab tabTitle="Alarmas">
             <nb-card>
-                <nb-card-header>
+                <!-- <nb-card-header>
                     Alarmas
                 </nb-card-header>
 
                 <nb-card-body>
                     <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
                     </ng2-smart-table>
-                </nb-card-body>
+                </nb-card-body> -->
+
+                <ejs-grid [dataSource]='Alarm' [editSettings]='editSettings' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  (actionBegin)="actionBegin($event)"  [allowPaging]="true"
+                [pageSettings]="pageSettings" [filterSettings]="filterOptions" allowTextWrap="true"
+                [allowFiltering]="true" height='350'>
+                    <e-columns>
+                        
+                        <e-column field='message' headerText='Mensaje' width=180 isPrimaryKey='true'></e-column>
+                        <e-column field='level' headerText='Nivel' width=85></e-column>
+                        <e-column field='userId' headerText='Usuario' width=100></e-column>
+                        <e-column field='STD' headerText='Fecha' width=90 type="date" format="dd/MM/yyyy hh:mm:ss a"></e-column>
+                        <e-column headerText='Administrar Alarmas' width='100' [commands]='commands'></e-column>
+                    </e-columns>
+                </ejs-grid>
+
                 <nb-card-footer>
                     <button type="submit" *ngIf="!mostrar" [disabled]="select" (click)="reconocer()" class="btn btn-primary">Reconocer alarmas</button>
                 </nb-card-footer>
@@ -17,13 +31,25 @@
         </nb-tab>
         <nb-tab tabTitle="Historico Alarmas">
             <nb-card>
-                <nb-card-header>
+                <!-- <nb-card-header>
                     Historico Alarmas
                 </nb-card-header>
                 <nb-card-body>
                     <ng2-smart-table class="example-smart-table" [settings]="setting" [source]="source1">
                     </ng2-smart-table>
-                </nb-card-body>
+                </nb-card-body> -->
+
+                <ejs-grid [dataSource]='Alarms' [allowPaging]="true" allowTextWrap='true'  [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true" height='400'>
+                    <e-columns>
+                        <e-column field='message' headerText='Mensaje' width=180></e-column>
+                        <e-column field='level' headerText='Nivel' width=75></e-column>
+                        <e-column field='userId' headerText='Usuario' width=75></e-column>
+                        <e-column field='STD' headerText='Fecha' width=85></e-column>
+                        <e-column field='ETD' headerText='Fecha fin' width=100></e-column>
+                        <e-column field='UserIdAcknow' headerText='Usuario reco' width=85></e-column>
+                    </e-columns>
+                </ejs-grid>
+
             </nb-card>
         </nb-tab>
     </nb-tabset>

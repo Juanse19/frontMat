@@ -1,154 +1,168 @@
 	<nav ngbNav #nav="ngbNav" class="nav-tabs">
-	  <ng-container ngbNavItem>
-		<a ngbNavLink>Ordenes</a>
-		<ng-template ngbNavContent>			
-  			<form>
-    			<div class="form-group form-inline">
-					Buscar: <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar arrumes " [(ngModel)]="searchTerm"/>
-					  <span class="ml-3" *ngIf="loading$ | async">Cargando...</span>
-					  <td><button nbButton shape="semi-round" class="boton3" status="primary" (click)="EditPackage()">Crear Arrume</button></td>
-					  <!-- <button (click)="Refresh()" nbButton>Refresh</button> -->
-  				</div>
-  				<table class="table table-striped">
-  					<thead>
-    				<tr>
-      				<th hidden scope="col">Id</th>
-					<th hidden scope="col">IdStatus</th>
-					<th hidden scope="col">IdDevice</th>
-      				<th scope="col">Orden</th>
-      				<th scope="col">Nombre</th>
-      				<th scope="col">Descripcion</th>
-      				<th scope="col">Referencia</th>
-					<th scope="col">Largo Cortes</th>
-					<th scope="col">Cantidad Cortes</th>
-					<th scope="col">Cantidad Cortes Iniciales</th>
-					<th scope="col">Estado</th>
-					<th scope="col">Prioridad</th>
-					<th scope="col">Fecha</th>
-					<th scope="col">Editar</th>
-    				</tr>
-  					</thead>
-  					<tbody>
-  						<tr *ngFor="let ordenes of ordenesMaquina$ | async">
-						<th hidden scope="row">{{ ordenes.id }}</th>
-						<th hidden scope="row">{{ ordenes.stateId }}</th>
-						<th hidden scope="row">{{ ordenes.idDevice }}</th>
-    					<td><ngb-highlight [result]="ordenes.order" [term]="filter.value"></ngb-highlight></td>
-    					<td><ngb-highlight [result]="ordenes.name" [term]="filter.value"></ngb-highlight></td>
-    					<td><ngb-highlight [result]="ordenes.description" [term]="filter.value"></ngb-highlight></td>
-    					<td><ngb-highlight [result]="ordenes.reference" [term]="filter.value"></ngb-highlight></td>
-						<td><ngb-highlight [result]="ordenes.cutLength" [term]="filter.value"></ngb-highlight></td>
-						<td><ngb-highlight [result]="ordenes.cutsCount" [term]="filter.value"></ngb-highlight></td>
-						<td><ngb-highlight [result]="ordenes.cutsCountOriginal" [term]="filter.value"></ngb-highlight></td>
-						<td><ngb-highlight [result]="ordenes.state" [term]="filter.value"></ngb-highlight></td>
-						<td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
-						<td><ngb-highlight [result]="ordenes.timeStamp" [term]="filter.value"></ngb-highlight></td>
-						<!-- <td><button (click)="Refresh(ordenes.order)" nbButton>Refresh</button></td> -->
-						<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.cutsCount, ordenes.idDevice)" nbButton>EDITAR</button></td>
+		<ng-container ngbNavItem>
+			<a ngbNavLink>Ordenes</a>
+			<ng-template ngbNavContent>			
+				  <form>
+					<div class="form-group form-inline">
+						Buscar: <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar arrumes " [(ngModel)]="searchTerm"/>
+						  <span class="ml-3" *ngIf="loading$ | async">Cargando...</span>
+						  <td><button nbButton shape="semi-round" class="boton3" status="primary" (click)="EditPackage()">Crear Arrume</button></td>
+						  <!-- <button (click)="Refresh()" nbButton>Refresh</button> -->
+					  </div>
+					  <table class="table table-striped">
+						  <thead>
+						<tr>
+						  <th hidden scope="col">Id</th>
+						<th hidden scope="col">IdStatus</th>
+						<th hidden scope="col">IdDevice</th>
+						  <th scope="col">Orden</th>
+						  <th scope="col">Nombre</th>
+						  <th scope="col">Descripcion</th>
+						  <th scope="col">Referencia</th>
+						<th scope="col">Largo Cortes</th>
+						<th scope="col">Cantidad Cortes</th>
+						<th scope="col">Cantidad Cortes Iniciales</th>
+						<th scope="col">Estado</th>
+						<th scope="col">Prioridad</th>
+						<th scope="col">Fecha</th>
+						<th scope="col">Editar</th>
 						</tr>
-  					</tbody>
-  				</table>
- 			   <div class="d-flex justify-content-between p-2"> 
-    				<ngb-pagination
-     					[collectionSize]="(total$ | async)!" [(page)]="page" [pageSize]="pageSize">
-   					</ngb-pagination>
-    			<select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">
-      				<option [ngValue]="5">5 items per page</option>
-      				<option [ngValue]="10">10 items per page</option>
-     			    <option [ngValue]="15">15 items per page</option>
-   			    </select>
-  				</div>
-		 </form>	
-		</ng-template>
-	  </ng-container>	
+						  </thead>
+						  <tbody>
+							  <tr *ngFor="let ordenes of ordenesMaquina$ | async">
+							<th hidden scope="row">{{ ordenes.id }}</th>
+							<th hidden scope="row">{{ ordenes.stateId }}</th>
+							<th hidden scope="row">{{ ordenes.idDevice }}</th>
+							<td><ngb-highlight [result]="ordenes.order" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.name" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.description" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.reference" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.cutLength" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.cutsCount" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.cutsCountOriginal" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.state" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.timeStamp" [term]="filter.value"></ngb-highlight></td>
+							<!-- <td><button (click)="Refresh(ordenes.order)" nbButton>Refresh</button></td> -->
+							<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.cutsCount, ordenes.idDevice)" nbButton>EDITAR</button></td>
+							</tr>
+						  </tbody>
+					  </table>
+					<div class="d-flex justify-content-between p-2"> 
+						<ngb-pagination
+							 [collectionSize]="(total$ | async)!" [(page)]="page" [pageSize]="pageSize">
+						   </ngb-pagination>
+					<select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">
+						  <option [ngValue]="5">5 items per page</option>
+						  <option [ngValue]="10">10 items per page</option>
+						 <option [ngValue]="15">15 items per page</option>
+					   </select>
+					  </div>
+			 </form>	
+			</ng-template>
+		  </ng-container>
+	
+		  <ng-container ngbNavItem>
+			<a ngbNavLink>Propiedades</a>
+			<ng-template ngbNavContent>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- <nb-card> -->
+							<p><b>Estado</b></p>
+							<nb-toggle [(ngModel)]="propiedades.isOn" status="success">{{data.name}}</nb-toggle>
+							<!-- <nb-toggle [(checked)]="checked"></nb-toggle> -->
+							<p><b>Nombre</b></p>
+							<input  type="text" nbInput #nameMachine value="{{ data.text }}" required minlength="0" maxlength="30" size="10">
+							<!-- <input type="text" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"> -->
+							<!-- <input type="text" nbInput #prioridadValor fullWidth fieldSize="small" placeholder="Input" [(ngModel)]="inputItemNgModel"> -->
+							<!-- <p>{{data.text}}</p> --> 
+	
+							<!-- <p><nb-card-header>Color</nb-card-header></p> -->
+							<div #wips *ngIf="propiedades.type=='Target'">
+							<p><b>Color</b></p>
+							<p><nb-select [(ngModel)]="propiedades.valor" >
+								<nb-option *ngFor="let option of colorLista" [value]="option.value">
+								  {{ option.label }}  
+								</nb-option>             
+							  </nb-select></p></div>
+					  <!-- </nb-card> -->
+					</div>
+					<div class="col-md-6">
+						<!-- <nb-card> -->
+							<!-- <p><nb-card-header>Tipo de dispositivo</nb-card-header></p> -->
+							<p><b>Tipo dispositivo</b></p>
+							<p><nb-select [(ngModel)]="propiedades.type" [disabled]="selec"  >
+								<nb-option *ngFor="let option of devicesType" [value]="option.value"  >
+								  {{ option.label }}
+								</nb-option>             
+							  </nb-select></p>
+							  <!-- <p>Prioridad: <input #prioridadValor type="number" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"></p> -->
+							  <p><label><b>Ancho</b> </label> {{propiedades.width}}</p>
+							  <p><label><b>Largo</b> </label> {{propiedades.lenght}}</p>
+						<!-- </nb-card> -->
+					</div>
+				</div>
+				<div #wips *ngIf="propiedades.type=='Target'" class="container">
+					<div class="col-md-6">
+						<nb-card size="small">
+							<nb-card-header>
+								WIP Libre
+							  </nb-card-header>
+							<nb-list>
+							  <nb-list-item *ngFor="let option of wipFree" 
+							  [value]="option.id" 
+							  [class.item-selected]="option.selected"
+							  (click)="toggleSelection(option)">
+								{{ option.name }}
+							  </nb-list-item>
+							</nb-list>
+						  </nb-card>
+					</div>
+					<div class="buttons-container">
+						<button nbButton (click)="moveSelected('right')"><nb-icon icon="arrow-ios-forward-outline" status="info"></nb-icon></button>
+						<button nbButton (click)="moveSelected('left')"><nb-icon icon="arrow-ios-back-outline" status="info"></nb-icon></button>
+					</div>
+					<div class="col-md-6">
+						<nb-card size="small">
+							<nb-card-header>
+								WIP Asignado
+							  </nb-card-header>
+							<nb-list>
+							  <nb-list-item *ngFor="let option of wipLista" 
+							  [value]="option.id" 
+							  [class.item-selected]="option.selected"
+							  (click)="toggleSelection(option)">
+								{{ option.name }}
+							  </nb-list-item>
+							</nb-list> 
+						  </nb-card>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-12">
+				  
+					<p><button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="EditPropiedades()">GUARDAR</button></p>
+				  </div>
+				  </div>
+			</ng-template>
+		  </ng-container>
+
 	  <ng-container ngbNavItem>
-		<a ngbNavLink>Propiedades</a>
+		<a ngbNavLink>Alias</a>
 		<ng-template ngbNavContent>
 			<div class="row">
 				<div class="col-md-6">
-					<!-- <nb-card> -->
-						<p><b>Estado</b></p>
-						<nb-toggle [(ngModel)]="propiedades.isOn" status="success">{{data.name}}</nb-toggle>
-						<!-- <nb-toggle [(checked)]="checked"></nb-toggle> -->
-						<p><b>Nombre</b></p>
-						<input  type="text" nbInput #nameMachine value="{{ data.text }}" required minlength="0" maxlength="30" size="10">
-						<!-- <input type="text" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"> -->
-						<!-- <input type="text" nbInput #prioridadValor fullWidth fieldSize="small" placeholder="Input" [(ngModel)]="inputItemNgModel"> -->
-						<!-- <p>{{data.text}}</p> --> 
-
-						<!-- <p><nb-card-header>Color</nb-card-header></p> -->
-						<div #wips *ngIf="propiedades.type=='Target'">
-						<p><b>Color</b></p>
-						<p><nb-select [(ngModel)]="propiedades.valor" >
-							<nb-option *ngFor="let option of colorLista" [value]="option.value">
-							  {{ option.label }}  
-							</nb-option>             
-						  </nb-select></p></div>
-				  <!-- </nb-card> -->
-				</div>
-				<div class="col-md-6">
-					<!-- <nb-card> -->
-						<!-- <p><nb-card-header>Tipo de dispositivo</nb-card-header></p> -->
-						<p><b>Tipo dispositivo</b></p>
-						<p><nb-select [(ngModel)]="propiedades.type" [disabled]="selec"  >
-							<nb-option *ngFor="let option of devicesType" [value]="option.value"  >
-							  {{ option.label }}
-							</nb-option>             
-						  </nb-select></p>
-						  <!-- <p>Prioridad: <input #prioridadValor type="number" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"></p> -->
-						  <p><label><b>Ancho</b> </label> {{propiedades.width}}</p>
-						  <p><label><b>Largo</b> </label> {{propiedades.lenght}}</p>
-					<!-- </nb-card> -->
-				</div>
-			</div>
-			<div #wips *ngIf="propiedades.type=='Target'" class="container">
-				<div class="col-md-6">
-					<nb-card size="small">
-						<nb-card-header>
-							WIP Libre
-						  </nb-card-header>
-						<nb-list>
-						  <nb-list-item *ngFor="let option of wipFree" 
-						  [value]="option.id" 
-						  [class.item-selected]="option.selected"
-						  (click)="toggleSelection(option)">
-							{{ option.name }}
-						  </nb-list-item>
-						</nb-list>
-					  </nb-card>
-				</div>
-				<div class="buttons-container">
-					<button nbButton (click)="moveSelected('right')"><nb-icon icon="arrow-ios-forward-outline" status="info"></nb-icon></button>
-					<button nbButton (click)="moveSelected('left')"><nb-icon icon="arrow-ios-back-outline" status="info"></nb-icon></button>
-				</div>
-				<div class="col-md-6">
-					<nb-card size="small">
-						<nb-card-header>
-							WIP Asignado
-						  </nb-card-header>
-						<nb-list>
-						  <nb-list-item *ngFor="let option of wipLista" 
-						  [value]="option.id" 
-						  [class.item-selected]="option.selected"
-						  (click)="toggleSelection(option)">
-							{{ option.name }}
-						  </nb-list-item>
-						</nb-list> 
-					  </nb-card>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-sm-12">
-			  
-				<p><button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="EditPropiedades()">GUARDAR</button></p>
-			  </div>
-			  
-			  
-			  </div>
+					<nb-card-body>
+						<!-- <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)"> -->
+						<ng2-smart-table class="example-smart-table" [settings]="settings" [source]="aliasData" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onSaveConfirm($event)"
+						(createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+					</nb-card-body>
+			    </div>
+		 </div>
 		</ng-template>
-	  </ng-container>
-	  
+	</ng-container>
+
 	</nav>
 	
 	<div [ngbNavOutlet]="nav" class="mt-2"></div>

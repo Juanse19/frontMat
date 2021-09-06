@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-
+import { GridComponent, PageSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 interface ReportOcupation {
   id: number;
@@ -21,6 +21,12 @@ interface ReportOcupation {
   styleUrls: ['./ocupacion.component.scss']
 })
 export class OcupacionComponent implements OnInit {
+
+  public pageSettings: PageSettingsModel;
+
+  public filterOptions: FilterSettingsModel;
+
+  private alive = true;
 
   /** Table de ocupacion del sistema */
   settings1 = {
@@ -68,10 +74,18 @@ export class OcupacionComponent implements OnInit {
     public apiGetComp: ApiGetService,
     private api: HttpService
   ) {
-    this.ChargeReportOcupation();
+    
    }
 
   ngOnInit(): void {
+
+    this.pageSettings = { pageSizes: true, pageSize: 10 };
+    this.filterOptions = {
+    type: 'Menu',
+    }
+
+  this.ChargeReportOcupation();
+
   }
 
   ChargeReportOcupation() {
@@ -90,6 +104,10 @@ export class OcupacionComponent implements OnInit {
       });
     });
 
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
  
 }

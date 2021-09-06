@@ -9,12 +9,13 @@ import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { NbToastrService } from '@nebular/theme';
 import { NbAccessChecker } from '@nebular/security';
-
-
+import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel } from '@syncfusion/ej2-angular-grids';
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 @Component({
   selector: 'ngx-sic',
   templateUrl: './sic.component.html',
+  providers: [ToolbarService, EditService, PageService, CommandColumnService],
   styleUrls: ['./sic.component.scss']
 })
 export class SicComponent implements OnInit {
@@ -22,6 +23,13 @@ export class SicComponent implements OnInit {
   public select = false;
   private alive = true;
   mostrar: Boolean;
+
+  public pageSettings: PageSettingsModel;
+  public editSettings: Object;
+  public toolbar: ToolbarItems[] | object;
+  public editparams: Object;
+  public commands: CommandModel[];
+  public filterOptions: FilterSettingsModel;
   
   /** Table de infromación Sic */
   settings5 = {
@@ -126,7 +134,7 @@ export class SicComponent implements OnInit {
     private api: HttpService
     
     ) { 
-      this.ChargeReportSic();
+      
       this.accessChecker.isGranted('edit', 'ordertable')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
@@ -141,7 +149,42 @@ export class SicComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    this.editSettings = {
+      allowEditing: true,
+      allowAdding: true,
+      allowDeleting: true,
+      mode: 'Normal',
+      allowEditOnDblClick: false
+    };
+
+    this.pageSettings = { pageSizes: true, pageSize: 10 };
+    this.filterOptions = {
+    type: 'Menu',
+    }
+
+    this.ChargeReportSic();
+
+    this.toolbar = [
+      //  {text: 'Delete', prefixIcon: 'fas fa-check'},
+     { text: 'Eliminar todo', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }];
+
+     this.commands = [
+      // { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
+      { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } },
+      { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
+      { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
+
   } 
+
+  clickHandler(args: ClickEventArgs): void {
+    if (args.item.id === 'Click') {
+      // console.log('click: ', args);
+      // debugger
+      this.eliminaTodos();
+        // alert('Custom Toolbar Click...');
+    }
+  }
 
   ChargeReportSic() {
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetOrderSic')
@@ -165,6 +208,52 @@ export class SicComponent implements OnInit {
 
   }
 
+  actionBegin(args) {
+    if (( args.requestType === 'delete')) {
+      // const Id = 'Id';
+      this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+      Swal.fire({
+      title: 'Desea eliminar?',
+      text: `¡Eliminará un campo en Sic!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, Eliminar!'
+    }).then(result => {
+      // debugger
+      if (result.value) {
+        var respons = 
+            {
+            id: args.data[0].id
+            };
+    this.apiGetComp.PostJson(this.api.apiUrlMatbox + "/Orders/DeleteOrderSic?id="+ args.data[0].id, args.data[0].id)
+    // .pipe()
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res:any) => {
+            this.ChargeReportSic();
+          });
+          Swal.fire('¡Se Eliminó Exitosamente', 'success');
+          // event.confirm.resolve();
+          this.source5.refresh();
+      }
+    });
+          // this.source5.refresh();   
+          this.select = false;
+          this.mostrar = false;
+          args.cancel = true;
+        }else {
+          this.select=true;
+          this.mostrar=true;
+          args.cancel = true;
+        }
+      });
+    }
+  
+  }
 
   onDeleteConfirm(event) {
     this.accessChecker.isGranted('edit', 'ordertable')
@@ -201,20 +290,6 @@ export class SicComponent implements OnInit {
         }
       });
   
-  //   let sicDate = {id: event.data.id};
-  //   if (confirm('Are you sure wants to delete item?') && event.data.id) {
-  //     this.apiGetComp.PostJson(this.api.apiUrlMatbox + "/Orders/DeleteOrderSic?id="+event.data.id,event.data.id)
-  // // .pipe()
-  //       .pipe(takeWhile(() => this.alive))
-  //       .subscribe((res:any) => {
-  //         if (res) {
-  //           this.toastrService.success('', 'Item deleted!');
-  //           this.source.refresh(); 
-  //         } else {
-  //           this.toastrService.danger('', 'Algo salio mal.');
-  //         }
-  //       });
-  //   }
   }
 
   eliminaTodos(){

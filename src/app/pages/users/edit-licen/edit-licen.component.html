@@ -1,0 +1,25 @@
+<nb-card>
+  <nb-card-body>
+    <div class="col-sm-12">
+      <h1 style="text-align: center;">
+        Editar licencia
+      </h1>
+      <br>
+      <div class="form-group" [formGroup]="licenForm">
+        <label>Número de licencias asignadas</label>
+        <input type="text" class="form-control" formControlName="Value" placeholder="Ingresa texto a encriptar" class="form-control" [(ngModel)]="enctexto" required>
+      </div>
+
+      <div class="form-group">
+        <label for="txtPassword">Clave</label>
+        <input type="password" class="form-control" placeholder="Ingresa llave de encripción" class="form-control" [(ngModel)]="encPass" required>
+      </div>
+      <!-- <textarea class="form-control" readonly rows="3">{{textoEncriptado}}</textarea> -->
+      <br>
+      <button nbButton status="info"  (click)="back()" hero>Atras</button>
+      <button nbButton status="primary" (click)="convertirTexto('encriptar')"  [disabled]="submitted || !licenForm.valid" [class.btn-pulse]="submitted" hero>Guardar</button>
+      
+      <!-- <button type="button" class="btn btn-success float-right" (click)="convertirTexto('encriptar')">Encriptar</button> -->
+    </div>
+  </nb-card-body>
+</nb-card>

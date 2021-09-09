@@ -1,6 +1,6 @@
 
 
-import { Component, ElementRef, PipeTransform, TemplateRef, ViewChild, Renderer2,Injectable  } from '@angular/core';
+import { Component, ElementRef, PipeTransform, TemplateRef, ViewChild, Renderer2,Injectable, OnInit  } from '@angular/core';
 import { NbWindowConfig, NbWindowService, NbWindowRef,NbToastrService } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
 import { DecimalPipe } from '@angular/common';
@@ -16,6 +16,9 @@ import { User, UserData } from '../../../@core/interfaces/common/users';
 import { UserStore } from '../../../@core/stores/user.store';
 import { LocalDataSource } from 'ng2-smart-table';
 import Swal from 'sweetalert2';
+import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
+
+
 
 interface Propiedades {
   id?: number;
@@ -194,6 +197,10 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
   providers: [ApiGetService,
     DecimalPipe,
     WindowComponent2,
+    ToolbarService, 
+     EditService, 
+     PageService, 
+     CommandColumnService
   ],
   selector: 'ngx-window',
   templateUrl: './windowPopup.component.html',
@@ -202,7 +209,20 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
 @Injectable({
   providedIn: 'root'
 })
-export class WindowComponent {
+export class WindowComponent implements OnInit {
+
+  public orderData: Ordenes [] = [] ;
+
+  public pageSettings: PageSettingsModel;
+
+  public filterOptions: FilterSettingsModel;
+
+  public toolbarOptions: ToolbarItems[];
+
+  public commands: CommandModel[];
+
+  public editSettings: Object;
+
   subscription: Subscription;
   windowRef:NbWindowRef;
   private _state: State = {
@@ -221,6 +241,8 @@ export class WindowComponent {
   idMaquina=IDMAQUINA;
 
   aliasData = ALIAS;
+
+  dataOrdes = ORDEN
 
   // public select=true;
 
@@ -267,6 +289,9 @@ export class WindowComponent {
   @ViewChild('prioridadValor') prioridadValor: ElementRef;
   @ViewChild('nameMachine') nameMachineValor: ElementRef;
   @ViewChild('wips') eWips: ElementRef;
+
+  @ViewChild('grid')
+    public grid: GridComponent;
   
   constructor(private windowService: NbWindowService,
     
@@ -294,11 +319,14 @@ export class WindowComponent {
       
       this.subscription = this.messageService.onMessage().subscribe(message => {
         if (message.text=="PackageUpdate") {
+          debugger
           //this.messages.push(message);
           this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
             ORDENES = res;
+            
+            
             this._search$.next();
             // this._search$.pipe(
             //   tap(() => this._loading$.next(true)),
@@ -351,6 +379,69 @@ export class WindowComponent {
       this.ObtenerListaDeviceType();
       this.ObtenerListaColor();
     }
+
+    ngOnInit(): void {
+      // throw new Error('Method not implemented.');
+      // console.log("entrooo")
+
+      this.editSettings = {
+        allowEditing: true,
+        allowAdding: true,
+        allowDeleting: true,
+        mode: 'Normal',
+        allowEditOnDblClick: false
+      };
+
+  // this.toolbar = ['Search'];
+  this.pageSettings = { pageSizes: true, pageSize: 5 };
+  this.filterOptions = {
+  type: 'Menu',
+  }
+  this.toolbarOptions = ['Search'];
+//  console.log('Info data ordenes');
+ 
+  this.commands = [
+    { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
+    // { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
+    { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
+    { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
+
+}
+
+created($event): void {
+  document.getElementById(this.grid.element.id + "_searchbar").addEventListener('keyup', () => {
+          this.grid.search((event.target as HTMLInputElement).value)
+  });
+}
+
+actionBegin(args) {
+  if (args.requestType == 'beginEdit') {
+    debugger
+    // console.log('Editar');
+    console.log('Edit: ', args.rowData);
+    console.log('Type edit: ', args);
+    // this.EditPackage(ORDEN.id, ORDEN.order, this.dataOrdes.state, this.dataOrdes.stateId, this.dataOrdes.priority, this.dataOrdes.cutLength, this.dataOrdes.cutsCount, this.dataOrdes.idDevice);
+    // this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
+    // ORDEN=
+    // {
+    //   id:this.dataOrdes.id, 
+    //   order:this.dataOrdes.order,
+    //   state:this.dataOrdes.state,
+    //   stateId:this.dataOrdes.stateId,  
+    //   priority:this.dataOrdes.priority,
+    //   cutLength:this.dataOrdes.cutLength,
+    //   cutsCount:this.dataOrdes.cutsCount,
+    //   idDevice:this.dataOrdes.idDevice,  
+    // };
+
+    this.orderPopup.openWindowForm("Package: "+ args.rowData.order,args.rowData, this.idMaquina)
+
+    args.cancel = true;
+    // this.Edit(this.orderdata.order, this.orderdata.name, this.orderdata.description, this.orderdata.reference, this.orderdata.orderLength, this.orderdata.origen, this.orderdata.cutsNumber, this.orderdata.cutsWidth, this.orderdata.cutsLength, this.orderdata.priority, this.orderdata.id);
+    
+  }
+  
+}
 
   get ordenesMaquina$() { return this._Ordenes$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
@@ -479,6 +570,16 @@ export class WindowComponent {
   DataLoad(idMaquina: number){
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina;
+
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
+            this.orderData = res;
+            ORDENES = res;
+            ORDEN = res;
+            this.dataOrdes = ORDEN
+            console.log('Data', this.dataOrdes);
+
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/GetAliasById?Id='+ idMaquina)
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
@@ -503,10 +604,8 @@ export class WindowComponent {
         .subscribe((res: any) => {
           WIPLIST=res;
           this.wipLista=WIPLIST;
-          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina)
-          .pipe(takeWhile(() => this.alive))
-          .subscribe((res: any) => {
-            ORDENES = res;
+          
+
             this.propiedades = PROPIEDADES;
             if (this.propiedades.isOn == true) {
               this.nombreEstado = 'Habilitado';
@@ -542,6 +641,7 @@ export class WindowComponent {
           this.wipLista=WIPLIST;
           this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina).subscribe((res: any) => {
             ORDENES = res;
+            
             this.propiedades = PROPIEDADES;
             if (this.propiedades.isOn == true) {
               this.nombreEstado = 'Habilitado';
@@ -676,7 +776,7 @@ export class WindowComponent {
     .subscribe((res: any) => {
       if(res){ 
         // this.DataLoad(idMaquina);
-      
+      // debugger
         this.DataLoad(idMaquina);
       }
       

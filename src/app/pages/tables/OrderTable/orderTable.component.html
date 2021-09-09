@@ -1,6 +1,6 @@
-<div class="row">
+<!-- <div class="row"> -->
     <!-- <div class="col-xxxl-9 col-xl-12"> -->
-    <div class="col-md-12 col-lg-12 col-xxxl-12">
+    <!-- <div class="col-md-12 col-lg-12 col-xxxl-12">
 
         <nb-card style="padding: 20px;">
 
@@ -17,9 +17,9 @@
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Orden</th>
-                                <th scope="col">Batch</th>
+                                <th scope="col">Batch</th> -->
                                 <!-- <th scope="col">Nombre</th> -->
-                                <th scope="col">Referencia</th>
+                                <!-- <th scope="col">Referencia</th>
                                 <th scope="col">Destino</th>
                                 <th scope="col">Origen</th>
                                 <th scope="col">Longitud</th>
@@ -31,9 +31,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let ordenes of ordenesMaquina$ | async">
+                            <tr *ngFor="let ordenes of ordenesMaquina$ | async"> -->
                                 <!-- <th scope="row">{{ ordenes.id }}</th> -->
-                                <td>
+                                <!-- <td>
                                     <ngb-highlight [result]="ordenes.id" [term]="filter.value"></ngb-highlight>
                                 </td>
                                 <td>
@@ -41,9 +41,9 @@
                                 </td>
                                 <td>
                                     <ngb-highlight [result]="ordenes.batch" [term]="filter.value"></ngb-highlight>
-                                </td>
+                                </td> -->
                                 <!-- <td><ngb-highlight [result]="ordenes.name" [term]="filter.value"></ngb-highlight></td> -->
-                                <td>
+                                <!-- <td>
                                     <ngb-highlight [result]="ordenes.reference" [term]="filter.value"></ngb-highlight>
                                 </td>
                                 <td>
@@ -66,9 +66,9 @@
                                 </td>
                                 <td>
                                     <ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight>
-                                </td>
+                                </td> -->
                                 <!-- <td><button (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength)" nbButton>EDIT</button></td> -->
-                                <td><button nbButton shape="semi-round" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDITAR</button></td>
+                                <!-- <td><button nbButton shape="semi-round" status="primary" *ngIf="!mostrar" [disabled]="select" (click)="Edit(ordenes.order, ordenes.name, ordenes.description, ordenes.reference, ordenes.orderLength, ordenes.origen, ordenes.cutsNumber, ordenes.cutsWidth, ordenes.cutsLength, ordenes.priority, ordenes.id)">EDITAR</button></td>
 
                             </tr>
                         </tbody>
@@ -78,9 +78,9 @@
 
                     <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="page" [pageSize]="pageSize">
                     </ngb-pagination>
-                    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">
+                    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize"> -->
           <!-- <option [ngValue]="2">2 items per page</option> -->
-          <option [ngValue]="5">5 items per page</option>
+          <!-- <option [ngValue]="5">5 items per page</option>
           <option [ngValue]="10">10 items per page</option>
           <option [ngValue]="15">15 items per page</option>
     
@@ -91,11 +91,34 @@
             </form>
 
 
-        </nb-card>
+        </nb-card> -->
 
 
 
         <!-- <ngx-temperature></ngx-temperature> -->
 
-    </div>
-</div>
+    <!-- </div>
+</div> -->
+
+<nb-card>
+    <nb-card-body>
+        <ejs-grid #grid [dataSource]='orderdata' [allowPaging]="true" [pageSettings]='pageSettings' 
+        [filterSettings]='filterOptions' [editSettings]='editSettings' [toolbar]='toolbarOptions'   (actionBegin)="actionBegin($event)" 
+        (created)='created($event)' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  allowTextWrap='true' [allowFiltering]="true" >
+            <e-columns> 
+                <e-column field='id' headerText='id' width=70></e-column>
+                <e-column field='order' headerText='Order' width=140></e-column>
+                <e-column field='batch' headerText='Batch' width=100></e-column>
+                <e-column field='reference' headerText='Referencia' width=100></e-column>
+                <e-column field='description' headerText='Destino' width=110></e-column>
+                <e-column field='origen' headerText='Origen' width=110></e-column>
+                <e-column field='orderLength' headerText='Longitud' width=110></e-column>
+                <e-column field='cutsNumber' headerText='# Cortes' width=88></e-column>
+                <e-column field='cutsWidth' headerText='Ancho Cortes' width=100></e-column>
+                <e-column field='cutsLength' headerText='Largo Cortes' width=100></e-column>
+                <e-column field='priority' headerText='Prioridad' width=88></e-column>
+                <e-column headerText='Administrar Ordenes' width='100' [commands]='commands'></e-column>
+            </e-columns>
+        </ejs-grid>
+    </nb-card-body>
+</nb-card>

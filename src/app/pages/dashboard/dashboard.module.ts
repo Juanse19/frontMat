@@ -55,6 +55,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { WindowComponent2} from './OrderPopup/orderPopup.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { PageService, SortService, FilterService, GroupService, ToolbarService } from '@syncfusion/ej2-angular-grids';
+import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 
 @NgModule({
   imports: [
@@ -83,6 +86,8 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
     Ng2SmartTableModule,
     NbTooltipModule,
     DropDownListModule,
+    GridModule,
+    DropDownListAllModule,
   ],
   declarations: [
     DashboardComponent,
@@ -106,6 +111,13 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
     JacComponent,
     WindowComponent,
     WindowComponent2,
+  ],
+  providers: [
+    PageService, 
+    SortService, 
+    FilterService, 
+    GroupService,
+    ToolbarService,
   ],
 })
 export class DashboardModule { }

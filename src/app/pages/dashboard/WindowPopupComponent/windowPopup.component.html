@@ -1,14 +1,15 @@
 	<nav ngbNav #nav="ngbNav" class="nav-tabs">
 		<ng-container ngbNavItem>
 			<a ngbNavLink>Ordenes</a>
-			<ng-template ngbNavContent>			
-				  <form>
+			<ng-template ngbNavContent>	
+				<td><button nbButton shape="semi-round" class="boton3" status="primary" (click)="EditPackage()">Crear Arrume</button></td> 		
+				  <!-- <form>
 					<div class="form-group form-inline">
 						Buscar: <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar arrumes " [(ngModel)]="searchTerm"/>
 						  <span class="ml-3" *ngIf="loading$ | async">Cargando...</span>
-						  <td><button nbButton shape="semi-round" class="boton3" status="primary" (click)="EditPackage()">Crear Arrume</button></td>
+						  <td><button nbButton shape="semi-round" class="boton3" status="primary" (click)="EditPackage()">Crear Arrume</button></td> -->
 						  <!-- <button (click)="Refresh()" nbButton>Refresh</button> -->
-					  </div>
+					  <!-- </div>
 					  <table class="table table-striped">
 						  <thead>
 						<tr>
@@ -42,9 +43,9 @@
 							<td><ngb-highlight [result]="ordenes.cutsCountOriginal" [term]="filter.value"></ngb-highlight></td>
 							<td><ngb-highlight [result]="ordenes.state" [term]="filter.value"></ngb-highlight></td>
 							<td><ngb-highlight [result]="ordenes.priority" [term]="filter.value"></ngb-highlight></td>
-							<td><ngb-highlight [result]="ordenes.timeStamp" [term]="filter.value"></ngb-highlight></td>
+							<td><ngb-highlight [result]="ordenes.timeStamp" [term]="filter.value"></ngb-highlight></td> -->
 							<!-- <td><button (click)="Refresh(ordenes.order)" nbButton>Refresh</button></td> -->
-							<td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.cutsCount, ordenes.idDevice)" nbButton>EDITAR</button></td>
+							<!-- <td><button (click)="EditPackage(ordenes.id,ordenes.order,ordenes.state,ordenes.stateId, ordenes.priority,ordenes.cutLength, ordenes.cutsCount, ordenes.idDevice)" nbButton>EDITAR</button></td>
 							</tr>
 						  </tbody>
 					  </table>
@@ -58,7 +59,29 @@
 						 <option [ngValue]="15">15 items per page</option>
 					   </select>
 					  </div>
-			 </form>	
+			 </form>	 -->
+
+			<nb-card-body>
+				<ejs-grid #grid [dataSource]='dataOrdes' [allowPaging]="true" [pageSettings]='pageSettings' 
+				[filterSettings]='filterOptions' [editSettings]='editSettings' [toolbar]='toolbarOptions' (actionBegin)="actionBegin($event)" 
+				(created)='created($event)' allowTextWrap='true' [allowFiltering]="true">
+					<e-columns> 
+						<!-- <e-column field='id' headerText='id' width=70></e-column> -->
+						<e-column field='order' headerText='Orden' width=140></e-column>
+						<e-column field='name' headerText='Nombre' width=100></e-column>
+						<e-column field='description' headerText='Descripcion' width=100></e-column>
+						<e-column field='reference' headerText='Referencia' width=110></e-column>
+						<e-column field='cutLength' headerText='Largo Cortes' width=110></e-column>
+						<e-column field='cutsCount' headerText='Cantidad Cortes' width=110></e-column>
+						<e-column field='cutsCountOriginal' headerText='Cantidad Cortes Iniciales' width=88></e-column>
+						<e-column field='state' headerText='Estado' width=100></e-column>
+						<e-column field='priority' headerText='Prioridad' width=100></e-column>
+						<e-column field='timeStamp' headerText='Fecha' width=88></e-column>
+						<e-column headerText='Administrar Ordenes' width='100' [commands]='commands'></e-column>
+					</e-columns>
+				</ejs-grid>
+			</nb-card-body>
+
 			</ng-template>
 		  </ng-container>
 	
@@ -167,3 +190,46 @@
 	
 	<div [ngbNavOutlet]="nav" class="mt-2"></div>
 
+	<!-- <ejs-grid [dataSource]='dataOrdes' [allowPaging]="true" [pageSettings]='pageSettings'>
+		<e-columns> 
+			<e-column field='id' headerText='id' width=70></e-column>
+			<e-column field='order' headerText='Orden' width=140></e-column>
+			<e-column field='name' headerText='Nombre' width=100></e-column>
+			<e-column field='description' headerText='Descripcion' width=100></e-column>
+			<e-column field='reference' headerText='Referencia' width=110></e-column>
+			<e-column field='cutLength' headerText='Largo Cortes' width=110></e-column>
+			<e-column field='cutsCount' headerText='Cantidad Cortes' width=110></e-column>
+			<e-column field='cutsCountOriginal' headerText='Cantidad Cortes Iniciales' width=88></e-column>
+			<e-column field='state' headerText='Estado' width=100></e-column>
+			<e-column field='priority' headerText='Prioridad' width=100></e-column>
+			<e-column field='timeStamp' headerText='Fecha' width=88></e-column>
+			<e-column headerText='Administrar Ordenes' width='100' [commands]='commands'></e-column>
+		</e-columns>
+	</ejs-grid>
+
+	<div>
+		<ejs-grid [dataSource]='dataOrdes' [allowPaging]="true" [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true">
+			<e-columns>
+				<e-column field='id' headerText='id' width=120></e-column>
+				<e-column field='order' headerText='Orden' width=120></e-column>
+				<e-column field='name' headerText='Nombre' width=100></e-column>
+			</e-columns>
+		</ejs-grid>
+	</div>
+
+	<div>
+		<ejs-grid [dataSource]='aliasData' [allowPaging]="true" [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true">
+			<e-columns>
+				<e-column field='IdAlias' headerText='IdAlias' width=120></e-column>
+				<e-column field='Name' headerText='Nombre' width=120></e-column>
+				<e-column field='Alias' headerText='Alias' width=100></e-column>
+			</e-columns>
+		</ejs-grid>
+
+		dataOrdes = ORDEN
+
+		ORDEN = res;
+            this.dataOrdes = ORDEN
+            console.log('DataOrders', this.dataOrdes);
+
+	</div>  -->

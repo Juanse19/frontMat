@@ -152,7 +152,7 @@ export class LicenseComponent implements OnInit {
           
           Swal.fire(
             'Error',
-            'No conincide la contraseña :)',
+            'Contraseña incorrecta :)',
             'error'
           )
         }

@@ -6,6 +6,7 @@ import * as crypto from 'crypto-js';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService, NbWindowRef } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 interface licens {
   // Id: string;
@@ -95,6 +96,19 @@ export class EditLicenComponent implements OnInit {
 
   convertirTexto(conversion: string) {
 
+    if (this.encPass === '') {
+      alert('por favor ingresa la password');
+    } else if (this.encPass === null) {
+      alert('por favor ingresa la contraseña');
+    } else if (this.encPass == undefined) {
+      // alert('por favor ingresa la contraseña');
+      Swal.fire({
+        icon: 'error',
+        timer: 2000,
+        title: 'Oops...',
+        text: 'Por favor ingresa la clave!'
+      })
+    } else {
     if (this.licenForm.valid) {
       if (conversion === 'encriptar') {
         if (this.encPass.trim() === this.desPass.trim()) {
@@ -116,8 +130,13 @@ export class EditLicenComponent implements OnInit {
         // console.log('info licens', respons);
       
         } else {
-          this.toastrService.danger('', 'No conincide la contraseña.');
-          
+          // this.toastrService.danger('', 'No conincide la contraseña.');
+          Swal.fire({
+            icon: 'error',
+            timer: 2000,
+            title: 'Oops...',
+            text: 'Clave incorrecta!'
+          })
         }
         
       } 
@@ -125,6 +144,7 @@ export class EditLicenComponent implements OnInit {
       console.log('Not');
       
     }
+  }
 
     
     // else {

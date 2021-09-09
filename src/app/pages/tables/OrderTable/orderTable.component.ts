@@ -15,7 +15,8 @@ import {HttpService} from '../../../@core/backend/common/api/http.service'
 import { MessageService } from '../../dashboard/services/MessageService';
 import { Identifiers } from '@angular/compiler';
 import { NbAccessChecker } from '@nebular/security';
-
+import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
   interface Ordenes {
     id: number;
@@ -74,7 +75,11 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
      ApiGetService
      ,DecimalPipe
      ,WindowComponent
-     ,WindowCreateComponent
+     ,WindowCreateComponent,
+     ToolbarService, 
+     EditService, 
+     PageService, 
+     CommandColumnService
     // , WindowFormComponent
     ],
     selector: 'ngx-ordertable',
@@ -83,6 +88,26 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
   })
 
   export class OrderTableComponent implements OnInit {
+
+  public orderdata: Ordenes ;
+
+  public pageSettings: PageSettingsModel;
+
+  public filterOptions: FilterSettingsModel;
+
+  public toolbarOptions: ToolbarItems[];
+
+  public toolbar: ToolbarItems[] | object;
+
+  public commands: CommandModel[];
+
+  public editSettings: Object;
+
+  // public toolbar: string[];
+
+
+  @ViewChild('grid')
+    public grid: GridComponent;
 
     subscription: Subscription;
     private _state: State = {
@@ -175,22 +200,99 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     ngOnInit(): void {
         // throw new Error('Method not implemented.');
         // console.log("entrooo")
-        this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
-        .pipe(takeWhile(() => this.alive))
-        .subscribe((res:any)=>{
-        // console.log(res)
-        ORDENES = res;     
-        });
+
+        this.editSettings = {
+          allowEditing: true,
+          allowAdding: true,
+          allowDeleting: true,
+          mode: 'Normal',
+          allowEditOnDblClick: false
+        };
+
+    // this.toolbar = ['Search'];
+    this.pageSettings = { pageSizes: true, pageSize: 10 };
+    this.filterOptions = {
+    type: 'Menu',
+    }
+    // this.toolbarOptions = ['Search'];
+
+        // this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
+        // .pipe(takeWhile(() => this.alive))
+        // .subscribe((res:any)=>{
+        // // console.log(res)
+        // ORDENES = res;  
+        // this.orderdata = res; 
+        // console.log('Data Ordens', this.orderdata)  
+        // });
+
+        this.CargarTabla();
+
         this._search$.next();
 
         // this.refreshCountries();
-    }  
+
+        this.toolbar = [
+          'Search',
+          //  {text: 'Delete', prefixIcon: 'fas fa-check'},
+         { text: 'Crear Orden', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }];
+
+        this.commands = [
+          { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
+          // { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
+          { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
+          { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
+
+    }
+    
+    created($event): void {
+      document.getElementById(this.grid.element.id + "_searchbar").addEventListener('keyup', () => {
+              this.grid.search((event.target as HTMLInputElement).value)
+      });
+  }
+
+  actionBegin(args) {
+    if (args.requestType == 'beginEdit') {
+      // debugger
+      // console.log('Editar');
+      console.log('Type edit: ', args);
+      // this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
+
+      this.accessChecker.isGranted('edit', 'ordertable')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        if(res){ 
+          this.orderPopup.openWindowForm("Propiedades de la Orden " + args.rowData.order , "", args.rowData);
+          this.select = false;
+          this.mostrar = false;
+        }else {
+          this.select=true;
+          this.mostrar=true;
+        }
+      });
+
+      args.cancel = true;
+      
+    }
+    
+  }
+
+  clickHandler(args: ClickEventArgs): void {
+    if (args.item.id === 'Click') {
+      console.log('click: ', args);
+      // debugger
+      // debugger
+      this.CrearOrden();
+
+        // alert('Custom Toolbar Click...');
+    }
+  }
 
     CargarTabla(){
       this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res:any)=>{
-        ORDENES = res;     
+        ORDENES = res;  
+        this.orderdata = res;      
         });
         this._search$.next();
     }  
@@ -212,7 +314,9 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
       return of({ordenes, total});
     }
 
-    Edit(orden:string, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number, idForm: number){
+  public  Edit(orden:string, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number, idForm: number){
+      
+      
       ORDEN = {
         order: orden,
         id: idForm,

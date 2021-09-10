@@ -268,6 +268,7 @@ export class WindowComponent2  implements OnInit {
   handleSuccessResponse() {
     let formulario = this.arrumeManualForm.value;
     this.toasterService.success('Orden ' + formulario.orderForm + ' actualizada con exito' );
+    // this.toasterService.success('Orden ' + ORDEN.order + ' actualizada con exito' );
     this.back();
   }
 

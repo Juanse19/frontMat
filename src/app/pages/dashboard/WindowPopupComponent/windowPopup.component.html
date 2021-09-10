@@ -63,21 +63,22 @@
 
 			<nb-card-body>
 				<ejs-grid #grid [dataSource]='dataOrdes' [allowPaging]="true" [pageSettings]='pageSettings' 
-				[filterSettings]='filterOptions' [editSettings]='editSettings' [toolbar]='toolbarOptions' (actionBegin)="actionBegin($event)" 
-				(created)='created($event)' allowTextWrap='true' [allowFiltering]="true">
+        [filterSettings]='filterOptions' [editSettings]='editSettings' [toolbar]='toolbarOptions'   (actionBegin)="actionBegin($event)" 
+        (created)='created($event)' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  allowTextWrap='true' [allowFiltering]="true" >
 					<e-columns> 
 						<!-- <e-column field='id' headerText='id' width=70></e-column> -->
+						<e-column headerText='Editar' width='100' [commands]='commands'></e-column>
 						<e-column field='order' headerText='Orden' width=140></e-column>
 						<e-column field='name' headerText='Nombre' width=100></e-column>
 						<e-column field='description' headerText='Descripcion' width=100></e-column>
 						<e-column field='reference' headerText='Referencia' width=110></e-column>
 						<e-column field='cutLength' headerText='Largo Cortes' width=110></e-column>
-						<e-column field='cutsCount' headerText='Cantidad Cortes' width=110></e-column>
-						<e-column field='cutsCountOriginal' headerText='Cantidad Cortes Iniciales' width=88></e-column>
+						<e-column field='cutsCount' headerText='Cant cortes' width=110></e-column>
+						<e-column field='cutsCountOriginal' headerText='Cant Cores Ini' width=98></e-column>
 						<e-column field='state' headerText='Estado' width=100></e-column>
 						<e-column field='priority' headerText='Prioridad' width=100></e-column>
 						<e-column field='timeStamp' headerText='Fecha' width=88></e-column>
-						<e-column headerText='Administrar Ordenes' width='100' [commands]='commands'></e-column>
+						
 					</e-columns>
 				</ejs-grid>
 			</nb-card-body>

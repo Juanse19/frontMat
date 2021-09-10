@@ -17,7 +17,7 @@ import { UserStore } from '../../../@core/stores/user.store';
 import { LocalDataSource } from 'ng2-smart-table';
 import Swal from 'sweetalert2';
 import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
-
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 
 interface Propiedades {
@@ -219,6 +219,8 @@ export class WindowComponent implements OnInit {
 
   public toolbarOptions: ToolbarItems[];
 
+  public toolbar: ToolbarItems[] | object;
+
   public commands: CommandModel[];
 
   public editSettings: Object;
@@ -312,7 +314,7 @@ export class WindowComponent implements OnInit {
       if (IDMAQUINA === 36 ||  IDMAQUINA === 40) {
         this.selec = false;
         // this.DataLoad(idMaquina); 
-        console.log("Cambio de estado", this.selec);
+        // console.log("Cambio de estado", this.selec);
       }else {
         this.selec=true;
       }
@@ -324,8 +326,11 @@ export class WindowComponent implements OnInit {
           this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
-            ORDENES = res;
-            
+            // ORDENES = res;
+            ORDEN = res
+            this.dataOrdes = ORDEN
+            console.log('dataRes', res);
+            console.log('dataOrdenss', res);
             
             this._search$.next();
             // this._search$.pipe(
@@ -394,17 +399,24 @@ export class WindowComponent implements OnInit {
 
   // this.toolbar = ['Search'];
   this.pageSettings = { pageSizes: true, pageSize: 5 };
+
   this.filterOptions = {
-  type: 'Menu',
-  }
-  this.toolbarOptions = ['Search'];
+    type: 'Menu',
+    }
+  // this.toolbarOptions = ['Search'];
 //  console.log('Info data ordenes');
  
-  this.commands = [
-    { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-    // { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
-    { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
-    { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
+this.toolbar = [
+  'Search',
+  //  {text: 'Delete', prefixIcon: 'fas fa-check'},
+//  { text: 'Crear Orden', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }
+];
+
+this.commands = [
+  { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
+  // { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
+  { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
+  { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
 
 }
 
@@ -416,24 +428,8 @@ created($event): void {
 
 actionBegin(args) {
   if (args.requestType == 'beginEdit') {
-    debugger
-    // console.log('Editar');
-    console.log('Edit: ', args.rowData);
-    console.log('Type edit: ', args);
-    // this.EditPackage(ORDEN.id, ORDEN.order, this.dataOrdes.state, this.dataOrdes.stateId, this.dataOrdes.priority, this.dataOrdes.cutLength, this.dataOrdes.cutsCount, this.dataOrdes.idDevice);
-    // this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
-    // ORDEN=
-    // {
-    //   id:this.dataOrdes.id, 
-    //   order:this.dataOrdes.order,
-    //   state:this.dataOrdes.state,
-    //   stateId:this.dataOrdes.stateId,  
-    //   priority:this.dataOrdes.priority,
-    //   cutLength:this.dataOrdes.cutLength,
-    //   cutsCount:this.dataOrdes.cutsCount,
-    //   idDevice:this.dataOrdes.idDevice,  
-    // };
-
+    // debugger
+    
     this.orderPopup.openWindowForm("Package: "+ args.rowData.order,args.rowData, this.idMaquina)
 
     args.cancel = true;
@@ -441,6 +437,26 @@ actionBegin(args) {
     
   }
   
+}
+
+clickHandler(args: ClickEventArgs): void {
+  debugger
+  if (args.item.id === 'Click') {
+    console.log('click: ', args);
+    this.accessChecker.isGranted('edit', 'ordertable')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => { 
+        if(res){ 
+    this.orderPopup.openWindowForm("Package: "+ args,null, this.idMaquina)
+
+    args.cancel = true;
+    this.select = false;
+  }else {
+    this.select=true;
+  }
+});
+      // alert('Custom Toolbar Click...');
+  }
 }
 
   get ordenesMaquina$() { return this._Ordenes$.asObservable(); }

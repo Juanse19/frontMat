@@ -6,7 +6,8 @@ import { OrdenesComponent } from './ordenes/ordenes.component';
 import { OrdenesNoWipsComponent } from './ordenes-no-wips/ordenes-no-wips.component';
 import { PredictivoComponent } from './predictivo/predictivo.component';
 import { ReportsComponent } from './reports/reports.component';
-
+import { OrderpositionComponent } from './orderposition/orderposition.component';
+import { RoutesComponent } from './routes/routes.component';
 
 const routes: Routes = [{
   path: '',
@@ -31,6 +32,14 @@ const routes: Routes = [{
     {
       path: 'reportes',
       component: ReportsComponent,
+    },
+    {
+      path: 'orposition',
+      component: OrderpositionComponent,
+    },
+    {
+      path: 'routs',
+      component: RoutesComponent,
     },
   ],
 }];

@@ -619,6 +619,34 @@ public ClicIM6(): void {
 public ClicIM7(): void {
   this.comp2.openWindowForm(IdWip.IM7);
 }
+
+public ClicCT_1(): void {
+  this.comp2.openWindowForm(IdWip.CT_1);
+}
+
+public ClicCT_2(): void {
+  this.comp2.openWindowForm(IdWip.CT_2);
+}
+
+public ClicCT1(): void {
+  this.comp2.openWindowForm(IdWip.CT1);
+}
+
+public ClicCT2(): void {
+  this.comp2.openWindowForm(IdWip.CT2);
+}
+
+public ClicTM(): void {
+  this.comp2.openWindowForm(IdWip.TM);
+}
+
+public ClicTF1(): void {
+  this.comp2.openWindowForm(IdWip.TF1);
+}
+
+public ClicTF2(): void {
+  this.comp2.openWindowForm(IdWip.TF2);
+}
  
 
 }

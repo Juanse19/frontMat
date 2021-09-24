@@ -55,6 +55,7 @@ interface Ordenes {
   priority:number;
   idDevice:number;
   timeStamp?:string;
+  express:boolean;
 }
 
 interface Data {
@@ -194,13 +195,11 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
 }
 
 @Component({
-  providers: [ApiGetService,
+  providers: [
+    ToolbarService, EditService, PageService, CommandColumnService,
+    ApiGetService,
     DecimalPipe,
     WindowComponent2,
-    ToolbarService, 
-     EditService, 
-     PageService, 
-     CommandColumnService
   ],
   selector: 'ngx-window',
   templateUrl: './windowPopup.component.html',
@@ -253,6 +252,7 @@ export class WindowComponent implements OnInit {
   nombreEstado: string;
   toggleNgModel = true;
   public selec = false;
+  public ocultar = false;
   
 
   devicesType = DEVICESTYPE;
@@ -309,7 +309,12 @@ export class WindowComponent implements OnInit {
     
     ) {
 
-
+      if (IDMAQUINA === 48 ||  IDMAQUINA === 49 || IDMAQUINA === 51 ||  IDMAQUINA === 52) {
+        debugger
+        this.ocultar = false;
+      } else {
+        this.ocultar = true;
+      }
 
       if (IDMAQUINA === 36 ||  IDMAQUINA === 40) {
         this.selec = false;
@@ -583,6 +588,8 @@ clickHandler(args: ClickEventArgs): void {
     // 'AND' by default, so changing to 'OR' by setting false here
   }
 
+  @ViewChild('contentTemplate') WindowComponents: TemplateRef<any>;
+
   DataLoad(idMaquina: number){
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina;
@@ -636,7 +643,8 @@ clickHandler(args: ClickEventArgs): void {
               x: 5,
             };
             
-            win=this.windowRef=this.windowService.open(WindowComponent, { title: this.propiedades.description});
+            // win=this.windowRef=
+            this.windowService.open(WindowComponent, { title: this.propiedades.description, hasBackdrop: true});
           });
         });    
         });
@@ -970,7 +978,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     );
   }
   
-  EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number, cutsCount:number, idDevice:number){
+  EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number, cutsCount:number, express:boolean, idDevice:number){
     ORDEN=
     {
       id:id, 
@@ -980,6 +988,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       priority:priority,
       cutLength:cutLength,
       cutsCount:cutsCount,
+      express:express,
       idDevice:idDevice,
     };
     

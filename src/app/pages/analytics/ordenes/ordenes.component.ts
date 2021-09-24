@@ -14,7 +14,7 @@ interface UspReportOrders {
   OrdenesMachineCount: number;
   Diference: number;
  }
-
+ 
 @Component({
   selector: 'ngx-ordenes',
   templateUrl: './ordenes.component.html',
@@ -97,7 +97,7 @@ export class OrdenesComponent implements OnInit {
   ChargeReportOrdens() {
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Reports/GetReportOrdersList').subscribe((res: any) => {
       //REPORTOCUPATION=res;
-      console.log("Report Total Ordenes:", res);
+      // console.log("Report Total Ordenes:", res);
       this.ReportOrdens = res;
       this.source.load(res);
     });

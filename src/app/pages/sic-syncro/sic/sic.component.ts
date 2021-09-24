@@ -167,7 +167,7 @@ export class SicComponent implements OnInit {
 
     this.toolbar = [
       //  {text: 'Delete', prefixIcon: 'fas fa-check'},
-     { text: 'Eliminar todo', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }];
+     { text: 'Eliminar todo', tooltipText: 'Click', prefixIcon: 'e-icons e-delete', id: 'Click' }];
 
      this.commands = [
       // { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },

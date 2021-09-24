@@ -90,7 +90,7 @@ export class UserComponent implements OnInit, OnDestroy {
   mostrar: Boolean;
   ocultar: Boolean;
   isDisabled: Boolean;
-  desPass: string = '1234';
+  desPass: string = 'Matec2021*';
 
   protected readonly unsubscribe$ = new Subject<void>();
 
@@ -392,7 +392,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
     let observable = new Observable<User>();
     if (this.mode === UserFormMode.EDIT_SELF) {
-      debugger
+      // debugger
       const currentUserId = this.userStore.getUser().id;
       const currentUser = this.userStore.getUser().firstName;
   // console.log("este es el usuario: ",this.userStore.getUser().firstName);

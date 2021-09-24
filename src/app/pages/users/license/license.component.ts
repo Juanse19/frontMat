@@ -34,7 +34,7 @@ export class LicenseComponent implements OnInit {
   private alive = true;
   mostrar: Boolean;
   public licesData: licens[]=[];
-  desPass: string = '1234';
+  desPass: string = 'Matec2021*';
 
   get Value() { return this.licenForm.get('Value'); }
 

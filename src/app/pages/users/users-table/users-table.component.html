@@ -16,7 +16,7 @@
     <nb-card-body>
         <ejs-grid [dataSource]='userData' [editSettings]='editSettings' (actionBegin)="actionBegin($event)"  [allowPaging]="true"
         [pageSettings]="pageSettings" [filterSettings]="filterOptions" allowTextWrap="true"
-        [allowFiltering]="true" height='350'>
+        [allowFiltering]="true" >
                     <e-columns>
                         <e-column field='firstName' headerText='Primer nombre' width=100 textAlign='Left' isPrimaryKey='true'></e-column>
                         <e-column field='lastName' headerText='Apellido' width=90></e-column>

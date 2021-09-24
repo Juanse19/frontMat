@@ -234,7 +234,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         this.toolbar = [
           'Search',
           //  {text: 'Delete', prefixIcon: 'fas fa-check'},
-         { text: 'Crear Orden', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }];
+         { text: 'Crear Orden', tooltipText: 'Click', prefixIcon: 'e-add e-icons', id: 'Click' }];
 
         this.commands = [
           { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },

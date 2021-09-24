@@ -1,7 +1,7 @@
 	<nav ngbNav #nav="ngbNav" class="nav-tabs">
 		<ng-container ngbNavItem>
 			<a ngbNavLink>Ordenes</a>
-			<ng-template ngbNavContent>	
+			<ng-template ngbNavContent >	
 				<td><button nbButton shape="semi-round" class="boton3" status="primary" (click)="EditPackage()">Crear Arrume</button></td> 		
 				  <!-- <form>
 					<div class="form-group form-inline">
@@ -64,20 +64,20 @@
 			<nb-card-body>
 				<ejs-grid #grid [dataSource]='dataOrdes' [allowPaging]="true" [pageSettings]='pageSettings' 
         [filterSettings]='filterOptions' [editSettings]='editSettings' [toolbar]='toolbarOptions'   (actionBegin)="actionBegin($event)" 
-        (created)='created($event)' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  allowTextWrap='true' [allowFiltering]="true" >
+        (created)='created($event)' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  allowTextWrap='true' [allowFiltering]="true" 
+		width=100%>
 					<e-columns> 
-						<!-- <e-column field='id' headerText='id' width=70></e-column> -->
-						<e-column headerText='Editar' width='100' [commands]='commands'></e-column>
-						<e-column field='order' headerText='Orden' width=140></e-column>
-						<e-column field='name' headerText='Nombre' width=100></e-column>
-						<e-column field='description' headerText='Descripcion' width=100></e-column>
-						<e-column field='reference' headerText='Referencia' width=110></e-column>
+						<e-column headerText='Editar' width='85' textAlign='Left' [commands]='commands'></e-column>
+						<e-column field='order' headerText='Orden' width=105></e-column>
+						<e-column field='name' headerText='Nombre' width=110></e-column>
+						<e-column field='description' headerText='Descripcion' width=106></e-column>
+						<e-column field='reference' headerText='Referencia' width=100></e-column>
 						<e-column field='cutLength' headerText='Largo Cortes' width=110></e-column>
 						<e-column field='cutsCount' headerText='Cant cortes' width=110></e-column>
-						<e-column field='cutsCountOriginal' headerText='Cant Cores Ini' width=98></e-column>
-						<e-column field='state' headerText='Estado' width=100></e-column>
-						<e-column field='priority' headerText='Prioridad' width=100></e-column>
-						<e-column field='timeStamp' headerText='Fecha' width=88></e-column>
+						<e-column field='cutsCountOriginal' headerText='Cant Cortes Ini' width=102></e-column>
+						<e-column field='state' headerText='Estado' width=105></e-column>
+						<e-column field='priority' headerText='Prioridad' width=118></e-column>
+						<e-column field='timeStamp' headerText='Fecha'  width=100></e-column>
 						
 					</e-columns>
 				</ejs-grid>
@@ -86,7 +86,7 @@
 			</ng-template>
 		  </ng-container>
 	
-		  <ng-container ngbNavItem>
+		  <ng-container ngbNavItem *ngIf="ocultar">
 			<a ngbNavLink>Propiedades</a>
 			<ng-template ngbNavContent>
 				<div class="row">
@@ -172,11 +172,11 @@
 			</ng-template>
 		  </ng-container>
 
-	  <ng-container ngbNavItem>
+	  <ng-container ngbNavItem *ngIf="ocultar">
 		<a ngbNavLink>Alias</a>
 		<ng-template ngbNavContent>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<nb-card-body>
 						<!-- <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)"> -->
 						<ng2-smart-table class="example-smart-table" [settings]="settings" [source]="aliasData" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onSaveConfirm($event)"

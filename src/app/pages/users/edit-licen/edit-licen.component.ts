@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService, NbWindowRef } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { NbAccessChecker } from '@nebular/security';
+import { UserStore } from '../../../@core/stores/user.store';
 
 interface licens {
   // Id: string;
@@ -29,13 +31,15 @@ export class EditLicenComponent implements OnInit {
   enctexto: string;
   destexto: string;
   encPass: string;
-  desPass: string = '1234';
+  desPass: string = 'Matec2021*';
   textoEncriptado: string;
   textoDesencriptado: string;
   private alive = true;
   submitted: boolean = false;
   licenForm: FormGroup;
   public licesData: licens[]=[];
+  public select = false;
+  mostrar: Boolean;
 
   get Value() { return this.licenForm.get('Value'); }
 
@@ -45,6 +49,8 @@ export class EditLicenComponent implements OnInit {
     private fb: FormBuilder,
     private toastrService: NbToastrService,
     private apiGetComp: ApiGetService,
+    public accessChecker: NbAccessChecker,
+    private userStore: UserStore,
   ) { }
 
   open(){ 
@@ -146,10 +152,61 @@ export class EditLicenComponent implements OnInit {
     }
   }
 
-    
-    // else {
-    //   this.textoDesencriptado = crypto.AES.decrypt(this.destexto.trim(), this.desPass.trim()).toString(crypto.enc.Utf8);
-    // }
+}
+
+reconocer() {
+
+  
+  this.accessChecker.isGranted('edit', 'ordertable')
+  .pipe(takeWhile(() => this.alive))
+  .subscribe((res: any) => {
+    if(res){ 
+    Swal.fire({
+    title: 'Desea Eliminar los datos del WCS?',
+    text: `¡Eliminará toda la información!`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '¡Sí, Eliminar!'
+  }).then(result => {
+    debugger 
+    if (result.value) {
+      debugger
+
+      const currentUserId = this.userStore.getUser().id;
+    const currentUser = this.userStore.getUser().firstName;
+  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+  var respons = 
+  {
+    user: currentUser,
+    message:"Eliminó todo el WCS",
+    users: currentUserId,  
+};
+  this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+        //  console.log("Envió: ", res);
+      });
+
+      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/deleteallposition')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+    });
+ 
+       Swal.fire('¡Se Eliminaron Exitosamente', 'success');
+       
+   }
+ });
+         
+       this.select = false;
+       this.mostrar = false;
+     }else {
+       this.select=true;
+       this.mostrar=true;
+     }
+   });
+   
 }
 
 ngOnDestroy(): void {

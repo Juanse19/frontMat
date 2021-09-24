@@ -23,10 +23,12 @@ import { ReportsComponent } from './reports/reports.component';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
+import { OrderpositionComponent } from './orderposition/orderposition.component';
+import { RoutesComponent } from './routes/routes.component';
 
  
 @NgModule({
-  declarations: [PredictivoComponent, OcupacionComponent, OrdenesNoWipsComponent, OrdenesComponent, AnalyticsComponent, ReportsComponent],
+  declarations: [PredictivoComponent, OcupacionComponent, OrdenesNoWipsComponent, OrdenesComponent, AnalyticsComponent, ReportsComponent, OrderpositionComponent, RoutesComponent],
   imports: [
     CommonModule,
     AnalyticsRoutingModule,

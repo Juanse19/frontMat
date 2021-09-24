@@ -1,3 +1,4 @@
+import { State } from './../_interfaces/MatBox.model';
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { NbWindowService,NbToastrService,NbWindowRef } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
@@ -18,7 +19,13 @@ interface Ordenes {
   cutsCount?:number;
   state: string;
   stateId: number;
-  idDevice:number,
+  idDevice:number;
+  express:boolean;
+}
+
+interface ordens{
+  quantity: number;
+  express:boolean;
 }
 
 interface Status {
@@ -33,6 +40,8 @@ interface StatusPackage {
   cutCount:number,
   Order:string,
   idDevice:number,
+  quantity: number,
+  express: boolean,
 }
 
 
@@ -45,6 +54,7 @@ stateId:1,
 cutLength:0,
 cutsCount:0,
 idDevice:0,
+express:false
 };
 
 let STATUS: Status;
@@ -66,6 +76,12 @@ let win:NbWindowRef;
 export class WindowComponent2  implements OnInit {
   arrumeManualForm: FormGroup;
 
+  mostrar = false
+
+  ocultar: Boolean;
+
+  quantitys = 0
+
   get orderForm() { return this.arrumeManualForm.get('orderForm'); }
 
   get statusForm() { return this.arrumeManualForm.get('statusForm'); }
@@ -73,7 +89,11 @@ export class WindowComponent2  implements OnInit {
   get cutLength() { return this.arrumeManualForm.get('cutLength'); }
 
   get cutCount() { return this.arrumeManualForm.get('cutCount'); }
+
+  get quantity() { return this.arrumeManualForm.get('quantity'); }
   
+  get express() { return this.arrumeManualForm.get('express'); }
+
 
   // @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
   // @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
@@ -88,8 +108,8 @@ export class WindowComponent2  implements OnInit {
     private toasterService: NbToastrService,
     private toastrService: NbToastrService
     ) {
-       
-      
+       this.mostrar = true;
+      // this.ocultar = true;
 
     }
 
@@ -103,14 +123,25 @@ export class WindowComponent2  implements OnInit {
     public states: Object = { text: 'name', value: 'id' };
 
     loadDataForm(){
-      this.arrumeManualForm.setValue({
-        id: ORDEN.id,
-        orderForm: ORDEN.order,
-        cutLengthForm: ORDEN.cutLength,
-        cutCountForm: ORDEN.cutsCount,
-        // cutForm: ORDEN.cutsCount,
-        statusForm: ORDEN.stateId,
-    });
+      debugger
+       if (ORDEN.order == "") {
+        console.log('cambios');
+        this.mostrar = false;
+        this.ocultar = false;
+       } else {
+        this.mostrar = true;
+        this.arrumeManualForm.setValue({
+          id: ORDEN.id,
+          orderForm: ORDEN.order,
+          cutLengthForm: ORDEN.cutLength,
+          cutCountForm: ORDEN.cutsCount,
+          // cutForm: ORDEN.cutsCount,
+          statusForm: ORDEN.stateId,
+          quantityForm: 1,
+          expressForm:ORDEN.express,
+      });
+      }
+      
     }
 
     initForm() {
@@ -119,7 +150,9 @@ export class WindowComponent2  implements OnInit {
         orderForm: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
         statusForm: this.fb.control(1, [Validators.minLength(3), Validators.maxLength(20)]),
         cutLengthForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
-        cutCountForm: this.fb.control(2, [Validators.minLength(3), Validators.maxLength(20)]),
+        cutCountForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
+        quantityForm: this.fb.control(1, [Validators.minLength(3), Validators.maxLength(20)]),
+        expressForm: this.fb.control(false),
       });
     }
 
@@ -128,6 +161,7 @@ export class WindowComponent2  implements OnInit {
     orderList= ORDERLIST;
 
   openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
+    debugger
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
@@ -139,6 +173,7 @@ export class WindowComponent2  implements OnInit {
         stateId:1,
         cutLength:0,     
         cutsCount:0,
+        express:false,
         idDevice:idMaquina,
       };
 
@@ -161,6 +196,7 @@ export class WindowComponent2  implements OnInit {
 
   Guardar(){
     let formulario = this.arrumeManualForm.value;
+debugger
 
     if(formulario.orderForm){
     
@@ -171,10 +207,12 @@ export class WindowComponent2  implements OnInit {
         Order:formulario.orderForm,
         idDevice:ORDEN.idDevice, 
         cutCount:formulario.cutCountForm,
+        quantity: formulario.quantityForm,
+        express: formulario.expressForm
       } 
     }
 
-    if (formulario.cutLengthForm == 0 && formulario.cutCountForm == 0) {
+    if (formulario.cutLengthForm == 0 && formulario.cutCountForm == 0 && formulario.quantityForm == 0) {
       // alert('No ingresaste Longitud ni cantidad')
       Swal.fire({
         icon: 'error',
@@ -198,8 +236,35 @@ export class WindowComponent2  implements OnInit {
         title: 'Oops...',
         text: 'Ingresaste la cantidad cortes!'
       })
-    } else {
-
+    } 
+    // else if (formulario.quantityForm == null) {
+    //   // alert('No ingresaste cantidad')
+    //   Swal.fire({
+    //     icon: 'error',
+    //     timer: 2000,
+    //     title: 'Oops...',
+    //     text: 'Ingresaste la cantidad arrumes!'
+    //   })
+    // }  else if (formulario.quantityForm == '') {
+    //   // alert('No ingresaste cantidad')
+    //   Swal.fire({
+    //     icon: 'error',
+    //     timer: 2000,
+    //     title: 'Oops...',
+    //     text: 'Ingresaste la cantidad arrumes!'
+    //   })
+    // }
+    // else if (formulario.quantityForm == 0) {
+    //   // alert('No ingresaste cantidad')
+    //   Swal.fire({
+    //     icon: 'error',
+    //     timer: 2000,
+    //     title: 'Oops...',
+    //     text: 'Ingresaste la cantidad arrumes!'
+    //   })
+    // }
+     else {
+ 
     if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){
       // this.ChangeState();
       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {

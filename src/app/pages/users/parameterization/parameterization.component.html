@@ -1,0 +1,176 @@
+<!-- <h2>Reporte de ordenes</h2> -->
+
+<nb-card>
+    <nb-card-header>
+        Parametrización
+    </nb-card-header>
+
+    <nb-card-body>
+        <!-- <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="ReportOrdens">
+        </ng2-smart-table> (actionBegin)="actionComplete($event)" -->
+
+        <ejs-grid [dataSource]='dataConfigu' [editSettings]='editSettings' [toolbar]='toolbar'
+         (actionBegin)='actionBegin($event)'  [allowPaging]="true"
+        [pageSettings]="pageSettings" [filterSettings]="filterOptions" allowTextWrap="true"
+        [allowFiltering]="true">
+            <e-columns>
+                <e-column headerText='Editar' width='30' textAlign='Left' [commands]='commands'></e-column>
+                <e-column field='Id' headerText='Id' [isPrimaryKey]='true' width=30></e-column>
+                <e-column field='Parameter' headerText='Parameter' textAlign='Left' width=80></e-column>
+                <e-column field='Value' headerText='Value' textAlign='Left' width=80></e-column>
+                <e-column field='CreateDate' headerText='Fecha ini' type="date" format="dd/MM/yyyy hh:mm:ss a" width=40></e-column>
+                <e-column field='UpdateDate' headerText='Fecha fin' type="date" format="dd/MM/yyyy hh:mm:ss a" width=80></e-column>
+                
+            </e-columns>
+
+            <!-- <ng-template #editSettingsTemplate let-data>
+                <div [formGroup]="orderForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <div class="e-float-input e-control-wrapper" >
+                                <input [value]="dataConf.Parameter" formControlName="Parameter"  id="Parameter" name="Parameter" type="text" [attr.disabled]="data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Parameter">Parameter</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="e-float-input e-control-wrapper" >
+                                <input [value]="dataConf.Value" formControlName="Value"  id="Value" name="Value" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Value">Value</label>
+                            </div>
+                        </div>
+                    </div>  -->
+<!-- 
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper" >
+                                <input [value]="dataposorder.Source"  id="Source" name="Source" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Source">Source</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper" >
+                                <input [value]="dataposorder.Target" id="Target" name="Target" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Target">Target</label>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper" >
+                                <input [value]="dataposorder.Index" id="Index" name="Index" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Index">Index</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper">
+                                <input [value]="dataposorder.Position"  id="Position" name="Position" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Position">Position</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper" >
+                                <input [value]="dataposorder.Stuck" id="Stuck" name="Stuck" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Stuck">Stuck</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper">
+                                <input [value]="dataposorder.Invested"  id="Invested" name="Invested" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Invested">Invested</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper" >
+                                <input [value]="dataposorder.Lock" id="Lock" name="Lock" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Lock">Lock</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper">
+                                <input [value]="dataposorder.Express"  id="Express" name="Express" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="Express">Express</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper" >
+                                <input [value]="dataposorder.Estado" id="State" name="Estado" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="State">Estado</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper">
+                                <input [value]="dataposorder.TimeStamp"  id="TimeStamp" name="TimeStamp" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                                <span class="e-float-line"></span>
+                                <label class="e-float-text e-label-top" for="TimeStamp">Fecha</label>
+                            </div>
+                        </div>
+                    </div> -->
+
+                <!-- </div> 
+                
+            </ng-template> -->
+
+        </ejs-grid>
+     
+        <div #container class='root-container'>
+            <ejs-dialog id='ejDialogTX' #ejDialogTX allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+                <ng-template #content>
+                    <div [formGroup]="orderForm">
+                        <div class="form-row">
+                            <!-- <div class="form-group col-md-12">
+                                <div class="e-float-input e-control-wrapper" >
+                                    <input formControlName="Id" disabled  id="Id" name="Id" type="text" >
+                                    <span class="e-float-line"></span>
+                                    <label class="e-float-text e-label-top" for="Id">Id</label>
+                                </div>
+                            </div> -->
+                            <div class="form-group col-md-12">
+                                <div class="e-float-input e-control-wrapper" >
+                                    <input formControlName="Parameter"  id="Parameter" name="Parameter" type="text" >
+                                    <span class="e-float-line"></span>
+                                    <label class="e-float-text e-label-top" for="Parameter">Parameter</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="e-float-input e-control-wrapper" >
+                                    <input formControlName="Value"  id="Value" name="Value" type="text" >
+                                    <span class="e-float-line"></span>
+                                    <label class="e-float-text e-label-top" for="Value">Value</label>
+                                </div>
+                            </div>
+                            <div>
+                                <button nbButton status="info" (click)="updateData()" hero>Actualizar</button>
+                            </div>
+                        </div> 
+                    </div>
+                </ng-template>
+            </ejs-dialog>
+        </div>
+
+
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="warning" (click)="reconocer()" hero>Limpiar WCS</button>
+    </nb-card-footer>
+</nb-card>

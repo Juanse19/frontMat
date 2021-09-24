@@ -266,6 +266,10 @@ export class PagesMenu {
         {
           title: 'Licencia',
           link: '/pages/users/licenses',
+        },
+        {
+          title: 'Paremetrización',
+          link: '/pages/users/param',
         }
       ],
     };
@@ -298,14 +302,19 @@ export class PagesMenu {
           title: 'Predictivo',
           link: '/pages/analytics/predictivo',
         },
+        
       ],
     };
 
-    const sicsyncroMenu: NbMenuItem = {
+    const induccionMenu: NbMenuItem = {
       title: 'Inducción',
       icon: 'archive-outline',
       // link: '/pages/analytics/analytics',
       children: [
+        // {
+        //   title: 'Inducción',
+        //   link: '/pages/analytics/orposition',
+        // },
         {
           title: 'Sic',
           link: '/pages/sic-syncro/Sic',
@@ -317,11 +326,24 @@ export class PagesMenu {
       ],
     };
 
-    const orderMenu: NbMenuItem = {
-      title: 'Ordenes',
+    const procesosMenu: NbMenuItem = {
+      title: 'Procesos',
       icon: 'grid-outline',
       link: '/pages/tables/OrderTable',
-      children: undefined,
+      children:[
+        {
+          title: 'Ordenes',
+          link: '/pages/tables/OrderTable',
+        },
+        {
+          title: 'Inducción',
+          link: '/pages/analytics/orposition',
+        },
+        {
+          title: 'Rutas',
+          link: '/pages/analytics/routs',
+        },
+      ]
     };
 
     // const reportMenu: NbMenuItem = {
@@ -385,7 +407,7 @@ export class PagesMenu {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          return [...dashboardMenu, orderMenu, sicsyncroMenu, repoMenu, analyticsMenu, configurationMenu, alarmMenu];
+          return [...dashboardMenu, procesosMenu, induccionMenu, repoMenu, analyticsMenu, configurationMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu, alarmMenu];

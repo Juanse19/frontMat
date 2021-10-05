@@ -165,7 +165,9 @@
                 <text x="35.27" y="315.13" class="st5">{{dataWipName.sT12}}</text>		
             </g>
         <image id="Layer_0_Imagen-7" data-name="Layer 0 Imagen" width="398" height="76"
-            transform="translate(201.74 170.31) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout6.png" (click)="ClicST15()" 
+            transform="translate(201.74 170.31) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout6.png" (click)="ClicST15()"
+            [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataWipColor.colorST15 + ')
+                drop-shadow(-5px -5px 0 ' + dataWipColor.colorST15  + ')'}" 
             [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT15}"/>
             <!-- Rectangulo ST15 -->
             <g id="shape220-616" transform="translate(202.306,-131.7697)" >
@@ -411,6 +413,8 @@
 
         <image id="Layer_0_Imagen-13" data-name="Layer 0 Imagen" width="401" height="67"
             transform="translate(200.24 127.92) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout12.png" (click)="ClicST14()" 
+            [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataWipColor.colorST14 + ')
+                drop-shadow(-5px -5px 0 ' + dataWipColor.colorST14  + ')'}"
             [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT14}"/>
             <!-- Rectangulo ST14 -->
             <g id="shape222-622" transform="translate(202.539,-175.951)" >
@@ -2770,7 +2774,7 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorWARD15000  + ')'}" (click)="ClicIM2()"
                 [ngClass]="{showStatusAlarm: !showdataAlarms.StatusWard}" />
                 <g>
-                    <text x="137.92" y="279.47" transform="rotate(-90 250,70)" class="st5">{{dataWipName.iM2}}</text>
+                    <text x="137.92" y="279.47" transform="rotate(-90 250,70)" class="st5" (click)="ClicIM2()">{{dataWipName.iM2}}</text>
                 </g>
         </g>
         <g class="cls-7">

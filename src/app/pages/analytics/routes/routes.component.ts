@@ -97,7 +97,7 @@ export class RoutesComponent implements OnInit {
         console.log('test', this.createFormGroup(args.rowData).value)
         // console.log('Prueba', this.orderForm.setValue = this.createFormGroup(args.rowData).value);
         this.dataLog = args.rowData;
-        console.log('info', this.dataLog);
+        // console.log('info', this.dataLog);
 
           this.select = false;
           this.mostrar = false;
@@ -114,7 +114,7 @@ export class RoutesComponent implements OnInit {
   ChargeDataLogRoutes() {
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/routes').subscribe((res: any) => {
       //REPORTOCUPATION=res;
-      console.log("Routes:", res);
+      // console.log("Routes:", res);
       this.dataRoutes = res;
     });
     // const contador = interval(60000)

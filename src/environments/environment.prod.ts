@@ -14,3 +14,15 @@ export const environment = {
     email: '',
   },
 };
+ 
+// export const environment = {
+//   production: true,
+//   apiUrl: 'http://10.100.22.100:3001/api',
+//   apiUrlMat: 'http://10.100.22.100:5001/api',
+//   apiUrlMatSignalR: '10.100.22.100:5001',
+//   apiUrlNode: 'http://10.100.22.100:1880',
+//   testUser: {
+//     token: {},
+//     email: '',
+//   },
+// };

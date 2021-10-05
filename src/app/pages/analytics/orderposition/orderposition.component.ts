@@ -147,7 +147,7 @@ export class OrderpositionComponent implements OnInit {
 
     clickHandler(args: ClickEventArgs): void {
       if (args.item.id === 'Click') {
-        console.log('Boton eliminar todo');
+        // console.log('Boton eliminar todo');
 
         this.reconocer();
       }
@@ -160,14 +160,14 @@ export class OrderpositionComponent implements OnInit {
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any) => {
           if(res){
-            debugger
+            // debugger
             
 
-          console.log('Data',args.rowData.Id);
-          console.log('test', this.createFormGroup(args.rowData).value)
+          // console.log('Data',args.rowData.Id);
+          // console.log('test', this.createFormGroup(args.rowData).value)
           // console.log('Prueba', this.orderForm.setValue = this.createFormGroup(args.rowData).value);
           this.dataposorder = args.rowData;
-          console.log('info', this.dataposorder);
+          // console.log('info', this.dataposorder);
 
             this.select = false;
             this.mostrar = false;
@@ -260,7 +260,7 @@ export class OrderpositionComponent implements OnInit {
     ChargeDataOrdenPosition() {
       this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/orderposition').subscribe((res: any) => {
         //REPORTOCUPATION=res;
-        console.log("Orden Position:", res);
+        // console.log("Orden Position:", res);
         this.dataOrposition = res;
       });
       // const contador = interval(60000)

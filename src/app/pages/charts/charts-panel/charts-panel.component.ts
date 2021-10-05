@@ -189,7 +189,7 @@ export class ECommerceChartsPanelComponent implements OnInit, OnDestroy {
     this.http.get(this.api.apiUrlMatbox + "/Reports/GetReportMachineStopTime?idDevice="+ machine + "&unitedTime="+period)
     .pipe(takeWhile(() => this.alive))
       .subscribe((res: any)=>{  
-        console.log('Get Recircule', res); 
+        // console.log('Get Recircule', res); 
         if(res == null){
            return null;
         }

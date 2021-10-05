@@ -189,7 +189,7 @@ debugger
       Parameter: this.dataConf.Parameter,
       Value: this.dataConf.Value 
   };
-  console.log('Datas update', respon);
+  // console.log('Datas update', respon);
   
   this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/updateConf', respon)
     .pipe(takeWhile(() => this.alive))
@@ -198,7 +198,7 @@ debugger
       this.ChargeDataConfi();
       });
 
-    console.log('Update configuration');
+    // console.log('Update configuration');
     this.ejDialogTX.hide();
 
   }
@@ -261,7 +261,7 @@ debugger
   ChargeDataConfi() {
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/configuration').subscribe((res: any) => {
       //REPORTOCUPATION=res;
-      console.log("Configuration:", res);
+      // console.log("Configuration:", res);
       this.dataConfigu = res;
     });
     // const contador = interval(60000)

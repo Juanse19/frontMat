@@ -4,7 +4,7 @@ import { Component, ElementRef, PipeTransform, TemplateRef, ViewChild, Renderer2
 import { NbWindowConfig, NbWindowService, NbWindowRef,NbToastrService } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
 import { DecimalPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject,Subscription } from 'rxjs';
 import { debounceTime, delay, reduce, switchMap, takeWhile, tap } from 'rxjs/operators';
 import {WindowComponent2 } from '../OrderPopup/orderPopup.component';
@@ -18,6 +18,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 import Swal from 'sweetalert2';
 import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
+import { Dialog, DialogComponent } from '@syncfusion/ej2-angular-popups';
+import { EmitType } from '@syncfusion/ej2-base';
 
 
 interface Propiedades {
@@ -224,6 +226,10 @@ export class WindowComponent implements OnInit {
 
   public editSettings: Object;
 
+  public orderForm: FormGroup;
+
+  public submitClicked: boolean = false;
+
   subscription: Subscription;
   windowRef:NbWindowRef;
   private _state: State = {
@@ -268,6 +274,11 @@ export class WindowComponent implements OnInit {
   data = DATA;
   dataOrden = ORDEN;
   filter = new FormControl('');
+
+  get Alias() { return this.orderForm.get('Alias')}
+  public showCloseIcon: Boolean = true;
+  @ViewChild('ejDialogTX') ejDialogTX: DialogComponent;
+  @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
 
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
@@ -326,7 +337,7 @@ export class WindowComponent implements OnInit {
       
       this.subscription = this.messageService.onMessage().subscribe(message => {
         if (message.text=="PackageUpdate") {
-          debugger
+          // debugger
           //this.messages.push(message);
           this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina)
           .pipe(takeWhile(() => this.alive))
@@ -334,8 +345,8 @@ export class WindowComponent implements OnInit {
             // ORDENES = res;
             ORDEN = res
             this.dataOrdes = ORDEN
-            console.log('dataRes', res);
-            console.log('dataOrdenss', res);
+            // console.log('dataRes', res);
+            // console.log('dataOrdenss', res);
             
             this._search$.next();
             // this._search$.pipe(
@@ -390,6 +401,12 @@ export class WindowComponent implements OnInit {
       this.ObtenerListaColor();
     }
 
+    public targetElement: HTMLElement;
+    public visible: Boolean = true;
+    public hidden: Boolean = false;
+    public position: object={ X: 'left', Y: 'top' };
+    public initialPage: Object;
+
     ngOnInit(): void {
       // throw new Error('Method not implemented.');
       // console.log("entrooo")
@@ -423,7 +440,31 @@ this.commands = [
   { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
   { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
 
+  this.orderForm = new FormGroup({
+    Alias: new FormControl()
+ });
+
 }
+
+// Initialize the Dialog component's target element.
+public initilaizeTarget: EmitType<object> = () => {
+  this.targetElement = this.container.nativeElement.parentElement;
+    }
+
+    public hideDialog: EmitType<object> = () =>  {
+      this.ejDialogTX.hide();
+  }
+
+    public buttons: Object = [
+    {
+        'click': this.hideDialog.bind(this),
+        // Accessing button component properties by buttonModel property
+          buttonModel: {
+          content: 'OK',
+          isPrimary: true
+        }
+    }
+    ];  
 
 created($event): void {
   document.getElementById(this.grid.element.id + "_searchbar").addEventListener('keyup', () => {
@@ -561,6 +602,14 @@ clickHandler(args: ClickEventArgs): void {
     },
   };
 
+  loadUser(id?) {
+    debugger
+      this.orderForm.setValue({
+        Alias: ALIAS.Alias ? ALIAS.Alias : '',
+      });
+    
+    }
+
   source: LocalDataSource = new LocalDataSource();
 
   onSearch(query: string = '') {
@@ -588,6 +637,42 @@ clickHandler(args: ClickEventArgs): void {
     // 'AND' by default, so changing to 'OR' by setting false here
   }
 
+  
+  actionBegins(args) {
+    if (args.requestType === 'beginEdit') {
+      this.submitClicked = true;
+      this.accessChecker.isGranted('edit', 'ordertable')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        if(res){
+          console.log('test', args.rowData.Id);
+          // debugger
+          args.cancel = false;
+          // this.ejDialogTX.show();
+          this.orderForm.setValue({
+            Alias: args.rowData.Alias ? args.rowData.Alias : '',
+          });
+          
+          // this.loadUser(args.rowData.Id)
+        // console.log('Data',args.rowData.Id);
+        // console.log('test', this.createFormGroup(args.rowData).value)
+        // console.log('Prueba', this.orderForm.setValue = this.createFormGroup(args.rowData).value);
+        // this.dataConf = args.rowData;
+        // console.log('info', this.dataConf);
+          
+          this.select = false;
+          this.mostrar = false;
+        }else {
+          this.select=true;
+          this.mostrar=true;
+          args.cancel = true;
+        }
+      });
+    }
+
+  }
+
+
   @ViewChild('contentTemplate') WindowComponents: TemplateRef<any>;
 
   DataLoad(idMaquina: number){
@@ -601,7 +686,7 @@ clickHandler(args: ClickEventArgs): void {
             ORDENES = res;
             ORDEN = res;
             this.dataOrdes = ORDEN
-            console.log('Data', this.dataOrdes);
+            // console.log('Data', this.dataOrdes);
 
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/GetAliasById?Id='+ idMaquina)
     .pipe(takeWhile(() => this.alive))
@@ -751,7 +836,7 @@ clickHandler(args: ClickEventArgs): void {
       this.aliasData=res;
       this.source.load(res);
       event.confirm.resolve();
-      console.log('Create: ', this.aliasData);
+      // console.log('Create: ', this.aliasData);
     });
     event.confirm.resolve();
     // console.log('Se agregó',event.newData);
@@ -959,7 +1044,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       },
     );
   }
-
+ 
   openWindow2(contentTemplate2, titleValue: string, orderValue: string, nameValue: string, descripcionValue: string, referenciaValue: string, orderLengthValue: number) {
 
     this.windowService.open(

@@ -123,7 +123,7 @@ export class WindowComponent2  implements OnInit {
     public states: Object = { text: 'name', value: 'id' };
 
     loadDataForm(){
-      debugger
+      // debugger
        if (ORDEN.order == "") {
         console.log('cambios');
         this.mostrar = false;
@@ -161,7 +161,7 @@ export class WindowComponent2  implements OnInit {
     orderList= ORDERLIST;
 
   openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
-    debugger
+    // debugger
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
@@ -196,7 +196,7 @@ export class WindowComponent2  implements OnInit {
 
   Guardar(){
     let formulario = this.arrumeManualForm.value;
-debugger
+// debugger
 
     if(formulario.orderForm){
     
@@ -267,11 +267,13 @@ debugger
  
     if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){
       // this.ChangeState();
+      console.log('Data OrderManual', STATUSPACKAGE);
+      
       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
             
                    this.messageService.sendMessage('PackageUpdate');
                      this.handleSuccessResponse();
-                    
+                     
                  });
     }else if("eliminar estado"){
       Swal.fire({

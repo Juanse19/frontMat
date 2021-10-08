@@ -9,11 +9,13 @@ import { Syncro } from '../../../pages/dashboard/_interfaces/MatBox.model';
 import { NbAccessChecker } from '@nebular/security';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
-import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, CommandModel } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, 
+  EditService, PageService, SortService, CommandColumnService, CommandModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 @Component({
   selector: 'ngx-syncro',
+  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
   templateUrl: './syncro.component.html',
   styleUrls: ['./syncro.component.scss']
 })
@@ -29,6 +31,7 @@ export class SyncroComponent implements OnInit {
   public editparams: Object;
   public commands: CommandModel[];
   public filterOptions: FilterSettingsModel;
+  public initialSort: Object;
 
   /** Table de información Syncro */
   settings6 = {

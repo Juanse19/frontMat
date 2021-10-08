@@ -12,7 +12,7 @@
                 </nb-card-body> -->
 
                 <ejs-grid [dataSource]='Alarm' [editSettings]='editSettings' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  (actionBegin)="actionBegin($event)"  [allowPaging]="true"
-                [pageSettings]="pageSettings" [filterSettings]="filterOptions" allowTextWrap="true"
+                [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
                 [allowFiltering]="true" height='350'>
                     <e-columns>
                         
@@ -39,7 +39,7 @@
                     </ng2-smart-table>
                 </nb-card-body> -->
 
-                <ejs-grid [dataSource]='Alarms' [allowPaging]="true" allowTextWrap='true'  [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true" height='400'>
+                <ejs-grid [dataSource]='Alarms' allowSorting='true' [allowPaging]="true" allowTextWrap='true'  [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true" height='400'>
                     <e-columns>
                         <e-column field='message' headerText='Mensaje' width=180></e-column>
                         <e-column field='level' headerText='Nivel' width=75></e-column>

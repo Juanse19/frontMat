@@ -16,16 +16,16 @@ import { User, UserData } from '../../../@core/interfaces/common/users';
 import { UserStore } from '../../../@core/stores/user.store';
 import { LocalDataSource } from 'ng2-smart-table';
 import Swal from 'sweetalert2';
-import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Dialog, DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { EmitType } from '@syncfusion/ej2-base';
 
 
 interface Propiedades {
-  id?: number;
-  name: string;
-  description: string;
+  id?: number; 
+  name: string; 
+  description: string; 
   isOn: boolean;
   type: string;
   valor: string;
@@ -197,8 +197,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
 }
 
 @Component({
-  providers: [
-    ToolbarService, EditService, PageService, CommandColumnService,
+  providers: [ ToolbarService, EditService, PageService, SortService, CommandColumnService,
     ApiGetService,
     DecimalPipe,
     WindowComponent2,
@@ -229,6 +228,8 @@ export class WindowComponent implements OnInit {
   public orderForm: FormGroup;
 
   public submitClicked: boolean = false;
+
+  public initialSort: Object;
 
   subscription: Subscription;
   windowRef:NbWindowRef;
@@ -486,7 +487,7 @@ actionBegin(args) {
 }
 
 clickHandler(args: ClickEventArgs): void {
-  debugger
+  // debugger
   if (args.item.id === 'Click') {
     console.log('click: ', args);
     this.accessChecker.isGranted('edit', 'ordertable')
@@ -978,6 +979,7 @@ clickHandler(args: ClickEventArgs): void {
       this.handleSuccessResponse();
     }      
       );
+      this.back();
   }
 
    public moveSelected(direction) {

@@ -13,6 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 interface Ordenes {
   id?: number;
+  batch?: number;
   order: string;
   name: string;
   description: string;
@@ -27,6 +28,7 @@ interface Ordenes {
 
 interface OrdenActualizar {
   id:number;
+  batch:number;
   orden: string;
   referencia: string;
   origen: string;
@@ -129,6 +131,7 @@ public selectedOrigen ;
   @ViewChild('largoValor') largoValor: ElementRef;
   @ViewChild('priorityValue') priorityValue: ElementRef;
   @ViewChild('referenciaValor') referenciaValor: ElementRef;
+  @ViewChild('batchValor') batchValor: ElementRef;
 
 
 
@@ -155,6 +158,8 @@ public selectedOrigen ;
     // this.MaquinasDestinoLista();
     ORDEN = orden;
     this.data = orden;
+    // console.log('EditOr', this.data);
+    
     DESTINO = {
       value : orden.description,
       label : orden.description,
@@ -174,7 +179,7 @@ public selectedOrigen ;
       DESTINOS = res;
       });
   }
-
+ 
   MaquinasOrigenLista() {
 
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerMaquinasOrigenLista').subscribe((res: any) => {
@@ -238,8 +243,10 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       cortesAncho: Number(this.anchoValor.nativeElement.value),
       cortesLargo: Number(this.largoValor.nativeElement.value),
       priority: Number(this.priorityValue.nativeElement.value),
+      batch: Number(this.batchValor.nativeElement.value),
       PreviousPriority: this.data.priority,
     };
+    // console.log('Data EditOrder', ORDENESACTUALIZAR);
 
     this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarOrden', ORDENESACTUALIZAR).subscribe((res: any) => {
       this.messageService.sendMessage('orderTable');

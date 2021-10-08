@@ -11,7 +11,7 @@
 
         <ejs-grid [dataSource]='dataConfigu' [editSettings]='editSettings' [toolbar]='toolbar'
          (actionBegin)='actionBegin($event)'  [allowPaging]="true"
-        [pageSettings]="pageSettings" [filterSettings]="filterOptions" allowTextWrap="true"
+        [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
         [allowFiltering]="true">
             <e-columns>
                 <e-column headerText='Editar' width='30' textAlign='Left' [commands]='commands'></e-column>

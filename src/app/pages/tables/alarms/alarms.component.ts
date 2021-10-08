@@ -8,7 +8,7 @@ import { NbToastrService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
 import { NbAccessChecker } from '@nebular/security';
 import { UserStore } from '../../../@core/stores/user.store';
-import { GridComponent, PageSettingsModel, FilterSettingsModel, CommandClickEventArgs, 
+import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, CommandClickEventArgs, 
   EditService, CommandColumnService, CommandModel, ToolbarService, PageService,
    ToolbarItems } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
@@ -35,8 +35,8 @@ let ALARMAS: Alarmas[] = [
 @Component({
   selector: 'ngx-alarms',
   templateUrl: './alarms.component.html',
-  providers: [ToolbarService, EditService, PageService, CommandColumnService],
-  styleUrls: ['./alarms.component.scss']
+  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
+  styleUrls: ['./alarms.component.scss'] 
 })
 export class AlarmsComponent implements OnDestroy {
 
@@ -55,6 +55,7 @@ export class AlarmsComponent implements OnDestroy {
   public editparams: Object;
   public commands: CommandModel[];
   public filterOptions: FilterSettingsModel;
+  public initialSort: Object;
 
   alarmas = ALARMAS;
 

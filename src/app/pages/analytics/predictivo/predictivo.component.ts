@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import { GridComponent, PageSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, ToolbarService, EditService, PageService, SortService, CommandColumnService, PageSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 interface Predictive {
   maquina: string;
@@ -19,6 +19,7 @@ interface Predictive {
 
 @Component({
   selector: 'ngx-predictivo',
+  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
   templateUrl: './predictivo.component.html',
   styleUrls: ['./predictivo.component.scss']
 })
@@ -27,6 +28,8 @@ export class PredictivoComponent implements OnInit {
   public pageSettings: PageSettingsModel;
 
   public filterOptions: FilterSettingsModel;
+
+  public initialSort: Object;
 
   private alive = true;
 

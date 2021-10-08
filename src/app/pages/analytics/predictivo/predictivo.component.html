@@ -9,7 +9,7 @@
       </ng2-smart-table> -->
 
       <ejs-grid [dataSource]='GetPredictive' [allowPaging]="true" [pageSettings]='pageSettings' 
-      [filterSettings]='filterOptions' [allowFiltering]="true" width=125%>
+      [filterSettings]='filterOptions' allowSorting='true' [allowFiltering]="true" width=125%>
           <e-columns>
               <e-column field='maquina' headerText='Maquina' width=70></e-column>
               <e-column field='metrosPor10MinCorrugador' headerText='MetrosPor10MinCorrugador' width=75></e-column>

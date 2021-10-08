@@ -63,7 +63,7 @@
 
 			<nb-card-body>
 				<ejs-grid #grid [dataSource]='dataOrdes' [allowPaging]="true" [pageSettings]='pageSettings' 
-        [filterSettings]='filterOptions' [editSettings]='editSettings' [toolbar]='toolbarOptions'   (actionBegin)="actionBegin($event)" 
+        [filterSettings]='filterOptions' allowSorting='true' [editSettings]='editSettings' [toolbar]='toolbarOptions'   (actionBegin)="actionBegin($event)" 
         (created)='created($event)' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  allowTextWrap='true' [allowFiltering]="true" 
 		width=100%>
 					<e-columns> 

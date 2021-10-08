@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import { GridComponent, PageSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, PageSettingsModel, ToolbarService, EditService, PageService, SortService, CommandColumnService, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 interface ReportOcupation {
   id: number;
@@ -17,6 +17,7 @@ interface ReportOcupation {
 
 @Component({
   selector: 'ngx-ocupacion',
+  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
   templateUrl: './ocupacion.component.html',
   styleUrls: ['./ocupacion.component.scss']
 })
@@ -28,6 +29,8 @@ export class OcupacionComponent implements OnInit {
 
   private alive = true;
 
+  public initialSort: Object;
+ 
   /** Table de ocupacion del sistema */
   settings1 = {
     actions: false,

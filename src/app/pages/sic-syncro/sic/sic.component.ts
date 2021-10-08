@@ -9,13 +9,13 @@ import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { NbToastrService } from '@nebular/theme';
 import { NbAccessChecker } from '@nebular/security';
-import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 @Component({
   selector: 'ngx-sic',
   templateUrl: './sic.component.html',
-  providers: [ToolbarService, EditService, PageService, CommandColumnService],
+  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
   styleUrls: ['./sic.component.scss']
 })
 export class SicComponent implements OnInit {
@@ -30,6 +30,7 @@ export class SicComponent implements OnInit {
   public editparams: Object;
   public commands: CommandModel[];
   public filterOptions: FilterSettingsModel;
+  public initialSort: Object;
   
   /** Table de infromación Sic */
   settings5 = {

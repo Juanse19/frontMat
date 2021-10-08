@@ -118,7 +118,7 @@ export class WindowComponent2  implements OnInit {
       this.loadDataForm();
     }
 
-    public fields: Object = { text: 'order', value: 'order' };
+    public fields: Object = { text: 'order', value: 'id' };
 
     public states: Object = { text: 'name', value: 'id' };
 
@@ -132,7 +132,7 @@ export class WindowComponent2  implements OnInit {
         this.mostrar = true;
         this.arrumeManualForm.setValue({
           id: ORDEN.id,
-          orderForm: ORDEN.order,
+          orderForm: this.orderList[5].id,
           cutLengthForm: ORDEN.cutLength,
           cutCountForm: ORDEN.cutsCount,
           // cutForm: ORDEN.cutsCount,
@@ -140,6 +140,8 @@ export class WindowComponent2  implements OnInit {
           quantityForm: 1,
           expressForm:ORDEN.express,
       });
+      console.log('OrdenManual', this.arrumeManualForm);
+      
       }
       
     }
@@ -161,7 +163,7 @@ export class WindowComponent2  implements OnInit {
     orderList= ORDERLIST;
 
   openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
-    // debugger
+    debugger
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
@@ -184,6 +186,8 @@ export class WindowComponent2  implements OnInit {
       this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((resOrder: any) => {
         ORDERLIST=resOrder;
         this.orderList=ORDERLIST;
+        console.log('Ordenes=->', this.orderList);
+        
         STATUS=res;
         this.status=STATUS;
         win=this.windowService.open(WindowComponent2, { title: nombreWindow});
@@ -198,19 +202,24 @@ export class WindowComponent2  implements OnInit {
     let formulario = this.arrumeManualForm.value;
 // debugger
 
+    const myOrd = formulario.orderForm.split('-', 1);
+
     if(formulario.orderForm){
     
       STATUSPACKAGE = {
         id:formulario.id,
         idStatus:formulario.statusForm,
         cutLength:formulario.cutLengthForm,
-        Order:formulario.orderForm,
+        Order:String(myOrd),
         idDevice:ORDEN.idDevice, 
         cutCount:formulario.cutCountForm,
         quantity: formulario.quantityForm,
         express: formulario.expressForm
       } 
     }
+
+    
+    
 
     if (formulario.cutLengthForm == 0 && formulario.cutCountForm == 0 && formulario.quantityForm == 0) {
       // alert('No ingresaste Longitud ni cantidad')

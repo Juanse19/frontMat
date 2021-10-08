@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import { GridComponent, PageSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, ToolbarService, EditService, PageService, SortService, CommandColumnService, PageSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 interface Ordersnotwip {
   orderId: number;
@@ -19,6 +19,7 @@ interface Ordersnotwip {
 
 @Component({
   selector: 'ngx-ordenes-no-wips',
+  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
   templateUrl: './ordenes-no-wips.component.html',
   styleUrls: ['./ordenes-no-wips.component.scss']
 })
@@ -29,6 +30,8 @@ export class OrdenesNoWipsComponent implements OnInit {
   public filterOptions: FilterSettingsModel;
 
   private alive = true;
+
+  public initialSort: Object;
 
   /** Table de ordenes que no encajan en los wips */
   settings2 = {

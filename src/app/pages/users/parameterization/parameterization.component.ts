@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, CommandModel, ToolbarService, EditService, PageService, CommandColumnService, DialogEditEventArgs, SaveEventArgs } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, ToolbarItems, CommandModel, ToolbarService, EditService, PageService, CommandColumnService, DialogEditEventArgs, SaveEventArgs } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { takeWhile } from 'rxjs/operators';
 import { NbAccessChecker } from '@nebular/security';
@@ -35,7 +35,7 @@ interface confi {
 @Component({
   selector: 'ngx-parameterization',
   templateUrl: './parameterization.component.html',
-  providers: [ToolbarService, EditService, PageService, CommandColumnService],
+  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
   styleUrls: ['./parameterization.component.scss']
 })
 export class ParameterizationComponent implements OnInit {
@@ -50,6 +50,7 @@ export class ParameterizationComponent implements OnInit {
   public shipCityDistinctData: Object[];
   public shipCountryDistinctData: Object[];
   public submitClicked: boolean = false;
+  public initialSort: Object;
 
   public select = false;
   private alive = true;

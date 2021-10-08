@@ -15,7 +15,7 @@ import {HttpService} from '../../../@core/backend/common/api/http.service'
 import { MessageService } from '../../dashboard/services/MessageService';
 import { Identifiers } from '@angular/compiler';
 import { NbAccessChecker } from '@nebular/security';
-import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
   interface Ordenes {
@@ -78,7 +78,8 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
      ,WindowCreateComponent,
      ToolbarService, 
      EditService, 
-     PageService, 
+     PageService,
+     SortService, 
      CommandColumnService
     // , WindowFormComponent
     ],
@@ -102,6 +103,8 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
   public commands: CommandModel[];
 
   public editSettings: Object;
+
+  public initialSort: Object;
 
   // public toolbar: string[];
 

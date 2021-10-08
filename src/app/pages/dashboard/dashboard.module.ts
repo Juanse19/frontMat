@@ -59,6 +59,7 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { PageService, SortService, FilterService, GroupService, ToolbarService } from '@syncfusion/ej2-angular-grids';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
+import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 
 @NgModule({
@@ -92,6 +93,7 @@ import { DialogModule } from '@syncfusion/ej2-angular-popups';
     DropDownListAllModule,
     DialogModule,
     NbCheckboxModule,
+    ComboBoxModule,
   ],
   declarations: [
     DashboardComponent,

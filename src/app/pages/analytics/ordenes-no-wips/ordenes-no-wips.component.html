@@ -9,7 +9,7 @@
       </ng2-smart-table> -->
 
       <ejs-grid [dataSource]='ReportOrdersnotwip' [allowPaging]="true" [pageSettings]='pageSettings' 
-            [filterSettings]='filterOptions' [allowFiltering]="true" width=100%>
+            [filterSettings]='filterOptions' allowSorting='true' [allowFiltering]="true" width=100%>
                 <e-columns>
                     <e-column field='batch' headerText='Batch' width=70></e-column>
                     <e-column field='order' headerText='Orden' width=75></e-column>

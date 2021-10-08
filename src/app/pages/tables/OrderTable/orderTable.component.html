@@ -103,7 +103,7 @@
 <nb-card>
     <nb-card-body>
         <ejs-grid #grid [dataSource]='orderdata' [allowPaging]="true" [pageSettings]='pageSettings' 
-        [filterSettings]='filterOptions' [editSettings]='editSettings' [toolbar]='toolbarOptions'   (actionBegin)="actionBegin($event)" 
+        [filterSettings]='filterOptions' allowSorting='true' [editSettings]='editSettings' [toolbar]='toolbarOptions'   (actionBegin)="actionBegin($event)" 
         (created)='created($event)' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  allowTextWrap='true' [allowFiltering]="true" >
             <e-columns> 
                 <e-column field='id' headerText='id' width=70></e-column>

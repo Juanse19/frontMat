@@ -10,7 +10,7 @@
         </ng2-smart-table> (actionBegin)="actionComplete($event)" -->
 
         <ejs-grid [dataSource]='dataOrposition' [editSettings]='editSettings' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'
-         (actionBegin)='actionBegin($event)'  [allowPaging]="true"
+         (actionBegin)='actionBegin($event)' allowSorting='true' [allowPaging]="true"
         [pageSettings]="pageSettings" [filterSettings]="filterOptions" allowTextWrap="true"
         [allowFiltering]="true" width=100%>
             <e-columns>

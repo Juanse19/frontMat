@@ -8,7 +8,7 @@
       <!-- <ng2-smart-table class="example-smart-table" [settings]="settings1" [source]="source1">
       </ng2-smart-table> -->
 
-      <ejs-grid [dataSource]='ReportOcupation' [allowPaging]="true" [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true">
+      <ejs-grid [dataSource]='ReportOcupation' allowSorting='true' [allowPaging]="true" [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true">
         <e-columns>
             <e-column field='name' headerText='Nombre' width=120></e-column>
             <e-column field='totalOcupated' headerText='Capacidad Total (mt)' width=120></e-column>

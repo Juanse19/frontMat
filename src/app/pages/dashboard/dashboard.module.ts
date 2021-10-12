@@ -61,6 +61,7 @@ import { PageService, SortService, FilterService, GroupService, ToolbarService }
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
+import { LastalarmComponent } from './lastalarm/lastalarm.component';
 
 @NgModule({
   imports: [
@@ -117,6 +118,7 @@ import { DialogModule } from '@syncfusion/ej2-angular-popups';
     JacComponent,
     WindowComponent,
     WindowComponent2,
+    LastalarmComponent,
   ],
   providers: [
     PageService, 

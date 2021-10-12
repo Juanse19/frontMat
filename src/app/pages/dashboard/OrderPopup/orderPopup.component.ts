@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderTableComponent } from '../../tables/OrderTable/orderTable.component';
 import { SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import { takeWhile } from 'rxjs/operators';
+import { NumberMapper } from '@syncfusion/ej2-base/src/intl/parser-base';
 
 interface Ordenes {
   id: number;
@@ -31,6 +33,11 @@ interface ordens{
 interface Status {
   id:number,
   name:string,
+}
+
+interface ordersSta {
+  id:number,
+  Order:string,
 }
 
 interface StatusPackage {
@@ -58,6 +65,7 @@ express:false
 };
 
 let STATUS: Status;
+let ORDESTA: ordersSta;
 
 let ORDERLIST: Ordenes[];
 
@@ -78,9 +86,15 @@ export class WindowComponent2  implements OnInit {
 
   mostrar = false
 
+  private alive = true;
+
   ocultar: Boolean;
 
   quantitys = 0
+
+  public idor: number;
+
+  public ordeDa: ordersSta[];
 
   get orderForm() { return this.arrumeManualForm.get('orderForm'); }
 
@@ -129,10 +143,13 @@ export class WindowComponent2  implements OnInit {
         this.mostrar = false;
         this.ocultar = false;
        } else {
+         debugger
+
         this.mostrar = true;
+       
         this.arrumeManualForm.setValue({
           id: ORDEN.id,
-          orderForm: this.orderList[5].id,
+          orderForm: ORDESTA.id,
           cutLengthForm: ORDEN.cutLength,
           cutCountForm: ORDEN.cutsCount,
           // cutForm: ORDEN.cutsCount,
@@ -140,7 +157,6 @@ export class WindowComponent2  implements OnInit {
           quantityForm: 1,
           expressForm:ORDEN.express,
       });
-      console.log('OrdenManual', this.arrumeManualForm);
       
       }
       
@@ -161,6 +177,7 @@ export class WindowComponent2  implements OnInit {
     data = ORDEN;
     status= STATUS;
     orderList= ORDERLIST;
+    or=ORDESTA
 
   openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
     debugger
@@ -181,17 +198,26 @@ export class WindowComponent2  implements OnInit {
 
     }
    
-    
+      const myOrden = this.data.order.split('-', 1);
+
+      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderId?orden=' + myOrden ).subscribe((resId: any) => {
+      ORDESTA = resId[0];
+      this.or = ORDESTA;
+      // console.log('data id', this.or.id);
+    });
+
+
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {
       this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((resOrder: any) => {
+        
+      
         ORDERLIST=resOrder;
         this.orderList=ORDERLIST;
-        console.log('Ordenes=->', this.orderList);
-        
+
         STATUS=res;
         this.status=STATUS;
         win=this.windowService.open(WindowComponent2, { title: nombreWindow});
-       
+    
       });
     });
   }
@@ -202,7 +228,7 @@ export class WindowComponent2  implements OnInit {
     let formulario = this.arrumeManualForm.value;
 // debugger
 
-    const myOrd = formulario.orderForm.split('-', 1);
+    // const myOrd = formulario.orderForm.split('-', 1);
 
     if(formulario.orderForm){
     
@@ -210,7 +236,8 @@ export class WindowComponent2  implements OnInit {
         id:formulario.id,
         idStatus:formulario.statusForm,
         cutLength:formulario.cutLengthForm,
-        Order:String(myOrd),
+        // Order:String(myOrd),
+        Order:String(formulario.orderForm),
         idDevice:ORDEN.idDevice, 
         cutCount:formulario.cutCountForm,
         quantity: formulario.quantityForm,

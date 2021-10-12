@@ -1,0 +1,14 @@
+<nb-card>
+    <ejs-grid [dataSource]='Alarm' [editSettings]='editSettings'   
+                 allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
+                [allowFiltering]="true" >
+                    <e-columns>
+                        
+                        <e-column field='message' headerText='Mensaje' width=190 isPrimaryKey='true'></e-column>
+                        <e-column field='level' headerText='Nivel' width=85></e-column>
+                        <!-- <e-column field='userId' headerText='Usuario' width=100></e-column> -->
+                        <e-column field='STD' headerText='Fecha' width=75 type="date" format="dd/MM/yyyy hh:mm:ss a"></e-column>
+                        <!-- <e-column headerText='Administrar Alarmas' width='100' [commands]='commands'></e-column> -->
+                    </e-columns>
+                </ejs-grid>
+</nb-card>

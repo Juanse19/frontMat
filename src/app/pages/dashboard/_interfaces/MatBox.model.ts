@@ -119,6 +119,11 @@ export interface RouteCTS {
   RutaCt2: string,
 }
 
+export interface PedidoStackers {
+  OrderNumber: string,
+  Origen: string
+}
+
 export interface PackagesWIP {
   id: number,
   order: string,

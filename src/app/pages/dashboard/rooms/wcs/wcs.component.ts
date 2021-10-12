@@ -14,7 +14,7 @@ import { HttpService } from '../../../../@core/backend/common/api/http.service';
 
 import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
-import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS } from '../../_interfaces/MatBox.model';
+import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS, PedidoStackers } from '../../_interfaces/MatBox.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { truncateSync } from 'node:fs';
 
@@ -38,6 +38,8 @@ export class WcsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   
   intervalSubscriptionRouteName: Subscription;
+  intervalSubscriptionPeriodoStacker: Subscription;
+  intervalSubscriptionPeriodoStacker1: Subscription;
   intervalSubscriptionCT: Subscription;
   intervalSubscriptionCT1: Subscription;
   intervalSubscriptionCT2: Subscription;
@@ -132,7 +134,7 @@ export class WcsComponent implements OnInit, OnDestroy {
     StatuscT2: false,       
     StatuscT1: false,       
     Statustm: false,       
-    StatustF1: true,       
+    StatustF1: true,        
     StatustF2: true,
     StatusPrefeeder_Martin: true,
     StatusPrefeeder_Js: true,
@@ -153,6 +155,15 @@ export class WcsComponent implements OnInit, OnDestroy {
     RutaCtB: "CtB",
     RutaCt1: "Ct1",
     RutaCt2: "Ct2",
+  }
+
+  public dataPeriodoStackerAbove: PedidoStackers = {
+    OrderNumber: "243501",
+    Origen: "ARRIBA"
+  }
+  public dataPeriodoStackerDown: PedidoStackers = {
+    OrderNumber: "243276",
+    Origen: "ABAJO"
   }
 
   public dataWipColor: WipColor = {
@@ -333,6 +344,43 @@ export class WcsComponent implements OnInit, OnDestroy {
  
   }
 
+  public PedidoStackersAboveCharge(){
+
+    if (this.intervalSubscriptionPeriodoStacker) {
+      this.intervalSubscriptionPeriodoStacker.unsubscribe();
+    }
+    
+    this.intervalSubscriptionPeriodoStacker = interval(1000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/PedidoStackers?origen=arriba')),
+    )
+    .subscribe((res: any) => {
+      
+      this.dataPeriodoStackerAbove  = res[0];
+
+      // console.log('periodosStakerArriba',this.dataPeriodoStackerAbove);
+    });
+  }
+
+  public PedidoStackersDownCharge(){
+
+    if (this.intervalSubscriptionPeriodoStacker1) {
+      this.intervalSubscriptionPeriodoStacker1.unsubscribe();
+    }
+    
+    this.intervalSubscriptionPeriodoStacker1 = interval(1000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/PedidoStackers?origen=abajo')),
+    )
+    .subscribe((res: any) => {
+      this.dataPeriodoStackerDown  = res[0];
+
+      // console.log('periodosStakerAbajo',this.dataPeriodoStackerDown);
+    });
+  }
+
 
   ngOnInit(): void {
     this.GetOrderProcess();
@@ -342,6 +390,8 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.WipNameCharge();
     // this.showStatusAlarms();
     this.RouteCtsCharge();
+    this.PedidoStackersAboveCharge();
+    this.PedidoStackersDownCharge();
     // this.showStatusName();
     // this.showSatatusRouteCts();
     // this.StatusAlarmCharge();

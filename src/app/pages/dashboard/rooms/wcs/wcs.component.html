@@ -792,6 +792,7 @@
                 </g>
         </g>
         <g class="cls-5">
+           
             <!-- <image id="Layer_0_Imagen-27" data-name="Layer 0 Imagen" width="2282" height="1080"
                 transform="translate(26.77) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout26.png"  /> -->
                 <image style="overflow:visible;" width="2164" height="279" id="Layer_0_xA0_Imagen_38_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACHgAAAEgCAYAAADFDVa5AAAACXBIWXMAAEv4AABL+AH1AqXHAAAA
@@ -2471,6 +2472,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwin8jwABMWeS/PF6wYwAAAABJRU5E
 rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
 	</image>
         </g>
+        <text x="234" y="42.39" class="st12">{{dataPeriodoStackerAbove.OrderNumber}}</text>
+        <text x="234" y="49.39" class="st16">{{dataPeriodoStackerAbove.Origen}}</text>
+        <text x="256" y="42.39" class="st12">{{dataPeriodoStackerDown.OrderNumber}}</text>
+        <text x="256" y="49.39" class="st15">{{dataPeriodoStackerDown.Origen}}</text>
         <image id="Layer_0_Imagen-28" data-name="Layer 0 Imagen" width="138" height="72"
             transform="translate(264.65 203.12) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout27.png" (click)="ClicIM7()" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorSYS + ')
@@ -2799,38 +2804,9 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
     </svg>
     </div>
     </nb-card>
-
-    <!-- <nb-card>
+ 
+    <nb-card>
         <nb-card-body>
-            <h1>Ultima Alarma</h1>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </table>
+            <ngx-lastalarm></ngx-lastalarm>
         </nb-card-body>
-    </nb-card> -->
+    </nb-card>

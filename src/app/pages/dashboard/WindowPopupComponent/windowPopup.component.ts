@@ -58,6 +58,7 @@ interface Ordenes {
   idDevice:number;
   timeStamp?:string;
   express:boolean;
+  idOrder: number;
 }
 
 interface Data {
@@ -110,6 +111,24 @@ interface Alias {
   IdAlias: number;
   Name: string;
   Alias: string;
+}
+
+interface Pedidos {
+  OfficeIDCTI: number,
+  Pedido: number,
+  Destino: string,
+  IdTarget: number,
+  EspesorLamina_Planeado: number,
+  OrdenProgramacion: number,
+  Estado: string,
+  EstadoMaquina: null,
+  LargoLamina_Planeado: number,
+  AnchoLamina_Planeado: number,
+  FechaRegistro: string,
+  Tarjeta: string,
+  CorrInvertida: boolean,
+  IdOrderSic: number,
+  ListaCorteSIC: number
 }
 
 let ORDENES: Ordenes[] = [
@@ -179,6 +198,8 @@ let ALIAS: Alias;
 
 }
 
+let PediProgramados: Pedidos;
+
 let PROPIEDADESACTUALIZAR: PropiedadesActualizar;
 {
 
@@ -187,14 +208,14 @@ let PROPIEDADESACTUALIZAR: PropiedadesActualizar;
 let win:NbWindowRef;
 
 
-function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
-  return ordenes.order.toLowerCase().includes(term)
-    || ordenes.name.toLowerCase().includes(term.toLowerCase())
-    || ordenes.description.toLowerCase().includes(term.toLowerCase())
-    || ordenes.reference.toLowerCase().includes(term)
-    || pipe.transform(ordenes.cutLength).includes(term)
-    || pipe.transform(ordenes.cutsCount).includes(term)
-}
+// function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
+//   return ordenes.order.toLowerCase().includes(term)
+//     || ordenes.name.toLowerCase().includes(term.toLowerCase())
+//     || ordenes.description.toLowerCase().includes(term.toLowerCase())
+//     || ordenes.reference.toLowerCase().includes(term)
+//     || pipe.transform(ordenes.cutLength).includes(term)
+//     || pipe.transform(ordenes.cutsCount).includes(term)
+// }
 
 @Component({
   providers: [ ToolbarService, EditService, PageService, SortService, CommandColumnService,
@@ -250,6 +271,8 @@ export class WindowComponent implements OnInit {
 
   aliasData = ALIAS;
 
+  pedidosData = PediProgramados
+
   dataOrdes = ORDEN
 
   // public select=true;
@@ -260,6 +283,7 @@ export class WindowComponent implements OnInit {
   toggleNgModel = true;
   public selec = false;
   public ocultar = false;
+  public ocultarPedido = false;
   
 
   devicesType = DEVICESTYPE;
@@ -322,10 +346,18 @@ export class WindowComponent implements OnInit {
     ) {
 
       if (IDMAQUINA === 48 ||  IDMAQUINA === 49 || IDMAQUINA === 51 ||  IDMAQUINA === 52) {
-        debugger
+        
         this.ocultar = false;
       } else {
         this.ocultar = true;
+      }
+
+      if (IDMAQUINA === 22 ||  IDMAQUINA === 39 || IDMAQUINA === 40 ||  IDMAQUINA === 41 || 
+        IDMAQUINA === 43 ||  IDMAQUINA === 44 ||  IDMAQUINA === 45) {
+        // debugger
+        this.ocultarPedido = true;
+      } else {
+        this.ocultarPedido = false;
       }
 
       if (IDMAQUINA === 36 ||  IDMAQUINA === 40) {
@@ -340,7 +372,7 @@ export class WindowComponent implements OnInit {
         if (message.text=="PackageUpdate") {
           // debugger
           //this.messages.push(message);
-          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ this.idMaquina)
+          this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ this.idMaquina)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
             // ORDENES = res;
@@ -539,7 +571,7 @@ clickHandler(args: ClickEventArgs): void {
     // } 
 
     // 2. filter
-    ordenes = ordenes.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
+    // ordenes = ordenes.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
     const total = ordenes.length;
 
     // 3. paginate
@@ -680,7 +712,7 @@ clickHandler(args: ClickEventArgs): void {
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina;
 
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina)
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ idMaquina)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
             this.orderData = res;
@@ -696,6 +728,14 @@ clickHandler(args: ClickEventArgs): void {
       this.aliasData=ALIAS;
       this.source.load(res);
       // console.log('alias: ', this.aliasData);
+
+      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/PedidosProgramados?IdMaquina='+ idMaquina)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        PediProgramados = res;
+        this.pedidosData=PediProgramados;
+        // console.log('pedidosData', this.pedidosData);
+        
 
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipFree?idTarget='+ idMaquina)
     .pipe(takeWhile(() => this.alive))
@@ -736,6 +776,7 @@ clickHandler(args: ClickEventArgs): void {
         });
       });
     });
+  });
   }
   // public selection = true;
   DataLoadBasic(idMaquina: number){
@@ -749,7 +790,7 @@ clickHandler(args: ClickEventArgs): void {
         this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipForTarget?idTarget='+ idMaquina).subscribe((res: any) => {
           WIPLIST=res;
           this.wipLista=WIPLIST;
-          this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrdersMaqina?idMaquina='+ idMaquina).subscribe((res: any) => {
+          this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ idMaquina).subscribe((res: any) => {
             ORDENES = res;
             
             this.propiedades = PROPIEDADES;
@@ -929,7 +970,7 @@ clickHandler(args: ClickEventArgs): void {
   handleSuccessResponse() {
 
     this.toasterService.success(' Información actualizada con exito' );
-    this.back();
+    // this.back();
   }
   back() {
     win.close();
@@ -979,7 +1020,7 @@ clickHandler(args: ClickEventArgs): void {
       this.handleSuccessResponse();
     }      
       );
-      this.back();
+      // this.back();
   }
 
    public moveSelected(direction) {
@@ -1065,7 +1106,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     );
   }
   
-  EditPackage(id:number,order:string,state:string, stateId:number, priority:number, cutLength:number, cutsCount:number, express:boolean, idDevice:number){
+  EditPackage(id:number,idOrder: number,order:string,state:string, stateId:number, priority:number, cutLength:number, cutsCount:number, express:boolean, idDevice:number){
     ORDEN=
     {
       id:id, 
@@ -1077,6 +1118,7 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       cutsCount:cutsCount,
       express:express,
       idDevice:idDevice,
+      idOrder:idOrder,
     };
     
     this.orderPopup.openWindowForm("Package: "+ order,ORDEN, this.idMaquina)

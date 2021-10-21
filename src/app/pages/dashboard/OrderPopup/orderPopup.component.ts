@@ -23,6 +23,7 @@ interface Ordenes {
   stateId: number;
   idDevice:number;
   express:boolean;
+  idOrder:number;
 }
 
 interface ordens{
@@ -61,7 +62,8 @@ stateId:1,
 cutLength:0,
 cutsCount:0,
 idDevice:0,
-express:false
+express:false,
+idOrder: 0
 };
 
 let STATUS: Status;
@@ -149,7 +151,7 @@ export class WindowComponent2  implements OnInit {
        
         this.arrumeManualForm.setValue({
           id: ORDEN.id,
-          orderForm: ORDESTA.id,
+          orderForm: ORDEN.idOrder,
           cutLengthForm: ORDEN.cutLength,
           cutCountForm: ORDEN.cutsCount,
           // cutForm: ORDEN.cutsCount,
@@ -184,6 +186,8 @@ export class WindowComponent2  implements OnInit {
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
+      console.log('data orden', this.data);
+      
     }else{
       ORDEN ={
         id:-1,
@@ -194,17 +198,18 @@ export class WindowComponent2  implements OnInit {
         cutsCount:0,
         express:false,
         idDevice:idMaquina,
+        idOrder:0
       };
 
     }
    
-      const myOrden = this.data.order.split('-', 1);
+    //   const myOrden = this.data.order.split('-', 1);
 
-      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderId?orden=' + myOrden ).subscribe((resId: any) => {
-      ORDESTA = resId[0];
-      this.or = ORDESTA;
-      // console.log('data id', this.or.id);
-    });
+    //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderId?orden=' + myOrden ).subscribe((resId: any) => {
+    //   ORDESTA = resId[0];
+    //   this.or = ORDESTA;
+    //   console.log('data id', this.or.id);
+    // });
 
 
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {

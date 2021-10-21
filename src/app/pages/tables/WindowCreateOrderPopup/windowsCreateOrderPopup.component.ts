@@ -57,6 +57,7 @@ interface OrdenCrear {
   productMissing: number;
   signalStart: boolean;
   sheetScrap: string;
+  corrInverted: boolean;
 }
 
 
@@ -103,6 +104,17 @@ let ORIGEN: MaquinasOrigen
 
 };
 
+interface CorrInvertida {
+  id?: number;
+  value: boolean;
+  label: boolean;
+}
+
+let CORRINVERTIDA: CorrInvertida;
+{
+
+}
+
 let ORDEN: Ordenes 
 {
 
@@ -143,6 +155,7 @@ export class WindowCreateComponent {
   maquinaDestino = DESTINO;
   origen = ORIGENES;
   maquinaOrigen = ORIGEN;
+  corrInvertida = CORRINVERTIDA;
 
 public selectedDestino ;
 public selectedOrigen ;
@@ -162,6 +175,7 @@ public selectedOrigen ;
   @ViewChild('sheetsThicknessValor') sheetsThicknessValor:ElementRef;
   @ViewChild('productsMissingValor') productsMissingValor:ElementRef;
   @ViewChild('sheetScrapValor') sheetScrapValor:ElementRef;
+  @ViewChild('corrInvertedValor') corrInvertedValor: ElementRef;
 
 
 
@@ -182,6 +196,7 @@ public selectedOrigen ;
     data = ORDEN;
     dataOption2
     toggleNgModel = true;
+    toggleNgModelInver = false;
 
 
 openWindowForm(nombreWindow:string, texto:string) {   
@@ -301,12 +316,17 @@ openWindow(contentTemplate, titleValue:string, textValue:string, numberValue: nu
       destino: this.maquinaDestino.value,
       productMissing:  Number(this.productsMissingValor.nativeElement.value),
       signalStart: this.toggleNgModel,
-      sheetScrap: this.sheetScrapValor.nativeElement.value
+      sheetScrap: this.sheetScrapValor.nativeElement.value,
+      corrInverted: this.toggleNgModelInver,
     }
+
+    console.log('ORDENCREAR' , ORDENCREAR);
+    
+
     if (ORDENCREAR.orden =="" && ORDENCREAR.referencia == "" && ORDENCREAR.origen && ORDENCREAR.destino){
       this.handleWrongResponse();
     }else{
-      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/CrearOrden', ORDENCREAR).subscribe((res:any)=>{
+      this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/CrearOrden', ORDENCREAR).subscribe((res:any)=>{
         this.handleSuccessResponse();
       });
     }

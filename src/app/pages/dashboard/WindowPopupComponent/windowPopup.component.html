@@ -187,6 +187,40 @@
 		</ng-template>
 	</ng-container>
 
+	<ng-container ngbNavItem *ngIf="ocultarPedido">
+		<a ngbNavLink>Pedidos Programados</a>
+		<ng-template ngbNavContent>
+			<div class="row">
+				<div class="col-md-12">
+					<nb-card-body>
+						<ejs-grid #grid [dataSource]='pedidosData' [allowPaging]="true" [pageSettings]='pageSettings' 
+                          [filterSettings]='filterOptions' allowSorting='true' [editSettings]='editSettings'
+                           [toolbar]='toolbar'  allowTextWrap='true' [allowFiltering]="true" 
+		                  width=100%>
+							<e-columns> 
+								<e-column field='OfficeIDCTI' headerText='OfficeIDCTI' width=105></e-column>
+								<e-column field='Pedido' headerText='Pedido' width=110></e-column>
+								<e-column field='Destino' headerText='Destino' width=106></e-column>
+								<e-column field='IdTarget' headerText='IdTarget' width=100></e-column>
+								<e-column field='EspesorLamina_Planeado' headerText='Lamina_Planeado' width=110></e-column>
+								<e-column field='OrdenProgramacion' headerText='OrdenProgramacion' width=110></e-column>
+								<e-column field='Estado' headerText='Estado' width=102></e-column>
+								<e-column field='EstadoMaquina' headerText='EstadoMaquina' width=105></e-column>
+								<e-column field='LargoLamina_Planeado' headerText='Largo' width=118></e-column>
+								<e-column field='AnchoLamina_Planeado' headerText='Ancho'  width=100></e-column>
+								<e-column field='FechaRegistro' headerText='Fecha'  width=100></e-column>
+								<e-column field='Tarjeta' headerText='Tarjeta'  width=100></e-column>
+								<e-column field='CorrInvertida' headerText='CorrInvertida'  width=100></e-column>
+								<e-column field='IdOrderSic' headerText='IdOrderSic'  width=100></e-column>
+								<e-column field='ListaCorteSIC' headerText='ListaCorteSIC'  width=100></e-column>
+							</e-columns>
+						</ejs-grid>
+					</nb-card-body>
+			    </div>
+		 </div>
+		</ng-template>
+	</ng-container>
+
 	</nav>
 	
 	<div [ngbNavOutlet]="nav" class="mt-2"></div>

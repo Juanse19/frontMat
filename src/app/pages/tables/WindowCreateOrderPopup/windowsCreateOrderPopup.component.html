@@ -8,7 +8,7 @@
          <!-- <nb-card> -->
             <p>Orden: <input type="text" id="ordenValor" status="info" name="ordenValor" nbInput #ordenValor required minlength="0" maxlength="30" size="10"></p>
             <p>Referencia: <input type="text" id="referenciaValue" status="info" name="referenciaValue" nbInput #referenciaValor required minlength="0" maxlength="30" size="10"></p>
-            <p>Batch: <input type="number" id="batchValor" status="info" name="batchValor" nbInput #batchValor required minlength="0" maxlength="30" size="10"></p>
+            <p>Combo: <input type="number" id="batchValor" status="info" name="batchValor" nbInput #batchValor required minlength="0" maxlength="30" size="10"></p>
             <p>Longitud: <input type="number" id="longitudValue" status="info" name="longitudValue" nbInput #longitudValor   required minlength="0" maxlength="30" size="10"></p>
             <p>Cortes: <input type="number" id="cortesValue" status="info" name="cortesValue" nbInput #cortesValor  required minlength="0" maxlength="30" size="10"></p>
             <p>Cortes Ancho: <input type="number" id="anchoValue" status="info" name="anchoValue" nbInput #anchoValor  required minlength="0" maxlength="30" size="10"></p>
@@ -39,7 +39,7 @@
             <p>ProductsMissing: <input type="number" id="productsMissingValor" status="info" name="productsMissingValor" height="20" nbInput #productsMissingValor  required minlength="0" maxlength="30" size="10"></p>
             <nb-toggle [(ngModel)]="toggleNgModel" status="success">SignalStart</nb-toggle>
             <p>SheetScrap: <input type="text" id="sheetScrapValor" status="info" name="sheetScrapValor" nbInput #sheetScrapValor required minlength="0" maxlength="30" size="10"></p>
-
+            <nb-toggle [(ngModel)]="toggleNgModelInver" status="success">CorrInvertido</nb-toggle>
            
       </div>
     </div>

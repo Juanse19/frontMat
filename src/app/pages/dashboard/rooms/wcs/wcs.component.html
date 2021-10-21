@@ -120,7 +120,7 @@
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorSYS + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorSYS  + ')'}" (click)="ClicIM7()"
                 [ngClass]="{showStatusAlarm: !showdataAlarms.StatusSyS}" nbTooltip="{{dataWipName.iM7}}"/>
-                <g>
+                <g (click)="ClicIM7()">
                     <text x="188.92" y="212.47" class="st5">{{dataWipName.iM7}}</text>
                 </g>
 
@@ -170,7 +170,7 @@
                 drop-shadow(-5px -5px 0 ' + dataWipColor.colorST15  + ')'}" 
             [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT15}"/>
             <!-- Rectangulo ST15 -->
-            <g id="shape220-616" transform="translate(202.306,-131.7697)" >
+            <g id="shape220-616" transform="translate(202.306,-131.7697)" (click)="ClicST15()">
                 
                 <rect *ngIf="sigalRService.dataPackageST15[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST15[0].ngStyle"
@@ -211,7 +211,7 @@
                 drop-shadow(-5px -5px 0 ' + dataWipColor.colorST11  + ')'}"
                 [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT11}"/>
             <!-- Rectangulo ST11 -->
-            <g id="shape230-648" transform="translate(313.334,-131.899)" >
+            <g id="shape230-648" transform="translate(313.334,-131.899)" (click)="ClicST11()">
                 
                 <rect *ngIf="sigalRService.dataPackageST11[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST11[0].ngStyle"
@@ -252,7 +252,7 @@
                 drop-shadow(-5px -5px 0 ' + dataWipColor.colorST10  + ')'}"
                 [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT10}"/>
             <!-- Rectangulo ST10 -->
-            <g id="shape229-645" transform="translate(313.331,-145.722)" >
+            <g id="shape229-645" transform="translate(313.331,-145.722)" (click)="ClicST10()">
                 
                 <rect *ngIf="sigalRService.dataPackageST10[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST10[0].ngStyle"
@@ -417,7 +417,7 @@
                 drop-shadow(-5px -5px 0 ' + dataWipColor.colorST14  + ')'}"
             [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT14}"/>
             <!-- Rectangulo ST14 -->
-            <g id="shape222-622" transform="translate(202.539,-175.951)" >
+            <g id="shape222-622" transform="translate(202.539,-175.951)" (click)="ClicST14()">
                 
                 <rect *ngIf="sigalRService.dataPackageST14[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST14[0].ngStyle"
@@ -668,7 +668,7 @@
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorJS + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorJS  + ')'}" (click)="ClicIM5()"
                 [ngClass]="{showStatusAlarm: !showdataAlarms.StatusJs}" nbTooltip="{{dataWipName.iM5}}"/>
-            <g>
+            <g (click)="ClicIM5()">
                 <text x="156.92" y="111.47" class="st5">{{dataWipName.iM5}}</text>
             </g>
         <g class="cls-2">
@@ -787,7 +787,7 @@
                 [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorMartin1228 + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorMartin1228  + ')'}" (click)="ClicIM1()"
                 [ngClass]="{showStatusAlarm: !showdataAlarms.StatusMartin}" />
-                <g>
+                <g (click)="ClicIM1()">
                     <text x="42.92" y="47.47" class="st5">{{dataWipName.iM1}}</text>			
                 </g>
         </g>
@@ -2472,10 +2472,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwin8jwABMWeS/PF6wYwAAAABJRU5E
 rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
 	</image>
         </g>
-        <text x="234" y="42.39" class="st12">{{dataPeriodoStackerAbove.OrderNumber}}</text>
-        <text x="234" y="49.39" class="st16">{{dataPeriodoStackerAbove.Origen}}</text>
-        <text x="256" y="42.39" class="st12">{{dataPeriodoStackerDown.OrderNumber}}</text>
-        <text x="256" y="49.39" class="st15">{{dataPeriodoStackerDown.Origen}}</text>
+        <text x="234" y="42.39"  class="st12">{{dataPeriodoStackerAbove.OrderNumber}}</text>
+        <text x="234" y="49.39" (click)="ClicAbove()" class="st16">{{dataPeriodoStackerAbove.Origen}}</text>
+        <text x="256" y="42.39"  class="st12">{{dataPeriodoStackerDown.OrderNumber}}</text>
+        <text x="256" y="49.39" (click)="ClicDown()" class="st15">{{dataPeriodoStackerDown.Origen}}</text>
         <image id="Layer_0_Imagen-28" data-name="Layer 0 Imagen" width="138" height="72"
             transform="translate(264.65 203.12) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout27.png" (click)="ClicIM7()" 
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.colorSYS + ')
@@ -2792,7 +2792,7 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
             [ngStyle]="{'filter': 'drop-shadow(5px 5px 0 ' + dataMachineColor.color924 + ')
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.color924  + ')'}" (click)="ClicIM6()"
                 [ngClass]="{showStatusAlarm: !showdataAlarms.Status924}" nbTooltip="{{dataWipName.iM6}}"/>
-                <g>
+                <g (click)="ClicIM6()">
                     <text x="126.92" y="154.47" class="st5">{{dataWipName.iM6}}</text>
                 </g>
             
@@ -2803,6 +2803,11 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
            
     </svg>
     </div>
+
+    <div class='root-container'>
+        <ngx-queued-orders></ngx-queued-orders>
+    </div>
+
     </nb-card>
  
     <nb-card>

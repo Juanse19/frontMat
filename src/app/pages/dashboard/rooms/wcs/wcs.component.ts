@@ -17,6 +17,7 @@ import { MessageService } from '../../services/MessageService';
 import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS, PedidoStackers } from '../../_interfaces/MatBox.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { truncateSync } from 'node:fs';
+import  { QueuedOrdersComponent } from '../../queued-orders/queued-orders.component';
 
 @Component({
   providers: [
@@ -158,11 +159,11 @@ export class WcsComponent implements OnInit, OnDestroy {
   }
 
   public dataPeriodoStackerAbove: PedidoStackers = {
-    OrderNumber: "243501",
+    OrderNumber: "0",
     Origen: "ARRIBA"
   }
   public dataPeriodoStackerDown: PedidoStackers = {
-    OrderNumber: "243276",
+    OrderNumber: "0",
     Origen: "ABAJO"
   }
 
@@ -234,6 +235,9 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
 
+  @ViewChild(QueuedOrdersComponent, { static: true }) public dialog: QueuedOrdersComponent;
+ 
+
   constructor(
     // public accessChecker: NbAccessChecker,
     private location: Location,
@@ -242,6 +246,7 @@ export class WcsComponent implements OnInit, OnDestroy {
     public sigalRService: SignalRService,
     private http: HttpClient,
     private comp2: WindowComponent,
+    private dialo: QueuedOrdersComponent,
     public apiGetComp: ApiGetService,
     public pipe: DecimalPipe,
     private api: HttpService,
@@ -380,7 +385,35 @@ export class WcsComponent implements OnInit, OnDestroy {
       // console.log('periodosStakerAbajo',this.dataPeriodoStackerDown);
     });
   }
-
+  
+  public PedidoStackersCharge(){
+    
+    this.http.get(this.api.apiUrlNode + "/api/PedidoStackers?origen=arriba")
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any)=>{
+      if (res[0] == undefined) {
+        // console.log('no hay data arriba');
+        
+      } else {
+        // console.log('Si hay');
+        this.dataPeriodoStackerAbove  = res[0];
+      }
+      
+    });
+  
+    this.http.get(this.api.apiUrlNode + "/api/PedidoStackers?origen=abajo")
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any)=>{
+      if (res[0] == undefined) {
+        // console.log('no hay data abajo');
+      } else {
+        this.dataPeriodoStackerDown  = res[0];
+      }
+      
+      
+    });
+  
+    }
 
   ngOnInit(): void {
     this.GetOrderProcess();
@@ -390,8 +423,9 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.WipNameCharge();
     // this.showStatusAlarms();
     this.RouteCtsCharge();
-    this.PedidoStackersAboveCharge();
-    this.PedidoStackersDownCharge();
+    // this.PedidoStackersAboveCharge();
+    // this.PedidoStackersDownCharge();
+    this.PedidoStackersCharge();
     // this.showStatusName();
     // this.showSatatusRouteCts();
     // this.StatusAlarmCharge();
@@ -696,6 +730,14 @@ public ClicTF1(): void {
 
 public ClicTF2(): void {
   this.comp2.openWindowForm(IdWip.TF2);
+}
+
+public ClicAbove(): void {
+  this.dialog.opendevice1();
+}
+
+public ClicDown(): void {
+  this.dialog.opendevice2();
 }
  
 

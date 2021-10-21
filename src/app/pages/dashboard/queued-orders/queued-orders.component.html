@@ -1,0 +1,65 @@
+<div #container class='root-container'>
+    <ejs-dialog id='device1' #device1 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='65%' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            
+            <div class="media">
+
+                
+
+                <ejs-grid [dataSource]='orderOut1' [allowPaging]="true" [pageSettings]='pageSettings' 
+                [filterSettings]='filterOptions' allowSorting='true' allowTextWrap='true' width=100%>
+                    <e-columns>
+                        <e-column field='OrderNumber' headerText='Orden' width=70></e-column>
+						<e-column field='OrderType' headerText='Type' width=60></e-column>
+						<e-column field='OrderLength' headerText='OrderLength' width=90></e-column>
+						<e-column field='SegmentSheetCount' headerText='SegmentSheetCount' width=80></e-column>
+						<e-column field='SheetLength' headerText='SheetLength' width=80></e-column>
+						<e-column field='SheetWidth' headerText='SheetWidth' width=80></e-column>
+						<e-column field='SheetsPerStack' headerText='SheetsPerStack' width=80></e-column>
+						<e-column field='Outs' headerText='Outs' width=85></e-column>
+						<e-column field='CustomerName' headerText='Nombre' width=118></e-column>
+						<e-column field='Position' headerText='Position' width=98></e-column>
+                        <e-column field='OfficeID' headerText='OfficeID' width=88></e-column>
+                        <e-column field='IdSource' headerText='IdSource' width=88></e-column>
+                        <e-column field='Origen' headerText='Origen' width=88></e-column>
+                        <e-column field='Clave' headerText='Clave' width=88></e-column>
+                    </e-columns>
+                </ejs-grid>
+
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device2' #device2 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='65%' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            
+            <ejs-grid [dataSource]='orderOut2' [allowPaging]="true" [pageSettings]='pageSettings' 
+            [filterSettings]='filterOptions' allowSorting='true' allowTextWrap='true' width=100%>
+                <e-columns>
+                        <e-column field='OrderNumber' headerText='Orden' width=70></e-column>
+						<e-column field='OrderType' headerText='Type' width=60></e-column>
+						<e-column field='OrderLength' headerText='OrderLength' width=80></e-column>
+						<e-column field='SegmentSheetCount' headerText='SegmentSheetCount' width=80></e-column>
+						<e-column field='SheetLength' headerText='SheetLength' width=80></e-column>
+						<e-column field='SheetWidth' headerText='SheetWidth' width=80></e-column>
+						<e-column field='SheetsPerStack' headerText='SheetsPerStack' width=80></e-column>
+						<e-column field='Outs' headerText='Outs' width=85></e-column>
+						<e-column field='CustomerName' headerText='Nombre' width=118></e-column>
+						<e-column field='Position' headerText='Position' width=98></e-column>
+                        <e-column field='OfficeID' headerText='OfficeID' width=88></e-column>
+                        <e-column field='IdSource' headerText='IdSource' width=88></e-column>
+                        <e-column field='Origen' headerText='Origen' width=88></e-column>
+                        <e-column field='Clave' headerText='Clave' width=88></e-column>
+                </e-columns>
+            </ejs-grid>
+
+            <!-- <div class="media">
+
+                <h1>Ordenes en cola 2</h1>
+               
+            </div> -->
+        </ng-template>
+    </ejs-dialog>
+</div>

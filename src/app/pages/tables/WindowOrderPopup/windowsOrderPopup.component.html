@@ -46,6 +46,8 @@
 </nb-select></p>
 <!-- </nb-card> -->
 <p>Combo:  <input type="number" id="batchValor" name="batchValor" nbInput #batchValor  value="{{ data.batch }}" required minlength="0" maxlength="30" size="10"></p>
+
+<p>CorrInvertido: <nb-checkbox type="checkbox" id="corrInvertedValor" [(ngModel)]="corrInvertida.value" value="{{ data.corrInverted }}"></nb-checkbox></p>
     <!-- <nb-card>
       <nb-card-header>Select</nb-card-header>
       <nb-card-body>

@@ -62,6 +62,7 @@ import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { LastalarmComponent } from './lastalarm/lastalarm.component';
+import { QueuedOrdersComponent } from './queued-orders/queued-orders.component';
 
 @NgModule({
   imports: [
@@ -119,6 +120,7 @@ import { LastalarmComponent } from './lastalarm/lastalarm.component';
     WindowComponent,
     WindowComponent2,
     LastalarmComponent,
+    QueuedOrdersComponent,
   ],
   providers: [
     PageService, 

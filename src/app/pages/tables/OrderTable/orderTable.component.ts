@@ -31,6 +31,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
     cutsLength: number;
     origen:string;
     priority: number;
+    corrInverted: boolean;
   }
 
   interface State {
@@ -57,14 +58,14 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 
 
-function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
-  return ordenes.order.toLowerCase().includes(term)
-    || ordenes.name.toLowerCase().includes(term.toLowerCase())
-    || ordenes.description.toLowerCase().includes(term.toLowerCase())
-    || ordenes.reference.toLowerCase().includes(term)
-    || ordenes.origen.toLowerCase().includes(term.toLowerCase())
-    || pipe.transform(ordenes.orderLength).includes(term);
-}
+// function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
+//   return ordenes.order.toLowerCase().includes(term)
+//     || ordenes.name.toLowerCase().includes(term.toLowerCase())
+//     || ordenes.description.toLowerCase().includes(term.toLowerCase())
+//     || ordenes.reference.toLowerCase().includes(term)
+//     || ordenes.origen.toLowerCase().includes(term.toLowerCase())
+//     || pipe.transform(ordenes.orderLength).includes(term);
+// }
 
 
 
@@ -257,7 +258,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     if (args.requestType == 'beginEdit') {
       // debugger
       // console.log('Editar');
-      console.log('Type edit: ', args);
+      // console.log('Type edit: ', args);
       // this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
 
       this.accessChecker.isGranted('edit', 'ordertable')
@@ -281,7 +282,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
 
   clickHandler(args: ClickEventArgs): void {
     if (args.item.id === 'Click') {
-      console.log('click: ', args);
+      // console.log('click: ', args);
       // debugger
       // debugger
       this.CrearOrden();
@@ -291,7 +292,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
   }
 
     CargarTabla(){
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
+      this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/ObtenerOrdenes')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res:any)=>{
         ORDENES = res;  
@@ -299,7 +300,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         });
         this._search$.next();
     }  
-
+ 
     _search(): Observable<SearchResult2> {
     
       const {pageSize, page, searchTerm} = this._state;
@@ -308,7 +309,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
       let ordenes = ORDENES;
   
       // 2. filter
-      ordenes = ordenes.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
+      // ordenes = ordenes.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
       const total = ordenes.length;
   
       // 3. paginate
@@ -317,7 +318,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
       return of({ordenes, total});
     }
 
-  public  Edit(orden:string, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number, idForm: number){
+  public  Edit(orden:string, corrInverted: boolean, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number, idForm: number){
       
       
       ORDEN = {
@@ -332,6 +333,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
         cutsLength: corteLargo,
         origen: origenValor,
         priority: parPrority,
+        corrInverted: corrInverted,
       }
       // console.log(ORDEN);
       
@@ -351,7 +353,7 @@ function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
     }
 
     Refresh(){
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
+      this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/ObtenerOrdenes')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res:any)=>{
         // console.log(res)

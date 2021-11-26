@@ -10,14 +10,17 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://10.100.22.100:3001/api',
-  // apiUrlMat: 'http://10.100.22.100:5001/api',
-  // apiUrlMatSignalR: '10.100.22.100:5001',
-  // apiUrlNode: 'http://10.100.22.100:1880',
-  apiUrl: 'http://172.27.45.12:3001/api',
-  apiUrlMat: 'http://172.27.45.12:5001/api',
-  apiUrlMatSignalR: 'http://172.27.45.12:5001',
-  apiUrlNode: 'http://172.27.45.12:1880',
+  apiUrl: 'http://10.100.22.92:3001/api',
+  apiUrlMat: 'http://10.100.22.92:5001/api',
+  apiUrlMatSignalR: 'http://10.100.22.92:5001',
+  apiUrlNode: 'http://10.100.22.92:1880',
+
+  // apiUrl: 'http://172.27.45.12:3001/api',
+  // apiUrlMat: 'http://172.27.45.12:5001/api',
+  // apiUrlMatSignalR: 'http://172.27.45.12:5001',
+  // apiUrlNode: 'http://172.27.45.12:1880',
+
+
   testUser: {
     // tslint:disable
     token: {

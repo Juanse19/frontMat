@@ -84,6 +84,7 @@ let win:NbWindowRef;
   styleUrls: ['orderPopup.component.scss'],
 })
 export class WindowComponent2  implements OnInit {
+  
   arrumeManualForm: FormGroup;
 
   mostrar = false
@@ -141,11 +142,11 @@ export class WindowComponent2  implements OnInit {
     loadDataForm(){
       // debugger
        if (ORDEN.order == "") {
-        console.log('cambios');
+        // console.log('cambios');
         this.mostrar = false;
         this.ocultar = false;
        } else {
-         debugger
+        //    
 
         this.mostrar = true;
        
@@ -163,7 +164,7 @@ export class WindowComponent2  implements OnInit {
       }
       
     }
-
+ 
     initForm() {
       this.arrumeManualForm = this.fb.group({
         id: this.fb.control(-1),
@@ -182,11 +183,11 @@ export class WindowComponent2  implements OnInit {
     or=ORDESTA
 
   openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
-    debugger
+    // debugger
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
-      console.log('data orden', this.data);
+      // console.log('data orden', this.data);
       
     }else{
       ORDEN ={
@@ -203,6 +204,7 @@ export class WindowComponent2  implements OnInit {
 
     }
    
+   
     //   const myOrden = this.data.order.split('-', 1);
 
     //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderId?orden=' + myOrden ).subscribe((resId: any) => {
@@ -213,18 +215,21 @@ export class WindowComponent2  implements OnInit {
 
 
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((resOrder: any) => {
-        
       
-        ORDERLIST=resOrder;
-        this.orderList=ORDERLIST;
 
         STATUS=res;
         this.status=STATUS;
-        win=this.windowService.open(WindowComponent2, { title: nombreWindow});
+        
     
       });
+
+      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrdenes').subscribe((resOrder: any) => {
+        
+        ORDERLIST=resOrder;
+        this.orderList=ORDERLIST;
+        
     });
+    win=this.windowService.open(WindowComponent2, { title: nombreWindow});
   }
 
 
@@ -308,7 +313,7 @@ export class WindowComponent2  implements OnInit {
  
     if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){
       // this.ChangeState();
-      console.log('Data OrderManual', STATUSPACKAGE);
+      // console.log('Data OrderManual', STATUSPACKAGE);
       
       this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
             
@@ -333,7 +338,7 @@ export class WindowComponent2  implements OnInit {
                 
               }); 
               this.messageService.sendMessage('PackageUpdate');
-              Swal.fire('¡Eliminado!', 'El arrume ha sido eliminada.', 'success');
+              Swal.fire('¡Eliminado!', 'El arrume ha sido eliminado.', 'success');
               // this.ChangeState();
               this.back();
             } else {
@@ -436,8 +441,8 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     console.log(orden + ', ' + nombre);
   }
 
-  ngOnDestroy() {
-   
-    }
+  ngOnDestroy(): void {
+    this.alive = false;
+  }
 
 }

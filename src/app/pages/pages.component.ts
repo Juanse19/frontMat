@@ -91,8 +91,8 @@ export class PagesComponent implements OnDestroy {
           // debugger
           this.intervalSubscriptionStatusSesion.unsubscribe();
           Swal.fire({
-            title: 'Se cerrará la sesion?',
-            text: `¡Desea continuar con la sesion activa!`,
+            title: 'Se cerrará la sesión?',
+            text: `¡Desea continuar con la sesión activa!`,
             icon: 'warning',
             timer: 3500,
             showCancelButton: false,

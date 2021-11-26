@@ -182,8 +182,19 @@ export class SicComponent implements OnInit {
     if (args.item.id === 'Click') {
       // console.log('click: ', args);
       // debugger
+      this.accessChecker.isGranted('edit', 'ordertable')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        if(res){
       this.eliminaTodos();
         // alert('Custom Toolbar Click...');
+        this.select = false;
+        this.mostrar = false;
+      }else {
+        this.select=true;
+        this.mostrar=true;
+      }
+    });
     }
   }
 

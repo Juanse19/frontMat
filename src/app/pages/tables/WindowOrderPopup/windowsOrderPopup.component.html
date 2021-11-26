@@ -27,7 +27,7 @@
       <p><nb-card-header>Dispositivos Origen</nb-card-header></p>
 
   <!-- <nb-card-body> -->
-    <p><nb-select [(ngModel)]="maquinaOrigen.value"> 
+    <p style="margin-right: 8rem"><nb-select [(ngModel)]="maquinaOrigen.value" > 
   <nb-option *ngFor="let option of origen" [value]="option.value">
     {{ option.label }}
   </nb-option>             
@@ -39,7 +39,7 @@
 <p><nb-card-header>Dispositivos Destino</nb-card-header></p>
 
 <!-- <nb-card-body> -->
-<p><nb-select [(ngModel)]="maquinaDestino.value"> 
+<p style="margin-right: 8rem"><nb-select [(ngModel)]="maquinaDestino.value"> 
 <nb-option *ngFor="let option2 of destino" [value]="option2.value" >
 {{ option2.label }}
 </nb-option>             

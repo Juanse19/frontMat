@@ -1,5 +1,3 @@
-
-
 import { Component, ElementRef, PipeTransform, TemplateRef, ViewChild, Renderer2,Injectable, OnInit  } from '@angular/core';
 import { NbWindowConfig, NbWindowService, NbWindowRef,NbToastrService } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
@@ -285,7 +283,7 @@ export class WindowComponent implements OnInit {
   public ocultar = false;
   public ocultarPedido = false;
   
-
+ 
   devicesType = DEVICESTYPE;
   deviceType = DEVICETYPE;
 
@@ -359,7 +357,7 @@ export class WindowComponent implements OnInit {
       } else {
         this.ocultarPedido = false;
       }
-
+ 
       if (IDMAQUINA === 36 ||  IDMAQUINA === 40) {
         this.selec = false;
         // this.DataLoad(idMaquina); 
@@ -464,6 +462,7 @@ export class WindowComponent implements OnInit {
 this.toolbar = [
   'Search',
   //  {text: 'Delete', prefixIcon: 'fas fa-check'},
+  { text: '', tooltipText: 'Eliminar todo', prefixIcon: 'e-icons e-delete', id: 'Click' }
 //  { text: 'Crear Orden', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }
 ];
 
@@ -526,8 +525,8 @@ clickHandler(args: ClickEventArgs): void {
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => { 
         if(res){ 
-    this.orderPopup.openWindowForm("Package: "+ args,null, this.idMaquina)
-
+    // this.orderPopup.openWindowForm("Package: "+ args,null, this.idMaquina)
+    this.reconocer(this.idMaquina);
     args.cancel = true;
     this.select = false;
   }else {
@@ -537,6 +536,8 @@ clickHandler(args: ClickEventArgs): void {
       // alert('Custom Toolbar Click...');
   }
 }
+
+
 
   get ordenesMaquina$() { return this._Ordenes$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
@@ -640,7 +641,6 @@ clickHandler(args: ClickEventArgs): void {
       this.orderForm.setValue({
         Alias: ALIAS.Alias ? ALIAS.Alias : '',
       });
-    
     }
 
   source: LocalDataSource = new LocalDataSource();
@@ -670,7 +670,7 @@ clickHandler(args: ClickEventArgs): void {
     // 'AND' by default, so changing to 'OR' by setting false here
   }
 
-  
+   
   actionBegins(args) {
     if (args.requestType === 'beginEdit') {
       this.submitClicked = true;
@@ -707,6 +707,68 @@ clickHandler(args: ClickEventArgs): void {
 
 
   @ViewChild('contentTemplate') WindowComponents: TemplateRef<any>;
+  
+
+  reconocer(idMaquina: number) {
+
+    this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+      Swal.fire({
+      title: 'Desea Eliminar las inducciones?',
+      text: `¡Eliminará todas las inducciones!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, Eliminar!'
+    }).then(result => {
+      debugger 
+      if (result.value) {
+        debugger
+       const currentUserId = this.userStore.getUser().id;
+  const currentUser = this.userStore.getUser().firstName;
+  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+  var respons = 
+  {
+  user: currentUser,
+  message:"Eliminó todas las induccione (OrderPosition)",
+  users: currentUserId,  
+  };
+  this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
+  .pipe(takeWhile(() => this.alive))
+  .subscribe((res: any) => {
+      //  console.log("Envió: ", res);
+    });
+    this.idMaquina=idMaquina;
+    IDMAQUINA=idMaquina;
+      
+          var respon = 
+            {
+              UserIdAcknow: currentUserId
+            };
+  
+      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/deleteaWip?IdMaquina='+ idMaquina)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        
+      });
+   
+         Swal.fire('¡Se Eliminaron Exitosamente', 'success');
+         
+     }
+   });
+           
+         this.select = false;
+         this.mostrar = false;
+       }else {
+         this.select=true;
+         this.mostrar=true;
+       }
+     });
+     
+  }
 
   DataLoad(idMaquina: number){
     this.idMaquina=idMaquina;

@@ -1,7 +1,7 @@
 <nb-card>
 	<!-- <nb-card-header>Arrume Manual</nb-card-header> -->
 	<!-- <nb-card-body> -->
-		<div [formGroup]="arrumeManualForm" class="container">
+		<div [formGroup]="arrumeManualForm" >
 			<!-- <div class="form-group">
 				<label for="orderForm">Orden</label>
 					<nb-select id="orderForm"
@@ -52,7 +52,7 @@
 				<div class="e-float-input">
 					<input id="cutLengthForm"  type="number" name="cutLengthForm" class="required" formControlName="cutLengthForm" required>
 					<span class="e-float-line"></span>
-					<label class="e-float-text" for="Subject">Longitud de Corte:</label>
+					<label class="e-float-text" for="Subject">Longitud de Arrume:</label>
 				</div>
 				<div *ngIf="arrumeManualForm.controls.cutLengthForm.invalid && (arrumeManualForm.controls.cutLengthForm.dirty || arrumeManualForm.controls.cutLengthForm.touched)" class="alert alert-danger">
 					<div *ngIf="arrumeManualForm.controls.cutLengthForm.errors.required">
@@ -78,7 +78,7 @@
 				<div class="e-float-input">
 					<input id="cutCountForm"  type="number" name="cutCountForm" class="required" formControlName="cutCountForm" required>
 					<span class="e-float-line"></span>
-					<label class="e-float-text" for="Subject">Cantidad Cortes:</label>
+					<label class="e-float-text" for="Subject">Cantidad Pilas:</label>
 				</div>
 				<div *ngIf="arrumeManualForm.controls.cutCountForm.invalid && (arrumeManualForm.controls.cutCountForm.dirty || arrumeManualForm.controls.cutCountForm.touched)" class="alert alert-danger">
 					<div *ngIf="arrumeManualForm.controls.cutCountForm.errors.required">

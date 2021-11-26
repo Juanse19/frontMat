@@ -170,7 +170,7 @@
                 drop-shadow(-5px -5px 0 ' + dataWipColor.colorST15  + ')'}" 
             [ngClass]="{showStatusAlarm: !showdataAlarms.StatussT15}"/>
             <!-- Rectangulo ST15 -->
-            <g id="shape220-616" transform="translate(202.306,-131.7697)" (click)="ClicST15()">
+            <g id="shape220-616" transform="translate(202.306,-131.7697)" (click)="ClicST15()"  >
                 
                 <rect *ngIf="sigalRService.dataPackageST15[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST15[0].ngStyle"
@@ -375,7 +375,7 @@
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.color924  + ')'}"
                 [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_925}"/>
             <!-- Rectangulos IM6 -->
-            <g id="shape221-619" transform="translate(212.399,-162.677)" (click)="ClicIM6()">
+            <g id="shape221-619" transform="translate(212.399,-162.677)" (click)="ClicTest1()">
                 
                 <rect *ngIf="sigalRService.dataPackageIM6[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageIM6[0].ngStyle"
@@ -732,24 +732,24 @@
         <!-- <image id="Layer_0_Imagen-23" data-name="Layer 0 Imagen" width="244" height="65"
             transform="translate(159.24 57.42) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout22.png" /> -->
             <!-- Rectangulo ST1 -->
-            <g id="group170-472" transform="translate(156.9794,-245.6906)" (click)="ClicST1()">
+            <g id="group170-472"  (click)="ClicST1()">
                 
                 <rect *ngIf="sigalRService.dataPackageST1[0].visible" x="0" y="303" width="19" height="14" 
                                 [ngStyle] = "sigalRService.dataPackageST1[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST1[0].order==inputOrder}"/>
                 <g id="shape170-501">
-                    <text x="4.88" y="313.81" class="st5">{{dataWipName.sT1}}</text>			
+                    <text x="248.92" y="-8.53" transform="rotate(-90 250,70)" class="st5">{{dataWipName.sT1}}</text>			
                 </g>
             </g>
     
             <!-- Rectangulo ST2 -->
-            <g id="group181-503" transform="translate(177.9794,-244.6906)" (click)="ClicST2()"> 
+            <g id="group181-503"  (click)="ClicST2()"> 
                 
                 <rect *ngIf="sigalRService.dataPackageST2[0].visible" x="0" y="303" width="19" height="14" 
                         [ngStyle] = "sigalRService.dataPackageST2[0].ngStyle"
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST2[0].order==inputOrder}"/>
                 <g id="shape181-508">
-                    <text x="1.88" y="312.81" class="st5">{{dataWipName.sT2}}</text>			
+                    <text x="248.92" y="9.47" transform="rotate(-90 250,70)" class="st5">{{dataWipName.sT2}}</text>			
                 </g>
             </g>
             
@@ -2482,7 +2482,7 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
                 drop-shadow(-5px -5px 0 ' + dataMachineColor.colorSYS  + ')'}" 
                 [ngClass]="{showStatusAlarm: !showdataAlarms.StatusPrefeeder_Sys}"/>
             <!-- Rectangulo IM7 -->
-            <g id="shape219-613" transform="translate(265.354,-100.5834)" (click)="ClicIM7()">
+            <g id="shape219-613" transform="translate(265.354,-100.5834)" (click)="ClicTest()">
                 
                 <rect *ngIf="sigalRService.dataPackageIM7[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageIM7[0].ngStyle"
@@ -2550,7 +2550,7 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
             
                 <rect *ngIf="sigalRService.dataPackageCT1[0].visible" x="0" y="303"  height="12" 
                                 [ngStyle] = "sigalRService.dataPackageCT1[0].ngStyle"
-                [ngClass] = "{showOrderFind: sigalRService.dataPackageCT1[0].order==inputOrder}" (click)="ClicCT1()"/>
+                [ngClass] = "{showOrderFind: sigalRService.dataPackageCT1[0].order==inputOrder}" (click)="ClicTest2()"/>
                 <g id="shape166-470">
                     <text x="2.89" y="312.43"  class="st5" >CT1</text>			
                 </g>
@@ -2613,7 +2613,7 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
         <!-- <image id="Layer_0_Imagen-32" data-name="Layer 0 Imagen" width="360" height="424"
             transform="translate(429.53 86.87) scale(0.24)" xlink:href="./assets/img/SMURFITKAPPA l Layout31.png" /> -->
             <!-- Rectangulos ST4 -->
-            <g id="shape233-658" transform="translate(431.358,-184.527)" (click)="ClicST4()">
+            <g id="shape233-658"  (click)="ClicST4()">
                 
                 <rect *ngIf="sigalRService.dataPackageST4[0].visible" x="0" y="303" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST4[0].ngStyle"
@@ -2639,7 +2639,7 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
                 <rect *ngIf="sigalRService.dataPackageST4[7].visible"   y="303"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST4[7].ngStyle" 	
                 [ngClass] = "{showStatusFind: sigalRService.dataPackageST4[7].order==inputOrder}"/>
-                <text x="1.00" y="285.39" class="st5">{{dataWipName.sT4}}</text>		
+                <text x="196.92" y="261.47" transform="rotate(-90 250,70)" class="st5">{{dataWipName.sT4}}</text>		
             </g>
             
             <!-- Rectangulos IM2 -->
@@ -2673,7 +2673,7 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
             </g>
 
             <!-- Rectangulos ST5 -->
-            <g id="shape235-664" transform="translate(465.81,-188.127)" (click)="ClicST5()">
+            <g id="shape235-664"  (click)="ClicST5()">
                
                 <rect *ngIf="sigalRService.dataPackageST5[0].visible" x="0" y="307" height="11" 
                 [ngStyle] = "sigalRService.dataPackageST5[0].ngStyle"
@@ -2699,7 +2699,7 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
                 <rect *ngIf="sigalRService.dataPackageST5[7].visible"   y="307"  height="11" 
                 [ngStyle] = "sigalRService.dataPackageST5[7].ngStyle" 	
                 [ngClass] = "{showOrderFind: sigalRService.dataPackageST5[7].order==inputOrder}"/>
-                <text x="1.99" y="289.39" class="st5">{{dataWipName.sT5}}</text>		
+                <text x="197.92" y="297.47" transform="rotate(-90 250,70)" class="st5">{{dataWipName.sT5}}</text>		
             </g>
 
             <!-- Rectangulos IM3 -->
@@ -2814,4 +2814,9 @@ rkJggg==" transform="matrix(0.1458 0 0 0.1458 229.3525 26.329)">
         <nb-card-body>
             <ngx-lastalarm></ngx-lastalarm>
         </nb-card-body>
+
+        <nb-card-body>
+            <ngx-manualorder></ngx-manualorder>
+        </nb-card-body>
+        
     </nb-card>

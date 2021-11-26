@@ -18,6 +18,24 @@ import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes,
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { truncateSync } from 'node:fs';
 import  { QueuedOrdersComponent } from '../../queued-orders/queued-orders.component';
+import { ManualorderComponent } from '../../manualorder/manualorder.component';
+
+interface Propiedades {
+  id?: number; 
+  name: string; 
+  description: string; 
+  isOn: boolean;
+  type: string;
+  valor: string;
+  prioridad: number;
+  width: number;
+  lenght: number;
+}
+
+let PROPIEDADES: Propiedades;
+  {
+  
+  }
 
 @Component({
   providers: [
@@ -233,9 +251,14 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   private alive=true;
 
+  propiedades = PROPIEDADES;
+  propSt11 = PROPIEDADES;
+
   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
 
   @ViewChild(QueuedOrdersComponent, { static: true }) public dialog: QueuedOrdersComponent;
+
+  @ViewChild(ManualorderComponent, { static: true }) public dial: ManualorderComponent;
  
 
   constructor(
@@ -247,6 +270,7 @@ export class WcsComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private comp2: WindowComponent,
     private dialo: QueuedOrdersComponent,
+    private dialos: ManualorderComponent,
     public apiGetComp: ApiGetService,
     public pipe: DecimalPipe,
     private api: HttpService,
@@ -321,6 +345,8 @@ export class WcsComponent implements OnInit, OnDestroy {
     )
     .subscribe((res: any) => {
         this.showdataAlarms  = res[0];
+        console.log('StateAlarms', this.showdataAlarms);
+        
     });
 
     // this.apiGetComp.GetJson(this.api.apiUrlNode + '/es')
@@ -362,7 +388,13 @@ export class WcsComponent implements OnInit, OnDestroy {
     )
     .subscribe((res: any) => {
       
-      this.dataPeriodoStackerAbove  = res[0];
+      if (res[0] == undefined) {
+        // console.log('no hay data arriba');
+        
+      } else {
+        // console.log('Si hay');
+        this.dataPeriodoStackerAbove  = res[0];
+      }
 
       // console.log('periodosStakerArriba',this.dataPeriodoStackerAbove);
     });
@@ -380,13 +412,17 @@ export class WcsComponent implements OnInit, OnDestroy {
       switchMap(() => this.http.get(this.api.apiUrlNode + '/api/PedidoStackers?origen=abajo')),
     )
     .subscribe((res: any) => {
-      this.dataPeriodoStackerDown  = res[0];
+      if (res[0] == undefined) {
+        // console.log('no hay data abajo');
+      } else {
+        this.dataPeriodoStackerDown  = res[0];
+      }
 
       // console.log('periodosStakerAbajo',this.dataPeriodoStackerDown);
     });
   }
   
-  public PedidoStackersCharge(){
+  public PedidoStackers1Charge(){
     
     this.http.get(this.api.apiUrlNode + "/api/PedidoStackers?origen=arriba")
     .pipe(takeWhile(() => this.alive))
@@ -401,7 +437,12 @@ export class WcsComponent implements OnInit, OnDestroy {
       
     });
   
-    this.http.get(this.api.apiUrlNode + "/api/PedidoStackers?origen=abajo")
+    
+  
+    }
+
+    PedidoStackers2Charge(){
+      this.http.get(this.api.apiUrlNode + "/api/PedidoStackers?origen=abajo")
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any)=>{
       if (res[0] == undefined) {
@@ -412,8 +453,9 @@ export class WcsComponent implements OnInit, OnDestroy {
       
       
     });
-  
     }
+
+    
 
   ngOnInit(): void {
     this.GetOrderProcess();
@@ -423,9 +465,10 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.WipNameCharge();
     // this.showStatusAlarms();
     this.RouteCtsCharge();
-    // this.PedidoStackersAboveCharge();
-    // this.PedidoStackersDownCharge();
-    this.PedidoStackersCharge();
+    this.PedidoStackersAboveCharge();
+    this.PedidoStackersDownCharge();
+    this.PedidoStackers1Charge();
+    this.PedidoStackers2Charge();
     // this.showStatusName();
     // this.showSatatusRouteCts();
     // this.StatusAlarmCharge();
@@ -459,13 +502,7 @@ export class WcsComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    this.alive=false;
-    this.sigalRService.alive=false;
-  }
+ 
 
   MoverCarro(){
     
@@ -577,159 +614,196 @@ export class WcsComponent implements OnInit, OnDestroy {
   }
 
   ClicST3() {
-    var res = this.comp2.openWindowForm(IdWip.ST3);
+    // var res = this.comp2.openWindowForm(IdWip.ST3);
+    this.dial.openOrder(IdWip.ST3);
  }
 
  ClicST4() {
-   this.comp2.openWindowForm(IdWip.ST4);
+  //  this.comp2.openWindowForm(IdWip.ST4);
+  this.dial.openOrder(IdWip.ST4);
 }
 
 ClicST5() {
- this.comp2.openWindowForm(IdWip.ST5);
+//  this.comp2.openWindowForm(IdWip.ST5);
+this.dial.openOrder(IdWip.ST5);
 }
 ClicST6() {
- this.comp2.openWindowForm(IdWip.ST6);
+//  this.comp2.openWindowForm(IdWip.ST6);
+this.dial.openOrder(IdWip.ST6);
 }
 ClicST7() {
- this.comp2.openWindowForm(IdWip.ST7);
+//  this.comp2.openWindowForm(IdWip.ST7);
+this.dial.openOrder(IdWip.ST7);
 }
-
+ 
 ClicST8() {
- this.comp2.openWindowForm(IdWip.ST8);
+//  this.comp2.openWindowForm(IdWip.ST8);
+this.dial.openOrder(IdWip.ST8);
 }
 
 
 ClicST9() {
- this.comp2.openWindowForm(IdWip.ST9);
+//  this.comp2.openWindowForm(IdWip.ST9);
+this.dial.openOrder(IdWip.ST9);
 }
 
 ClicST10() {
- this.comp2.openWindowForm(IdWip.ST10);
+//  this.comp2.openWindowForm(IdWip.ST10);
+this.dial.openOrder(IdWip.ST10);
 }
 
 ClicST11() {
- this.comp2.openWindowForm(IdWip.ST11);
+//  this.comp2.openWindowForm(IdWip.ST11);
+this.dial.openOrder(IdWip.ST11);
 }
 
 
 ClicST12() {
- this.comp2.openWindowForm(IdWip.ST12);
+//  this.comp2.openWindowForm(IdWip.ST12);
+this.dial.openOrder(IdWip.ST12);
 }
 
 
 ClicST13() {
- this.comp2.openWindowForm(IdWip.ST13);
+//  this.comp2.openWindowForm(IdWip.ST13);
+this.dial.openOrder(IdWip.ST13);
 }
 
 
 ClicST14() {
- this.comp2.openWindowForm(IdWip.ST14);
+//  this.comp2.openWindowForm(IdWip.ST14);
+this.dial.openOrder(IdWip.ST14);
 }
 
 ClicST15() {
- this.comp2.openWindowForm(IdWip.ST15);
+//  this.comp2.openWindowForm(IdWip.ST15);
+ this.dial.openOrder(IdWip.ST15);
 }
 
 ClicID12(){
- this.comp2.openWindowForm(IdWip.ID12)
+//  this.comp2.openWindowForm(IdWip.ID12)
+ this.dial.openOrder(IdWip.ID12);
 }
 
 ClicID22(){
- this.comp2.openWindowForm(IdWip.ID22)
+//  this.comp2.openWindowForm(IdWip.ID22)
+this.dial.openOrder(IdWip.ID22);
 }
 
  ClicMARTIN1228() {    
-       this.comp2.openWindowForm(IdMaquinas.Martin1228); 
+      //  this.comp2.openWindowForm(IdMaquinas.Martin1228); 
+      this.dial.openOrder(IdMaquinas.Martin1228); 
  }
 
  ClicWard15000() {
-     this.comp2.openWindowForm(IdMaquinas.WARD15000);
+    //  this.comp2.openWindowForm(IdMaquinas.WARD15000);
+    this.dial.openOrder(IdMaquinas.WARD15000);
  }
  ClicLaminadora() {
-   this.comp2.openWindowForm(IdMaquinas.Laminadora);
+  //  this.comp2.openWindowForm(IdMaquinas.Laminadora);
+  this.dial.openOrder(IdMaquinas.Laminadora);
 }
 
 ClicImpresora36() {
  
- this.comp2.openWindowForm(IdMaquinas.Impresora36);
+//  this.comp2.openWindowForm(IdMaquinas.Impresora36);
+ this.dial.openOrder(IdMaquinas.Impresora36);
 }
 
 ClicJS() {
- this.comp2.openWindowForm(IdMaquinas.JS);
- 
+//  this.comp2.openWindowForm(IdMaquinas.JS);
+ this.dial.openOrder(IdMaquinas.JS);
 }
 
 Clic924() {
- this.comp2.openWindowForm(IdMaquinas.M924);
+//  this.comp2.openWindowForm(IdMaquinas.M924);
+ this.dial.openOrder(IdMaquinas.M924);
 }
 
 
 ClicSYS() {
- this.comp2.openWindowForm(IdMaquinas.SYS);
+//  this.comp2.openWindowForm(IdMaquinas.SYS);
+ this.dial.openOrder(IdMaquinas.SYS);
 }
 
  public ClicST2(): void {    
-   this.comp2.openWindowForm(IdWip.ST2);
+  //  this.comp2.openWindowForm(IdWip.ST2);
+  this.dial.openOrder(IdWip.ST2);
  }
 
  public ClicST1(): void {
-   this.comp2.openWindowForm(IdWip.ST1);
+  //  this.comp2.openWindowForm(IdWip.ST1);
+  this.dial.openOrder(IdWip.ST1);
  }
 
  public ClicIM1(): void {
-  this.comp2.openWindowForm(IdWip.IM1);
+  // this.comp2.openWindowForm(IdWip.IM1);
+  this.dial.openOrder(IdWip.IM1);
 }
 
 public ClicIM2(): void {
-  this.comp2.openWindowForm(IdWip.IM2);
+  // this.comp2.openWindowForm(IdWip.IM2);
+  this.dial.openOrder(IdWip.IM2);
 }
 
 public ClicIM3(): void {
-  this.comp2.openWindowForm(IdWip.IM3);
+  // this.comp2.openWindowForm(IdWip.IM3);
+  this.dial.openOrder(IdWip.IM3);
 }
 
 public ClicIM4(): void {
-  this.comp2.openWindowForm(IdWip.IM4);
+  // this.comp2.openWindowForm(IdWip.IM4);
+  this.dial.openOrder(IdWip.IM4);
 }
 
 public ClicIM5(): void {
-  this.comp2.openWindowForm(IdWip.IM5);
+  // this.comp2.openWindowForm(IdWip.IM5);
+  this.dial.openOrder(IdWip.IM5);
 }
 
 public ClicIM6(): void {
-  this.comp2.openWindowForm(IdWip.IM6);
+  // this.comp2.openWindowForm(IdWip.IM6);
+  this.dial.openOrder(IdWip.IM6);
 }
 
 public ClicIM7(): void {
-  this.comp2.openWindowForm(IdWip.IM7);
+  // this.comp2.openWindowForm(IdWip.IM7);
+  this.dial.openOrder(IdWip.IM7);
 }
 
 public ClicCT_1(): void {
-  this.comp2.openWindowForm(IdWip.CT_1);
+  // this.comp2.openWindowForm(IdWip.CT_1);
+  this.dial.openOrder(IdWip.CT_1);
 }
 
 public ClicCT_2(): void {
-  this.comp2.openWindowForm(IdWip.CT_2);
+  // this.comp2.openWindowForm(IdWip.CT_2);
+  this.dial.openOrder(IdWip.CT_2);
 }
 
 public ClicCT1(): void {
-  this.comp2.openWindowForm(IdWip.CT1);
+  // this.comp2.openWindowForm(IdWip.CT1);
+  this.dial.openOrder(IdWip.CT1);
 }
 
 public ClicCT2(): void {
-  this.comp2.openWindowForm(IdWip.CT2);
+  // this.comp2.openWindowForm(IdWip.CT2);
+  this.dial.openOrder(IdWip.CT2);
 }
 
 public ClicTM(): void {
-  this.comp2.openWindowForm(IdWip.TM);
+  // this.comp2.openWindowForm(IdWip.TM);
+  this.dial.openOrder(IdWip.TM);
 }
 
 public ClicTF1(): void {
-  this.comp2.openWindowForm(IdWip.TF1);
+  // this.comp2.openWindowForm(IdWip.TF1);
+  this.dial.openOrder(IdWip.TF1);
 }
 
 public ClicTF2(): void {
-  this.comp2.openWindowForm(IdWip.TF2);
+  // this.comp2.openWindowForm(IdWip.TF2);
+  this.dial.openOrder(IdWip.TF2);
 }
 
 public ClicAbove(): void {
@@ -739,6 +813,29 @@ public ClicAbove(): void {
 public ClicDown(): void {
   this.dialog.opendevice2();
 }
+
+public ClicTest(): void {
+  this.dial.openOrder(IdWip.IM7);
+}
+
+public ClicTest1(): void {
+  this.dial.openOrder(IdWip.IM6);
+}
+
+public ClicTest2(): void {
+  this.dial.openOrder(IdWip.CT1);
+}
+
+public ClicTest3(): void {
+  this.dial.openOrder(IdWip.ST12);
+}
  
+ngOnDestroy() {
+  if (this.subscription) {
+    this.subscription.unsubscribe();
+  }
+  this.alive=false;
+  this.sigalRService.alive=false;
+}
 
 }

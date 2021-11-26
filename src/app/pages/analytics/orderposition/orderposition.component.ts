@@ -220,7 +220,7 @@ export class OrderpositionComponent implements OnInit {
               {
                 UserIdAcknow: currentUserId
               };
-  
+   
         this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/deleteallposition', respon)
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any) => {

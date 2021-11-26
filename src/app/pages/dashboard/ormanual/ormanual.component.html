@@ -1,0 +1,246 @@
+
+	<ejs-dialog id='ejDialogTX' #ejDialogTX allowDragging='true' [header]='header' [visible]='hidden' [target]='targetElement' width='450px' height='530px' [showCloseIcon]='showCloseIcon'>
+		<ng-template #content>
+
+<nb-card>
+	<!-- <nb-card-header>Arrume Manual</nb-card-header> -->
+	<!-- <nb-card-body> -->
+		<div [formGroup]="arrumeManualForm" >
+			<!-- <div class="form-group">
+				<label for="orderForm">Orden</label>
+					<nb-select id="orderForm"
+					formControlName="orderForm"
+					class="form-control">
+						<nb-option *ngFor="let ord of orderList" [value]="ord.order">
+						  {{ ord.order }}
+						</nb-option>             
+					  </nb-select>
+			</div> -->
+
+			<div class="form-group">
+				<ejs-dropdownlist formControlName="orderForm" name="order" value='value' [fields]='fields' [dataSource]='orderList' placeholder="Ordenes" [allowFiltering]='true' floatLabelType='Auto' required>
+				</ejs-dropdownlist>
+			</div>
+
+			<div class="form-group">
+				<ejs-dropdownlist formControlName="statusForm" name="id" value='value' [fields]='states' [dataSource]='status' placeholder="Estado" [allowFiltering]='true' floatLabelType='Auto' required>
+				</ejs-dropdownlist>
+			</div>
+
+			<!-- <div class="form-group">
+				<label for="statusForm">Estado</label>
+				<nb-select id="statusForm"
+				formControlName="statusForm"
+				class="form-control"
+				>
+					<nb-option *ngFor="let option of status" [value]="option.id">
+					  {{ option.name }}
+					</nb-option>             
+				  </nb-select>
+			</div> -->
+		
+			<!-- <div class="form-group">
+				<label for="cutLengthForm">Longitud de Corte</label>
+				<input 
+				nbInput 
+				id="cutLengthForm" 
+				formControlName="cutLengthForm"
+				type="number" 
+				class="form-control"
+				status="basic" 
+				placeholder="Buscar arrumes por orden"
+				>
+			</div> -->
+
+			<div class="form-group" style="padding-top:10px;">
+				<div class="e-float-input">
+					<input id="cutLengthForm"  type="number" name="cutLengthForm" class="required" formControlName="cutLengthForm" required>
+					<span class="e-float-line"></span>
+					<label class="e-float-text" for="Subject">Longitud de Corte:</label>
+				</div>
+				<div *ngIf="arrumeManualForm.controls.cutLengthForm.invalid && (arrumeManualForm.controls.cutLengthForm.dirty || arrumeManualForm.controls.cutLengthForm.touched)" class="alert alert-danger">
+					<div *ngIf="arrumeManualForm.controls.cutLengthForm.errors.required">
+						Longitud de Corte es obligatorio
+					</div>
+				</div>
+			</div>
+
+			<!-- <div class="form-group">
+				<label for="cutCountForm">Cantidad Cortes</label>
+				<input 
+				nbInput 
+				id="cutCountForm" 
+				formControlName="cutCountForm"
+				type="number" 
+				class="form-control"
+				status="basic" 
+				placeholder="Buscar arrumes por orden"
+				>
+			</div> -->
+
+			<div class="form-group" style="padding-top:10px;">
+				<div class="e-float-input">
+					<input id="cutCountForm"  type="number" name="cutCountForm" class="required" formControlName="cutCountForm" required>
+					<span class="e-float-line"></span>
+					<label class="e-float-text" for="Subject">Cantidad Cortes:</label>
+				</div>
+				<div *ngIf="arrumeManualForm.controls.cutCountForm.invalid && (arrumeManualForm.controls.cutCountForm.dirty || arrumeManualForm.controls.cutCountForm.touched)" class="alert alert-danger">
+					<div *ngIf="arrumeManualForm.controls.cutCountForm.errors.required">
+						Cantidad Cortes es obligatorio
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" style="padding-top:10px;" *ngIf="!mostrar">
+				<div class="e-float-input" >
+					<input id="quantityForm"  type="number" name="quantityForm" [disabled]="ocultar" [readonly]="ocultar" class="required"  formControlName="quantityForm"  required>
+					<span class="e-float-line"></span>
+					<label class="e-float-text" for="quantity">Cantidad de arrumes:</label>
+				</div>
+				<div *ngIf="arrumeManualForm.controls.quantityForm.invalid && (arrumeManualForm.controls.quantityForm.dirty || arrumeManualForm.controls.quantityForm.touched)" class="alert alert-danger">
+					<div *ngIf="arrumeManualForm.controls.quantityForm.errors.required">
+						Cantidad Cortes es obligatorio
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">			
+					<nb-checkbox formControlName="expressForm" name="express" >Express</nb-checkbox>
+			</div>
+			
+
+			
+
+		</div>
+	<!-- </nb-card-body> -->
+	<nb-card-footer>
+		<button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="Guardar()">GUARDAR</button>
+	</nb-card-footer>
+</nb-card>
+
+</ng-template>
+</ejs-dialog>
+
+
+
+<ejs-dialog id='ejDialog' #ejDialog  allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='450px' height='530px' [showCloseIcon]='showCloseIcon'>
+    <ng-template #content>
+
+<nb-card>
+<!-- <nb-card-header>Arrume Manual</nb-card-header> -->
+<!-- <nb-card-body> -->
+    <div [formGroup]="arrumeManualForm" >
+        <!-- <div class="form-group">
+            <label for="orderForm">Orden</label>
+                <nb-select id="orderForm"
+                formControlName="orderForm"
+                class="form-control">
+                    <nb-option *ngFor="let ord of orderList" [value]="ord.order">
+                      {{ ord.order }}
+                    </nb-option>             
+                  </nb-select>
+        </div> -->
+
+        <div class="form-group">
+            <ejs-dropdownlist formControlName="orderForm" name="order" value='value' [fields]='fields' [dataSource]='orderList' placeholder="Ordenes" [allowFiltering]='true' floatLabelType='Auto' required>
+            </ejs-dropdownlist>
+        </div>
+
+        <div class="form-group">
+            <ejs-dropdownlist formControlName="statusForm" name="id" value='value' [fields]='states' [dataSource]='status' placeholder="Estado" [allowFiltering]='true' floatLabelType='Auto' required>
+            </ejs-dropdownlist>
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="statusForm">Estado</label>
+            <nb-select id="statusForm"
+            formControlName="statusForm"
+            class="form-control"
+            >
+                <nb-option *ngFor="let option of status" [value]="option.id">
+                  {{ option.name }}
+                </nb-option>             
+              </nb-select>
+        </div> -->
+    
+        <!-- <div class="form-group">
+            <label for="cutLengthForm">Longitud de Corte</label>
+            <input 
+            nbInput 
+            id="cutLengthForm" 
+            formControlName="cutLengthForm"
+            type="number" 
+            class="form-control"
+            status="basic" 
+            placeholder="Buscar arrumes por orden"
+            >
+        </div> -->
+
+        <div class="form-group" style="padding-top:10px;">
+            <div class="e-float-input">
+                <input id="cutLengthForm"  type="number" name="cutLengthForm" class="required" formControlName="cutLengthForm" required>
+                <span class="e-float-line"></span>
+                <label class="e-float-text" for="Subject">Longitud de Corte:</label>
+            </div>
+            <div *ngIf="arrumeManualForm.controls.cutLengthForm.invalid && (arrumeManualForm.controls.cutLengthForm.dirty || arrumeManualForm.controls.cutLengthForm.touched)" class="alert alert-danger">
+                <div *ngIf="arrumeManualForm.controls.cutLengthForm.errors.required">
+                    Longitud de Corte es obligatorio
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="cutCountForm">Cantidad Cortes</label>
+            <input 
+            nbInput 
+            id="cutCountForm" 
+            formControlName="cutCountForm"
+            type="number" 
+            class="form-control"
+            status="basic" 
+            placeholder="Buscar arrumes por orden"
+            >
+        </div> -->
+
+        <div class="form-group" style="padding-top:10px;">
+            <div class="e-float-input">
+                <input id="cutCountForm"  type="number" name="cutCountForm" class="required" formControlName="cutCountForm" required>
+                <span class="e-float-line"></span>
+                <label class="e-float-text" for="Subject">Cantidad Cortes:</label>
+            </div>
+            <div *ngIf="arrumeManualForm.controls.cutCountForm.invalid && (arrumeManualForm.controls.cutCountForm.dirty || arrumeManualForm.controls.cutCountForm.touched)" class="alert alert-danger">
+                <div *ngIf="arrumeManualForm.controls.cutCountForm.errors.required">
+                    Cantidad Cortes es obligatorio
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="padding-top:10px;" *ngIf="!mostrar">
+            <div class="e-float-input" >
+                <input id="quantityForm"  type="number" name="quantityForm" [disabled]="ocultar" [readonly]="ocultar" class="required"  formControlName="quantityForm"  required>
+                <span class="e-float-line"></span>
+                <label class="e-float-text" for="quantity">Cantidad de arrumes:</label>
+            </div>
+            <div *ngIf="arrumeManualForm.controls.quantityForm.invalid && (arrumeManualForm.controls.quantityForm.dirty || arrumeManualForm.controls.quantityForm.touched)" class="alert alert-danger">
+                <div *ngIf="arrumeManualForm.controls.quantityForm.errors.required">
+                    Cantidad Cortes es obligatorio
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">			
+                <nb-checkbox formControlName="expressForm" name="express" >Express</nb-checkbox>
+        </div>
+        
+
+        
+
+    </div>
+<!-- </nb-card-body> -->
+<nb-card-footer>
+    <button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="Guardar()">GUARDAR</button>
+</nb-card-footer>
+</nb-card>
+
+</ng-template>
+</ejs-dialog>

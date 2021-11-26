@@ -63,6 +63,9 @@ import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { LastalarmComponent } from './lastalarm/lastalarm.component';
 import { QueuedOrdersComponent } from './queued-orders/queued-orders.component';
+import { ManualorderComponent } from './manualorder/manualorder.component';
+import { OrmanualComponent } from './ormanual/ormanual.component';
+import { PropertiesComponent } from './properties/properties.component';
 
 @NgModule({
   imports: [
@@ -121,6 +124,9 @@ import { QueuedOrdersComponent } from './queued-orders/queued-orders.component';
     WindowComponent2,
     LastalarmComponent,
     QueuedOrdersComponent,
+    ManualorderComponent,
+    OrmanualComponent,
+    PropertiesComponent,
   ],
   providers: [
     PageService, 

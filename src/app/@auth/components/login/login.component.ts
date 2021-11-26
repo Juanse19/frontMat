@@ -174,19 +174,19 @@ export class NgxLoginComponent implements OnInit {
             });
         } else if (this.validData[0].Licens_id === "2") {
           // debugger
-          console.log("licencia de usuario inactiva");
+          // console.log("licencia de usuario inactiva");
           this.toasterService.danger(
             "",
             `¡Licencia Inactiva, por favor comuniquese con el administrador!`
           );
         } else if (this.validData[0].Licens_id === null) {
-          console.log("No tiene tiene licencia ");
+          // console.log("No tiene tiene licencia ");
           this.toasterService.danger("", `¡No tiene tiene licencia!`);
         } else if (
           this.validData[0].States === 2 ||
           this.validData[0].States === null
         ) {
-          console.log("Usuario Inactivo");
+          // console.log("Usuario Inactivo");
           this.toasterService.danger("", `¡Usuario Inactivo!`);
         } else {
           
@@ -214,16 +214,16 @@ export class NgxLoginComponent implements OnInit {
                 .PostJson(this.api.apiUrlNode + "/updateSesion", respon)
                 .pipe(takeWhile(() => this.alive))
                 .subscribe((res: any) => {
-                  console.log("Se actualizó: ", res);
+                  // console.log("Se actualizó: ", res);
                 });
-              // Swal.fire(
+              // Swal.fire( 
               //   '¡Sesión cerrada',
               //   'La sesión que tenías abierta se he cerrado exitosamente, ahora puedes ingresar nuevamente.',
               //   'warning',
 
               Swal.fire({
                 title: "¡Cargando!",
-                text: "Esperando que cerrar sesión",
+                text: "Esperando a que se cierre sesión",
                 allowEscapeKey: false,
                 allowOutsideClick: false,
                 timer: timers,
@@ -234,7 +234,7 @@ export class NgxLoginComponent implements OnInit {
                 if (result.value === this.timer) {
                   // debugger;
 
-                  console.log("closed by timer!!!!");
+                  // console.log("closed by timer!!!!");
                   this.apiGetComp
                     .GetJson(
                       this.api.apiUrlNode +
@@ -247,14 +247,14 @@ export class NgxLoginComponent implements OnInit {
 
                       if (this.validData[0].Lat == 1) {
                         Swal.fire({
-                          title: "El usuario continua con la sesión, Vuelva ha intentar!",
+                          title: "El usuario continua con la sesión activa, ¡Vuelva ha intentar!",
                           icon: "warning",
                           timer: 2000,
                           showConfirmButton: false,
                         });
                       } else {
                         Swal.fire({
-                          title: "Se finalizó la seseón, Ya puede iniciar sesión!",
+                          title: "Se finalizó la sesión, Ya puede ¡iniciar sesión!",
                           icon: "success",
                           timer: 2000,
                           showConfirmButton: false,

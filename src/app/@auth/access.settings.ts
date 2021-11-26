@@ -100,7 +100,7 @@ export const authSettings = {
   supervisor: {
     parent: 'operario',
       view: ['devices', 'current-user','dashboard','iot-dashboard','report','reports', 'fullMenu'],
-      edit: ['devices', 'current-user'],
+      edit: ['devices', 'current-user', 'dialog'],
   },
   programador: {
     parent: 'supervisor',

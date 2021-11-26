@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
+import { HttpClient } from '@angular/common/http';
 import { NbToastrService } from '@nebular/theme';
-import { takeWhile } from 'rxjs/operators';
+import { switchMap, takeWhile } from 'rxjs/operators';
 import { NbAccessChecker } from '@nebular/security';
 import { UserStore } from '../../../@core/stores/user.store';
 import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, CommandClickEventArgs, 
@@ -36,14 +37,17 @@ let ALARMAS: Alarmas[] = [
   templateUrl: './lastalarm.component.html',
   styleUrls: ['./lastalarm.component.scss']
 })
-export class LastalarmComponent implements OnInit {
+export class LastalarmComponent implements OnInit, OnDestroy {
 
   public select = false;
   private alive = true;
   mostrar: Boolean;
 
   public pageSettings: PageSettingsModel;
-  
+
+  subscription: Subscription;
+
+  intervalSubscriptionLastAlarm: Subscription;
 
   public editSettings: Object;
     // public toolbar: string[];
@@ -64,6 +68,7 @@ export class LastalarmComponent implements OnInit {
     private toastrService: NbToastrService,
     public apiGetComp: ApiGetService,
     private api: HttpService,
+    private http: HttpClient,
     private userStore: UserStore,
   ) {
     this.alive;
@@ -108,6 +113,8 @@ export class LastalarmComponent implements OnInit {
       { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
       { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
 
+      this.lastAlarmCharge();
+
   }
 
   Chargealarms() {
@@ -118,18 +125,34 @@ export class LastalarmComponent implements OnInit {
       // console.log("Report Total Ordenes:", res);
       this.Alarm = res;
     });
-    const contador = interval(6000)
-    contador.subscribe((n) => {
-      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/lastAlarm')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        //REPORTOCUPATION=res;
-        this.Alarm = res;
-      });
+    const contador = interval(3000)
+    // contador.subscribe((n) => {
+    //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/lastAlarm')
+    //   .pipe(takeWhile(() => this.alive))
+    //   .subscribe((res: any) => {
+    //     //REPORTOCUPATION=res;
+    //     this.Alarm = res;
+    //   });
+    // });
+  }
+
+  public lastAlarmCharge(){
+
+    if (this.intervalSubscriptionLastAlarm) {
+      this.intervalSubscriptionLastAlarm.unsubscribe();
+    }
+    
+    this.intervalSubscriptionLastAlarm = interval(26000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/lastAlarm')),
+    )
+    .subscribe((res: any) => {
+      this.Alarm = res;
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 

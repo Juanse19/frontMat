@@ -1,17 +1,18 @@
 import { Component, OnDestroy } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SmartTableData } from '../../../@core/interfaces/common/smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { NbToastrService } from '@nebular/theme';
-import { takeWhile } from 'rxjs/operators';
+import { switchMap, takeWhile } from 'rxjs/operators';
 import { NbAccessChecker } from '@nebular/security';
 import { UserStore } from '../../../@core/stores/user.store';
 import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, CommandClickEventArgs, 
   EditService, CommandColumnService, CommandModel, ToolbarService, PageService,
    ToolbarItems } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
+import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2'; 
 
 interface Alarmas {
@@ -43,6 +44,12 @@ export class AlarmsComponent implements OnDestroy {
   public select = false;
   private alive = true;
   mostrar: Boolean;
+
+  subscription: Subscription;
+
+  intervalSubscriptionChargealarms: Subscription;
+
+  intervalSubscriptionHistoryalarms: Subscription;
 
   public pageSettings: PageSettingsModel;
   
@@ -193,6 +200,7 @@ export class AlarmsComponent implements OnDestroy {
     private toastrService: NbToastrService,
     public apiGetComp: ApiGetService,
     private api: HttpService,
+    private http: HttpClient,
     private userStore: UserStore,
   ) {
     this.alive;
@@ -277,6 +285,8 @@ export class AlarmsComponent implements OnDestroy {
         //  console.log("alarmId", res);
          if (res) {
           this.toastrService.success('', '¡Alarma solucionada!'); 
+          this.Chargealarms();
+          this.AlarmsCharge();
           this.source.refresh();
         } else {
           this.toastrService.danger('', 'Algo salio mal.');
@@ -332,6 +342,7 @@ export class AlarmsComponent implements OnDestroy {
         //  console.log("alarmId", res);
          if (res) {
           this.toastrService.success('', '¡Alarma solucionada!'); 
+         
           this.source.refresh();
         } else {
           this.toastrService.danger('', 'Algo salio mal.');
@@ -379,9 +390,12 @@ export class AlarmsComponent implements OnDestroy {
       .subscribe((res: any) => {
        this.source.refresh();
        this.Chargealarms();
+       this.AlarmsCharge();
       });
    
          Swal.fire('¡Se Reconocieron Exitosamente', 'success');
+         this.Chargealarms();
+         this.AlarmsCharge();
          this.source.refresh();
      }
    });
@@ -396,6 +410,23 @@ export class AlarmsComponent implements OnDestroy {
      
   }
 
+  public AlarmsCharge(){
+
+    if (this.intervalSubscriptionChargealarms) {
+      this.intervalSubscriptionChargealarms.unsubscribe();
+    }
+    
+    this.intervalSubscriptionChargealarms = interval(10000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/getAlarms')),
+    )
+    .subscribe((res: any) => {
+      this.Alarm = res;
+
+    });
+  }
+
   Chargealarms() {
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/getAlarms')
     .pipe(takeWhile(() => this.alive))
@@ -403,17 +434,32 @@ export class AlarmsComponent implements OnDestroy {
       //REPORTOCUPATION=res;
       // console.log("Report Total Ordenes:", res);
       this.Alarm = res;
-      this.source.load(res);
     });
-    const contador = interval(6000)
-    contador.subscribe((n) => {
-      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/GetAlarms')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        //REPORTOCUPATION=res;
-        this.Alarm = res;
-        this.source.load(res);
-      });
+    // const contador = interval(6000)
+    // contador.subscribe((n) => {
+    //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/GetAlarms')
+    //   .pipe(takeWhile(() => this.alive))
+    //   .subscribe((res: any) => {
+    //     //REPORTOCUPATION=res;
+    //     this.Alarm = res;
+    //   }); 
+    // });
+  }
+
+  public historyAlarmsCharge(){
+
+    if (this.intervalSubscriptionHistoryalarms) {
+      this.intervalSubscriptionHistoryalarms.unsubscribe();
+    }
+    
+    this.intervalSubscriptionHistoryalarms = interval(10000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/alarms')),
+    )
+    .subscribe((res: any) => {
+      this.Alarms = res;
+
     });
   }
 
@@ -426,18 +472,18 @@ export class AlarmsComponent implements OnDestroy {
       this.Alarms = res;
       this.source1.load(res);
     });
-    const contador = interval(6000)
-    contador.subscribe((n) => {
-      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/alarms')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        this.Alarms = res;
-        this.source1.load(res);
-      });
-    });
+    // const contador = interval(6000)
+    // contador.subscribe((n) => {
+    //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/alarms')
+    //   .pipe(takeWhile(() => this.alive))
+    //   .subscribe((res: any) => {
+    //     this.Alarms = res;
+    //     this.source1.load(res);
+    //   });
+    // });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 

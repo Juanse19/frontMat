@@ -53,6 +53,8 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   @ViewChild('autoInput') input;
 
+  errors = [];
+
   messages: any[] = [];
   subscription: Subscription;
   
@@ -276,7 +278,9 @@ export class WcsComponent implements OnInit, OnDestroy {
     private api: HttpService,
     private messageService: MessageService
   ) {
-    this.subscription = this.messageService.onMessage().subscribe(message => {
+    this.subscription = this.messageService.onMessage()
+    .pipe(takeWhile(() => this.alive))
+    .subscribe(message => {
       if (message.text=="MachineColor") {
         //this.messages.push(message);
         this.ColorCharge();
@@ -345,9 +349,11 @@ export class WcsComponent implements OnInit, OnDestroy {
     )
     .subscribe((res: any) => {
         this.showdataAlarms  = res[0];
-        console.log('StateAlarms', this.showdataAlarms);
+        // console.log('StateAlarms', this.showdataAlarms); 
         
-    });
+    },(error) => (console.log(error)),
+    () => console.log('Post moratorium location for moratorium is complete' ),
+  );
 
     // this.apiGetComp.GetJson(this.api.apiUrlNode + '/es')
     //   .pipe(takeWhile(() =>this.flagMoverCarro))
@@ -370,7 +376,9 @@ export class WcsComponent implements OnInit, OnDestroy {
     )
     .subscribe((res: any) => {
       this.dataRoutesCts  = res[0];
-    });
+    },(error) => (console.log(error)),
+    () => console.log('Post moratorium location for moratorium is complete' ),
+  );
 
  
   }
@@ -419,6 +427,10 @@ export class WcsComponent implements OnInit, OnDestroy {
       }
 
       // console.log('periodosStakerAbajo',this.dataPeriodoStackerDown);
+    },
+    err => {
+      this.errors = err.error.message;
+      console.log(this.errors);
     });
   }
   
@@ -467,8 +479,8 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.RouteCtsCharge();
     this.PedidoStackersAboveCharge();
     this.PedidoStackersDownCharge();
-    this.PedidoStackers1Charge();
-    this.PedidoStackers2Charge();
+    // this.PedidoStackers1Charge();
+    // this.PedidoStackers2Charge();
     // this.showStatusName();
     // this.showSatatusRouteCts();
     // this.StatusAlarmCharge();
@@ -831,10 +843,11 @@ public ClicTest3(): void {
 }
  
 ngOnDestroy() {
+  this.alive=false;
   if (this.subscription) {
     this.subscription.unsubscribe();
   }
-  this.alive=false;
+  
   this.sigalRService.alive=false;
 }
 

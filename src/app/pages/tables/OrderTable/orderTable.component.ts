@@ -261,7 +261,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
       // console.log('Type edit: ', args);
       // this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
 
-      this.accessChecker.isGranted('edit', 'ordertable')
+      this.accessChecker.isGranted('edit', 'editOrd')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         if(res){ 

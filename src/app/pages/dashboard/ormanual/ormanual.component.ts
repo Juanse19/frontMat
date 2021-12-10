@@ -218,7 +218,7 @@ export class OrmanualComponent implements OnInit {
   or=ORDESTA
 
   openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
-    debugger
+    // debugger
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
@@ -280,19 +280,40 @@ export class OrmanualComponent implements OnInit {
     // });
 
 
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((resOrder: any) => {
+    // this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {
+    //   this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((resOrder: any) => {
         
       
-        ORDERLIST=resOrder;
-        this.orderList=ORDERLIST;
+    //     ORDERLIST=resOrder;
+    //     this.orderList=ORDERLIST;
+
+    //     STATUS=res;
+    //     this.status=STATUS;
+    //     // win=this.windowService.open(WindowComponent2, { title: nombreWindow});
+        
+    //   });
+    // });
+
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      
 
         STATUS=res;
         this.status=STATUS;
-        // win=this.windowService.open(WindowComponent2, { title: nombreWindow});
         
+    
       });
+
+      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrdenes')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((resOrder: any) => {
+        
+        ORDERLIST=resOrder;
+        this.orderList=ORDERLIST;
+        
     });
+
   }
 
 
@@ -396,14 +417,14 @@ Guardar(){
     }).then(result => {
       if (result.value) {
         if (STATUSPACKAGE.idStatus === 4 ) {
+          this.messageService.sendMessage('PackageUpdate');
             // console.log('borrar');
             this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
-              
+              this.messageService.sendMessage('PackageUpdate');
             }); 
             this.messageService.sendMessage('PackageUpdate');
             Swal.fire('¡Eliminado!', 'El arrume ha sido eliminada.', 'success');
             // this.ChangeState();
-            
             this.back();
           } else {
             Swal.fire('¡Error!', 'Hubo un error al eliminar el arrume', 'error');
@@ -412,6 +433,7 @@ Guardar(){
       }
     });
   }
+  this.messageService.sendMessage('PackageUpdate');
 }
 }
 
@@ -457,6 +479,7 @@ handleWrongResponse() {
 back() {
   // win.close();
   this.ejDialogTX.hide();
+  // this.messageService.sendMessage('PackageUpdate');
   //this.router.navigate(['/pages/tables/OrderTable']);
 }
 

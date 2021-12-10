@@ -327,21 +327,27 @@ export class ManualorderComponent implements OnInit {
     //   this.selec=true;
     // }
     
-    // this.subscription = this.messageService.onMessage().subscribe(message => {
-    //   if (message.text=="PackageUpdate") {
-    //     // debugger
-    //     //this.messages.push(message);
-    //     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ this.idMaquina)
-    //     .pipe(takeWhile(() => this.alive))
-    //     .subscribe((res: any) => {
+    this.subscription = this.messageService.onMessage()
+    .pipe(takeWhile(() => this.alive))
+    .subscribe(message => {
+      if (message.text=="PackageUpdate") {
+        // debugger
+        //this.messages.push(message);
+        this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ this.idMaquina)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any) => {
           
-    //       ORDEN = res
-    //       this.dataOrdes = ORDEN
-         
+          // ORDEN = res
+          // this.dataOrdes = ORDEN
+          this.orderData = res;
+          // this.openData(this.idMaquina);
+          // this.openOrder(this.idMaquina);
+          console.log('Se ejecutó..!');
+          
 
-    //     });
-    //   } 
-    // });
+        });
+      } 
+    });
   }
 
   @ViewChild('device1') device1: DialogComponent;
@@ -460,7 +466,7 @@ this.commands = [
         if (args.requestType == 'beginEdit') {
           // debugger
           args.cancel = true;
-          this.accessChecker.isGranted('edit', 'ordertable')
+          this.accessChecker.isGranted('edit', 'dialog')
             .pipe(takeWhile(() => this.alive))
             .subscribe((res: any) => { 
               if(res){ 
@@ -483,7 +489,7 @@ this.commands = [
         // debugger
         if (args.item.id === 'Click') {
           // console.log('click: ', args);
-          this.accessChecker.isGranted('edit', 'ordertable')
+          this.accessChecker.isGranted('edit', 'propi')
             .pipe(takeWhile(() => this.alive))
             .subscribe((res: any) => { 
               if(res){ 
@@ -564,38 +570,38 @@ this.commands = [
         }
       }
 
-      public OrdCharge(idMaquina: number){
+      // public OrdCharge(idMaquina: number){
 
-        if (this.intervalSubscriptionOrder) {
-          this.intervalSubscriptionOrder.unsubscribe();
-        }
+      //   if (this.intervalSubscriptionOrder) {
+      //     this.intervalSubscriptionOrder.unsubscribe();
+      //   }
         
-        this.intervalSubscriptionOrder = interval(1500)
-        .pipe(
-          takeWhile(() => this.alive),
-          switchMap(() => this.http.get(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ idMaquina)),
-        )
-        .subscribe((res: any) => {
+      //   this.intervalSubscriptionOrder = interval(1500)
+      //   .pipe(
+      //     takeWhile(() => this.alive),
+      //     switchMap(() => this.http.get(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ idMaquina)),
+      //   )
+      //   .subscribe((res: any) => {
 
-          if (this.orderData == undefined) {
-            // console.log('stop 1'); 
-            this.alive = false; 
-          } else if (this.orderData == null) {
-            // console.log('stop 2'); 
-            this.alive = false; 
-          } else {
-            this.orderData = res;
-            this.alive = true;
-          // console.log('Data', this.orderData);
-          }
+      //     if (this.orderData == undefined) {
+      //       // console.log('stop 1'); 
+      //       this.alive = false; 
+      //     } else if (this.orderData == null) {
+      //       // console.log('stop 2'); 
+      //       this.alive = false; 
+      //     } else {
+      //       this.orderData = res;
+      //       this.alive = true;
+      //     // console.log('Data', this.orderData);
+      //     }
 
           
-        });
-      }
+      //   });
+      // }
 
       reconocer(idMaquina: number) {
 
-        this.accessChecker.isGranted('edit', 'ordertable')
+        this.accessChecker.isGranted('edit', 'propi')
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any) => {
           if(res){ 
@@ -608,16 +614,16 @@ this.commands = [
           cancelButtonColor: '#d33',
           confirmButtonText: '¡Sí, Eliminar!'
         }).then(result => {
-          debugger 
+          // debugger 
           if (result.value) {
-            debugger
-           const currentUserId = this.userStore.getUser().id;
+            // debugger
+      const currentUserId = this.userStore.getUser().id;
       const currentUser = this.userStore.getUser().firstName;
       // console.log("este es el usuario: ",this.userStore.getUser().firstName);
       var respons = 
       {
       user: currentUser,
-      message:"Eliminó todas las induccione (OrderPosition)",
+      message:"Eliminó todos los arrumes del wip " + this.propiedades.description,
       users: currentUserId,  
       };
       this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
@@ -636,7 +642,7 @@ this.commands = [
           this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/deleteaWip?IdMaquina='+ idMaquina)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
-            
+            this.messageService.sendMessage('PackageUpdate');
           });
        
              Swal.fire('¡Se Eliminaron Exitosamente', 'success');
@@ -654,13 +660,9 @@ this.commands = [
          
       }
 
-  openOrder(idMaquina: number){
-    this.accessChecker.isGranted('edit', 'dialog')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => { 
-      if(res){
+  openData(idMaquina: number){
     this.idMaquina=idMaquina;
-    IDMAQUINA=idMaquina;
+    IDMAQUINA=idMaquina; 
 
     this.alive = true;
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ idMaquina)
@@ -678,11 +680,46 @@ this.commands = [
               this.alive = true;
               // console.log('Ordenes en cola 1');
               this.orderData = res;
-              this.OrdCharge(idMaquina)
+              // this.OrdCharge(idMaquina)
               if (this.showCloseIcon == false) {
                 this.alive = false; 
                 console.log('stop 4');
               }
+              
+            }
+            
+      });
+  }
+
+  openOrder(idMaquina: number){
+    this.accessChecker.isGranted('edit', 'dialog')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => { 
+      if(res){
+    this.idMaquina=idMaquina;
+    IDMAQUINA=idMaquina; 
+
+    this.alive = true;
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ idMaquina)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
+            
+            if (res == undefined) {
+              // console.log('no hay data');
+              this.device1.show(); 
+              this.orderData = res;
+              
+              // console.log('undefined', this.orderData);
+            } else {
+              // console.log('Si hay');
+              this.alive = true;
+              // console.log('Ordenes en cola 1');
+              this.orderData = res;
+              // this.OrdCharge(idMaquina)
+              // if (this.showCloseIcon == false) {
+              //   this.alive = false; 
+              //   console.log('stop 4');
+              // }
               
             }
             
@@ -823,12 +860,17 @@ this.commands = [
             
      
 
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipFree?idTarget='+ idMaquina).subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipFree?idTarget='+ idMaquina)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       WIPFREE = res;
       this.wipFree=WIPFREE;
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerPropiedadesMaquina?idMaquina='+ idMaquina).subscribe((res: any) => {
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerPropiedadesMaquina?idMaquina='+ idMaquina)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
         PROPIEDADES = res;
-        this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipForTarget?idTarget='+ idMaquina).subscribe((res: any) => {
+        this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetWipForTarget?idTarget='+ idMaquina)
+        .pipe(takeWhile(() => this.alive)).subscribe((res: any) => {
           WIPLIST=res;
           this.wipLista=WIPLIST;
           
@@ -899,7 +941,7 @@ this.commands = [
     // console.log(Number(this.prioridadValor.nativeElement.value));
     // debugger
 
-    this.accessChecker.isGranted('edit', 'ordertable')
+    this.accessChecker.isGranted('edit', 'propi')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => { 
       if(res){ 
@@ -964,7 +1006,10 @@ this.commands = [
 
 
    public moveSelected(direction) {
-    
+    this.accessChecker.isGranted('edit', 'editOrd')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => { 
+      if(res){
      if (direction === 'right') {
        this.wipFree.forEach(item => {
         if (item.selected) {
@@ -999,6 +1044,15 @@ this.commands = [
       });
   //     this.list1 = this.list1.filter(i => !i.selected);
      }
+              
+              this.select = false;
+              this.mostrar = false;
+            }else {
+              this.select=true;
+              this.mostrar=true;
+              this.ocultar = true;
+            }
+          });
    }
 
 
@@ -1014,7 +1068,7 @@ this.commands = [
   }
 
   EditPackage(id:number,idOrder: number,order:string,state:string, stateId:number, priority:number, cutLength:number, cutsCount:number, express:boolean, idDevice:number){
-    this.accessChecker.isGranted('edit', 'ordertable')
+    this.accessChecker.isGranted('edit', 'dialog')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => { 
       if(res){ 

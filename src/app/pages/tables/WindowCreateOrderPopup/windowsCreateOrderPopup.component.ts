@@ -43,6 +43,7 @@ interface OrdenActualizar {
 
 interface OrdenCrear {
   orden: string;
+  tarjeta: string;
   referencia: string;
   batch: number;
   longitudOrden: number;
@@ -164,6 +165,7 @@ public selectedOrigen ;
   @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef, static: true }) disabledEscTemplate: TemplateRef<HTMLElement>;
   @ViewChild('ordenValor') ordenValor:ElementRef;
+  @ViewChild('tarjeta') tarjeta:ElementRef;
   @ViewChild('referenciaValor') referenciaValor:ElementRef;
   @ViewChild('batchValor') batchValor:ElementRef;
   @ViewChild('longitudValor') longitudValor:ElementRef;
@@ -303,6 +305,7 @@ openWindow(contentTemplate, titleValue:string, textValue:string, numberValue: nu
     ORDENCREAR =
     {
       orden : this.ordenValor.nativeElement.value,
+      tarjeta: this.tarjeta.nativeElement.value,
       referencia: this.referenciaValor.nativeElement.value,
       batch:  Number(this.batchValor.nativeElement.value),
       longitudOrden:  Number(this.longitudValor.nativeElement.value),

@@ -30,7 +30,7 @@
 
 //    ['devices', 'current-user']
 // }
-
+ 
 // // static eView() :string[] {
 
 
@@ -92,7 +92,8 @@
 
 export const authSettings = {
   operario: {
-    view: ['devices', 'current-user','dashboard','iot-dashboard']
+    view: ['devices', 'current-user','dashboard','iot-dashboard'],
+    edit: ['devices', 'current-user', 'editOrd', 'dialog'],
   },
   // operario: {
   //   view: ['dashboard', 'current-user']
@@ -100,7 +101,7 @@ export const authSettings = {
   supervisor: {
     parent: 'operario',
       view: ['devices', 'current-user','dashboard','iot-dashboard','report','reports', 'fullMenu'],
-      edit: ['devices', 'current-user', 'dialog'],
+      edit: ['devices', 'current-user', 'dialog', 'propi'],
   },
   programador: {
     parent: 'supervisor',

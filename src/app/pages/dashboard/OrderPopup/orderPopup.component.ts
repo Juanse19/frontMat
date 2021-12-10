@@ -10,6 +10,7 @@ import { SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 import { takeWhile } from 'rxjs/operators';
 import { NumberMapper } from '@syncfusion/ej2-base/src/intl/parser-base';
+import { UserStore } from '../../../@core/stores/user.store';
 
 interface Ordenes {
   id: number;
@@ -89,6 +90,8 @@ export class WindowComponent2  implements OnInit {
 
   mostrar = false
 
+  errors = [];
+
   private alive = true;
 
   ocultar: Boolean;
@@ -123,7 +126,8 @@ export class WindowComponent2  implements OnInit {
     private messageService: MessageService,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,
+    private userStore: UserStore,
     ) {
        this.mostrar = true;
       // this.ocultar = true;
@@ -184,6 +188,8 @@ export class WindowComponent2  implements OnInit {
 
   openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
     // debugger
+    // this.stateData();
+    //   this.ordData();
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
@@ -201,7 +207,7 @@ export class WindowComponent2  implements OnInit {
         idDevice:idMaquina,
         idOrder:0
       };
-
+      
     }
    
    
@@ -213,8 +219,18 @@ export class WindowComponent2  implements OnInit {
     //   console.log('data id', this.or.id);
     // });
 
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrdenes')
+      // .pipe(takeWhile(() => this.alive))
+      .subscribe((resOrder: any) => {
+        
+        ORDERLIST=resOrder;
+        this.orderList=ORDERLIST;
+        
+    });
 
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package')
+    // .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
       
 
         STATUS=res;
@@ -222,17 +238,34 @@ export class WindowComponent2  implements OnInit {
         
     
       });
+    
+      
+    win=this.windowService.open(WindowComponent2, { title: nombreWindow});
+  }
 
-      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrdenes').subscribe((resOrder: any) => {
+stateData(){
+  this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      
+
+        STATUS=res;
+        this.status=STATUS;
+        
+    
+      });
+}
+
+ordData(){
+  this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrdenes')
+      // .pipe(takeWhile(() => this.alive))
+      .subscribe((resOrder: any) => {
         
         ORDERLIST=resOrder;
         this.orderList=ORDERLIST;
         
     });
-    win=this.windowService.open(WindowComponent2, { title: nombreWindow});
-  }
-
-
+}
 
   Guardar(){
     let formulario = this.arrumeManualForm.value;
@@ -315,13 +348,20 @@ export class WindowComponent2  implements OnInit {
       // this.ChangeState();
       // console.log('Data OrderManual', STATUSPACKAGE);
       
-      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
+      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE)
+      // .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
             
                    this.messageService.sendMessage('PackageUpdate');
                      this.handleSuccessResponse();
                      
-                 });
+                 },
+                 err => {
+                  this.errors = err.error.message;
+                  console.log(this.errors);
+                });
     }else if("eliminar estado"){
+      // this.messageService.sendMessage('PackageUpdate');
       Swal.fire({
         title: 'Estas seguro?',
         text: `¡No podrás revertir esto!`,
@@ -334,10 +374,31 @@ export class WindowComponent2  implements OnInit {
         if (result.value) {
           if (STATUSPACKAGE.idStatus === 4 ) {
               // console.log('borrar');
-              this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
-                
+              this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE)
+              // .pipe(takeWhile(() => this.alive))
+              .subscribe((res: any) => {
+            
+                this.messageService.sendMessage('PackageUpdate');
+              }, 
+              err => {
+                this.errors = err.error.message;
+                console.log(this.errors);
               }); 
-              this.messageService.sendMessage('PackageUpdate');
+              const currentUserId = this.userStore.getUser().id;
+              const currentUser = this.userStore.getUser().firstName;
+              // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+              var respons = 
+              {
+              user: currentUser,
+              message:"Eliminó un arrumes del wip ",
+              users: currentUserId,  
+              };
+              this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
+              // .pipe(takeWhile(() => this.alive))
+              .subscribe((res: any) => {
+                  //  console.log("Envió: ", res);
+                });
+              // this.messageService.sendMessage('PackageUpdate');
               Swal.fire('¡Eliminado!', 'El arrume ha sido eliminado.', 'success');
               // this.ChangeState();
               this.back();
@@ -345,6 +406,7 @@ export class WindowComponent2  implements OnInit {
               Swal.fire('¡Error!', 'Hubo un error al eliminar el arrume', 'error');
               this.back();
             }
+            this.messageService.sendMessage('PackageUpdate');
         }
       });
     }

@@ -410,7 +410,7 @@ export class PagesMenu {
           return [...dashboardMenu, procesosMenu, induccionMenu, repoMenu, analyticsMenu, configurationMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
-          return [...dashboardMenu, alarmMenu];
+          return [...dashboardMenu, procesosMenu, alarmMenu];
         }
       }));
   }

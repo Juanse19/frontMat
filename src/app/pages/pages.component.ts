@@ -58,6 +58,7 @@ export class PagesComponent implements OnDestroy {
       .subscribe(() => {
         this.initMenu();
       });
+
   }
 
   initMenu() {
@@ -70,12 +71,12 @@ export class PagesComponent implements OnDestroy {
   }
 
   public AutoLogoutCharge(){
-
+    try {
     if (this.intervalSubscriptionStatusSesion) {
       this.intervalSubscriptionStatusSesion.unsubscribe();
     }
     // debugger
-    this.intervalSubscriptionStatusSesion = interval(899)
+    this.intervalSubscriptionStatusSesion = interval(1000)
     .pipe(
       takeWhile(() => this.alive),
       switchMap(() => this.http.get(this.api.apiUrlNode + '/api/getlEmailuser?Email=' + this.userStore.getUser().email)),
@@ -83,6 +84,14 @@ export class PagesComponent implements OnDestroy {
     .subscribe((res: any) => {
         // this.states  = res;
         // console.log('status:', res);
+
+        if (res == undefined) {
+          console.log('no hay data');
+          this.AutoLogoutCharge();
+        } else {
+          // console.log('Si hay');
+          
+        
         this.validData = res
         // debugger
         // console.log('Email ValidData: ', this.validData[0].Id)
@@ -133,10 +142,29 @@ export class PagesComponent implements OnDestroy {
           //  console.log('Continue con la sesion');
 
         }
-    });
+    }
+  }
+    );
+  } catch (error) {
+        console.log('No fount data.');
+        
+  }
   }
 
   ngOnDestroy(): void {
     this.alive = false;
   }
+
+//   ngDoCheck(){
+//     this.AutoLogoutCharge();
+//     console.log('ngDoCheck');
+//     console.log('DoCheck: ', this.AutoLogoutCharge);
+    
+// }
+
+// ngOnChanges(){
+//     console.log('ngOnChanges');
+//     this.AutoLogoutCharge();
+// }
+  
 }

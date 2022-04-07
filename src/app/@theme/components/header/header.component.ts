@@ -166,6 +166,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navigateHome() {
     this.menuService.navigateHome();
+    this.router.navigate(['/pages/iot-dashboard']);
     return false;
   }
   // AbrirAlarmas(){

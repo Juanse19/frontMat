@@ -32,6 +32,27 @@ interface confi {
 
  let conConf: conC;
 
+ interface modeSic {
+   ModoSic?: number; 
+ }
+
+ let modoCREAR: modeSic
+{
+
+};
+
+interface gettoggle{
+  Parameter?: string,
+  value?: number,
+  text?: string,
+  values?: boolean,
+}
+
+let GETtoggle: gettoggle;
+{
+
+}
+
 @Component({
   selector: 'ngx-parameterization',
   templateUrl: './parameterization.component.html',
@@ -47,10 +68,16 @@ export class ParameterizationComponent implements OnInit {
   public commands: CommandModel[];
   public filterOptions: FilterSettingsModel;
   public orderForm: FormGroup;
+  public toggleForm: FormGroup;
   public shipCityDistinctData: Object[];
   public shipCountryDistinctData: Object[];
   public submitClicked: boolean = false;
   public initialSort: Object;
+
+  masterSelected:boolean;
+  public tooltiptext = {
+    message: 'Desactivado dimansionado, activado officeId '
+  }
 
   public select = false;
   private alive = true;
@@ -60,11 +87,19 @@ export class ParameterizationComponent implements OnInit {
   public dataConf: confi;
   public dataConfigu: confi[] = [];
 
+  public toggleText:string;
+  public dataToggle: gettoggle;
+  listToggle = GETtoggle;
+  public toggleNgModel:boolean;
+
   get Parameter() { return this.orderForm.get('Parameter')}
   get Value() { return this.orderForm.get('Value')}
 
+  // get value() { return this.toggleForm.get('value')}
+
   @ViewChild('ejDialogTX') ejDialogTX: DialogComponent;
   @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
+  // @ViewChild('ModoSic') ModoSic: ElementRef;
   constructor(
     private api: HttpService,
     private router: Router,
@@ -73,8 +108,14 @@ export class ParameterizationComponent implements OnInit {
     private apiGetComp: ApiGetService,
     public accessChecker: NbAccessChecker,
     private userStore: UserStore,
-  ) { }
-
+    private toasterService: NbToastrService,
+  ) { 
+    this.toggleLista();
+    this.masterSelected = false;
+    // this.toggleNgModel = true;
+  }
+    // toggleNgModel = false;
+    
     public targetElement: HTMLElement;
     public visible: Boolean = true;
     public hidden: Boolean = false;
@@ -90,6 +131,7 @@ export class ParameterizationComponent implements OnInit {
      };
 
      this.ChargeDataConfi();
+    //  this.toggleLista();
 
      this.commands = [
       { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
@@ -98,11 +140,21 @@ export class ParameterizationComponent implements OnInit {
       // { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' }}
     ];
 
+    this.toggleForm = new FormGroup({
+      value: new FormControl()
+   });
+
+   
+
     this.orderForm = new FormGroup({
       Id: new FormControl,
       Parameter: new FormControl(),
       Value: new FormControl()
    });
+
+   this.toggleForm.setValue({
+    value: this.listToggle?.values ? this.listToggle?.values : '',
+  });
 
   }
 
@@ -272,6 +324,71 @@ debugger
     //     this.dataOrposition = res;
     //   });
     // });
+
+  }
+
+  toggleLista() {
+
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/getModoSic')
+    .subscribe((res: any) => {
+      GETtoggle = res;
+      this.listToggle = GETtoggle[0]
+      // this.dataToggle = res[0]
+      // this.toggleNgModel = this.dataToggle.values
+      // this.listToggle = res[0]
+      console.log(this.listToggle);
+      
+      });
+  }
+public trutog
+  create(){
+    debugger
+
+    console.log(this.masterSelected);
+    this.masterSelected == true ? 0 : 1;
+
+    console.log('result: ', this.masterSelected == true ? this.trutog = 0 : this.trutog = 1);
+    
+    
+    let formulario = this.toggleForm.value;
+
+    // console.log('formulario', formulario?.value);
+    
+
+    // if (formulario.value === 0) {
+    //   this.trutog = 0
+    //   console.log('es 0');
+      
+    // } else if(formulario.Value === true) {
+    //   this.trutog = 1
+    //   console.log('es 1');
+    // }
+
+    modoCREAR =
+    {
+      ModoSic: this.trutog,
+    }
+
+    console.log('create', modoCREAR);
+    // this.toggleLista();
+    
+    // if (this.listToggle.values == false) {
+    //   // console.log('OfficeId', 1);
+    //   this.toggleText = 'OfficeId'
+    //   console.log(1, this.toggleText);
+      
+    // } else {
+    //   // console.log('Dimensiones', 0);
+    //   this.toggleText = 'Dimensiones'
+    //   console.log(0, this.toggleText);
+    // }
+
+    this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/updateModoSic', modoCREAR).subscribe((res: any) => {
+    this.toasterService.success(' actualizada con exito' );
+    console.log('Guardo con exito');
+    // this.toggleLista();
+    });
+
 
   }
 

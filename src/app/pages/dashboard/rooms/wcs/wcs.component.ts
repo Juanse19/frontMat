@@ -19,6 +19,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { truncateSync } from 'node:fs';
 import  { QueuedOrdersComponent } from '../../queued-orders/queued-orders.component';
 import { ManualorderComponent } from '../../manualorder/manualorder.component';
+import Swal from 'sweetalert2';
+import { UserStore } from '../../../../@core/stores/user.store';
+import { NbToastrService } from '@nebular/theme';
 
 interface Propiedades {
   id?: number; 
@@ -35,6 +38,12 @@ interface Propiedades {
 let PROPIEDADES: Propiedades;
   {
   
+  }
+
+interface alarmWarnig {
+  Message: string;
+  Alert: number;
+  Id: number;
   }
 
 @Component({
@@ -57,10 +66,15 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   messages: any[] = [];
   subscription: Subscription;
+
+  public alarmWData: alarmWarnig [];
   
   intervalSubscriptionRouteName: Subscription;
   intervalSubscriptionPeriodoStacker: Subscription;
   intervalSubscriptionPeriodoStacker1: Subscription;
+  intervalSubscriptionRestar: Subscription;
+  intervalSubscriptionColor: Subscription;
+  intervalSubscriptionAlarmWarning: Subscription;
   intervalSubscriptionCT: Subscription;
   intervalSubscriptionCT1: Subscription;
   intervalSubscriptionCT2: Subscription;
@@ -127,12 +141,12 @@ export class WcsComponent implements OnInit, OnDestroy {
     StatusSyS: true,        
     StatusLaminadora: true,        
     StatusWard: true,
-    Impresora: true,       
+    StatusImpresora: true,       
     StatusiD_12: true,        
     StatusiD_22: true,        
     StatussT1: true,        
     StatussT2: true,       
-    StatusiM1: false,       
+    StatusiM1: true,       
     StatussT3: true,       
     StatussT4: true,       
     StatussT5: true,       
@@ -146,14 +160,14 @@ export class WcsComponent implements OnInit, OnDestroy {
     StatussT13: true,      
     StatussT14: true,       
     StatussT15: true,      
-    StatusiM2: false,      
-    StatusiM3: false,       
-    StatusiM4: false,       
-    StatusiM5: false,       
-    StatusiM6: false,       
-    StatusiM7: false,       
-    StatuscT2: false,       
-    StatuscT1: false,       
+    StatusiM2: true,      
+    StatusiM3: true,       
+    StatusiM4: true,       
+    StatusiM5: true,       
+    StatusiM6: true,       
+    StatusiM7: true,       
+    // StatuscT2: false,       
+    // StatuscT1: false,       
     Statustm: false,       
     StatustF1: true,        
     StatustF2: true,
@@ -276,7 +290,9 @@ export class WcsComponent implements OnInit, OnDestroy {
     public apiGetComp: ApiGetService,
     public pipe: DecimalPipe,
     private api: HttpService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private userStore: UserStore,
+    private toastrService: NbToastrService,
   ) {
     this.subscription = this.messageService.onMessage()
     .pipe(takeWhile(() => this.alive))
@@ -342,17 +358,17 @@ export class WcsComponent implements OnInit, OnDestroy {
     }
     
        
-    this.intervalSubscriptionStatusAlarm = interval(1000)
+    this.intervalSubscriptionStatusAlarm = interval(2000)
     .pipe(
       takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/es')),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/estadoequipos')),
     )
     .subscribe((res: any) => {
-        this.showdataAlarms  = res[0];
+        this.showdataAlarms  = res;
         // console.log('StateAlarms', this.showdataAlarms); 
         
     },(error) => (console.log(error)),
-    () => console.log('Post moratorium location for moratorium is complete' ),
+    () => console.log('Error..!' ),
   );
 
     // this.apiGetComp.GetJson(this.api.apiUrlNode + '/es')
@@ -375,7 +391,12 @@ export class WcsComponent implements OnInit, OnDestroy {
       switchMap(() => this.http.get(this.api.apiUrlNode + '/CT2V')),
     )
     .subscribe((res: any) => {
+      if (res[0] == undefined) {
+        console.log('no hay data');
+        this.RouteCtsCharge();
+      } else {
       this.dataRoutesCts  = res[0];
+      }
     },(error) => (console.log(error)),
     () => console.log('Post moratorium location for moratorium is complete' ),
   );
@@ -417,7 +438,7 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.intervalSubscriptionPeriodoStacker1 = interval(1000)
     .pipe(
       takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/PedidoStackers?origen=abajo')),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/PedidoStackers?origen=abajo'))
     )
     .subscribe((res: any) => {
       if (res[0] == undefined) {
@@ -466,9 +487,7 @@ export class WcsComponent implements OnInit, OnDestroy {
       
     });
     }
-
     
-
   ngOnInit(): void {
     this.GetOrderProcess();
     this.InitSignalR();
@@ -479,11 +498,140 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.RouteCtsCharge();
     this.PedidoStackersAboveCharge();
     this.PedidoStackersDownCharge();
+    this.alarmWarning();
     // this.PedidoStackers1Charge();
     // this.PedidoStackers2Charge();
     // this.showStatusName();
     // this.showSatatusRouteCts();
     // this.StatusAlarmCharge();
+
+    if (this.intervalSubscriptionColor) {
+      this.intervalSubscriptionColor.unsubscribe();
+    }
+    
+    this.intervalSubscriptionColor = interval(10000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlMatbox + "/Orders/GetMachineColor")),
+    )
+    .subscribe(() => {
+      this.ColorCharge();
+    },(error) => (console.log(error)),
+    () => console.log('Er..!' ),
+  );
+
+  }
+
+  // reconocerAlarm(){
+  //   const currentUserId = this.userStore.getUser().id;
+  //         var respons = 
+  //           {
+  //           // IdAlarm: args.data[0].Id,
+  //           UserIdAcknow: currentUserId
+  //           };
+  //         // let alarm = {IdAlarm: event.data.Id};
+  //         this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknow', respons)
+  //         .pipe(takeWhile(() => this.alive))
+  //         .subscribe((res: any) => {
+  //       //  console.log("alarmId", res);
+  //        if (res) {
+  //         this.toastrService.success('', '¡Alarma solucionada!'); 
+          
+  //       } else {
+  //         this.toastrService.danger('', 'Algo salio mal.');
+  //       }
+  //     });
+  // }
+
+  alarmWarning() {
+    if (this.intervalSubscriptionAlarmWarning) {
+      this.intervalSubscriptionAlarmWarning.unsubscribe();
+    }
+    
+    this.intervalSubscriptionAlarmWarning = interval(10000)
+    .pipe(
+      takeWhile(() => this.alive),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/ObtenerAlarmaCritica'))
+    )
+    .subscribe((res: any) => {
+      if (res[0] == undefined) {
+        // console.log('no hay data abajo');
+      } else {
+        this.alarmWData  = res;
+        if (this.alarmWData[0].Alert == 1) {  
+          Swal.fire({
+            title: 'Alarma:',
+            text: this.alarmWData[0].Message,
+            icon: 'warning',
+            // timer: 3500,
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            // cancelButtonColor: '#d33',
+            cancelButtonText: 'Cerrar!',
+            confirmButtonText: '¡Cerrar alarma!'
+          }).then(result => {
+            if (result.value) {
+             
+              // var respon = {
+              //   user: this.validData[0].Id,
+              //   sesion: 1,
+              // }
+              // this.apiGetComp
+              //   .PostJson(this.api.apiUrlNode + '/updateSesion', respon)
+              //   .pipe(takeWhile(() => this.alive))
+              //   .subscribe((res: any) => {
+              //     //  console.log("Envió: ", res);
+              //   })
+
+              const currentUserId = this.userStore.getUser().id;
+          var respons = 
+            {
+            IdAlarm: this.alarmWData[0].Id,
+            UserIdAcknow: currentUserId
+            };
+          // let alarm = {IdAlarm: event.data.Id};
+          this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknow', respons)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
+        //  console.log("alarmId", res);
+         if (res) {
+          this.toastrService.success('', '¡Alarma solucionada!'); 
+          
+        } else {
+          this.toastrService.danger('', 'Algo salio mal.');
+        }
+      });
+              
+        // Swal.fire('¡Se sincronizo Exitosamente', 'success');
+            } else {
+              const currentUserId = this.userStore.getUser().id;
+              var respons = 
+                {
+                IdAlarm: this.alarmWData[0].Id,
+                UserIdAcknow: currentUserId
+                };
+              // let alarm = {IdAlarm: event.data.Id};
+              this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknow', respons)
+              .pipe(takeWhile(() => this.alive))
+              .subscribe((res: any) => {
+            //  console.log("alarmId", res);
+             if (res) {
+              this.toastrService.success('', '¡Alarma solucionada!'); 
+              
+            } else {
+              this.toastrService.danger('', 'Algo salio mal.');
+            }
+          });
+            }
+          });
+          // console.log('alarma de wip:', this.alarmWData);
+        }
+        
+        
+      }
+    },(error) => (console.log(error)),
+    () => console.log('Error alarmWarning' ),
+  );
   }
 
   InitSignalR() {
@@ -514,9 +662,11 @@ export class WcsComponent implements OnInit, OnDestroy {
   }
 
 
+  
  
 
   MoverCarro(){
+    
     
     this.StatusAlarmCharge();
     this.RouteCtsCharge();
@@ -538,8 +688,15 @@ export class WcsComponent implements OnInit, OnDestroy {
       switchMap(() => this.http.get(this.api.apiUrlNode + '/CT')),
     )
     .subscribe((res: any) => {
+      if (res == undefined) {
+        console.log('no hay data');
+        this.MoverCT();
+      } else {
       this.valorXCT  = res.position;
-    });
+    }
+    },(error) => (console.log(error)),
+    () => this.MoverCT,
+    );
 
   //   // this.valorX = this.valorX + 10;
   //  this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT')

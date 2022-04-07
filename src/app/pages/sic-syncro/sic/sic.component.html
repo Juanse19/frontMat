@@ -8,7 +8,7 @@
       </ng2-smart-table> -->
 
       <ejs-grid [dataSource]='ReportSic' [editSettings]='editSettings' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  (actionBegin)="actionBegin($event)"  [allowPaging]="true"
-      [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" 
+      [pageSettings]="pageSettings" (created)='created($event)' allowSorting='true' [filterSettings]="filterOptions" 
       [allowFiltering]="true" width=155%>
           <e-columns>
             <e-column headerText='Detalle' width='85' textAlign='center' [commands]='commands'></e-column>

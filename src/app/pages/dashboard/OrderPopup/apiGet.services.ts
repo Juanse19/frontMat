@@ -1,6 +1,8 @@
+import { catchError } from 'rxjs/operators';
 import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-// import { Observable, Subject, of } from 'rxjs';
+import { throwError } from 'rxjs';
+// import { Observable, Subject, of, throwError } from 'rxjs';
 
 
 interface Ordenes {
@@ -36,11 +38,21 @@ export class ApiGetService {
     constructor(private http: HttpClient) {}
 
     GetJson(url: string) {
-        return this.http.get(url);
+        return this.http.get(url).pipe(
+          catchError((error) => {
+            console.log();
+            return throwError(error)
+          })
+        );
     }
 
     PostJson(url: string, propiedadesActualizar) {
-        return this.http.post(url, propiedadesActualizar, this.httpOptions);
+        return this.http.post(url, propiedadesActualizar, this.httpOptions).pipe(
+          catchError((error) => {
+            console.log();
+            return throwError(error)
+          })
+        );
     }
     Suma() {
         console.log(5 + 5);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
@@ -31,6 +31,9 @@ export class SicComponent implements OnInit {
   public commands: CommandModel[];
   public filterOptions: FilterSettingsModel;
   public initialSort: Object;
+
+  @ViewChild('grid')
+    public grid: GridComponent;
   
   /** Table de infromación Sic */
   settings5 = {
@@ -167,6 +170,7 @@ export class SicComponent implements OnInit {
     this.ChargeReportSic();
 
     this.toolbar = [
+      'Search',
       //  {text: 'Delete', prefixIcon: 'fas fa-check'},
      { text: 'Eliminar todo', tooltipText: 'Click', prefixIcon: 'e-icons e-delete', id: 'Click' }];
 
@@ -177,6 +181,12 @@ export class SicComponent implements OnInit {
       { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
 
   } 
+
+  created($event): void {
+    document.getElementById(this.grid.element.id + "_searchbar").addEventListener('keyup', () => {
+            this.grid.search((event.target as HTMLInputElement).value)
+    });
+}
 
   clickHandler(args: ClickEventArgs): void {
     if (args.item.id === 'Click') {

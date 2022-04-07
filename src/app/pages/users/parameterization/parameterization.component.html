@@ -6,7 +6,24 @@
     </nb-card-header>
 
     <nb-card-body>
-        <!-- <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="ReportOrdens">
+        <br>
+        <div [formGroup]="toggleForm" (click)="create()">
+            <div class="form-group col-md-12" >
+            <nb-toggle formControlName="value" [(ngModel)]="masterSelected" [nbTooltip]="tooltiptext.message" status="success"  (change)="toggleLista()">{{listToggle?.text}}</nb-toggle>
+            
+            <br>
+            
+        </div>
+   
+        </div>
+        <br>
+        <br>
+        <!--formControlName="value"
+            id="value" value="value" 
+            [(ngModel)]="dataToggle.values"
+            [(ngModel)]="toggleNgModel" 
+            [(ngModel)]="listToggle.Value" 
+            <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="ReportOrdens">
         </ng2-smart-table> (actionBegin)="actionComplete($event)" -->
 
         <ejs-grid [dataSource]='dataConfigu' [editSettings]='editSettings' [toolbar]='toolbar'

@@ -6,10 +6,11 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { ServerDataSource } from 'ng2-smart-table';
+import { catchError } from 'rxjs/internal/operators/catchError';
 
 @Injectable()
 export class HttpService {
@@ -47,7 +48,12 @@ export class HttpService {
   }
 
   get(endpoint: string, options?): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${endpoint}`, options);
+    return this.http.get(`${this.apiUrl}/${endpoint}`, options).pipe(
+      catchError((error) => {
+        console.log();
+        return throwError(error)
+      })
+    );
   }
 
   post(endpoint: string, data, options?): Observable<any> {

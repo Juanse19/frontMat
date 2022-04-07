@@ -373,18 +373,7 @@ ordData(){
       }).then(result => {
         if (result.value) {
           if (STATUSPACKAGE.idStatus === 4 ) {
-              // console.log('borrar');
-              this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE)
-              // .pipe(takeWhile(() => this.alive))
-              .subscribe((res: any) => {
-            
-                this.messageService.sendMessage('PackageUpdate');
-              }, 
-              err => {
-                this.errors = err.error.message;
-                console.log(this.errors);
-              }); 
-              const currentUserId = this.userStore.getUser().id;
+            const currentUserId = this.userStore.getUser().id;
               const currentUser = this.userStore.getUser().firstName;
               // console.log("este es el usuario: ",this.userStore.getUser().firstName);
               var respons = 
@@ -398,6 +387,18 @@ ordData(){
               .subscribe((res: any) => {
                   //  console.log("Envió: ", res);
                 });
+              // console.log('borrar');
+              this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE)
+              // .pipe(takeWhile(() => this.alive))
+              .subscribe((res: any) => {
+            
+                // this.messageService.sendMessage('PackageUpdate');
+              }, 
+              err => {
+                this.errors = err.error.message;
+                console.log(this.errors);
+              }); 
+              
               // this.messageService.sendMessage('PackageUpdate');
               Swal.fire('¡Eliminado!', 'El arrume ha sido eliminado.', 'success');
               // this.ChangeState();

@@ -268,7 +268,7 @@ export class PagesMenu {
           link: '/pages/users/licenses',
         },
         {
-          title: 'Paremetrización',
+          title: 'Parametrización',
           link: '/pages/users/param',
         }
       ],

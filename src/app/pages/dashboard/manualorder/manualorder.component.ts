@@ -432,6 +432,12 @@ this.commands = [
     });
 }
 
+createds($event): void {
+  document.getElementById(this.grid.element.id + "_searchbars").addEventListener('keyup', () => {
+          this.grid.search((event.target as HTMLInputElement).value)
+  });
+}
+
 
   public initilaizeTarget: EmitType<object> = () => {
     this.targetElement = this.container.nativeElement.parentElement;
@@ -664,7 +670,7 @@ this.commands = [
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina; 
 
-    this.alive = true;
+    // this.alive = true;
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ idMaquina)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
@@ -677,12 +683,12 @@ this.commands = [
               // console.log('undefined', this.orderData);
             } else {
               // console.log('Si hay');
-              this.alive = true;
+              // this.alive = true;
               // console.log('Ordenes en cola 1');
               this.orderData = res;
               // this.OrdCharge(idMaquina)
               if (this.showCloseIcon == false) {
-                this.alive = false; 
+                // this.alive = false; 
                 console.log('stop 4');
               }
               
@@ -699,9 +705,9 @@ this.commands = [
     this.idMaquina=idMaquina;
     IDMAQUINA=idMaquina; 
 
-    this.alive = true;
+    // this.alive = true;
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina='+ idMaquina)
-          .pipe(takeWhile(() => this.alive))
+          // .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
             
             if (res == undefined) {
@@ -712,7 +718,7 @@ this.commands = [
               // console.log('undefined', this.orderData);
             } else {
               // console.log('Si hay');
-              this.alive = true;
+              // this.alive = true;
               // console.log('Ordenes en cola 1');
               this.orderData = res;
               // this.OrdCharge(idMaquina)
@@ -975,7 +981,7 @@ this.commands = [
     message:"Modificó propiedades de la maquina "+ PROPIEDADESACTUALIZAR.descripcionMaquina 
 };
   this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
-    .pipe(takeWhile(() => this.alive)) 
+    // .pipe(takeWhile(() => this.alive)) 
     .subscribe((res: any) => {
         //  console.log("Envió: ", res);
          
@@ -985,7 +991,7 @@ this.commands = [
     // console.log(PROPIEDADESACTUALIZAR);
 
     this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarPropiedadesMaquina', PROPIEDADESACTUALIZAR)
-    .pipe(takeWhile(() => this.alive))
+    // .pipe(takeWhile(() => this.alive))
     .subscribe((res:any) => {
       this.messageService.sendMessage('MachineColor');
       this.handleSuccessResponse();
@@ -1019,7 +1025,7 @@ this.commands = [
             idWip:item.id,
           }; 
           this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/PutWipTarget', WIPTARGET)
-          .pipe(takeWhile(() => this.alive))
+          // .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
             this.DataLoadBasic(this.idMaquina);  
           });

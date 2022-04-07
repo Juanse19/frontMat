@@ -29,7 +29,7 @@ import { DashboardComponent } from './dashboard.component';
 import { StatusCardComponent } from './status-card/status-card.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { RoomsComponent } from './rooms/rooms.component';
-import { RoomSelectorComponent } from './rooms/room-selector/room-selector.component';
+// import { RoomSelectorComponent } from './rooms/room-selector/room-selector.component';
 import { WcsComponent } from './rooms/wcs/wcs.component';
 import { TemperatureComponent } from './temperature/temperature.component';
 import { TemperatureDraggerComponent } from './temperature/temperature-dragger/temperature-dragger.component';
@@ -105,7 +105,7 @@ import { PropertiesComponent } from './properties/properties.component';
     StatusCardComponent,
     TemperatureDraggerComponent,
     ContactsComponent,
-    RoomSelectorComponent,
+    // RoomSelectorComponent,
     WcsComponent,
     TemperatureComponent,
     RoomsComponent,

@@ -4,8 +4,12 @@
   ~ See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
   -->
 
-<h1 id="title" class="title">Inicia Sesión</h1>
-<p class="sub-title">¡Hola! Inicie sesión con su correo electrónico.</p>
+  <a>
+    <img src="./../../../../assets/images/MATEC l Blue Logo.png" alt="Matec" style="width: 50%; margin-left: 22%;">
+</a>
+
+<!-- <h1 id="title" class="title">Inicia Sesión</h1>
+<p class="sub-title">¡Hola! Inicie sesión con su correo electrónico.</p> -->
 
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
     <p class="alert-title"><b>¡Oh cielos!</b></p>
@@ -21,7 +25,8 @@
     </ul>
 </nb-alert>
 
-<div [formGroup]="loginForm" aria-labelledby="title">
+<form (ngSubmit)="login()" [formGroup]="loginForm" >
+
     <div class="form-control-group">
         <label for="input-email">correo electrónico:</label>
         <input nbInput fullWidth id="input-email" formControlName="email" [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : 'basic'" [attr.aria-invalid]="email.invalid && email.touched ? true : null" placeholder="Email address">
@@ -42,10 +47,10 @@
         <nb-checkbox formControlName="rememberMe" name="rememberMe" *ngIf="rememberMe">Recuérdame</nb-checkbox>
     </div>
 
-    <button nbButton fullWidth status="primary" size="large" (click)="login()" >
+    <button nbButton fullWidth status="primary" size="large" >
     INICIAR SESIÓN
   </button>
-</div>
+</form>
 
 <!-- 
   [disabled]="submitted || !loginForm.valid" [class.btn-pulse]="submitted"

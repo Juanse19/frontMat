@@ -1,5 +1,7 @@
 import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 // import { Observable, Subject, of } from 'rxjs';
 
 
@@ -36,7 +38,12 @@ export class ApiGetService {
     constructor(private http: HttpClient) {}
 
     GetJson(url: string) {
-        return this.http.get(url);
+        return this.http.get(url).pipe(
+          catchError((error) => {
+            console.log();
+            return throwError(error)
+          })
+        );;
     }
 
     PostJson(url: string, propiedadesActualizar) {

@@ -298,6 +298,9 @@ SEE LICENSE IN license
 @syncfusion/ej2-angular-dropdowns
 SEE LICENSE IN license
 
+@syncfusion/ej2-angular-gantt
+SEE LICENSE IN license
+
 @syncfusion/ej2-angular-grids
 SEE LICENSE IN license
 
@@ -328,10 +331,19 @@ SEE LICENSE IN license
 @syncfusion/ej2-file-utils
 SEE LICENSE IN license
 
+@syncfusion/ej2-filemanager
+SEE LICENSE IN license
+
+@syncfusion/ej2-gantt
+SEE LICENSE IN license
+
 @syncfusion/ej2-grids
 SEE LICENSE IN license
 
 @syncfusion/ej2-inputs
+SEE LICENSE IN license
+
+@syncfusion/ej2-layouts
 SEE LICENSE IN license
 
 @syncfusion/ej2-lists
@@ -346,7 +358,13 @@ SEE LICENSE IN license
 @syncfusion/ej2-popups
 SEE LICENSE IN license
 
+@syncfusion/ej2-richtexteditor
+SEE LICENSE IN license
+
 @syncfusion/ej2-splitbuttons
+SEE LICENSE IN license
+
+@syncfusion/ej2-treegrid
 SEE LICENSE IN license
 
 angular2-chartjs

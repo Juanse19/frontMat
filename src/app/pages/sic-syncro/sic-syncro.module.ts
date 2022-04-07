@@ -19,11 +19,14 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ThemeModule } from '../../@theme/theme.module';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
-import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns'; 
+import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
+import { GanttComponent } from './gantt/gantt.component'; 
+import { GanttAllModule } from '@syncfusion/ej2-angular-gantt';
+import { EditService , SelectionService, ToolbarService,DayMarkersService } from '@syncfusion/ej2-angular-gantt';
 
 
 @NgModule({
-  declarations: [SicComponent, SyncroComponent, SicSyncroComponent],
+  declarations: [SicComponent, SyncroComponent, SicSyncroComponent, GanttComponent],
   imports: [
     CommonModule, 
     SicSyncroRoutingModule,
@@ -36,10 +39,15 @@ import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
     NbTabsetModule,
     GridModule,
     DropDownListAllModule,
+    GanttAllModule,
   ],
   providers: [PageService,
     SortService,
     FilterService,
-    GroupService],
+    GroupService,
+    EditService , 
+    SelectionService, 
+    ToolbarService,
+    DayMarkersService],
 })
 export class SicSyncroModule { }

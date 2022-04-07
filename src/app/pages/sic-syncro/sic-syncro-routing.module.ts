@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SicSyncroComponent } from './sic-syncro.component'; 
 import { SicComponent } from './sic/sic.component';
 import { SyncroComponent } from './syncro/syncro.component';
+import { GanttComponent } from './gantt/gantt.component';
 
 
 const routes: Routes = [{
@@ -16,6 +17,10 @@ const routes: Routes = [{
     {
       path: 'syncro',
       component: SyncroComponent,
+    },
+    {
+      path: 'gantt',
+      component: GanttComponent,
     },
   ],
 }];

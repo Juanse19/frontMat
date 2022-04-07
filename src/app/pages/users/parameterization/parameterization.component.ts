@@ -17,17 +17,17 @@ import { Router } from '@angular/router';
 
 
 interface confi {
-  Id: number,
-  Parameter: string,
-  Value: string,
-  CreateDate: string,
-  UpdateDate: string,
+  Id?: number,
+  Parameter?: string,
+  Value?: string,
+  CreateDate?: string,
+  UpdateDate?: string,
  }
 
  interface conC {
-  Id: number,
-  Parameter: string,
-  Value: string,
+  Id?: number,
+  Parameter?: string,
+  Value?: string,
  }
 
  let conConf: conC;
@@ -89,8 +89,9 @@ export class ParameterizationComponent implements OnInit {
 
   public toggleText:string;
   public dataToggle: gettoggle;
-  listToggle = GETtoggle;
+  listToggle? = GETtoggle;
   public toggleNgModel:boolean;
+  public trutog;
 
   get Parameter() { return this.orderForm.get('Parameter')}
   get Value() { return this.orderForm.get('Value')}
@@ -112,9 +113,7 @@ export class ParameterizationComponent implements OnInit {
   ) { 
     this.toggleLista();
     this.masterSelected = false;
-    // this.toggleNgModel = true;
   }
-    // toggleNgModel = false;
     
     public targetElement: HTMLElement;
     public visible: Boolean = true;
@@ -131,20 +130,14 @@ export class ParameterizationComponent implements OnInit {
      };
 
      this.ChargeDataConfi();
-    //  this.toggleLista();
 
      this.commands = [
       { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-      // { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
-      // { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
-      // { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' }}
     ];
 
     this.toggleForm = new FormGroup({
       value: new FormControl()
    });
-
-   
 
     this.orderForm = new FormGroup({
       Id: new FormControl,
@@ -313,17 +306,8 @@ debugger
 
   ChargeDataConfi() {
     this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/configuration').subscribe((res: any) => {
-      //REPORTOCUPATION=res;
-      // console.log("Configuration:", res);
       this.dataConfigu = res;
     });
-    // const contador = interval(60000)
-    // contador.subscribe((n) => {
-    //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/orderposition').subscribe((res: any) => {
-    //     //REPORTOCUPATION=res;
-    //     this.dataOrposition = res;
-    //   });
-    // });
 
   }
 
@@ -333,61 +317,74 @@ debugger
     .subscribe((res: any) => {
       GETtoggle = res;
       this.listToggle = GETtoggle[0]
-      // this.dataToggle = res[0]
-      // this.toggleNgModel = this.dataToggle.values
-      // this.listToggle = res[0]
       console.log(this.listToggle);
-      
       });
   }
-public trutog
+
+
   create(){
-    debugger
 
-    console.log(this.masterSelected);
-    this.masterSelected == true ? 0 : 1;
-
-    console.log('result: ', this.masterSelected == true ? this.trutog = 0 : this.trutog = 1);
-    
-    
     let formulario = this.toggleForm.value;
 
-    // console.log('formulario', formulario?.value);
     
 
-    // if (formulario.value === 0) {
-    //   this.trutog = 0
-    //   console.log('es 0');
-      
-    // } else if(formulario.Value === true) {
-    //   this.trutog = 1
-    //   console.log('es 1');
-    // }
+    // this.masterSelected == true ? 0 : 1;
 
-    modoCREAR =
-    {
-      ModoSic: this.trutog,
-    }
+    // console.log('result value: ', formulario?.values != true ? this.trutog = 0 : this.trutog = 1);
+    // formulario?.values != true ? this.trutog = 0 : this.trutog = 1
+
+    // console.log('formulario', formulario?.value);
+    // console.log('formulario', this.listToggle.values);
+    
+    debugger
+
+    if (this.listToggle?.values === true) {
+      debugger
+      this.trutog = 1
+      modoCREAR =
+                {
+                  ModoSic: this.trutog,
+                }
 
     console.log('create', modoCREAR);
-    // this.toggleLista();
-    
-    // if (this.listToggle.values == false) {
-    //   // console.log('OfficeId', 1);
-    //   this.toggleText = 'OfficeId'
-    //   console.log(1, this.toggleText);
-      
-    // } else {
-    //   // console.log('Dimensiones', 0);
-    //   this.toggleText = 'Dimensiones'
-    //   console.log(0, this.toggleText);
-    // }
 
-    this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/updateModoSic', modoCREAR).subscribe((res: any) => {
-    this.toasterService.success(' actualizada con exito' );
-    console.log('Guardo con exito');
-    // this.toggleLista();
-    });
+      this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/updateModoSic', modoCREAR).subscribe((res: any) => {
+        this.toasterService.success(' actualizada con exito' );
+        console.log('Guardo con exito');
+        this.toggleLista();
+        });
+      
+    } 
+    
+    if(this.listToggle?.values === false) {
+      debugger
+      this.trutog = 0
+      modoCREAR =
+                {
+                  ModoSic: this.trutog,
+                }
+
+    console.log('create', modoCREAR);
+
+      this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/updateModoSic', modoCREAR).subscribe((res: any) => {
+        this.toasterService.success(' actualizada con exito' );
+        console.log('Guardo con exito');
+        this.toggleLista();
+        });
+    }
+
+    // modoCREAR =
+    //             {
+    //               ModoSic: this.trutog,
+    //             }
+
+    // console.log('create', modoCREAR);
+    
+    // this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/updateModoSic', modoCREAR).subscribe((res: any) => {
+    // this.toasterService.success(' actualizada con exito' );
+    // console.log('Guardo con exito');
+    // // this.toggleLista();
+    // });
 
 
   }

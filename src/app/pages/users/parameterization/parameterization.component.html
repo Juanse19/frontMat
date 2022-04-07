@@ -7,14 +7,12 @@
 
     <nb-card-body>
         <br>
-        <div [formGroup]="toggleForm" (click)="create()">
-            <div class="form-group col-md-12" >
-            <nb-toggle formControlName="value" [(ngModel)]="masterSelected" [nbTooltip]="tooltiptext.message" status="success"  (change)="toggleLista()">{{listToggle?.text}}</nb-toggle>
-            
-            <br>
-            
+        <div [formGroup]="toggleForm" >
+            <div class="form-group col-md-12" >            
         </div>
-   
+        
+        <nb-toggle formControlName="value" [(ngModel)]="listToggle.values" status="success" (change)="create()">{{listToggle?.text}}</nb-toggle>
+
         </div>
         <br>
         <br>

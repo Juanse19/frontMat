@@ -323,6 +323,10 @@ export class PagesMenu {
           title: 'Syncro',
           link: '/pages/sic-syncro/syncro',
         },
+        // {
+        //   title: 'Gantt',
+        //   link: '/pages/sic-syncro/gantt',
+        // },
       ],
     };
 

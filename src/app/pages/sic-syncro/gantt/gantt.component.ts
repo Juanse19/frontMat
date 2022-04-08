@@ -41,5 +41,6 @@ export class GanttComponent implements OnInit {
             leftLabel: 'TaskName',
         };
     }
+    
 
 }

@@ -12,7 +12,7 @@ import { GanttAllModule } from '@syncfusion/ej2-angular-gantt';
   imports: [
     CommonModule,
     SchedulerRoutingModule,
-    GanttAllModule,
+    // GanttAllModule,
   ],
 })
 export class SchedulerModule { }

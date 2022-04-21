@@ -85,15 +85,15 @@
      <nb-tab tabTitle="Consumo energetico por zonas">
         <div class="row show-grid" >
           <div class="col-md-3">
-            <nb-card (click)="gosfc()" >
+            <nb-card  >
               <!-- <nb-card-header>Security Feed Check In</nb-card-header> -->
-              <nb-card-header>{{consumeData[9]?.ZoneName}}</nb-card-header>
+              <nb-card-header>{{consumeData[6]?.ZoneName}}</nb-card-header>
               <nb-card-body >
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
                     <div class="progress-container-align">
                         <div id="pause">
                             <ejs-progressbar #annotation2 id='pause-container' [type]='type2' [maximum]='max2' [minimum]='min2'
-                                [value]='consumeData[9]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
+                                [value]='consumeData[6]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
                                 <e-progressbar-annotations>
                                     <e-progressbar-annotation
                                         content='<div id="point1" style="font-size:20px;font-weight:bold;color:#black;fill:#black"><span>80%</span></div>'>
@@ -115,15 +115,18 @@
                       </div>
                   <!-- <div class="h4 value"> {{consumeData[6]?.KWh}} kWh</div>
                   <div class="h4 value"> {{consumeData[6]?.kwhTotal}} KWh Total</div> -->
-                  <pre><b>KWh:</b>        {{consumeData[9]?.KWh | number : '1.0-0'}}</pre>
-                  <pre><b>KWh Total:</b>  {{consumeData[9]?.kwhTotal | number : '1.0-0'}}</pre>
+                  <pre><b>KWh:</b>        {{consumeData[6]?.KWh | number : '1.0-0'}}</pre>
+                  <pre><b>KWh Total:</b>  {{consumeData[6]?.kwhTotal | number : '1.0-0'}}</pre>
+                </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="gosfc()">Ver Info</button>
                 </div>
               </nb-card-body>
             </nb-card>
           </div>
     
           <div class="col-md-3">
-            <nb-card (click)="gosf()">
+            <nb-card >
               <nb-card-header>{{consumeData[8]?.ZoneName}}</nb-card-header>
               <nb-card-body>
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
@@ -153,6 +156,9 @@
                   <!-- <div class="h4 value">{{consumeData[5]?.KWh}}  kWh</div> -->
                   <pre><b>KWh:</b>        {{consumeData[8]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[8]?.kwhTotal | number : '1.0-0'}}</pre>
+                </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="gosf()">Ver Info</button>
                 </div>
               </nb-card-body>
             </nb-card>
@@ -189,12 +195,15 @@
                   <pre><b>KWh:</b>        {{consumeData[2]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[2]?.kwhTotal | number : '1.0-0' }}</pre>
                 </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" >Ver Info</button>
+                </div>
               </nb-card-body>
             </nb-card>
           </div>
     
           <div class="col-md-3">
-            <nb-card (click)="gotx()">
+            <nb-card >
               <nb-card-header>{{consumeData[11]?.ZoneName}}</nb-card-header>
               <nb-card-body>
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
@@ -228,12 +237,15 @@
                   <pre><b>KWh:</b>        {{consumeData[2]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[2]?.kwhTotal | number : '1.0-0'}}</pre>
                 </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="gotx()">Ver Info</button>
+                </div>
               </nb-card-body>
             </nb-card>
           </div>
     
            <div class="col-md-3">
-            <nb-card (click)="gome()">
+            <nb-card >
               <nb-card-header>{{consumeData[6]?.ZoneName}}</nb-card-header>
               <nb-card-body>
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
@@ -263,12 +275,15 @@
                   <pre><b>KWh:</b>        {{consumeData[6]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[6]?.kwhTotal | number : '1.0-0'}}</pre>
                 </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="gome()">Ver Info</button>
+                </div>
               </nb-card-body>
             </nb-card>
           </div>
     
           <div class="col-md-3">
-            <nb-card (click)="goal()">
+            <nb-card >
               <nb-card-header>{{consumeData[0]?.ZoneName}}</nb-card-header>
               <nb-card-body>
                 <div class="progress-container-align">
@@ -296,12 +311,15 @@
                   <pre><b>KWh:</b>        {{consumeData[0]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[0]?.kwhTotal | number : '1.0-0'}}</pre>
                 </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="goal()">Ver Info</button>
+                </div>
               </nb-card-body>
             </nb-card>
           </div>
     
           <div class="col-md-3">
-            <nb-card (click)="gocl()">
+            <nb-card >
               <nb-card-header>{{consumeData[1]?.ZoneName}}</nb-card-header>
               <nb-card-body>
                 <div class="progress-container-align">
@@ -330,12 +348,15 @@
                     />
                   </div>
                 </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="gocl()">Ver Info</button>
+                </div>
               </nb-card-body>
             </nb-card>
           </div>
     
          <div class="col-md-3">
-            <nb-card (click)="goss()">
+            <nb-card >
               <nb-card-header>{{consumeData[8]?.ZoneName}}</nb-card-header>
               <nb-card-body>
                 <div class="progress-container-align">
@@ -363,12 +384,15 @@
                   <pre><b>KWh:</b>        {{consumeData[8]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[8]?.kwhTotal | number : '1.0-0'}}</pre> 
                 </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="goss()">Ver Info</button>
+                </div>
               </nb-card-body>
             </nb-card>
           </div>
     
           <div class="col-md-3">
-            <nb-card (click)="goOsr()">
+            <nb-card >
               <nb-card-header>{{consumeData[7]?.ZoneName}}</nb-card-header>
               <nb-card-body>
                 <div class="progress-container-align">
@@ -396,12 +420,15 @@
                   <pre><b>KWh:</b>        {{consumeData[7]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[7]?.kwhTotal | number : '1.0-0'}}</pre> 
                 </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="goOsr()">Ver Info</button>
+                </div>
               </nb-card-body>
             </nb-card>
           </div>
      
           <div class="col-md-3">
-            <nb-card (click)="gomu()">
+            <nb-card >
               <nb-card-header>{{consumeData[5]?.ZoneName}}</nb-card-header>
               <nb-card-body>
                 <div class="progress-container-align">
@@ -428,6 +455,9 @@
                   <!-- <div class="h4 value">{{consumeData[3]?.KWh}} kWh</div> -->
                   <pre><b>KWh:</b>        {{consumeData[5]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[5]?.kwhTotal | number : '1.0-0'}}</pre> 
+                </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="gomu()">Ver Info</button>
                 </div>
               </nb-card-body>
             </nb-card>
@@ -501,6 +531,9 @@
                   <pre><b>KWh:</b>        {{consumeData[3]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[3]?.kwhTotal | number : '1.0-0'}}</pre> 
                 </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" >Ver Info</button>
+                </div>
               </nb-card-body>
             </nb-card>
           </div>
@@ -535,6 +568,9 @@
                   <!-- <div class="h4 value">{{zonConsData[11]?.KWh}} kWh</div> -->
                   <pre><b>KWh:</b>        {{consumeData[4]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[4]?.kwhTotal | number : '1.0-0'}}</pre> 
+                </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" >Ver Info</button>
                 </div>
               </nb-card-body>
             </nb-card>

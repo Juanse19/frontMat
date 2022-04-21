@@ -331,16 +331,15 @@ actionBegin2(args) {
           this.http.get(this.api.apiUrlNode1 + '/resourceDataGantt?registerDateSTD='+ fechaFormateada + '&registerDateETD=' + fechaFormateadaeTD)
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any)=>{
-          this.ganttData = res;
+        //   this.ganttData = res;
         // console.log("ShedulerganttData:", this.ganttData);
-          // if (res.length == 0){
-          //   // console.log("se encuentra vacío el arreglo")
-          //   this.toastrService.danger('', 'No ha data.');
-          //   }else {
-          //   // console.log("no lo esta")
-          //   }
-          // this.daDate=res;
-          // console.log('Da:', res );
+          if (res.length == 0){
+            // console.log("se encuentra vacío el arreglo")
+            this.toastrService.danger('', 'No ha data.');
+            }else {
+            this.ganttData=res;
+            }
+          
           
         });
         }

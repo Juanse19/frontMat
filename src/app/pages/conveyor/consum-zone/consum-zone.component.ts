@@ -11,11 +11,42 @@ import { Router } from '@angular/router';
 
 ProgressBar.Inject(ProgressAnnotation);
 
-interface conzone {
+
+export interface ReqResResponse {
+  slug:     modelData;
   ZoneName: string;
-  KWh: string;
-  value: number;
+  KWh:      number;
+  porcent:  number;
+  kwhTotal: number;
 }
+export interface modelData {
+  zona1: string;
+  zona2: string;
+  zona3: string;
+  zona4: string;
+  zona5: string;
+  zona6: string;
+}
+
+export interface ReqReszone {
+  slug:     string;
+  ZoneName: string;
+  KWh:      number;
+  porcent:  number;
+  kwhTotal: number;
+}
+
+export interface modelZone {
+  zona1: {ReqReszone};
+  zona2: ReqReszone;
+  zona3: ReqReszone;
+  zona4: ReqReszone;
+  zona5: ReqReszone;
+  zona6: ReqReszone;
+}
+
+let zoneP: modelZone[];
+
 
 interface team {
   SF1_1_Bloqueado: boolean,
@@ -221,25 +252,13 @@ export class ConsumZoneComponent implements OnInit {
     @ViewChild('annotation15')
     public osrZone: ProgressBar;
 
-    // public onClick = () => {
-    //     this.annotation.refresh();
-    //     this.pausePlay.refresh();
-    //     this.downloadProgress.refresh();
-    // }
-    // public progressComplete(args: IProgressValueEventArgs): void {
-    //     clearTimeout(this.clearTimeout1);
-        
-    // }
-    // public progressComplete1(args: IProgressValueEventArgs): void {
-    //     clearTimeout(this.clearTimeout2);
-        
-    // }
 
     private alive=true;
 
     public consumeData: consume[]=[];
-
-    public zonConsData: conzone[]=[];
+    public consumeZoneData: ReqResResponse[]=[];
+    public consZonDA: modelZone;
+    public consData= zoneP;
 
     dataSF1_2 = TeamSF1_2
   dataSF3_1 = TeamSF3_1
@@ -252,10 +271,6 @@ export class ConsumZoneComponent implements OnInit {
 
       ngOnInit(): void {
         this.consumeCharge();
-        this.consumeZoneCharge();
-        // this.consumeSf1();
-        // this.changeSF1_2();
-        // this.changeSF3_1()
       }
     
       public consumeCharge(){
@@ -263,48 +278,59 @@ export class ConsumZoneComponent implements OnInit {
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any)=>{
           this.consumeData = res;
-          // console.log('consume Zons', this.consumeData);
+          this.consumeZoneData = res
+
+          this.consZonDA = res;
+          this.consData = res;
+
+          console.log('Zonas1', this.consData);
+          console.log('zonas2', this.consZonDA);
+          console.log('zonas', this.consumeZoneData);
+
+          this.consData.forEach(function(value){
+            console.log(`Map  value is:${value}`);
         });
-      }
- 
-      public consumeZoneCharge(){
-        this.http.get(this.api.apiUrlNode1 + '/consume')
-        .pipe(takeWhile(() => this.alive))
-        .subscribe((res: any)=>{
-          this.zonConsData = res;
-          // console.log('Energy Zones', this.zonConsData);
+          
+          this.consumeZoneData.forEach(function (value){
+            
+            if (value.slug.zona1) {
+              
+              console.log('slug', value);
+            }
+          })
+          console.log('consume Zons', this.consumeData);
         });
       }
 
-      public consumeSf1(){
-        this.http.get(this.api.apiUrlNode1 + '/api/sf11')
-        .pipe(takeWhile(() => this.alive))
-        .subscribe((res: any)=>{
-          TEA = res
-          this.teaLista = TEA
-          console.log('Energy Zones', this.teaLista.SF1_1_SetVelocidadModoAutoMotor);
-        });
-      }
+      // public consumeSf1(){
+      //   this.http.get(this.api.apiUrlNode1 + '/api/sf11')
+      //   .pipe(takeWhile(() => this.alive))
+      //   .subscribe((res: any)=>{
+      //     TEA = res
+      //     this.teaLista = TEA
+      //     console.log('Energy Zones', this.teaLista.SF1_1_SetVelocidadModoAutoMotor);
+      //   });
+      // }
 
-      changeSF1_2() {
-        this.http.get(this.api.apiUrlNode1 + '/CCP1_CCP2_RT?Zona=SF1_2_')
-        .pipe(takeWhile(() => this.alive))
-        .subscribe((res: any)=>{
-          TeamSF1_2 = res
-          this.dataSF1_2 = TeamSF1_2
-          console.log('dataSF1_2', this.dataSF1_2);
-        });
-      }
+      // changeSF1_2() {
+      //   this.http.get(this.api.apiUrlNode1 + '/CCP1_CCP2_RT?Zona=SF1_2_')
+      //   .pipe(takeWhile(() => this.alive))
+      //   .subscribe((res: any)=>{
+      //     TeamSF1_2 = res
+      //     this.dataSF1_2 = TeamSF1_2
+      //     console.log('dataSF1_2', this.dataSF1_2);
+      //   });
+      // }
     
-      changeSF3_1() {
-        this.http.get(this.api.apiUrlNode1 + '/CCP1_CCP2_RT?Zona=SF3_1_')
-        .pipe(takeWhile(() => this.alive))
-        .subscribe((res: any)=>{
-          TeamSF3_1 = res
-          this.dataSF3_1 = TeamSF3_1
-          console.log('dataSF3_1', this.dataSF3_1);
-        });
-      }
+      // changeSF3_1() {
+      //   this.http.get(this.api.apiUrlNode1 + '/CCP1_CCP2_RT?Zona=SF3_1_')
+      //   .pipe(takeWhile(() => this.alive))
+      //   .subscribe((res: any)=>{
+      //     TeamSF3_1 = res
+      //     this.dataSF3_1 = TeamSF3_1
+      //     console.log('dataSF3_1', this.dataSF3_1);
+      //   });
+      // }
 
       gosfc() {
         this.router.navigate(['/pages/zone-teams/teamsfc'],{skipLocationChange: true});

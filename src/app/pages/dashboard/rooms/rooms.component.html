@@ -1,12 +1,17 @@
+<!-- <nb-card>
+  
+</nb-card> -->
 <nb-card [size]="breakpoint.width >= breakpoints.sm ? 'giant' : ''">
     <nb-icon icon="arrow-ios-downward" pack="eva"
              (click)="collapse()"
              class="collapse"
              [hidden]="isCollapsed()">
     </nb-icon>
-    <ngx-wcs [class.dark-background]="isDarkTheme" (select)="select($event)"></ngx-wcs> 
+    <!-- <ngx-system-operation [class.dark-background]="isDarkTheme" (select)="select($event)"></ngx-system-operation> -->
+    <ngx-bhs-arrival [class.dark-background]="isDarkTheme" (select)="select($event)"></ngx-bhs-arrival>
+    <!-- <ngx-wcs [class.dark-background]="isDarkTheme" (select)="select($event)"></ngx-wcs>  -->
      <!-- <ngx-room-selector [class.dark-background]="isDarkTheme" (select)="select($event)"></ngx-room-selector>  -->
     <!--<ngx-player [collapsed]="isCollapsed() && breakpoint.width <= breakpoints.md"></ngx-player> -->
-    <!-- <ngx-wcs></ngx-wcs>
+    <!-- <ngx-wcs></ngx-wcs>-->
   </nb-card> 
-   <ngx-wcs></ngx-wcs> -->
+   <!--<ngx-wcs></ngx-wcs> -->

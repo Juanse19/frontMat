@@ -55,6 +55,44 @@ const routes: Routes = [{
     //     .then(m => m.AnimationModule),
     // },
     {
+      path: 'conveyor',
+      loadChildren: () => import('./conveyor/conveyor.module')
+        .then(m => m.ConveyorModule)
+        .catch(err => console.error(err))
+    },
+    {
+      path: 'zone-teams',
+      loadChildren: () => import('./zone-teams/zone-teams.module')
+        .then(m => m.ZoneTeamsModule),
+    },
+    {
+      path: 'gantt',
+      loadChildren: () => import('./gantt-schedule/gantt-schedule.module')
+        .then(m => m.GanttScheduleModule),
+    },
+    {
+      path: 'reports',
+      loadChildren: () => import('./reports/reports.module')
+        .then(m => m.ReportsModule),
+    },
+    {
+      path: 'reports-pia',
+      loadChildren: () => import('./reports-pia/reports-pia.module')
+        .then(m => m.ReportsPiaModule),
+    },
+    {
+      path: 'sita',
+      loadChildren: () => import('./sita/sita.module')
+        .then((m) => m.SitaModule)
+        .catch( err => console.log('Oh no!', err))
+    },
+    {
+      path: 'scheduler',
+      loadChildren: () => import('./scheduler/scheduler.module')
+        .then(m => m.SchedulerModule)
+        .catch(err => console.error(err))
+    },
+    {
       path: 'ui-features',
       loadChildren: () => import('./ui-features/ui-features.module')
         .then(m => m.UiFeaturesModule),

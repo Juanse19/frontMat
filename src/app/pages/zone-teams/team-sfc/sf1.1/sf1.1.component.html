@@ -1,0 +1,57 @@
+
+    <nb-card>
+        <nb-card-header>
+            SF1-1
+        </nb-card-header>
+    <nb-card-body>
+    <ejs-circulargauge  #gauge1 id="container_1" style='display: block; height:150px; '>
+        <e-axes>
+            <e-axis startAngle=260 endAngle=100 [majorTicks]="majorTicks" [minorTicks]=""
+                [labelStyle]="labelStyle" [lineStyle]="lineStyle" [ranges]="ranges" [pointers]="pointers1">
+                <e-annotations>
+                    <e-annotation [content]="annotation" angle=180 radius='30%' zIndex='1'></e-annotation>
+                    <!-- <e-annotation [content]="annotation2" angle=180 radius='65%' zIndex='1'></e-annotation> -->
+                </e-annotations>
+            </e-axis>
+        </e-axes>
+    </ejs-circulargauge>
+    <div  style="margin-left: 23%; margin-top: -0%; padding-top: -40px; padding-block-start: -98px;"> 
+        <!-- <div >  -->
+       <!-- <p><b>Corriente:</b>&nbsp;&nbsp;<span style="text-indent: 1cm; padding-left: 8px;">{{TeamSF1_1?.SF1_1_CorrienteActualMotor}}</span>&nbsp; A  </p>
+       <p><b>Potencia:</b> &nbsp;&nbsp;&nbsp; <span style='display:inline; white-space:pre;'>{{TeamSF1_1?.SF1_1_PotenciaActualMotor}}</span>&nbsp; W  </p>
+       <p><b>Voltaje:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='display:inline; white-space:pre; padding-left: 1em'>{{TeamSF1_1?.SF1_1_voltaje}}</span> VAC  </p>
+       <p><b>Consumo:</b>&nbsp;&nbsp;&nbsp;<span style="padding-left: 4px;">{{TeamSF1_1?.SF1_1_KWh | number}}</span>&nbsp; kWh </p> -->
+       <pre style="padding: 0.5625em 0.625em; margin-top: -0.10rem;"><b>Corriente:</b>  {{TeamSF1_1?.CorrienteActualMotor}}  &nbsp; A</pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Potencia:</b>   {{TeamSF1_1?.PotenciaActualMotor}} &nbsp; W</pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Voltaje:</b>    {{TeamSF1_1?.VoltajeActualMotor | number}}   VAC </pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Consumo:</b>    {{TeamSF1_1?.KWh | number}}  &nbsp; kwh </pre>
+       <!-- <div class="container">
+        <table border="1" >
+        
+        
+          <tr >
+          <td > Corriente: &nbsp;&nbsp;</td>
+          <td>&nbsp; {{TeamSF1_1?.SF1_1_CorrienteActualMotor | number  }}</td>
+          </tr>
+        
+          <tr >
+          <td> Potencia:</td>
+          <td> {{TeamSF1_1?.SF1_1_PotenciaActualMotor  }}</td>
+          </tr>
+        
+          <tr >
+          <td> Voltaje: </td>
+          <td> {{TeamSF1_1?.SF1_1_voltaje  }} </td>
+          </tr>
+
+          <tr >
+            <td> kWh:</td>
+            <td> {{TeamSF1_1?.SF1_1_KWh | number  }}</td>
+            </tr>
+        
+          </table>
+        </div> -->
+       
+    </div>
+</nb-card-body>
+</nb-card>

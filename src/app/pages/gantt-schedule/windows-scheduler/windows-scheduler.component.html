@@ -1,0 +1,63 @@
+<div #container class='root-container'>
+    <ejs-dialog id='device1' #device1 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+
+            <!-- <div id='content' class='box-form' style="margin: -2.0rem -1.9rem -0.2rem 2.0rem; width: 200px; padding: -10px;"> -->
+            <div id='content' class='box-form'>
+
+                <form [formGroup]="airForm">
+            
+                    <div class="form-group" style="padding-top:10px;">
+                        <div class="e-float-input">
+                            <input type="text" name="Subject" class="required" formControlName="Subject" required>
+                            <span class="e-float-line"></span>
+                            <label class="e-float-text" for="Subject">Nombre:</label>
+                        </div>
+                        <!-- <div *ngIf="airForm.controls.Subject.invalid && (airForm.controls.Subject.dirty || airForm.controls.Subject.touched)" class="alert alert-danger">
+                            <div *ngIf="airForm.controls.Subject.errors.required">
+                                El nombre es obligatorio
+                            </div>
+                        </div> -->
+                    </div>
+                <div>
+                    <div class="form-group">
+                        <ejs-dropdownlist formControlName="ProjectId" name="ProjectId" value='value' [fields]='fields1' [dataSource]='carrData' placeholder="Make up" [allowFiltering]='true' floatLabelType='Auto' required>
+                        </ejs-dropdownlist>
+                    </div>
+            
+                    <div class="form-group">
+                        <ejs-dropdownlist formControlName="TaskId" name="TaskId" value='value' [fields]='fields' [dataSource]='airlinesData' placeholder="Airline" [allowFiltering]='true' floatLabelType='Auto' required>
+                        </ejs-dropdownlist>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <ejs-datetimepicker formControlName="StartTime" id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a" [value]="dateParser" placeholder='Hora de inicio' floatLabelType='Always' required>
+                        </ejs-datetimepicker>
+                    </div>
+            
+                    <div class="form-group">
+                        <ejs-datetimepicker formControlName="EndTime" id="EndTime" class="e-field" data-name="EndTime" format="yyyy-MM-dd h:mm a" name="datetime" placeholder='Hora de finalización' floatLabelType='Always' required>
+                        </ejs-datetimepicker>
+                    </div>
+            
+                    <!-- <button nbButton class="btn btn-primary" status="success" (click)="save()">Guardar</button> -->
+                    <!-- <button
+                    ejs-button
+                    class="btn btn-primary"
+                    status="info"
+                    nbButton
+                    (click)="saveData()"
+                  >
+                    Guardar
+                  </button> -->
+                  <nb-card-footer>
+                    <button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="save()">GUARDAR</button>
+                </nb-card-footer>
+                </form>
+            
+            </div>
+            
+
+        </ng-template>
+    </ejs-dialog>
+</div>

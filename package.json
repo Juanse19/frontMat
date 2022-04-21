@@ -27,7 +27,7 @@
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
     "prepush": "npm run lint:ci",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es5 browser module main --first-only --create-ivy-entry-points"
   },
   "dependencies": {
     "@akveo/ng2-completer": "^9.0.1",
@@ -54,9 +54,12 @@
     "@syncfusion/ej2-angular-buttons": "19.1.63",
     "@syncfusion/ej2-angular-calendars": "19.1.66",
     "@syncfusion/ej2-angular-charts": "19.2.49",
+    "@syncfusion/ej2-angular-circulargauge": "19.4.38",
     "@syncfusion/ej2-angular-dropdowns": "19.1.67",
     "@syncfusion/ej2-angular-gantt": "^19.1.67",
     "@syncfusion/ej2-angular-grids": "^19.1.67",
+    "@syncfusion/ej2-angular-inputs": "19.4.52",
+    "@syncfusion/ej2-angular-layouts": "19.4.52",
     "@syncfusion/ej2-angular-navigations": "19.1.67",
     "@syncfusion/ej2-angular-popups": "19.2.46",
     "@syncfusion/ej2-angular-progressbar": "^19.2.48",
@@ -121,6 +124,8 @@
     "@angular/cli": "^9.0.4",
     "@angular/compiler-cli": "^9.0.4",
     "@angular/language-service": "9.0.4",
+    "@boldreports/angular-reporting-components": "^3.3.28",
+    "@boldreports/types": "^3.3.28",
     "@compodoc/compodoc": "1.0.1",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@types/d3-color": "1.0.5",

@@ -1,4 +1,3 @@
-import { State } from './../_interfaces/MatBox.model';
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { NbWindowService,NbToastrService,NbWindowRef } from '@nebular/theme';
 import {ApiGetService} from './apiGet.services';
@@ -8,9 +7,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderTableComponent } from '../../tables/OrderTable/orderTable.component';
 import { SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
-import { takeWhile } from 'rxjs/operators';
-import { NumberMapper } from '@syncfusion/ej2-base/src/intl/parser-base';
-import { UserStore } from '../../../@core/stores/user.store';
 
 interface Ordenes {
   id: number;
@@ -22,24 +18,12 @@ interface Ordenes {
   cutsCount?:number;
   state: string;
   stateId: number;
-  idDevice:number;
-  express:boolean;
-  idOrder:number;
-}
-
-interface ordens{
-  quantity: number;
-  express:boolean;
+  idDevice:number,
 }
 
 interface Status {
   id:number,
   name:string,
-}
-
-interface ordersSta {
-  id:number,
-  Order:string,
 }
 
 interface StatusPackage {
@@ -49,8 +33,6 @@ interface StatusPackage {
   cutCount:number,
   Order:string,
   idDevice:number,
-  quantity: number,
-  express: boolean,
 }
 
 
@@ -63,12 +45,9 @@ stateId:1,
 cutLength:0,
 cutsCount:0,
 idDevice:0,
-express:false,
-idOrder: 0
 };
 
 let STATUS: Status;
-let ORDESTA: ordersSta;
 
 let ORDERLIST: Ordenes[];
 
@@ -85,22 +64,7 @@ let win:NbWindowRef;
   styleUrls: ['orderPopup.component.scss'],
 })
 export class WindowComponent2  implements OnInit {
-  
   arrumeManualForm: FormGroup;
-
-  mostrar = false
-
-  errors = [];
-
-  private alive = true;
-
-  ocultar: Boolean;
-
-  quantitys = 0
-
-  public idor: number;
-
-  public ordeDa: ordersSta[];
 
   get orderForm() { return this.arrumeManualForm.get('orderForm'); }
 
@@ -109,11 +73,7 @@ export class WindowComponent2  implements OnInit {
   get cutLength() { return this.arrumeManualForm.get('cutLength'); }
 
   get cutCount() { return this.arrumeManualForm.get('cutCount'); }
-
-  get quantity() { return this.arrumeManualForm.get('quantity'); }
   
-  get express() { return this.arrumeManualForm.get('express'); }
-
 
   // @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
   // @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
@@ -126,11 +86,10 @@ export class WindowComponent2  implements OnInit {
     private messageService: MessageService,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
-    private toastrService: NbToastrService,
-    private userStore: UserStore,
+    private toastrService: NbToastrService
     ) {
-       this.mostrar = true;
-      // this.ocultar = true;
+       
+      
 
     }
 
@@ -139,62 +98,35 @@ export class WindowComponent2  implements OnInit {
       this.loadDataForm();
     }
 
-    public fields: Object = { text: 'order', value: 'id' };
-
-    public states: Object = { text: 'name', value: 'id' };
-
     loadDataForm(){
-      // debugger
-       if (ORDEN.order == "") {
-        // console.log('cambios');
-        this.mostrar = false;
-        this.ocultar = false;
-       } else {
-        //    
-
-        this.mostrar = true;
-       
-        this.arrumeManualForm.setValue({
-          id: ORDEN.id,
-          orderForm: ORDEN.idOrder,
-          cutLengthForm: ORDEN.cutLength,
-          cutCountForm: ORDEN.cutsCount,
-          // cutForm: ORDEN.cutsCount,
-          statusForm: ORDEN.stateId,
-          quantityForm: 1,
-          expressForm:ORDEN.express,
-      });
-      
-      }
-      
+      this.arrumeManualForm.setValue({
+        id: ORDEN.id,
+        orderForm: ORDEN.order,
+        cutLengthForm: ORDEN.cutLength,
+        cutCountForm: ORDEN.cutsCount,
+        // cutForm: ORDEN.cutsCount,
+        statusForm: ORDEN.stateId,
+    });
     }
- 
+
     initForm() {
       this.arrumeManualForm = this.fb.group({
         id: this.fb.control(-1),
         orderForm: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
         statusForm: this.fb.control(1, [Validators.minLength(3), Validators.maxLength(20)]),
         cutLengthForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
-        cutCountForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
-        quantityForm: this.fb.control(1, [Validators.minLength(3), Validators.maxLength(20)]),
-        expressForm: this.fb.control(false),
+        cutCountForm: this.fb.control(2, [Validators.minLength(3), Validators.maxLength(20)]),
       });
     }
 
     data = ORDEN;
     status= STATUS;
     orderList= ORDERLIST;
-    or=ORDESTA
 
   openWindowForm(nombreWindow: string, orden:Ordenes, idMaquina:number) {
-    // debugger
-    // this.stateData();
-    //   this.ordData();
     if(orden.id){
       ORDEN = orden;
       this.data = orden;
-      // console.log('data orden', this.data);
-      
     }else{
       ORDEN ={
         id:-1,
@@ -203,75 +135,28 @@ export class WindowComponent2  implements OnInit {
         stateId:1,
         cutLength:0,     
         cutsCount:0,
-        express:false,
         idDevice:idMaquina,
-        idOrder:0
       };
-      
+
     }
    
-   
-    //   const myOrden = this.data.order.split('-', 1);
-
-    //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderId?orden=' + myOrden ).subscribe((resId: any) => {
-    //   ORDESTA = resId[0];
-    //   this.or = ORDESTA;
-    //   console.log('data id', this.or.id);
-    // });
-
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrdenes')
-      // .pipe(takeWhile(() => this.alive))
-      .subscribe((resOrder: any) => {
-        
+    
+    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((resOrder: any) => {
         ORDERLIST=resOrder;
         this.orderList=ORDERLIST;
-        
-    });
-
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package')
-    // .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-      
-
         STATUS=res;
         this.status=STATUS;
-        
-    
+        win=this.windowService.open(WindowComponent2, { title: nombreWindow});
+       
       });
-    
-      
-    win=this.windowService.open(WindowComponent2, { title: nombreWindow});
+    });
   }
 
-stateData(){
-  this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-      
 
-        STATUS=res;
-        this.status=STATUS;
-        
-    
-      });
-}
-
-ordData(){
-  this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrdenes')
-      // .pipe(takeWhile(() => this.alive))
-      .subscribe((resOrder: any) => {
-        
-        ORDERLIST=resOrder;
-        this.orderList=ORDERLIST;
-        
-    });
-}
 
   Guardar(){
-    let formulario = this.arrumeManualForm.value;
-// debugger
-
-    // const myOrd = formulario.orderForm.split('-', 1);
+    let formulario = this.arrumeManualForm.value; 
 
     if(formulario.orderForm){
     
@@ -279,89 +164,20 @@ ordData(){
         id:formulario.id,
         idStatus:formulario.statusForm,
         cutLength:formulario.cutLengthForm,
-        // Order:String(myOrd),
-        Order:String(formulario.orderForm),
+        Order:formulario.orderForm,
         idDevice:ORDEN.idDevice, 
         cutCount:formulario.cutCountForm,
-        quantity: formulario.quantityForm,
-        express: formulario.expressForm
       } 
     }
-
-    
-    
-
-    if (formulario.cutLengthForm == 0 && formulario.cutCountForm == 0 && formulario.quantityForm == 0) {
-      // alert('No ingresaste Longitud ni cantidad')
-      Swal.fire({
-        icon: 'error',
-        timer: 2000,
-        title: 'Oops...',
-        text: 'Ingresa la Longitud de corte y cantidad cortes!'
-      })
-    } else if (formulario.cutLengthForm == 0) {
-      // alert('No ingresaste Longitud ')
-      Swal.fire({
-        icon: 'error',
-        timer: 2000,
-        title: 'Oops...',
-        text: 'Ingresaste la Longitud de corte!'
-      })
-    } else if (formulario.cutCountForm == 0) {
-      // alert('No ingresaste cantidad')
-      Swal.fire({
-        icon: 'error',
-        timer: 2000,
-        title: 'Oops...',
-        text: 'Ingresaste la cantidad cortes!'
-      })
-    } 
-    // else if (formulario.quantityForm == null) {
-    //   // alert('No ingresaste cantidad')
-    //   Swal.fire({
-    //     icon: 'error',
-    //     timer: 2000,
-    //     title: 'Oops...',
-    //     text: 'Ingresaste la cantidad arrumes!'
-    //   })
-    // }  else if (formulario.quantityForm == '') {
-    //   // alert('No ingresaste cantidad')
-    //   Swal.fire({
-    //     icon: 'error',
-    //     timer: 2000,
-    //     title: 'Oops...',
-    //     text: 'Ingresaste la cantidad arrumes!'
-    //   })
-    // }
-    // else if (formulario.quantityForm == 0) {
-    //   // alert('No ingresaste cantidad')
-    //   Swal.fire({
-    //     icon: 'error',
-    //     timer: 2000,
-    //     title: 'Oops...',
-    //     text: 'Ingresaste la cantidad arrumes!'
-    //   })
-    // }
-     else {
- 
     if (STATUSPACKAGE.idStatus === 1 || STATUSPACKAGE.idStatus === 2 || STATUSPACKAGE.idStatus === 3){
       // this.ChangeState();
-      // console.log('Data OrderManual', STATUSPACKAGE);
-      
-      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE)
-      // .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
+      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
             
                    this.messageService.sendMessage('PackageUpdate');
                      this.handleSuccessResponse();
-                     
-                 },
-                 err => {
-                  this.errors = err.error.message;
-                  console.log(this.errors);
-                });
+                    
+                 });
     }else if("eliminar estado"){
-      // this.messageService.sendMessage('PackageUpdate');
       Swal.fire({
         title: 'Estas seguro?',
         text: `¡No podrás revertir esto!`,
@@ -373,45 +189,21 @@ ordData(){
       }).then(result => {
         if (result.value) {
           if (STATUSPACKAGE.idStatus === 4 ) {
-            const currentUserId = this.userStore.getUser().id;
-              const currentUser = this.userStore.getUser().firstName;
-              // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-              var respons = 
-              {
-              user: currentUser,
-              message:"Eliminó un arrumes del wip ",
-              users: currentUserId,  
-              };
-              this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
-              // .pipe(takeWhile(() => this.alive))
-              .subscribe((res: any) => {
-                  //  console.log("Envió: ", res);
-                });
               // console.log('borrar');
-              this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE)
-              // .pipe(takeWhile(() => this.alive))
-              .subscribe((res: any) => {
-            
-                // this.messageService.sendMessage('PackageUpdate');
-              }, 
-              err => {
-                this.errors = err.error.message;
-                console.log(this.errors);
+              this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/postusppackagemanualcontrol',STATUSPACKAGE).subscribe((res: any) => {
+                
               }); 
-              
-              // this.messageService.sendMessage('PackageUpdate');
-              Swal.fire('¡Eliminado!', 'El arrume ha sido eliminado.', 'success');
+              this.messageService.sendMessage('PackageUpdate');
+              Swal.fire('¡Eliminado!', 'El arrume ha sido eliminada.', 'success');
               // this.ChangeState();
               this.back();
             } else {
               Swal.fire('¡Error!', 'Hubo un error al eliminar el arrume', 'error');
               this.back();
             }
-            this.messageService.sendMessage('PackageUpdate');
         }
       });
     }
-  }
   }
 
   // ChangeState(){
@@ -444,7 +236,6 @@ ordData(){
   handleSuccessResponse() {
     let formulario = this.arrumeManualForm.value;
     this.toasterService.success('Orden ' + formulario.orderForm + ' actualizada con exito' );
-    // this.toasterService.success('Orden ' + ORDEN.order + ' actualizada con exito' );
     this.back();
   }
 
@@ -504,8 +295,8 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
     console.log(orden + ', ' + nombre);
   }
 
-  ngOnDestroy(): void {
-    this.alive = false;
-  }
+  ngOnDestroy() {
+   
+    }
 
 }

@@ -1,0 +1,48 @@
+<nb-card>
+    <nb-card-header>
+        <h1>Aerolineas</h1>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12 col-lg-4 col-xxxl-4">
+                <nb-card>
+                    <nb-card-header>Aerolínea y código</nb-card-header>
+                    <nb-card-body>
+                        <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="AirData" (click)="onClick($event)">
+                        </ng2-smart-table>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button type="submit" class="btn btn-primary">A Wake Up 1</button>
+                        <button type="submit" class="btn btn-primary">A Wake Up 2</button>
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+
+            <div class="col-md-12 col-lg-4 col-xxxl-4">
+                <nb-card>
+                    <nb-card-header>Make Up 1</nb-card-header>
+                    <nb-card-body>
+                        <ng2-smart-table class="dash-smart-table" [settings]="settings1" [source]="Carr1Data">
+                        </ng2-smart-table>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button type="submit" class="btn btn-primary">Desasignar!</button>
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+
+            <div class="col-md-12 col-lg-4 col-xxxl-4">
+                <nb-card>
+                    <nb-card-header>Make up 2</nb-card-header>
+                    <nb-card-body>
+                        <ng2-smart-table class="dash-smart-table" [settings]="settings2" [source]="Carr2Data">
+                        </ng2-smart-table>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button type="submit" class="btn btn-primary">Desasignar!</button>
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

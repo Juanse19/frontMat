@@ -1,31 +1,32 @@
 import { Component, OnDestroy } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { interval } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SmartTableData } from '../../../@core/interfaces/common/smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { NbToastrService } from '@nebular/theme';
-import { switchMap, takeWhile } from 'rxjs/operators';
+import { takeWhile } from 'rxjs/operators';
 import { NbAccessChecker } from '@nebular/security';
-import { UserStore } from '../../../@core/stores/user.store';
-import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, CommandClickEventArgs, 
+import { HttpClient } from '@angular/common/http';
+import { GridComponent, PageSettingsModel, FilterSettingsModel, CommandClickEventArgs, 
   EditService, CommandColumnService, CommandModel, ToolbarService, PageService,
    ToolbarItems } from '@syncfusion/ej2-angular-grids';
+import { UserStore } from '../../../@core/stores/user.store';
+import { Dialog, Tooltip } from '@syncfusion/ej2-popups';
+import { Browser } from '@syncfusion/ej2-base';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2'; 
 
 interface Alarmas {
-  id: number;
-  message: string;
-  level: string;
-  exception: string;
-  userId: string;
-  STD: string;
+  Id: number;
+  Message: string;
+  Level: string;
+  Exception: string;
+  UserId: string;
+  TimeStamp: string;
   ETD: string;
   UserIdAcknow: string;
-  NameDevice: string;
-  DescriptionDevice: string;
+  IdDevice: string;
 }
 
 let ALARMAS: Alarmas[] = [
@@ -36,21 +37,14 @@ let ALARMAS: Alarmas[] = [
 @Component({
   selector: 'ngx-alarms',
   templateUrl: './alarms.component.html',
-  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
-  styleUrls: ['./alarms.component.scss'] 
+  providers: [ToolbarService, EditService, PageService, CommandColumnService],
+  styleUrls: ['./alarms.component.scss',]
 })
 export class AlarmsComponent implements OnDestroy {
 
   public select = false;
   private alive = true;
   mostrar: Boolean;
-
-  subscription: Subscription;
-
-  intervalSubscriptionChargealarms: Subscription;
-
-  intervalSubscriptionHistoryalarms: Subscription;
-
   public pageSettings: PageSettingsModel;
   
 
@@ -62,7 +56,6 @@ export class AlarmsComponent implements OnDestroy {
   public editparams: Object;
   public commands: CommandModel[];
   public filterOptions: FilterSettingsModel;
-  public initialSort: Object;
 
   alarmas = ALARMAS;
 
@@ -79,19 +72,19 @@ export class AlarmsComponent implements OnDestroy {
     },
     
     columns: {
-      id: {
+      Id: {
         title: 'ID',
         type: 'number',
         filter: false,
         hide: true,
 
       },
-      message: {
-        title: 'Descripción',
+      Message: {
+        title: 'Mensaje',
         type: 'string',
         filter: true,
       },
-      level: {
+      Level: {
         title: 'Nivel',
         type: 'string',
         filter: false,
@@ -101,28 +94,13 @@ export class AlarmsComponent implements OnDestroy {
       //   type: 'string',
       //   filter: false,
       // },
-      userId: {
+      UserId: {
         title: 'Usuario',
         type: 'string',
         filter: false,
       },
-      STD: {
+      TimeStamp: {
         title: 'Fecha',
-        type: 'string',
-        filter: false,
-      },
-      // ETD: {
-      //   title: 'Fecha fin',
-      //   type: 'string',
-      //   filter: false,
-      // },
-      // UserIdAcknow: {
-      //   title: 'Usuario ',
-      //   type: 'string',
-      //   filter: false,
-      // },
-      DescriptionDevice: {
-        title: 'Dispositivo',
         type: 'string',
         filter: false,
       },
@@ -130,70 +108,7 @@ export class AlarmsComponent implements OnDestroy {
   };
 
   source: LocalDataSource = new LocalDataSource();
-  public Alarm: Alarmas[];
-
-  // History AlARMS
-  setting = {
-    // actions: false,
-    actions: {
-      add: false,
-      edit: false,
-      delete: false,
-    },
-    
-    columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
-        filter: false,
-        hide: true,
-
-      },
-      message: {
-        title: 'Descripción',
-        type: 'string',
-        filter: true,
-      },
-      level: {
-        title: 'Nivel',
-        type: 'string',
-        filter: false,
-      },
-      // exception: {
-      //   title: 'excepción',
-      //   type: 'string',
-      //   filter: false,
-      // },
-      userId: {
-        title: 'Usuario',
-        type: 'string',
-        filter: false,
-      },
-      STD: {
-        title: 'Fecha',
-        type: 'string',
-        filter: false,
-      },
-      ETD: {
-        title: 'Fecha fin',
-        type: 'string',
-        filter: false,
-      },
-      UserIdAcknow: {
-        title: 'Usuario reconoce',
-        type: 'string',
-        filter: false,
-      },
-      DescriptionDevice: {
-        title: 'Dispositivo',
-        type: 'string',
-        filter: false,
-      },
-    },
-  };
-
-  source1: LocalDataSource = new LocalDataSource();
-  public Alarms: Alarmas[];
+  public Alarm: Alarmas[]=[];
 
   constructor(
     public accessChecker: NbAccessChecker,
@@ -203,6 +118,7 @@ export class AlarmsComponent implements OnDestroy {
     private http: HttpClient,
     private userStore: UserStore,
   ) {
+    
     this.alive;
     this.accessChecker.isGranted('edit', 'ordertable')
     .pipe(takeWhile(() => this.alive))
@@ -215,6 +131,7 @@ export class AlarmsComponent implements OnDestroy {
         this.mostrar=true;
       }
     });
+    
   }
 
   ngOnInit(): void {
@@ -230,11 +147,11 @@ export class AlarmsComponent implements OnDestroy {
     this.filterOptions = {
       type: 'Menu',
    };
+  
+  this.Chargealarms();
+  this.ChargeHistoryData(); 
 
-    this.Chargealarms();
-    this.ChargeHistoryalarms();
-
-    this.toolbar = [
+   this.toolbar = [
       //  {text: 'Delete', prefixIcon: 'fas fa-check'},
      { text: 'Reconocer alarmas', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }];
 
@@ -243,32 +160,86 @@ export class AlarmsComponent implements OnDestroy {
       { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
       { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
       { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
+  
   }
+ 
 
-  // onedit($event: any) {
-  //     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Alarms/postalarm?IdAlarm' + $event.data.id).subscribe((res: any) => {
-  //       //REPORTOCUPATION=res;
-  //       console.log("alarmId", res);
-  //       // this.Alarm = res;
-  //       // this.source.load(res);
-  //     });
+//   commandClick(args: CommandClickEventArgs): void {
+//     debugger
+//     alert(JSON.stringify(args.rowData));
     
-  // }
+// }
 
-  clickHandler(args: ClickEventArgs): void {
-    if (args.item.id === 'Click') {
-      // console.log('click: ', args);
-      // debugger
-      this.reconocer();
-        // alert('Custom Toolbar Click...');
-    }
+clickHandler(args: ClickEventArgs): void {
+  if (args.item.id === 'Click') {
+    // console.log('click: ', args);
+    // debugger
+    this.reconocer();
+      // alert('Custom Toolbar Click...');
+  }
+}
+
+// tooltip(args: QueryCellInfoEventArgs) {
+//   const tooltip: Tooltip = new Tooltip({
+//       content: args.data[args.column.field].toString()
+      
+//   }, args.cell as HTMLTableCellElement);
+//   // console.log('tool:', tooltip);
+// }
+
+actionBegin(args) {
+  if (( args.requestType === 'delete')) {
+    // const Id = 'Id';
+    // console.log('Type Delete: ', args.data[0].Id);
+    this.accessChecker.isGranted('edit', 'ordertable')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      if(res){ 
+        const currentUserId = this.userStore.getUser().id;
+        var respons = 
+          {
+          IdAlarm: args.data[0].Id,
+          UserIdAcknow: currentUserId
+          };
+        // let alarm = {IdAlarm: event.data.Id};
+    this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/ResetAlarmId', respons)
+    
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+       console.log("alarmId", res);
+       if (res) {
+        this.toastrService.success('', '¡Alarma solucionada!'); 
+        this.Chargealarms();
+        this.source.refresh();
+      } else {
+        this.toastrService.danger('', 'Algo salio mal.');
+      }
+    });
+        // args.rowData.Id.resolve();
+        this.select = false;
+        this.mostrar = false;
+        args.cancel = true;
+      }else {
+        this.select=true;
+        this.mostrar=true;
+        args.cancel = true;
+      }
+    });
   }
 
-  actionBegin(args) {
-    if (( args.requestType === 'delete')) {
-      // const Id = 'Id';
-      // console.log('Type Delete: ', args.data[0].Id);
-      this.accessChecker.isGranted('edit', 'ordertable')
+}
+
+actionComplete(args) {
+  if (( args.requestType === 'delete')) {
+      // const dialog = args.dialog;
+      debugger
+      const Id = 'Id';
+      // change the header of the dialog
+      // console.log('Type: ', args.data[0].Id);
+      // console.log('id: ', args.rowData.Id);
+      // debugger
+    
+    this.accessChecker.isGranted('edit', 'ordertable')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         if(res){ 
@@ -279,70 +250,53 @@ export class AlarmsComponent implements OnDestroy {
             UserIdAcknow: currentUserId
             };
           // let alarm = {IdAlarm: event.data.Id};
-          this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknow', respons)
-          .pipe(takeWhile(() => this.alive))
-          .subscribe((res: any) => {
+      this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/ResetAlarmId', respons)
+      
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
         //  console.log("alarmId", res);
          if (res) {
           this.toastrService.success('', '¡Alarma solucionada!'); 
-          this.Chargealarms();
-          this.AlarmsCharge();
           this.source.refresh();
         } else {
           this.toastrService.danger('', 'Algo salio mal.');
         }
       });
-          // args.rowData.Id.resolve();
-          this.select = false;
-          this.mostrar = false;
-          args.cancel = true;
+      // args.rowData.Id.resolve();
+      //     this.select = false;
+      //     this.mostrar = false;
+      args.cancel = true;
         }else {
           this.select=true;
           this.mostrar=true;
           args.cancel = true;
         }
       });
-    }
-  
+      // dialog.header = args.requestType === 'beginEdit' ? 'Record of ' + args.rowData[CustomerID] : 'New Customer';
   }
+}
 
-  onDeleteConfirm(event): void {
-
+Delete(event): void {
+    debugger
+    
     this.accessChecker.isGranted('edit', 'ordertable')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         if(res){ 
-          let alarm = {idAlarm: event.data.id};
-
-  //         const currentUserId = this.userStore.getUser().firstName;
-  //         // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-  //         var respons = 
-  //         {
-  //           user: currentUserId,
-  //           message:"Reconoció una alarma"
-  //         };
-
-  // this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
-  //   .pipe(takeWhile(() => this.alive))
-  //   .subscribe((res: any) => {
-  //       //  console.log("Envió: ", res);
-  //     });
-
-      const currentUserId = this.userStore.getUser().id;
-      var respons = 
+          const currentUserId = this.userStore.getUser().id;
+          var respons = 
             {
             IdAlarm: event.data.Id,
             UserIdAcknow: currentUserId
-            };    
-            
-
-      this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknow', respons)
+            };
+          let alarm = {IdAlarm: event.data.Id};
+      this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/ResetAlarmId', respons)
+      
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         //  console.log("alarmId", res);
          if (res) {
           this.toastrService.success('', '¡Alarma solucionada!'); 
-         
           this.source.refresh();
         } else {
           this.toastrService.danger('', 'Algo salio mal.');
@@ -362,8 +316,6 @@ export class AlarmsComponent implements OnDestroy {
   }
 
   reconocer() {
-
-  
     this.accessChecker.isGranted('edit', 'ordertable')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
@@ -377,113 +329,78 @@ export class AlarmsComponent implements OnDestroy {
       cancelButtonColor: '#d33',
       confirmButtonText: '¡Sí, Reconocer!'
     }).then(result => {
-      debugger 
+      // debugger 
       if (result.value) {
       const currentUserId = this.userStore.getUser().id;
           var respons = 
             {
               UserIdAcknow: currentUserId
             };
-
-      this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknowall', respons)
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-       this.source.refresh();
-       this.Chargealarms();
-       this.AlarmsCharge();
-      });
-   
-         Swal.fire('¡Se Reconocieron Exitosamente', 'success');
-         this.Chargealarms();
-         this.AlarmsCharge();
-         this.source.refresh();
-     }
-   });
-         this.source.refresh();   
-         this.select = false;
-         this.mostrar = false;
-       }else {
-         this.select=true;
-         this.mostrar=true;
-       }
-     });
-     
-  }
-
-  public AlarmsCharge(){
-
-    if (this.intervalSubscriptionChargealarms) {
-      this.intervalSubscriptionChargealarms.unsubscribe();
-    }
+            
+       this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/ResetAlarmAll', respons)
+       .pipe(takeWhile(() => this.alive))
+       .subscribe((res: any) => {
+        this.source.refresh();
+        this.Chargealarms();
+       });
     
-    this.intervalSubscriptionChargealarms = interval(10000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/getAlarms')),
-    )
-    .subscribe((res: any) => {
-      this.Alarm = res;
-
+          Swal.fire('¡Se Reconocieron Exitosamente', 'success');
+          this.source.refresh();
+      }
     });
+          this.source.refresh();   
+          this.select = false;
+          this.mostrar = false;
+        }else {
+          this.select=true;
+          this.mostrar=true;
+        }
+      });
   }
+
 
   Chargealarms() {
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/getAlarms')
+    // debugger
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
-      //REPORTOCUPATION=res;
-      // console.log("Report Total Ordenes:", res);
       this.Alarm = res;
+      // console.log('test alarm: ', this.Alarm)
+      this.source.load(res);
+      this.source.refresh();
     });
-    // const contador = interval(6000)
-    // contador.subscribe((n) => {
-    //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/GetAlarms')
-    //   .pipe(takeWhile(() => this.alive))
-    //   .subscribe((res: any) => {
-    //     //REPORTOCUPATION=res;
-    //     this.Alarm = res;
-    //   }); 
-    // });
+    const contador = interval(30000)
+    contador.subscribe((n) => {
+      this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.Alarm = res;
+        this.source.load(res);
+        this.source.refresh();
+      });
+    });
+
   }
 
-  public historyAlarmsCharge(){
-
-    if (this.intervalSubscriptionHistoryalarms) {
-      this.intervalSubscriptionHistoryalarms.unsubscribe();
-    }
-    
-    this.intervalSubscriptionHistoryalarms = interval(10000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/alarms')),
-    )
-    .subscribe((res: any) => {
-      this.Alarms = res;
-
-    });
-  }
-
-  ChargeHistoryalarms() {
-    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/alarms')
+  ChargeHistoryData() {
+    this.http.get(this.api.apiUrlNode1 + '/historyalarm')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
-      // console.log("HAlarms: ", res);
-      
-      this.Alarms = res;
-      this.source1.load(res);
+      // tslint:disable-next-line: no-console
+      // console.log('HistoryAlarmData: ', res);
+      this.historyAlarmData = res;
     });
-    // const contador = interval(6000)
-    // contador.subscribe((n) => {
-    //   this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/alarms')
-    //   .pipe(takeWhile(() => this.alive))
-    //   .subscribe((res: any) => {
-    //     this.Alarms = res;
-    //     this.source1.load(res);
-    //   });
-    // });
+    const contador = interval(40000)
+    contador.subscribe((n) => {
+      this.http.get(this.api.apiUrlNode1 + '/historyalarm')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.historyAlarmData = res;
+      });
+    });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.alive = false;
   }
 

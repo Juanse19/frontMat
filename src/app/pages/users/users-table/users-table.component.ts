@@ -18,8 +18,7 @@ import { UserStore } from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import Swal from 'sweetalert2'; 
-import { EditService, SortService, ToolbarService, PageService, NewRowPosition, FilterSettingsModel, 
-  ToolbarItems, EditEventArgs, CommandModel, CommandColumnService } from '@syncfusion/ej2-angular-grids';
+import { EditService, ToolbarService, PageService, NewRowPosition, FilterSettingsModel, ToolbarItems, EditEventArgs, CommandModel, CommandColumnService } from '@syncfusion/ej2-angular-grids';
 import { ChangeEventArgs, DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
 import { LocalDataSource } from 'ng2-smart-table';
 import { UsersService } from '../../../@core/backend/common/services/users.service'
@@ -28,7 +27,7 @@ import { User } from '../../../@core/interfaces/common/users'
 @Component({
   selector: 'ngx-users-table',
   templateUrl: './users-table.component.html',
-  providers: [ToolbarService, EditService, PageService, SortService, CommandColumnService],
+  providers: [ToolbarService, EditService, PageService, CommandColumnService],
   styleUrls: ['./users-table.component.scss'],
 
 })
@@ -43,7 +42,6 @@ export class UsersTableComponent implements OnDestroy {
     public filterOptions: FilterSettingsModel;
     public commands: CommandModel[];
     public userData: User[];
-    public initialSort: Object;
 
   settings = {
     mode: 'external',
@@ -208,7 +206,7 @@ export class UsersTableComponent implements OnDestroy {
           message:"Elimino un usuario",
           users: currentUserId,   
       };
-        this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
+        this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
               //  console.log("Envió: ", res);
@@ -255,7 +253,7 @@ export class UsersTableComponent implements OnDestroy {
     message:"Elimino un usuario",
     users: currentUserId,   
 };
-  this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
+  this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
         //  console.log("Envió: ", res);

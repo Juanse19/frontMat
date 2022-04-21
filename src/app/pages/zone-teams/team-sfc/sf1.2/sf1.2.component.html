@@ -1,0 +1,32 @@
+
+    <nb-card>
+        <nb-card-header>
+            SF1_2
+        </nb-card-header>
+    <nb-card-body>
+    <ejs-circulargauge  #gaugeSF1_2 id="sample-dataSF1_2" style='display: block; height:150px; '>
+        <e-axes>
+            <e-axis startAngle=260 endAngle=100 [majorTicks]="majorTicks" [minorTicks]=""
+                [labelStyle]="labelStyle" [lineStyle]="lineStyle" [ranges]="ranges" [pointers]="pointers2">
+                <e-annotations>
+                    <e-annotation [content]="annotation" angle=180 radius='30%' zIndex='1'></e-annotation>
+                    <!-- <e-annotation [content]="annotation2" angle=180 radius='65%' zIndex='1'></e-annotation> -->
+                </e-annotations>
+            </e-axis> 
+        </e-axes>
+    </ejs-circulargauge>
+    <!-- <div  style="margin-left: 23%; margin-top: -0%; padding-top: -40px; padding-block-start: -98px;">  -->
+        <div>
+       <!-- <p>Corriente: {{TeamSF1_2?.SF1_2_CorrienteActualMotor | number  }}  </p>
+       <p>Potencia: {{TeamSF1_2?.SF1_2_PotenciaActualMotor | number  }}  </p>
+       <p>Voltaje: {{TeamSF1_2?.SF1_2_voltaje | number  }}  </p>
+       <p>kWh: {{TeamSF1_2?.SF1_2_KWh | number  }}  </p> -->
+
+       <pre style="padding: 0.5625em 0.625em; margin-top: -0.10rem;"><b>Corriente:</b>  {{TeamSF1_2?.CorrienteActualMotor}}  &nbsp; <span>A</span> </pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Potencia:</b>   {{TeamSF1_2?.PotenciaActualMotor | number}} &nbsp; W</pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Voltaje:</b>    {{TeamSF1_2?.VoltajeActualMotor | number}}   VAC </pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Consumo:</b>    {{TeamSF1_2?.KWh | number}}   kwh </pre>
+       
+    </div>
+</nb-card-body>
+</nb-card>

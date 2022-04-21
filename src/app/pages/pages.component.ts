@@ -79,7 +79,7 @@ export class PagesComponent implements OnDestroy {
     this.intervalSubscriptionStatusSesion = interval(1000)
     .pipe(
       takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/getlEmailuser?Email=' + this.userStore.getUser().email)),
+      switchMap(() => this.http.get(this.api.apiUrlNode1 + '/api/getlEmailuser?Email=' + this.userStore.getUser().email)),
     )
     .subscribe((res: any) => {
         // this.states  = res;
@@ -117,7 +117,7 @@ export class PagesComponent implements OnDestroy {
                 sesion: 1,
               }
               this.apiGetComp
-                .PostJson(this.api.apiUrlNode + '/updateSesion', respon)
+                .PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
                 .pipe(takeWhile(() => this.alive))
                 .subscribe((res: any) => {
                   //  console.log("Envió: ", res);

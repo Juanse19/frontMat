@@ -127,7 +127,7 @@ export class NgxLoginComponent implements OnInit {
     this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
 
-    this.apiGetComp.GetJson(this.api.apiUrlNode + "/api/getlEmailuser?Email=" + this.user.email)
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + "/api/getlEmailuser?Email=" + this.user.email)
     .subscribe((res: any) => {
      
       this.validData = res;
@@ -165,7 +165,7 @@ export class NgxLoginComponent implements OnInit {
           };
 
           this.apiGetComp
-            .PostJson(this.api.apiUrlNode + "/updateSesion", respon)
+            .PostJson(this.api.apiUrlNode1 + "/updateSesion", respon)
             .pipe(takeWhile(() => this.alive))
             .subscribe((res: any) => {
               //  console.log("Envió: ", res);
@@ -176,7 +176,7 @@ export class NgxLoginComponent implements OnInit {
             users: currentUserId,
           };
           this.apiGetComp
-            .PostJson(this.api.apiUrlNode + "/postSaveAlarmUser", respons)
+            .PostJson(this.api.apiUrlNode1 + "/postSaveAlarmUser", respons)
             .pipe(takeWhile(() => this.alive))
             .subscribe((res: any) => {
             });
@@ -243,7 +243,7 @@ export class NgxLoginComponent implements OnInit {
             };
 
             this.apiGetComp
-              .PostJson(this.api.apiUrlNode + "/updateSesion", respon)
+              .PostJson(this.api.apiUrlNode1 + "/updateSesion", respon)
               .pipe(takeWhile(() => this.alive))
               .subscribe((res: any) => {
                 // console.log("Se actualizó: ", res);
@@ -265,7 +265,7 @@ export class NgxLoginComponent implements OnInit {
                 // console.log("closed by timer!!!!");
                 this.apiGetComp
                   .GetJson(
-                    this.api.apiUrlNode +
+                    this.api.apiUrlNode1 +
                     "/api/getlEmailuser?Email=" +
                     this.user.email
                   )

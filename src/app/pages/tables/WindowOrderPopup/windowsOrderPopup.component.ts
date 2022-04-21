@@ -13,7 +13,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 interface Ordenes {
   id?: number;
-  batch?: number;
   order: string;
   name: string;
   description: string;
@@ -24,12 +23,10 @@ interface Ordenes {
   cutsLength: number;
   origen: string;
   priority: number;
-  corrInverted: boolean;
 }
 
 interface OrdenActualizar {
   id:number;
-  batch:number;
   orden: string;
   referencia: string;
   origen: string;
@@ -39,8 +36,7 @@ interface OrdenActualizar {
   cortesAncho: number;
   cortesLargo: number;
   priority:number;
-  previousPriority:number;
-  corrInverted: boolean;
+  PreviousPriority:number;
 }
 
 interface MaquinasDestino {
@@ -54,11 +50,7 @@ interface MaquinasOrigen {
   value: string;
   label: string;
 }
-interface CorrInvertida {
-  id?: number;
-  value: boolean;
-  label: boolean;
-}
+
 
 let DESTINOS: MaquinasDestino[] = [
 
@@ -81,10 +73,6 @@ let DESTINO: MaquinasDestino;
 }
 
 let ORIGEN: MaquinasOrigen;
-{
-
-}
-let CORRINVERTIDA: CorrInvertida;
 {
 
 }
@@ -127,7 +115,6 @@ export class WindowComponent {
   maquinaDestino = DESTINO;
   origen = ORIGENES;
   maquinaOrigen = ORIGEN;
-  corrInvertida = CORRINVERTIDA;
 
 public selectedDestino ;
 public selectedOrigen ;
@@ -142,8 +129,6 @@ public selectedOrigen ;
   @ViewChild('largoValor') largoValor: ElementRef;
   @ViewChild('priorityValue') priorityValue: ElementRef;
   @ViewChild('referenciaValor') referenciaValor: ElementRef;
-  @ViewChild('batchValor') batchValor: ElementRef;
-  // @ViewChild('corrInvertedValor') corrInvertedValor: ElementRef;
 
 
 
@@ -170,8 +155,6 @@ public selectedOrigen ;
     // this.MaquinasDestinoLista();
     ORDEN = orden;
     this.data = orden;
-    // console.log('EditOr', this.data);
-    
     DESTINO = {
       value : orden.description,
       label : orden.description,
@@ -181,10 +164,6 @@ public selectedOrigen ;
       value : orden.origen,
       label : orden.origen,
     };
-    CORRINVERTIDA = {
-      value:orden.corrInverted,
-      label:orden.corrInverted
-    }
     win=this.windowService.open(WindowComponent, { title: nombreWindow});
 
   }
@@ -195,7 +174,7 @@ public selectedOrigen ;
       DESTINOS = res;
       });
   }
- 
+
   MaquinasOrigenLista() {
 
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerMaquinasOrigenLista').subscribe((res: any) => {
@@ -259,13 +238,10 @@ openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: 
       cortesAncho: Number(this.anchoValor.nativeElement.value),
       cortesLargo: Number(this.largoValor.nativeElement.value),
       priority: Number(this.priorityValue.nativeElement.value),
-      batch: Number(this.batchValor.nativeElement.value),
-      previousPriority: this.data.priority,
-      corrInverted: this.corrInvertida.value,
-    }
-    //  console.log('ORDENESACTUALIZAR' , ORDENESACTUALIZAR);
+      PreviousPriority: this.data.priority,
+    };
 
-    this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/ActualizarOrden', ORDENESACTUALIZAR).subscribe((res: any) => {
+    this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/ActualizarOrden', ORDENESACTUALIZAR).subscribe((res: any) => {
       this.messageService.sendMessage('orderTable');
       this.handleSuccessResponse();
     });

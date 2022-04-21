@@ -13,7 +13,7 @@ import { share } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserStore {
-  private user: User;
+  private user!: User;
 
   protected userState$ = new BehaviorSubject(this.user);
 

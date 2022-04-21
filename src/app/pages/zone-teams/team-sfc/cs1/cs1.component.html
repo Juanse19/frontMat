@@ -1,0 +1,140 @@
+<div class="row">
+<div class="col-sm-4">
+    
+    <nb-card>
+        <nb-card-header>
+            CS1_3
+        </nb-card-header>
+    <nb-card-body>
+    <ejs-circulargauge  #Cs1_3 id="containerCs1_3" style='display: block; height:150px;'>
+        <e-axes>
+            <e-axis startAngle=260 endAngle=100 [majorTicks]="majorTicks" [minorTicks]=""
+                [labelStyle]="labelStyle" [lineStyle]="lineStyle" [ranges]="ranges" [pointers]="pointersCs1_3">
+                <e-annotations>
+                    <e-annotation [content]="annotation1" angle=180 radius='30%' zIndex='1'></e-annotation>
+                    <!-- <e-annotation [content]="annotation4" angle=180 radius='65%' zIndex='1'></e-annotation> -->
+                </e-annotations>
+            </e-axis>
+        </e-axes>
+    </ejs-circulargauge>
+    <div class="h4 value" style="margin-left: 23%; margin-top: -0%; padding-top: -40px; padding-block-start: -98px;"> 
+        <p> {{Teamcs1_3?.CS1_3M01_CorrienteActualMotor | number : '4.1-5' }} Corriente </p>
+        <p> {{Teamcs1_3?.CS1_3M01_PotenciaActualMotor | number : '4.1-5' }} Potencia </p>
+        <p> {{Teamcs1_3?.CS1_3M01_KWh | number : '4.1-5' }} kWh </p>
+     </div>
+ </nb-card-body>
+    </nb-card>
+
+</div>
+
+<div class="col-sm-4">
+    
+    <nb-card>
+        <nb-card-header>
+            CS1_4
+        </nb-card-header>
+    <nb-card-body>
+    <ejs-circulargauge  #Cs1_4 id="containerCs1_4" style='display: block; height:150px;'>
+        <e-axes>
+            <e-axis startAngle=260 endAngle=100 [majorTicks]="majorTicks" [minorTicks]=""
+                [labelStyle]="labelStyle" [lineStyle]="lineStyle" [ranges]="ranges" [pointers]="pointersCs1_4">
+                <e-annotations>
+                    <e-annotation [content]="annotation2" angle=180 radius='30%' zIndex='1'></e-annotation>
+                    <!-- <e-annotation [content]="annotation4" angle=180 radius='65%' zIndex='1'></e-annotation> -->
+                </e-annotations>
+            </e-axis>
+        </e-axes>
+    </ejs-circulargauge>
+    <div class="h4 value" style="margin-left: 23%; margin-top: -0%; padding-top: -40px; padding-block-start: -98px;"> 
+        <p> {{Teamcs1_4?.CS1_4M01_CorrienteActualMotor | number : '4.1-5' }} Corriente </p>
+        <p> {{Teamcs1_4?.CS1_4M01_PotenciaActualMotor | number : '4.1-5' }} Potencia </p>
+        <p> {{Teamcs1_4?.CS1_4M01_KWh | number : '4.1-5' }} kWh </p>
+     </div>
+ </nb-card-body>
+    </nb-card>
+
+</div>
+
+<div class="col-sm-4">
+    
+    <nb-card>
+        <nb-card-header>
+            CS1_5
+        </nb-card-header>
+    <nb-card-body>
+    <ejs-circulargauge  #Cs1_5 id="containerCs1_5" style='display: block; height:150px;'>
+        <e-axes>
+            <e-axis startAngle=260 endAngle=100 [majorTicks]="majorTicks" [minorTicks]=""
+                [labelStyle]="labelStyle" [lineStyle]="lineStyle" [ranges]="ranges" [pointers]="pointersCs1_5">
+                <e-annotations>
+                    <e-annotation [content]="annotation3" angle=180 radius='30%' zIndex='1'></e-annotation>
+                    <!-- <e-annotation [content]="annotation4" angle=180 radius='65%' zIndex='1'></e-annotation> -->
+                </e-annotations>
+            </e-axis>
+        </e-axes>
+    </ejs-circulargauge>
+    <div class="h4 value" style="margin-left: 23%; margin-top: -0%; padding-top: -40px; padding-block-start: -98px;"> 
+        <p> {{Teamcs1_5?.CS1_5M01_CorrienteActualMotor | number : '4.1-5' }} Corriente </p>
+        <p> {{Teamcs1_5?.CS1_5M01_PotenciaActualMotor | number : '4.1-5' }} Potencia </p>
+        <p> {{Teamcs1_5?.CS1_5M01_KWh | number : '4.1-5' }} kWh </p>
+     </div>
+ </nb-card-body>
+    </nb-card>
+
+</div>
+
+<div class="col-sm-4">
+    
+    <nb-card>
+        <nb-card-header>
+            CS1_6
+        </nb-card-header>
+    <nb-card-body>
+    <ejs-circulargauge  #Cs1_6 id="Cs1_6" style='display: block; height:150px;'>
+        <e-axes>
+            <e-axis startAngle=260 endAngle=100 [majorTicks]="majorTicks" [minorTicks]=""
+                [labelStyle]="labelStyle" [lineStyle]="lineStyle" [ranges]="ranges" [pointers]="pointersCs1_4">
+                <e-annotations>
+                    <e-annotation [content]="annotation2" angle=180 radius='30%' zIndex='1'></e-annotation>
+                    <!-- <e-annotation [content]="annotation4" angle=180 radius='65%' zIndex='1'></e-annotation> -->
+                </e-annotations>
+            </e-axis>
+        </e-axes>
+    </ejs-circulargauge>
+    <div class="h4 value" style="margin-left: 23%; margin-top: -0%; padding-top: -40px; padding-block-start: -98px;"> 
+        <p> {{Teamcs1_6?.CS1_6M01_CorrienteActualMotor | number : '4.1-5' }} Corriente </p>
+        <p> {{Teamcs1_6?.CS1_6M01_PotenciaActualMotor | number : '4.1-5' }} Potencia </p>
+        <p> {{Teamcs1_6?.CS1_6M01_KWh | number : '4.1-5' }} kWh </p>
+     </div>
+ </nb-card-body>
+    </nb-card>
+
+</div>
+
+<div class="col-sm-4">
+    
+    <nb-card>
+        <nb-card-header>
+            CS1_7
+        </nb-card-header>
+    <nb-card-body>
+    <ejs-circulargauge  #Cs1_7 id="Cs1_7" style='display: block; height:150px;'>
+        <e-axes>
+            <e-axis startAngle=260 endAngle=100 [majorTicks]="majorTicks" [minorTicks]=""
+                [labelStyle]="labelStyle" [lineStyle]="lineStyle" [ranges]="ranges" [pointers]="pointersCs1_3">
+                <e-annotations>
+                    <e-annotation [content]="annotation1" angle=180 radius='30%' zIndex='1'></e-annotation>
+                    <!-- <e-annotation [content]="annotation4" angle=180 radius='65%' zIndex='1'></e-annotation> -->
+                </e-annotations>
+            </e-axis>
+        </e-axes>
+    </ejs-circulargauge>
+    <div class="h4 value" style="margin-left: 23%; margin-top: -0%; padding-top: -40px; padding-block-start: -98px;"> 
+        <p> {{Teamcs1_7?.CS1_7M01_CorrienteActualMotor | number : '4.1-5' }} Corriente </p>
+        <p> {{Teamcs1_7?.CS1_7M01_PotenciaActualMotor | number : '4.1-5' }} Potencia </p>
+        <p> {{Teamcs1_7?.CS1_7M01_KWh | number : '4.1-5' }} kWh </p>
+     </div>
+ </nb-card-body>
+    </nb-card>
+
+</div>

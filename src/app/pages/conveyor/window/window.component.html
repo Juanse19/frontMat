@@ -1,0 +1,1699 @@
+<div #container class='root-container'>
+    <ejs-dialog id='device1' #device1 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <div class="row" *ngIf='divices1==""' [ngIfElse]="fueradeservicio">
+                <ul *ngFor="let tx1 of divices1">
+                    <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                </ul>
+            </div>
+            <ng-template #fueradeservicio>
+                <h1>Sitio fuera de servicio</h1>
+            </ng-template> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+
+                <div class="media-body" *ngFor="let tx1 of divices1">
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1?.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1?.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1?.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1?.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1?.TiempoOff}}</p> -->
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+                    <!-- <pre style="padding: 0.5625em 0.625em; margin-top: -0.10rem;"><b>Id equipo:</b>        {{tx1?.DeviceId}}</pre>
+                    <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Estado:</b>            {{tx1?.Estado}}</pre>
+                    <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Consumo (KWH):</b>     {{tx1?.Consumo}}</pre>
+                    <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Tiempo Encendido:</b>  {{tx1?.TiempoOn}}</pre>
+                    <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Tiempo apagado:</b>    {{tx1?.TiempoOff}}</pre> -->
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device2' #device2 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices2">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+                <div class="media-body" *ngFor="let tx2 of divices2">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx2?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx2?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx2?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx2?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx2?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device3' #device3 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices3">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+                <div class="media-body" *ngFor="let tx3 of divices3">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx3?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx3?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx3?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx3?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx3?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device4' #device4 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices4">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+                <div class="media-body" *ngFor="let tx4 of divices4">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx4?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx4?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx4?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx4?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx4?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device5' #device5 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices5">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+                <div class="media-body" *ngFor="let tx1 of divices5">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device6' #device6 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices6">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+                <div class="media-body" *ngFor="let tx1 of divices6">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device7' #device7 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices7">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+                <div class="media-body" *ngFor="let tx1 of divices7">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device8' #device8 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices8">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " /> 
+
+                <div class="media-body" *ngFor="let tx1 of divices8">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device9' #device9 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices9">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+                <div class="media-body" *ngFor="let tx1 of divices9">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device10' #device10 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices10">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+                <div class="media-body" *ngFor="let tx1 of divices10">
+
+                    <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                    <!-- <b>Id equipo:</b>
+                    <p>{{tx1.DeviceId}}</p> -->
+
+                    <!-- <b>Estado:</b>
+                    <p>{{tx1.Estado}}</p>
+
+                    <b>Consumo (KWH):</b>
+                    <p>{{tx1.Consumo}}</p>
+
+                    <b>Tiempo Encendido:</b>
+                    <p>{{tx1.TiempoOn}}</p>
+
+                    <b>Tiempo apagado:</b>
+                    <p>{{tx1.TiempoOff}}</p> -->
+
+                    <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+                </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device11' #device11 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices11">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices11">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device12' #device12 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices12">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices12">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device13' #device13 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices13">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices13">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device14' #device14 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices14">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices14">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device15' #device15 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices15">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices15">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device16' #device16 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices16">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices16">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device17' #device17 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices17">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices17">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device18' #device18 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices18">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices18">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device19' #device19 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices19">
+                <li>Id: <span>{{tx1.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices19">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device20' #device20 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices20">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+                
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device21' #device21 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices21">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device22' #device22 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices22">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device23' #device23 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices23">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device24' #device24 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices24">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device25' #device25 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices25">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device26' #device26 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices26">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+                
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>          {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>          {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>   {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>        {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>       {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device27' #device27 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices27">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>          {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>          {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>   {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>        {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>       {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device28' #device28 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices28">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>          {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>          {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>   {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>        {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>       {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device29' #device29 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices29">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device30' #device30 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices30">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device31' #device31 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices31">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device32' #device32 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices32">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device33' #device33 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices33">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device34' #device34 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices34">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device35' #device35 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices35">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>
+
+<div #container class='root-container'>
+    <ejs-dialog id='device36' #device36 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+            <!-- <ul *ngFor="let tx1 of divices20">
+                <li>Id: <span>{{tx1?.DeviceId}}</span></li>
+                <li>Estado: <span>{{tx1?.Estado}}</span></li>
+                <li>Consumo (KWH): <span>{{tx1?.Consumo}}</span></li>
+                <li>Tiempo Encendido: <span>{{tx1?.TiempoOn}}</span></li>
+                <li>Tiempo apagado: <span>{{tx1?.TiempoOff}}</span></li>
+            </ul> -->
+            <div class="media">
+
+                <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
+
+            <div class="media-body" *ngFor="let tx1 of divices36">
+
+                <!-- <b>Nombre:</b>
+                <p>{{option.ZoneName}}</p> -->
+
+                <!-- <b>Id equipo:</b>
+                <p>{{tx1.DeviceId}}</p> -->
+
+                <!-- <b>Estado:</b>
+                <p>{{tx1.Estado}}</p>
+
+                <b>Consumo (KWH):</b>
+                <p>{{tx1.Consumo}}</p>
+
+                <b>Tiempo Encendido:</b>
+                <p>{{tx1.TiempoOn}}</p>
+
+                <b>Tiempo apagado:</b>
+                <p>{{tx1.TiempoOff}}</p> -->
+
+                <br><br>
+                    <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
+                    <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
+                    <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
+                    <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
+
+            </div>
+            </div>
+        </ng-template>
+    </ejs-dialog>
+</div>

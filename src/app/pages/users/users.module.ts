@@ -38,13 +38,9 @@ import {
   NbSpinnerModule,
   NbDatepickerModule,
   NbCheckboxModule,
-  NbToggleModule,
-  NbTooltipModule,
 } from '@nebular/theme';
 import { LicenseComponent } from './license/license.component';
 import { EditLicenComponent } from './edit-licen/edit-licen.component';
-import { ParameterizationComponent } from './parameterization/parameterization.component';
-import { DialogModule } from '@syncfusion/ej2-angular-popups';
 
 const  NB_MODULES = [
   NbActionsModule,
@@ -61,8 +57,6 @@ const  NB_MODULES = [
   NbDatepickerModule,
   NbInputModule,
   NbCheckboxModule,
-  NbToggleModule,
-  NbTooltipModule
 ];
 
 @NgModule({
@@ -76,7 +70,6 @@ const  NB_MODULES = [
     ReactiveFormsModule,
     GridModule,
     DropDownListAllModule,
-    DialogModule,
     ...NB_MODULES,
   ],
   declarations: [
@@ -85,7 +78,6 @@ const  NB_MODULES = [
     UserComponent,
     LicenseComponent,
     EditLicenComponent,
-    ParameterizationComponent,
   ],
   entryComponents: [
   ],

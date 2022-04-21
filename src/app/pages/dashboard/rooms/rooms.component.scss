@@ -31,6 +31,13 @@
     background-size: 85px;
   }
 
+  ngx-system-operation {
+    width: 100%;
+    height: auto;
+    border-right: nb-theme(divider-width) nb-theme(divider-style) nb-theme(divider-color);
+    background-size: 85px;
+  }
+
   nb-card {
     height: auto;
     display: flex;

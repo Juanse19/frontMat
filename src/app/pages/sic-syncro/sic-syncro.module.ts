@@ -22,7 +22,8 @@ import { PageService, SortService, FilterService, GroupService } from '@syncfusi
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { GanttComponent } from './gantt/gantt.component'; 
 import { GanttAllModule } from '@syncfusion/ej2-angular-gantt';
-import { EditService , SelectionService, ToolbarService,DayMarkersService } from '@syncfusion/ej2-angular-gantt';
+// import { EditService , SelectionService, ToolbarService,DayMarkersService } from '@syncfusion/ej2-angular-gantt';
+import { GanttModule } from '@syncfusion/ej2-angular-gantt';
 
 
 @NgModule({
@@ -39,15 +40,17 @@ import { EditService , SelectionService, ToolbarService,DayMarkersService } from
     NbTabsetModule,
     GridModule,
     DropDownListAllModule,
-    GanttAllModule,
+    // GanttAllModule,
+    GanttModule,
   ],
   providers: [PageService,
     SortService,
     FilterService,
     GroupService,
-    EditService , 
-    SelectionService, 
-    ToolbarService,
-    DayMarkersService],
+    // EditService , 
+    // SelectionService, 
+    // ToolbarService,
+    // DayMarkersService
+  ],
 })
 export class SicSyncroModule { }

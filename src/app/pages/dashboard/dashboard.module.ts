@@ -20,7 +20,7 @@ import {
   NbInputModule,
   NbAutocompleteModule,
   NbTooltipModule,
-  NbCheckboxModule,
+  NbPopoverModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -29,7 +29,7 @@ import { DashboardComponent } from './dashboard.component';
 import { StatusCardComponent } from './status-card/status-card.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { RoomsComponent } from './rooms/rooms.component';
-// import { RoomSelectorComponent } from './rooms/room-selector/room-selector.component';
+import { RoomSelectorComponent } from './rooms/room-selector/room-selector.component';
 import { WcsComponent } from './rooms/wcs/wcs.component';
 import { TemperatureComponent } from './temperature/temperature.component';
 import { TemperatureDraggerComponent } from './temperature/temperature-dragger/temperature-dragger.component';
@@ -55,17 +55,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WindowComponent2} from './OrderPopup/orderPopup.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { SystemOperationComponent } from './rooms/system-operation/system-operation.component';
+import { BhsArrivalComponent } from './rooms/bhs-arrival/bhs-arrival.component';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
-import { PageService, SortService, FilterService, GroupService, ToolbarService } from '@syncfusion/ej2-angular-grids';
-import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
-import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
+import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
-import { LastalarmComponent } from './lastalarm/lastalarm.component';
-import { QueuedOrdersComponent } from './queued-orders/queued-orders.component';
-import { ManualorderComponent } from './manualorder/manualorder.component';
-import { OrmanualComponent } from './ormanual/ormanual.component';
-import { PropertiesComponent } from './properties/properties.component';
+import { WindowPopComponentComponent } from './window-pop-component/window-pop-component.component';
+import { ConveyorModule } from './../conveyor/conveyor.module';
+import { BhsDashboardComponent } from './bhs-dashboard/bhs-dashboard.component'
 
 @NgModule({
   imports: [
@@ -93,19 +90,17 @@ import { PropertiesComponent } from './properties/properties.component';
     NbAutocompleteModule,
     Ng2SmartTableModule,
     NbTooltipModule,
-    DropDownListModule,
+    NbPopoverModule,
     GridModule,
-    DropDownListAllModule,
     DialogModule,
-    NbCheckboxModule,
-    ComboBoxModule,
+    ConveyorModule,
   ],
   declarations: [
     DashboardComponent,
     StatusCardComponent,
     TemperatureDraggerComponent,
     ContactsComponent,
-    // RoomSelectorComponent,
+    RoomSelectorComponent,
     WcsComponent,
     TemperatureComponent,
     RoomsComponent,
@@ -122,18 +117,14 @@ import { PropertiesComponent } from './properties/properties.component';
     JacComponent,
     WindowComponent,
     WindowComponent2,
-    LastalarmComponent,
-    QueuedOrdersComponent,
-    ManualorderComponent,
-    OrmanualComponent,
-    PropertiesComponent,
+    SystemOperationComponent,
+    BhsArrivalComponent,
+    WindowPopComponentComponent,
+    BhsDashboardComponent,
   ],
-  providers: [
-    PageService, 
-    SortService, 
-    FilterService, 
-    GroupService,
-    ToolbarService,
-  ],
+  providers: [PageService,
+    SortService,
+    FilterService,
+    GroupService],
 })
 export class DashboardModule { }

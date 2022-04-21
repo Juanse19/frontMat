@@ -1,0 +1,54 @@
+<nb-card>
+    <nb-card-body>
+      <!-- <div class="contenedor">
+        <img
+          src="./assets/img/construction.gif"
+          class="align-self-center"
+          width="100%"
+          height="80%"
+          style="margin-top: -140px; margin-left: 128px"
+        />
+        <div class="centrado">
+          <font size="4">Sitio en Construcción</font>
+        </div>
+      </div> -->
+      <div class="row show-grid">
+        <div class="col-6">
+          <div>
+            <h3><b style="margin-left: 35%;">SALIDAS</b></h3>
+          </div>
+          <div class="container">
+          <img src="./../../../../assets/images/salidas.svg" (click)="navigateSalidas()" alt="Matec">
+        </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <h3><b style="margin-left: 30%;">LLEGADAS</b></h3>
+          </div>
+          <div class="container">
+            <img src="./../../../../assets/images/llegadas.svg" (click)="navigateLlegadas()" alt="" sizes="" srcset="">
+          </div>
+          
+        </div>
+      </div>
+    </nb-card-body>
+    <style>
+      .contenedor {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .centrado {
+        position: absolute;
+        font-size: 10px;
+        font-family: cursive;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .h {
+        margin: -1.8rem 0.19rem 0rem 2.7rem;
+      }
+    </style>
+  </nb-card>

@@ -1,0 +1,95 @@
+<!-- <nb-card>
+    <nb-card-header>
+        <button class="btn btn-primary" status="info" nbButton (click)="openWindowForm()">Agregar</button>
+    </nb-card-header> -->
+
+<!-- <div>
+    <button class="btn btn-primary" status="info" nbButton (click)="openWindowForm()">Agregar</button>
+</div> -->
+<nb-card-body>
+    <div class="control-section">
+        <div class="col-lg-12 content-wrapper">
+      <!-- <button ejs-button class="btn btn-primary" status="info" nbButton (click)="openWindowForm()">Agregar</button> -->
+      <!-- <button ejs-button cssClass='e-info' (click)="openWindowForm()"> Add </button> -->
+      <!-- <button ejs-button cssClass='e-info' (click)='eventEditor()'> Click to open Event Editor </button> -->
+      <ejs-schedule
+        #scheduleObj
+        id="schedule"
+        width="100%"
+        
+        cssClass='timeline-resource'
+        height="650px"
+        [selectedDate]="selectedDate"
+        [group]="group"
+        [eventSettings]="eventSettings"
+        (actionBegin)="onActionAddBegin($event)"
+        (actionBegin)="onActionBegin($event)"
+        (renderCell)="onRenderCell($event)"
+      >
+        <e-resources>
+          <e-resource
+            field="MeetingRoom"
+            title="Make Up"
+            [dataSource]="car"
+            [allowMultiple]="allowMultiple"
+            name="Projects"
+            textField="text"
+            idField="id"
+            colorField="color"
+          >
+          </e-resource>
+          <e-resource
+            field="TaskId"
+            title="Airline"
+            [dataSource]="airline"
+            [allowMultiple]="allowMultiple"
+            name="Categories"
+            textField="text"
+            idField="id"
+            groupIDField="groupId"
+            colorField="color"
+          >
+          </e-resource>
+        </e-resources>
+        <e-views>
+          <e-view option="TimelineDay" title="Horas"></e-view>
+          <!-- <e-view option="TimelineWeek"></e-view>
+                    <e-view option="TimelineWorkWeek"></e-view> -->
+          <!-- <e-view option="Month"></e-view> -->
+          <e-view option="TimelineMonth"></e-view>
+          <e-view option="Agenda"></e-view>
+        </e-views>
+        <ng-template #content *ngFor="let dat of airline">
+            <div class='template-wrap'>
+              <div class="text">{{dat.text}}</div>
+              <div class="groupId">{{dat.groupId}}</div>
+              <div class="color">{{dat.color}}</div>
+            </div>
+          </ng-template>
+      </ejs-schedule>
+      <div>
+        <pre>
+                <!-- {{car | json}} -->
+                <!-- {{airline | json}}
+                {{categoryDataSource | json}} -->
+                <!-- {{eventSettings | json}} -->
+            </pre>
+      </div>
+    </div>
+  </div>
+</nb-card-body>
+
+<!-- </nb-card> -->
+<!-- <ng-template #contentTemplate let-data>
+    <form class="form">
+        <label for="subject">Subject:</label>
+        <input nbInput id="subject" type="text">
+
+        <label class="text-label" for="text">Text:</label>
+        <textarea nbInput id="text"></textarea>
+    </form>
+</ng-template>
+
+<ng-template #disabledEsc>
+    Disabled close on escape click.
+</ng-template> -->

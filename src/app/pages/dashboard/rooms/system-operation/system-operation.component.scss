@@ -1,0 +1,301 @@
+// nb-card {
+//     transform: translate3d(0, 0, 0);
+// }
+
+
+// /*!
+//  * Copyright (c) Akveo 2019. All Rights Reserved.
+//  * Licensed under the Single Application / Multi Application License.
+//  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
+//  */
+
+// @import '../../../../@theme/styles/themes';
+// @import '~@nebular/theme/styles/globals';
+// @import '../../../../../assets/css/bootstrap4.css';
+
+// @include nb-install() {
+//     @include nb-theme-global();
+// }
+
+// ;
+// @include nb-install-component() {
+//     .wcs {
+//         height: auto;
+//         max-width: 100%!important;
+//     }
+//     img {
+//         width: 29%;
+//         height: auto;
+//     }
+//     .showOrderFind {
+//         stroke: lime;
+//         stroke-width: 2;
+//         animation: blinkingBackground 1s infinite;
+//     }
+//     .showStatusAlarm {
+//         filter: drop-shadow(4px 4px 0 red) drop-shadow(-4px -4px 0 red);
+//         animation: blinkingAlarm 1s infinite;
+//     }
+//     .showStatusAlarm {
+//         filter: drop-shadow(4px 4px 0 rgb(255, 115, 0)) drop-shadow(-4px -4px 0 rgb(255, 115, 0));
+//         animation: blinkingAlarm 1s infinite;
+//     }
+//     .im1 {
+//         filter: drop-shadow(5px 5px rgb(216, 19, 19)) drop-shadow(-5px -5px rgb(216, 19, 19));
+//     }
+//     .cts {
+//         margin-left: 230px;
+//     }
+//     .id1 {
+//         margin-left: 25px;
+//     }
+//     .id2 {
+//         margin-left: 40px;
+//     }
+//     .id3 {
+//         margin-left: 65px;
+//     }
+//     .id4 {
+//         margin-left: 90px;
+//     }
+//     .id5 {
+//         margin-left: 120px;
+//     }
+//     @keyframes blinkingBackground {
+//         0% {
+//             stroke: lime;
+//         }
+//         50% {
+//             stroke: rgba(0, 255, 0, 0.514);
+//         }
+//         100% {
+//             stroke: transparent;
+//         }
+//     }
+//     @keyframes blinkingAlarm {
+//         0% {
+//             filter: drop-shadow(1px 1px 0 red) drop-shadow(-1px -1px 0 red);
+//         }
+//         50% {
+//             filter: drop-shadow(1px 1px 0 orange) drop-shadow(-1px -1px 0 orange);
+//         }
+//         100% {
+//             stroke: transparent;
+//         }
+//     }
+//     .st1 {
+//         fill: #f0f0f0
+//     }
+//     .st1:hover {
+//         fill: #D6D6D6;
+//         stroke: blue
+//     }
+//     .st2 {
+//         stroke: #000000;
+//         stroke-linecap: round;
+//         stroke-linejoin: round;
+//         stroke-width: 0.75
+//     }
+//     .st2:hover {
+//         fill: #D6D6D6;
+//         stroke: blue
+//     }
+//     .st3 {
+//         fill: none;
+//         stroke: #000000;
+//         stroke-linecap: round;
+//         stroke-linejoin: round;
+//         stroke-width: 0.75
+//     }
+//     .st3:hover {
+//         fill: none;
+//         stroke: blue
+//     }
+//     .st4 {
+//         stroke: #000000;
+//         stroke-linecap: butt;
+//         stroke-width: 0.35;
+//         fill: #f0f0f0;
+//         font-size: 0.36664em
+//     }
+//     .st4:hover {
+//         fill: none;
+//         stroke: blue
+//     }
+//     .st5 {
+//         fill: #000000;
+//         font-family: Calibri;
+//         font-size: 0.566664em
+//     }
+//     .st5:hover {
+//         fill: none;
+//         stroke: blue
+//     }
+//     .st6 {
+//         fill: #f0f0f0;
+//         stroke: #000000;
+//         stroke-linecap: butt;
+//         stroke-width: 0.566664em
+//     }
+//     .st6:hover {
+//         fill: none;
+//         stroke: blue
+//     }
+//     .st7 {
+//         fill: #000000;
+//         font-family: Calibri;
+//         font-size: 0.566664em
+//     }
+//     .st7:hover {
+//         fill: none;
+//         stroke: blue
+//     }
+//     .st8 {
+//         font-size: 0.566664em
+//     }
+//     .st8:hover {
+//         fill: none;
+//         stroke: blue
+//     }
+//     .st9 {
+//         fill: #000000;
+//         font-family: Calibri;
+//         font-size: 0.566664em
+//     }
+//     .st9:hover {
+//         fill: none;
+//         stroke: blue
+//     }
+//     .st10 {
+//         fill: none;
+//         fill-rule: evenodd;
+//         font-size: 12px;
+//         overflow: visible;
+//         stroke-linecap: square;
+//         stroke-miterlimit: 3
+//     }
+//     nb-card {
+//         height: auto;
+//         background-color: transparent;
+//         border-width: 0;
+//         box-shadow: none;
+//         margin: 0;
+//     }
+//     nb-card-header {
+//         height: auto;
+//         border-color: transparent;
+//     }
+//     svg {
+//         width: 100%;
+//         height: 100%;
+//         cursor: move;
+//     }
+//     .stroke-pattern {
+//         fill: none;
+//         stroke: #bdc4cd;
+//         stroke-miterlimit: 10;
+//         opacity: 0.1;
+//         stroke-width: 1px;
+//     }
+//     .stroked-element {
+//         stroke-width: 4px;
+//         stroke: #bdc4cd;
+//         stroke-miterlimit: 10;
+//     }
+//     .room-border {
+//         stroke-width: 4px;
+//         stroke: #bdc4cd;
+//         stroke-miterlimit: 10;
+//         fill: none;
+//     }
+//     .room-bg {
+//         fill: nb-theme(card-background-color);
+//         stroke: transparent;
+//         cursor: pointer;
+//         stroke-width: 2px;
+//     }
+//     .room-bg-border-grad {
+//         fill: none;
+//         stroke: none;
+//         stroke-width: 2px;
+//     }
+//     .room-text {
+//         cursor: pointer;
+//         user-select: none;
+//         pointer-events: none;
+//         fill: nb-theme(text-hint-color);
+//     }
+//     .selected-room {
+//         z-index: 40;
+//         .room-text {
+//             fill: nb-theme(text-basic-color);
+//         }
+//         .room-border {
+//             stroke: nb-theme(color-primary-default);
+//         }
+//     }
+//     .header {
+//         border-bottom: none;
+//         padding-bottom: 0;
+//     }
+// }
+
+// nb-card-body {
+//     margin: 0 -0.8rem;
+//     button,
+//     p {
+//         // margin: 0.5rem 0.5rem 0;
+//         margin: -1.2rem 0.19rem 0.0rem 8.7rem;
+//     }
+// }
+
+// .h {
+//     margin: -1.8rem 0.19rem 0.0rem 25.7rem;
+// }
+
+// .popover-card {
+//     margin: 0;
+//     max-width: 18rem;
+// }
+
+// .popover-card1 {
+//     margin: 0;
+//     max-width: 20rem;
+// }
+
+// #Grid {
+//     float: center;
+//     width: 400px;
+// }
+
+// .grid {
+//     margin: 0 -0.8rem;
+//     width: 400px;
+// }
+
+// // #dialog-container {
+// //     display: block;
+// //     height: 100%;
+// //     margin: 0;
+// //     overflow: hidden;
+// //     width: 100%;
+// // }
+
+// // #container {
+// //     visibility: hidden;
+// // }
+
+// #loader {
+//     color: #008cff;
+//     height: 40px;
+//     left: 45%;
+//     position: absolute;
+//     top: 45%;
+//     width: 30%;
+// }
+
+// table,
+// td,
+// th {
+//     padding: 3px;
+// }

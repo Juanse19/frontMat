@@ -1,0 +1,72 @@
+.form-inline [fullWidth] {
+    flex: 1;
+}
+
+.form-inline>* {
+    margin: 0 1.5rem 1.5rem 0;
+}
+
+nb-card.inline-form-card nb-card-body {
+    padding-bottom: 0;
+}
+
+#image {
+    width: 200px;
+    height: 100px;
+    margin-left: 30px;
+}
+
+#ima {
+    width: 150px;
+    margin: -3.8rem 1.5rem 1.5rem 9.86rem;
+}
+
+#h6 {
+    margin-left: 380px;
+    font-size: 15px;
+    align-items: center;
+}
+
+#h5 {
+    margin-left: 180px;
+    font-size: 2px;
+}
+
+#form {
+    margin-left: 05px;
+}
+
+// p {
+//     // margin: 0.5rem 0.5rem 0;
+//     margin: -1.2rem 0.19rem 0.1rem 25.24rem;
+// }
+.box-form {
+    border: 1px solid #D7D7D7;
+    height: 250px;
+}
+
+table.box-table td {
+    padding-top: 10px;
+}
+
+.highcontrast .box-form {
+    background: #000000;
+    border-color: #969696;
+}
+
+table.box-table td.formtext {
+    color: #8a2be2;
+}
+
+.highcontrast table.box-table td.formtext {
+    color: #f8fc08;
+}
+
+// #formId {
+//     width: 300px;
+//     margin: 0 auto;
+//     padding-top: 10px;
+// }
+.date-container {
+    margin-bottom: 15px;
+}

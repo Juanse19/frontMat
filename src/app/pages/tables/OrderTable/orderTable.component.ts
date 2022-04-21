@@ -15,8 +15,7 @@ import {HttpService} from '../../../@core/backend/common/api/http.service'
 import { MessageService } from '../../dashboard/services/MessageService';
 import { Identifiers } from '@angular/compiler';
 import { NbAccessChecker } from '@nebular/security';
-import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel  } from '@syncfusion/ej2-angular-grids';
-import { ClickEventArgs } from '@syncfusion/ej2-navigations';
+
 
   interface Ordenes {
     id: number;
@@ -31,7 +30,6 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
     cutsLength: number;
     origen:string;
     priority: number;
-    corrInverted: boolean;
   }
 
   interface State {
@@ -58,14 +56,14 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 
 
-// function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
-//   return ordenes.order.toLowerCase().includes(term)
-//     || ordenes.name.toLowerCase().includes(term.toLowerCase())
-//     || ordenes.description.toLowerCase().includes(term.toLowerCase())
-//     || ordenes.reference.toLowerCase().includes(term)
-//     || ordenes.origen.toLowerCase().includes(term.toLowerCase())
-//     || pipe.transform(ordenes.orderLength).includes(term);
-// }
+function matches2(ordenes: Ordenes, term: string, pipe: PipeTransform) {
+  return ordenes.order.toLowerCase().includes(term)
+    || ordenes.name.toLowerCase().includes(term.toLowerCase())
+    || ordenes.description.toLowerCase().includes(term.toLowerCase())
+    || ordenes.reference.toLowerCase().includes(term)
+    || ordenes.origen.toLowerCase().includes(term.toLowerCase())
+    || pipe.transform(ordenes.orderLength).includes(term);
+}
 
 
 
@@ -76,12 +74,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
      ApiGetService
      ,DecimalPipe
      ,WindowComponent
-     ,WindowCreateComponent,
-     ToolbarService, 
-     EditService, 
-     PageService,
-     SortService, 
-     CommandColumnService
+     ,WindowCreateComponent
     // , WindowFormComponent
     ],
     selector: 'ngx-ordertable',
@@ -90,28 +83,6 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
   })
 
   export class OrderTableComponent implements OnInit {
-
-  public orderdata: Ordenes ;
-
-  public pageSettings: PageSettingsModel;
-
-  public filterOptions: FilterSettingsModel;
-
-  public toolbarOptions: ToolbarItems[];
-
-  public toolbar: ToolbarItems[] | object;
-
-  public commands: CommandModel[];
-
-  public editSettings: Object;
-
-  public initialSort: Object;
-
-  // public toolbar: string[];
-
-
-  @ViewChild('grid')
-    public grid: GridComponent;
 
     subscription: Subscription;
     private _state: State = {
@@ -204,103 +175,26 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
     ngOnInit(): void {
         // throw new Error('Method not implemented.');
         // console.log("entrooo")
-
-        this.editSettings = {
-          allowEditing: true,
-          allowAdding: true,
-          allowDeleting: true,
-          mode: 'Normal',
-          allowEditOnDblClick: false
-        };
-
-    // this.toolbar = ['Search'];
-    this.pageSettings = { pageSizes: true, pageSize: 10 };
-    this.filterOptions = {
-    type: 'Menu',
-    }
-    // this.toolbarOptions = ['Search'];
-
-        // this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
-        // .pipe(takeWhile(() => this.alive))
-        // .subscribe((res:any)=>{
-        // // console.log(res)
-        // ORDENES = res;  
-        // this.orderdata = res; 
-        // console.log('Data Ordens', this.orderdata)  
-        // });
-
-        this.CargarTabla();
-
+        this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res:any)=>{
+        // console.log(res)
+        ORDENES = res;     
+        });
         this._search$.next();
 
         // this.refreshCountries();
-
-        this.toolbar = [
-          'Search',
-          //  {text: 'Delete', prefixIcon: 'fas fa-check'},
-         { text: 'Crear Orden', tooltipText: 'Click', prefixIcon: 'e-add e-icons', id: 'Click' }];
-
-        this.commands = [
-          { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-          // { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
-          { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
-          { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
-
-    }
-    
-    created($event): void {
-      document.getElementById(this.grid.element.id + "_searchbar").addEventListener('keyup', () => {
-              this.grid.search((event.target as HTMLInputElement).value)
-      });
-  }
-
-  actionBegin(args) {
-    if (args.requestType == 'beginEdit') {
-      // debugger
-      // console.log('Editar');
-      // console.log('Type edit: ', args);
-      // this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
-
-      this.accessChecker.isGranted('edit', 'editOrd')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        if(res){ 
-          this.orderPopup.openWindowForm("Propiedades de la Orden " + args.rowData.order , "", args.rowData);
-          this.select = false;
-          this.mostrar = false;
-        }else {
-          this.select=true;
-          this.mostrar=true;
-        }
-      });
-
-      args.cancel = true;
-      
-    }
-    
-  }
-
-  clickHandler(args: ClickEventArgs): void {
-    if (args.item.id === 'Click') {
-      // console.log('click: ', args);
-      // debugger
-      // debugger
-      this.CrearOrden();
-
-        // alert('Custom Toolbar Click...');
-    }
-  }
+    }  
 
     CargarTabla(){
-      this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/ObtenerOrdenes')
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res:any)=>{
-        ORDENES = res;  
-        this.orderdata = res;      
+        ORDENES = res;     
         });
         this._search$.next();
     }  
- 
+
     _search(): Observable<SearchResult2> {
     
       const {pageSize, page, searchTerm} = this._state;
@@ -309,7 +203,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
       let ordenes = ORDENES;
   
       // 2. filter
-      // ordenes = ordenes.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
+      ordenes = ordenes.filter(ordenes => matches2(ordenes, searchTerm, this.pipe));
       const total = ordenes.length;
   
       // 3. paginate
@@ -318,9 +212,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
       return of({ordenes, total});
     }
 
-  public  Edit(orden:string, corrInverted: boolean, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number, idForm: number){
-      
-      
+    Edit(orden:string, nombre:string, descripcion:string, referencia:string, tamañoOrden:number, origenValor:string, corteNumero: number, corteAncho:number, corteLargo:number, parPrority:number, idForm: number){
       ORDEN = {
         order: orden,
         id: idForm,
@@ -333,7 +225,6 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
         cutsLength: corteLargo,
         origen: origenValor,
         priority: parPrority,
-        corrInverted: corrInverted,
       }
       // console.log(ORDEN);
       
@@ -353,7 +244,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
     }
 
     Refresh(){
-      this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/ObtenerOrdenes')
+      this.apiGetComp.GetJson(this.api.apiUrlMatbox +'/Orders/ObtenerOrders')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res:any)=>{
         // console.log(res)

@@ -1,8 +1,12 @@
-<nb-card>
+<!-- <nb-card>
     <div class="control-section">
-        <ejs-gantt id="ganttDefault" height="430px" [dataSource]="data" [taskFields]="taskSettings" [allowSelection]="true"
+        <ejs-gantt id="ganttDefault" height="430px" [dataSource]="data" [taskFields]="taskSettings" [allowSelection]="false"
             [labelSettings]="labelSettings" [columns]="columns" height="400px" [treeColumnIndex]="1" [projectStartDate]="projectStartDate" [projectEndDate]="projectEndDate"
-            [highlightWeekends]="true">
+            >
         </ejs-gantt>
     </div>
-</nb-card>
+</nb-card> -->
+
+<!-- [highlightWeekends]="true" -->
+
+<ejs-gantt id="ganttDefault" height="430px" [dataSource]="data" [taskFields]="taskSettings"  [timelineSettings]="timelineSettings"></ejs-gantt>

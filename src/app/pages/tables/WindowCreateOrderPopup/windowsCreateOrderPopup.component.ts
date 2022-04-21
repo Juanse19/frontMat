@@ -43,7 +43,6 @@ interface OrdenActualizar {
 
 interface OrdenCrear {
   orden: string;
-  tarjeta: string;
   referencia: string;
   batch: number;
   longitudOrden: number;
@@ -58,7 +57,6 @@ interface OrdenCrear {
   productMissing: number;
   signalStart: boolean;
   sheetScrap: string;
-  corrInverted: boolean;
 }
 
 
@@ -90,7 +88,7 @@ let ORDENESACTUALIZAR: OrdenActualizar
 
 };
 
-let ORDENCREAR: OrdenCrear
+let ORDENCREAR: OrdenCrear 
 {
 
 };
@@ -104,17 +102,6 @@ let ORIGEN: MaquinasOrigen
 {
 
 };
-
-interface CorrInvertida {
-  id?: number;
-  value: boolean;
-  label: boolean;
-}
-
-let CORRINVERTIDA: CorrInvertida;
-{
-
-}
 
 let ORDEN: Ordenes 
 {
@@ -156,7 +143,6 @@ export class WindowCreateComponent {
   maquinaDestino = DESTINO;
   origen = ORIGENES;
   maquinaOrigen = ORIGEN;
-  corrInvertida = CORRINVERTIDA;
 
 public selectedDestino ;
 public selectedOrigen ;
@@ -165,7 +151,6 @@ public selectedOrigen ;
   @ViewChild('contentTemplate2', { static: true }) contentTemplate2: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef, static: true }) disabledEscTemplate: TemplateRef<HTMLElement>;
   @ViewChild('ordenValor') ordenValor:ElementRef;
-  @ViewChild('tarjeta') tarjeta:ElementRef;
   @ViewChild('referenciaValor') referenciaValor:ElementRef;
   @ViewChild('batchValor') batchValor:ElementRef;
   @ViewChild('longitudValor') longitudValor:ElementRef;
@@ -177,7 +162,6 @@ public selectedOrigen ;
   @ViewChild('sheetsThicknessValor') sheetsThicknessValor:ElementRef;
   @ViewChild('productsMissingValor') productsMissingValor:ElementRef;
   @ViewChild('sheetScrapValor') sheetScrapValor:ElementRef;
-  @ViewChild('corrInvertedValor') corrInvertedValor: ElementRef;
 
 
 
@@ -198,7 +182,6 @@ public selectedOrigen ;
     data = ORDEN;
     dataOption2
     toggleNgModel = true;
-    toggleNgModelInver = false;
 
 
 openWindowForm(nombreWindow:string, texto:string) {   
@@ -305,7 +288,6 @@ openWindow(contentTemplate, titleValue:string, textValue:string, numberValue: nu
     ORDENCREAR =
     {
       orden : this.ordenValor.nativeElement.value,
-      tarjeta: this.tarjeta.nativeElement.value,
       referencia: this.referenciaValor.nativeElement.value,
       batch:  Number(this.batchValor.nativeElement.value),
       longitudOrden:  Number(this.longitudValor.nativeElement.value),
@@ -319,17 +301,12 @@ openWindow(contentTemplate, titleValue:string, textValue:string, numberValue: nu
       destino: this.maquinaDestino.value,
       productMissing:  Number(this.productsMissingValor.nativeElement.value),
       signalStart: this.toggleNgModel,
-      sheetScrap: this.sheetScrapValor.nativeElement.value,
-      corrInverted: this.toggleNgModelInver,
+      sheetScrap: this.sheetScrapValor.nativeElement.value
     }
-
-    console.log('ORDENCREAR' , ORDENCREAR);
-    
-
     if (ORDENCREAR.orden =="" && ORDENCREAR.referencia == "" && ORDENCREAR.origen && ORDENCREAR.destino){
       this.handleWrongResponse();
     }else{
-      this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/CrearOrden', ORDENCREAR).subscribe((res:any)=>{
+      this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Orders/CrearOrden', ORDENCREAR).subscribe((res:any)=>{
         this.handleSuccessResponse();
       });
     }

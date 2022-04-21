@@ -11,9 +11,8 @@ import { UsersComponent } from './users.component';
 import { UserComponent } from './user/user.component';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { AdminGuard } from '../../@auth/admin.guard';
-import { LicenseComponent } from './license/license.component';
+import { LicenseComponent } from './license/license.component'
 import { EditLicenComponent } from './edit-licen/edit-licen.component';
-import { ParameterizationComponent } from './parameterization/parameterization.component';
 
 const routes: Routes = [{
   path: '',
@@ -29,7 +28,7 @@ const routes: Routes = [{
       canActivate: [AdminGuard],
       component: UserComponent,
     },
-    {
+    { 
       path: 'current',
       component: UserComponent,
     },
@@ -48,14 +47,9 @@ const routes: Routes = [{
       canActivate: [AdminGuard],
       component: EditLicenComponent,
     },
-    {
-      path: 'param',
-      canActivate: [AdminGuard],
-      component: ParameterizationComponent,
-    },
   ],
 }];
-
+ 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

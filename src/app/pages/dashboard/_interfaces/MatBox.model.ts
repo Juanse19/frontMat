@@ -12,7 +12,7 @@ export interface WipName {
   iD_12: string,
   iD_22: string,
   sT1: string,
-  sT2: string,
+  sT2: string, 
   iM1: string,
   sT3: string,
   sT4: string,
@@ -68,7 +68,7 @@ export interface showStatusMachinesAlarms {
     StatusSyS: boolean,        
     StatusLaminadora: boolean,        
     StatusWard: boolean,
-    StatusImpresora: boolean,         
+    Impresora: boolean,         
     StatusiD_12: boolean,        
     StatusiD_22: boolean,        
     StatussT1: boolean,        
@@ -93,8 +93,8 @@ export interface showStatusMachinesAlarms {
     StatusiM5: boolean,       
     StatusiM6: boolean,       
     StatusiM7: boolean,       
-    // StatuscT2: boolean,       
-    // StatuscT1: boolean,       
+    StatuscT2: boolean,       
+    StatuscT1: boolean,       
     Statustm: boolean,       
     StatustF1: boolean,       
     StatustF2: boolean,
@@ -117,11 +117,6 @@ export interface RouteCTS {
   RutaCtB: string,
   RutaCt1: string,
   RutaCt2: string,
-}
-
-export interface PedidoStackers {
-  OrderNumber: string,
-  Origen: string
 }
 
 export interface PackagesWIP {
@@ -206,8 +201,6 @@ export interface Sic {
 
 export interface Syncro {
   id: number,
-  createDate: string,
-  updateDate: string,
   position: string,
   setupID: string,
   modID: string,

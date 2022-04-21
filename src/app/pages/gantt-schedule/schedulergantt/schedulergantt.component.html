@@ -1,0 +1,90 @@
+<nb-card>
+    <nb-card-body>
+    <form [formGroup]="airForm" class="form-inline" novalidate id="formId">
+        <div class="form-group mx-sm-4 mb-3">
+          <ejs-datepicker formControlName="StartDates" id="StartDates" data-cy="date-std-field" [(ngModel)]="StartDates" class="e-field" data-name="StartDates"  placeholder='Fecha Inicio' floatLabelType='Always' required>
+          </ejs-datepicker>
+      </div>
+      <br>
+        <div class="form-group mx-sm-4 mb-3">
+            <ejs-datepicker formControlName="EndDate" id="EndDate" data-cy="date-etd-field" [(ngModel)]="EndDate" class="e-field" data-name="EndDate"  placeholder='Fecha de Fin' floatLabelType='Always' required>
+            </ejs-datepicker>
+        </div>
+        <button nbButton status="primary " class="btn btn-primary" data-cy="consulta-submit-button" style="margin-top: 4px;" (click)="date(airForm.controls.StartDates.value, airForm.controls.EndDate.value)">Cosultar</button>
+    <br>
+    <br>
+    </form>
+</nb-card-body>
+
+<nb-card-body>
+<div class="control-section">
+  <!-- <button
+        ejs-button
+        class="btn btn-primary"
+        status="info"
+        nbButton
+        (click)="openWindowForm()"
+      >
+        Agregar
+      </button> -->
+<ejs-gantt #gantt id="ganttDefault" height="430px" [dataSource]="ganttData" [taskFields]="taskSettings" 
+     [columns]="columns" [dayWorkingTime]="dayWorkingTime" [treeColumnIndex]="1"  [includeWeekend]="true"
+    [timelineSettings]="timelineSettings"  durationUnit="Hour"
+    dateFormat="dd-MM-yyyy hh:mm a" height="70%"  [labelSettings]="labelSettings" 
+    [highlightWeekends]="true" [gridLines]="gridLines" [allowFiltering]="true" [allowSorting]="true" 
+    [allowResizing]="true" [splitterSettings]="splitterSettings"
+    [editSettings]="editSettings" [toolbar]="toolbar"
+    (actionBegin)="actionBegin($event)" 
+    (actionComplete)="actionComplete($event)"
+    (actionBegin)="actionBegin2($event)"
+    [eventMarkers]="eventMarkers"
+    >
+    </ejs-gantt>
+
+    <div #container class='root-container'>
+      <ejs-dialog id='ejDialogTX' #ejDialogTX allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+          <ng-template #content>
+              <div [formGroup]="orderForm">
+                  <div class="form-row">
+                      <!-- <div class="form-group col-md-12">
+                          <div class="e-float-input e-control-wrapper" >
+                              <input formControlName="Id" disabled  id="Id" name="Id" type="text" >
+                              <span class="e-float-line"></span>
+                              <label class="e-float-text e-label-top" for="Id">Id</label>
+                          </div>
+                      </div> --> 
+                      <div class="form-group col-md-12">
+                          <div class="e-float-input e-control-wrapper" >
+                              <input formControlName="Subject"  id="Subject" name="Subject" class="field left" readonly type="text" >
+                              <span class="e-float-line"></span>
+                              <label class="e-float-text e-label-top" for="Subject">Subject</label>
+                          </div>
+                      </div>
+                      <div class="form-group col-md-12">
+                          <div class="e-float-input e-control-wrapper" >
+                              <input formControlName="taskName"  id="taskName" name="taskName" type="text" >
+                              <span class="e-float-line"></span>
+                              <label class="e-float-text e-label-top" for="taskName">taskName</label>
+                          </div>
+                      </div>
+                      <!-- <div class="form-group col-md-12">
+                        <div class="e-float-input e-control-wrapper" >
+                            <input formControlName="Value"  id="Value" name="Value" type="text" >
+                            <span class="e-float-line"></span>
+                            <label class="e-float-text e-label-top" for="Value">Nombre Queue Local</label>
+                        </div>
+                    </div> -->
+                      <!-- <div>
+                          <button nbButton status="info" (click)="updateData()" hero>Actualizar</button>
+                      </div> -->
+                  </div> 
+              </div>
+          </ng-template>
+      </ejs-dialog>
+  </div>
+  <div class='root-container'>
+    <ngx-windows-scheduler></ngx-windows-scheduler>
+</div>
+</div>
+</nb-card-body>
+</nb-card>

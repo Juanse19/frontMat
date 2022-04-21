@@ -7,13 +7,18 @@
 @import '../node_modules/@syncfusion/ej2-popups/styles/bootstrap.css';
 @import '../node_modules/@syncfusion/ej2-splitbuttons/styles/bootstrap.css';  
 @import '../node_modules/@syncfusion/ej2-angular-grids/styles/bootstrap.css';
-@import '../node_modules/@syncfusion/ej2-angular-grids/styles/bootstrap.css';
 
 @import "../node_modules/@syncfusion/ej2-base/styles/bootstrap.css";
 @import "../node_modules/@syncfusion/ej2-buttons/styles/bootstrap.css";
 
 @import '../node_modules/@syncfusion/ej2-angular-buttons/styles/fabric.css';
-@import '../node_modules/@syncfusion/ej2-gantt/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-gantt/styles/bootstrap.css';
+
+@import '../node_modules/@syncfusion/ej2-lists/styles/bootstrap.css';
+@import '../node_modules/@syncfusion/ej2-layouts/styles/bootstrap.css';
+@import '../node_modules/@syncfusion/ej2-grids/styles/bootstrap.css';
+@import '../node_modules/@syncfusion/ej2-treegrid/styles/bootstrap.css';
+@import '../node_modules/@syncfusion/ej2-gantt/styles/bootstrap.css';
 
 
 

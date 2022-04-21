@@ -90,7 +90,7 @@ export class LicenseComponent implements OnInit {
 
   loadLices(){
 
-    this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getlicenses').subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/api/getlicenses').subscribe((res: any) => {
       // this.licesData.values = res[0].Value;
       this.licesData.values = crypto.AES.decrypt(res[0].Value.trim(), this.desPass.trim()).toString(crypto.enc.Utf8);
      
@@ -185,7 +185,7 @@ export class LicenseComponent implements OnInit {
     if (MAKEData == undefined) {
       this.handleWrongResponse();
     }else{
-      this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/postdatalicens', MAKEData).subscribe((res:any)=>{
+      this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/api/postdatalicens', MAKEData).subscribe((res:any)=>{
       this.handleSuccessResponse();
     });
   }

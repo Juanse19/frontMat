@@ -1,0 +1,51 @@
+<nb-card>
+  <nb-card-header> Estado por equipo </nb-card-header>
+
+  <nb-card-body>
+    <!-- <ng2-smart-table
+      class="dash-smart-table"
+      [settings]="settings"
+      [source]="teamData"
+      (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+  -->
+
+  <!-- <div class="text-center" *ngIf="loading">
+    <div class="spinner-border"  role="status">
+      <span class="sr-only">Loading...</span>
+      
+    </div>
+    <b  style="margin-top: 4rem; margin-left: -3rem">Cargando...</b>
+  </div> -->
+
+  
+  <div class="overlay">
+    <div class="spinner-border" *ngIf="loading"></div>
+    <b *ngIf="loading" style="margin-top: 4rem; margin-left: -3rem">Cargando...</b>
+  </div>
+  <br>
+    
+  <div #container class='root-container'></div>
+    <ejs-grid
+      [dataSource]="teamsData"
+      [allowPaging]="true"
+      [pageSettings]="pageSettings"
+      [filterSettings]="filterOptions"
+      [allowFiltering]="true"
+      [allowGrouping]="true"
+      [groupSettings]="groupSettings"
+      allowSorting="true"
+      
+    >
+      <e-columns>
+        <e-column field="ZoneName" headerText="Zona" width="130"></e-column>
+        <e-column field="desc" headerText="Equipo" width="130"></e-column>
+        <e-column field="State" headerText="Estado" width="120"></e-column>
+        <e-column field="power" headerText="Potencia" width="100"></e-column>
+        <e-column field="current" headerText="Corriente" width="100"></e-column>
+        <e-column field="voltage" headerText="Voltaje" width="100"></e-column>
+        <!-- <e-column field='Mensaje' headerText='Log' width=100></e-column> -->
+      </e-columns>
+    </ejs-grid>
+  </nb-card-body>
+</nb-card>

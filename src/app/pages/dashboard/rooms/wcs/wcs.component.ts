@@ -14,37 +14,9 @@ import { HttpService } from '../../../../@core/backend/common/api/http.service';
 
 import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
-import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS, PedidoStackers } from '../../_interfaces/MatBox.model';
+import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS } from '../../_interfaces/MatBox.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { truncateSync } from 'node:fs';
-import  { QueuedOrdersComponent } from '../../queued-orders/queued-orders.component';
-import { ManualorderComponent } from '../../manualorder/manualorder.component';
-import Swal from 'sweetalert2';
-import { UserStore } from '../../../../@core/stores/user.store';
-import { NbToastrService } from '@nebular/theme';
-
-interface Propiedades {
-  id?: number; 
-  name: string; 
-  description: string; 
-  isOn: boolean;
-  type: string;
-  valor: string;
-  prioridad: number;
-  width: number;
-  lenght: number;
-}
-
-let PROPIEDADES: Propiedades;
-  {
-  
-  }
-
-interface alarmWarnig {
-  Message: string;
-  Alert: number;
-  Id: number;
-  }
 
 @Component({
   providers: [
@@ -62,19 +34,10 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   @ViewChild('autoInput') input;
 
-  errors = [];
-
   messages: any[] = [];
   subscription: Subscription;
-
-  public alarmWData: alarmWarnig [];
   
   intervalSubscriptionRouteName: Subscription;
-  intervalSubscriptionPeriodoStacker: Subscription;
-  intervalSubscriptionPeriodoStacker1: Subscription;
-  intervalSubscriptionRestar: Subscription;
-  intervalSubscriptionColor: Subscription;
-  intervalSubscriptionAlarmWarning: Subscription;
   intervalSubscriptionCT: Subscription;
   intervalSubscriptionCT1: Subscription;
   intervalSubscriptionCT2: Subscription;
@@ -141,12 +104,12 @@ export class WcsComponent implements OnInit, OnDestroy {
     StatusSyS: true,        
     StatusLaminadora: true,        
     StatusWard: true,
-    StatusImpresora: true,       
+    Impresora: true,       
     StatusiD_12: true,        
     StatusiD_22: true,        
     StatussT1: true,        
     StatussT2: true,       
-    StatusiM1: true,       
+    StatusiM1: false,       
     StatussT3: true,       
     StatussT4: true,       
     StatussT5: true,       
@@ -160,16 +123,16 @@ export class WcsComponent implements OnInit, OnDestroy {
     StatussT13: true,      
     StatussT14: true,       
     StatussT15: true,      
-    StatusiM2: true,      
-    StatusiM3: true,       
-    StatusiM4: true,       
-    StatusiM5: true,       
-    StatusiM6: true,       
-    StatusiM7: true,       
-    // StatuscT2: false,       
-    // StatuscT1: false,       
+    StatusiM2: false,      
+    StatusiM3: false,       
+    StatusiM4: false,       
+    StatusiM5: false,       
+    StatusiM6: false,       
+    StatusiM7: false,       
+    StatuscT2: false,       
+    StatuscT1: false,       
     Statustm: false,       
-    StatustF1: true,        
+    StatustF1: true,       
     StatustF2: true,
     StatusPrefeeder_Martin: true,
     StatusPrefeeder_Js: true,
@@ -190,15 +153,6 @@ export class WcsComponent implements OnInit, OnDestroy {
     RutaCtB: "CtB",
     RutaCt1: "Ct1",
     RutaCt2: "Ct2",
-  }
-
-  public dataPeriodoStackerAbove: PedidoStackers = {
-    OrderNumber: "0",
-    Origen: "ARRIBA"
-  }
-  public dataPeriodoStackerDown: PedidoStackers = {
-    OrderNumber: "0",
-    Origen: "ABAJO"
   }
 
   public dataWipColor: WipColor = {
@@ -267,15 +221,7 @@ export class WcsComponent implements OnInit, OnDestroy {
 
   private alive=true;
 
-  propiedades = PROPIEDADES;
-  propSt11 = PROPIEDADES;
-
   @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
-
-  @ViewChild(QueuedOrdersComponent, { static: true }) public dialog: QueuedOrdersComponent;
-
-  @ViewChild(ManualorderComponent, { static: true }) public dial: ManualorderComponent;
- 
 
   constructor(
     // public accessChecker: NbAccessChecker,
@@ -285,18 +231,12 @@ export class WcsComponent implements OnInit, OnDestroy {
     public sigalRService: SignalRService,
     private http: HttpClient,
     private comp2: WindowComponent,
-    private dialo: QueuedOrdersComponent,
-    private dialos: ManualorderComponent,
     public apiGetComp: ApiGetService,
     public pipe: DecimalPipe,
     private api: HttpService,
-    private messageService: MessageService,
-    private userStore: UserStore,
-    private toastrService: NbToastrService,
+    private messageService: MessageService
   ) {
-    this.subscription = this.messageService.onMessage()
-    .pipe(takeWhile(() => this.alive))
-    .subscribe(message => {
+    this.subscription = this.messageService.onMessage().subscribe(message => {
       if (message.text=="MachineColor") {
         //this.messages.push(message);
         this.ColorCharge();
@@ -358,18 +298,14 @@ export class WcsComponent implements OnInit, OnDestroy {
     }
     
        
-    this.intervalSubscriptionStatusAlarm = interval(2000)
+    this.intervalSubscriptionStatusAlarm = interval(1000)
     .pipe(
       takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/estadoequipos')),
+      switchMap(() => this.http.get(this.api.apiUrlNode + '/es')),
     )
     .subscribe((res: any) => {
-        this.showdataAlarms  = res;
-        // console.log('StateAlarms', this.showdataAlarms); 
-        
-    },(error) => (console.log(error)),
-    () => console.log('Error..!' ),
-  );
+        this.showdataAlarms  = res[0];
+    });
 
     // this.apiGetComp.GetJson(this.api.apiUrlNode + '/es')
     //   .pipe(takeWhile(() =>this.flagMoverCarro))
@@ -391,103 +327,13 @@ export class WcsComponent implements OnInit, OnDestroy {
       switchMap(() => this.http.get(this.api.apiUrlNode + '/CT2V')),
     )
     .subscribe((res: any) => {
-      if (res[0] == undefined) {
-        console.log('no hay data');
-        this.RouteCtsCharge();
-      } else {
       this.dataRoutesCts  = res[0];
-      }
-    },(error) => (console.log(error)),
-    () => console.log('Post moratorium location for moratorium is complete' ),
-  );
+    });
 
  
   }
 
-  public PedidoStackersAboveCharge(){
 
-    if (this.intervalSubscriptionPeriodoStacker) {
-      this.intervalSubscriptionPeriodoStacker.unsubscribe();
-    }
-    
-    this.intervalSubscriptionPeriodoStacker = interval(1000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/PedidoStackers?origen=arriba')),
-    )
-    .subscribe((res: any) => {
-      
-      if (res[0] == undefined) {
-        // console.log('no hay data arriba');
-        
-      } else {
-        // console.log('Si hay');
-        this.dataPeriodoStackerAbove  = res[0];
-      }
-
-      // console.log('periodosStakerArriba',this.dataPeriodoStackerAbove);
-    });
-  }
-
-  public PedidoStackersDownCharge(){
-
-    if (this.intervalSubscriptionPeriodoStacker1) {
-      this.intervalSubscriptionPeriodoStacker1.unsubscribe();
-    }
-    
-    this.intervalSubscriptionPeriodoStacker1 = interval(1000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/PedidoStackers?origen=abajo'))
-    )
-    .subscribe((res: any) => {
-      if (res[0] == undefined) {
-        // console.log('no hay data abajo');
-      } else {
-        this.dataPeriodoStackerDown  = res[0];
-      }
-
-      // console.log('periodosStakerAbajo',this.dataPeriodoStackerDown);
-    },
-    err => {
-      this.errors = err.error.message;
-      console.log(this.errors);
-    });
-  }
-  
-  public PedidoStackers1Charge(){
-    
-    this.http.get(this.api.apiUrlNode + "/api/PedidoStackers?origen=arriba")
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{
-      if (res[0] == undefined) {
-        // console.log('no hay data arriba');
-        
-      } else {
-        // console.log('Si hay');
-        this.dataPeriodoStackerAbove  = res[0];
-      }
-      
-    });
-  
-    
-  
-    }
-
-    PedidoStackers2Charge(){
-      this.http.get(this.api.apiUrlNode + "/api/PedidoStackers?origen=abajo")
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{
-      if (res[0] == undefined) {
-        // console.log('no hay data abajo');
-      } else {
-        this.dataPeriodoStackerDown  = res[0];
-      }
-      
-      
-    });
-    }
-    
   ngOnInit(): void {
     this.GetOrderProcess();
     this.InitSignalR();
@@ -496,142 +342,9 @@ export class WcsComponent implements OnInit, OnDestroy {
     this.WipNameCharge();
     // this.showStatusAlarms();
     this.RouteCtsCharge();
-    this.PedidoStackersAboveCharge();
-    this.PedidoStackersDownCharge();
-    this.alarmWarning();
-    // this.PedidoStackers1Charge();
-    // this.PedidoStackers2Charge();
     // this.showStatusName();
     // this.showSatatusRouteCts();
     // this.StatusAlarmCharge();
-
-    if (this.intervalSubscriptionColor) {
-      this.intervalSubscriptionColor.unsubscribe();
-    }
-    
-    this.intervalSubscriptionColor = interval(10000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlMatbox + "/Orders/GetMachineColor")),
-    )
-    .subscribe(() => {
-      this.ColorCharge();
-    },(error) => (console.log(error)),
-    () => console.log('Er..!' ),
-  );
-
-  }
-
-  // reconocerAlarm(){
-  //   const currentUserId = this.userStore.getUser().id;
-  //         var respons = 
-  //           {
-  //           // IdAlarm: args.data[0].Id,
-  //           UserIdAcknow: currentUserId
-  //           };
-  //         // let alarm = {IdAlarm: event.data.Id};
-  //         this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknow', respons)
-  //         .pipe(takeWhile(() => this.alive))
-  //         .subscribe((res: any) => {
-  //       //  console.log("alarmId", res);
-  //        if (res) {
-  //         this.toastrService.success('', '¡Alarma solucionada!'); 
-          
-  //       } else {
-  //         this.toastrService.danger('', 'Algo salio mal.');
-  //       }
-  //     });
-  // }
-
-  alarmWarning() {
-    if (this.intervalSubscriptionAlarmWarning) {
-      this.intervalSubscriptionAlarmWarning.unsubscribe();
-    }
-    
-    this.intervalSubscriptionAlarmWarning = interval(10000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode + '/api/ObtenerAlarmaCritica'))
-    )
-    .subscribe((res: any) => {
-      if (res[0] == undefined) {
-        // console.log('no hay data abajo');
-      } else {
-        this.alarmWData  = res;
-        if (this.alarmWData[0].Alert == 1) {  
-          Swal.fire({
-            title: 'Alarma:',
-            text: this.alarmWData[0].Message,
-            icon: 'warning',
-            // timer: 3500,
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            // cancelButtonColor: '#d33',
-            cancelButtonText: 'Cerrar!',
-            confirmButtonText: '¡Cerrar alarma!'
-          }).then(result => {
-            if (result.value) {
-             
-              // var respon = {
-              //   user: this.validData[0].Id,
-              //   sesion: 1,
-              // }
-              // this.apiGetComp
-              //   .PostJson(this.api.apiUrlNode + '/updateSesion', respon)
-              //   .pipe(takeWhile(() => this.alive))
-              //   .subscribe((res: any) => {
-              //     //  console.log("Envió: ", res);
-              //   })
-
-              const currentUserId = this.userStore.getUser().id;
-          var respons = 
-            {
-            IdAlarm: this.alarmWData[0].Id,
-            UserIdAcknow: currentUserId
-            };
-          // let alarm = {IdAlarm: event.data.Id};
-          this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknow', respons)
-          .pipe(takeWhile(() => this.alive))
-          .subscribe((res: any) => {
-        //  console.log("alarmId", res);
-         if (res) {
-          this.toastrService.success('', '¡Alarma solucionada!'); 
-          
-        } else {
-          this.toastrService.danger('', 'Algo salio mal.');
-        }
-      });
-              
-        // Swal.fire('¡Se sincronizo Exitosamente', 'success');
-            } else {
-              const currentUserId = this.userStore.getUser().id;
-              var respons = 
-                {
-                IdAlarm: this.alarmWData[0].Id,
-                UserIdAcknow: currentUserId
-                };
-              // let alarm = {IdAlarm: event.data.Id};
-              this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/acknow', respons)
-              .pipe(takeWhile(() => this.alive))
-              .subscribe((res: any) => {
-            //  console.log("alarmId", res);
-             if (res) {
-              this.toastrService.success('', '¡Alarma solucionada!'); 
-              
-            } else {
-              this.toastrService.danger('', 'Algo salio mal.');
-            }
-          });
-            }
-          });
-          // console.log('alarma de wip:', this.alarmWData);
-        }
-        
-        
-      }
-    },(error) => (console.log(error)),
-    () => console.log('Error alarmWarning' ),
-  );
   }
 
   InitSignalR() {
@@ -662,11 +375,15 @@ export class WcsComponent implements OnInit, OnDestroy {
   }
 
 
-  
- 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.alive=false;
+    this.sigalRService.alive=false;
+  }
 
   MoverCarro(){
-    
     
     this.StatusAlarmCharge();
     this.RouteCtsCharge();
@@ -688,15 +405,8 @@ export class WcsComponent implements OnInit, OnDestroy {
       switchMap(() => this.http.get(this.api.apiUrlNode + '/CT')),
     )
     .subscribe((res: any) => {
-      if (res == undefined) {
-        console.log('no hay data');
-        this.MoverCT();
-      } else {
       this.valorXCT  = res.position;
-    }
-    },(error) => (console.log(error)),
-    () => this.MoverCT,
-    );
+    });
 
   //   // this.valorX = this.valorX + 10;
   //  this.apiGetComp.GetJson(this.api.apiUrlNode + '/CT')
@@ -783,229 +493,132 @@ export class WcsComponent implements OnInit, OnDestroy {
   }
 
   ClicST3() {
-    // var res = this.comp2.openWindowForm(IdWip.ST3);
-    this.dial.openOrder(IdWip.ST3);
+    var res = this.comp2.openWindowForm(IdWip.ST3);
  }
 
  ClicST4() {
-  //  this.comp2.openWindowForm(IdWip.ST4);
-  this.dial.openOrder(IdWip.ST4);
+   this.comp2.openWindowForm(IdWip.ST4);
 }
 
 ClicST5() {
-//  this.comp2.openWindowForm(IdWip.ST5);
-this.dial.openOrder(IdWip.ST5);
+ this.comp2.openWindowForm(IdWip.ST5);
 }
 ClicST6() {
-//  this.comp2.openWindowForm(IdWip.ST6);
-this.dial.openOrder(IdWip.ST6);
+ this.comp2.openWindowForm(IdWip.ST6);
 }
 ClicST7() {
-//  this.comp2.openWindowForm(IdWip.ST7);
-this.dial.openOrder(IdWip.ST7);
+ this.comp2.openWindowForm(IdWip.ST7);
 }
- 
+
 ClicST8() {
-//  this.comp2.openWindowForm(IdWip.ST8);
-this.dial.openOrder(IdWip.ST8);
+ this.comp2.openWindowForm(IdWip.ST8);
 }
 
 
 ClicST9() {
-//  this.comp2.openWindowForm(IdWip.ST9);
-this.dial.openOrder(IdWip.ST9);
+ this.comp2.openWindowForm(IdWip.ST9);
 }
 
 ClicST10() {
-//  this.comp2.openWindowForm(IdWip.ST10);
-this.dial.openOrder(IdWip.ST10);
+ this.comp2.openWindowForm(IdWip.ST10);
 }
 
 ClicST11() {
-//  this.comp2.openWindowForm(IdWip.ST11);
-this.dial.openOrder(IdWip.ST11);
+ this.comp2.openWindowForm(IdWip.ST11);
 }
 
 
 ClicST12() {
-//  this.comp2.openWindowForm(IdWip.ST12);
-this.dial.openOrder(IdWip.ST12);
+ this.comp2.openWindowForm(IdWip.ST12);
 }
 
 
 ClicST13() {
-//  this.comp2.openWindowForm(IdWip.ST13);
-this.dial.openOrder(IdWip.ST13);
+ this.comp2.openWindowForm(IdWip.ST13);
 }
 
 
 ClicST14() {
-//  this.comp2.openWindowForm(IdWip.ST14);
-this.dial.openOrder(IdWip.ST14);
+ this.comp2.openWindowForm(IdWip.ST14);
 }
 
 ClicST15() {
-//  this.comp2.openWindowForm(IdWip.ST15);
- this.dial.openOrder(IdWip.ST15);
+ this.comp2.openWindowForm(IdWip.ST15);
 }
 
 ClicID12(){
-//  this.comp2.openWindowForm(IdWip.ID12)
- this.dial.openOrder(IdWip.ID12);
+ this.comp2.openWindowForm(IdWip.ID12)
 }
 
 ClicID22(){
-//  this.comp2.openWindowForm(IdWip.ID22)
-this.dial.openOrder(IdWip.ID22);
+ this.comp2.openWindowForm(IdWip.ID22)
 }
 
  ClicMARTIN1228() {    
-      //  this.comp2.openWindowForm(IdMaquinas.Martin1228); 
-      this.dial.openOrder(IdMaquinas.Martin1228); 
+       this.comp2.openWindowForm(IdMaquinas.Martin1228); 
  }
 
  ClicWard15000() {
-    //  this.comp2.openWindowForm(IdMaquinas.WARD15000);
-    this.dial.openOrder(IdMaquinas.WARD15000);
+     this.comp2.openWindowForm(IdMaquinas.WARD15000);
  }
  ClicLaminadora() {
-  //  this.comp2.openWindowForm(IdMaquinas.Laminadora);
-  this.dial.openOrder(IdMaquinas.Laminadora);
+   this.comp2.openWindowForm(IdMaquinas.Laminadora);
 }
 
 ClicImpresora36() {
  
-//  this.comp2.openWindowForm(IdMaquinas.Impresora36);
- this.dial.openOrder(IdMaquinas.Impresora36);
+ this.comp2.openWindowForm(IdMaquinas.Impresora36);
 }
 
 ClicJS() {
-//  this.comp2.openWindowForm(IdMaquinas.JS);
- this.dial.openOrder(IdMaquinas.JS);
+ this.comp2.openWindowForm(IdMaquinas.JS);
+ 
 }
 
 Clic924() {
-//  this.comp2.openWindowForm(IdMaquinas.M924);
- this.dial.openOrder(IdMaquinas.M924);
+ this.comp2.openWindowForm(IdMaquinas.M924);
 }
 
 
 ClicSYS() {
-//  this.comp2.openWindowForm(IdMaquinas.SYS);
- this.dial.openOrder(IdMaquinas.SYS);
+ this.comp2.openWindowForm(IdMaquinas.SYS);
 }
 
  public ClicST2(): void {    
-  //  this.comp2.openWindowForm(IdWip.ST2);
-  this.dial.openOrder(IdWip.ST2);
+   this.comp2.openWindowForm(IdWip.ST2);
  }
 
  public ClicST1(): void {
-  //  this.comp2.openWindowForm(IdWip.ST1);
-  this.dial.openOrder(IdWip.ST1);
+   this.comp2.openWindowForm(IdWip.ST1);
  }
 
  public ClicIM1(): void {
-  // this.comp2.openWindowForm(IdWip.IM1);
-  this.dial.openOrder(IdWip.IM1);
+  this.comp2.openWindowForm(IdWip.IM1);
 }
 
 public ClicIM2(): void {
-  // this.comp2.openWindowForm(IdWip.IM2);
-  this.dial.openOrder(IdWip.IM2);
+  this.comp2.openWindowForm(IdWip.IM2);
 }
 
 public ClicIM3(): void {
-  // this.comp2.openWindowForm(IdWip.IM3);
-  this.dial.openOrder(IdWip.IM3);
+  this.comp2.openWindowForm(IdWip.IM3);
 }
 
 public ClicIM4(): void {
-  // this.comp2.openWindowForm(IdWip.IM4);
-  this.dial.openOrder(IdWip.IM4);
+  this.comp2.openWindowForm(IdWip.IM4);
 }
 
 public ClicIM5(): void {
-  // this.comp2.openWindowForm(IdWip.IM5);
-  this.dial.openOrder(IdWip.IM5);
+  this.comp2.openWindowForm(IdWip.IM5);
 }
 
 public ClicIM6(): void {
-  // this.comp2.openWindowForm(IdWip.IM6);
-  this.dial.openOrder(IdWip.IM6);
+  this.comp2.openWindowForm(IdWip.IM6);
 }
 
 public ClicIM7(): void {
-  // this.comp2.openWindowForm(IdWip.IM7);
-  this.dial.openOrder(IdWip.IM7);
-}
-
-public ClicCT_1(): void {
-  // this.comp2.openWindowForm(IdWip.CT_1);
-  this.dial.openOrder(IdWip.CT_1);
-}
-
-public ClicCT_2(): void {
-  // this.comp2.openWindowForm(IdWip.CT_2);
-  this.dial.openOrder(IdWip.CT_2);
-}
-
-public ClicCT1(): void {
-  // this.comp2.openWindowForm(IdWip.CT1);
-  this.dial.openOrder(IdWip.CT1);
-}
-
-public ClicCT2(): void {
-  // this.comp2.openWindowForm(IdWip.CT2);
-  this.dial.openOrder(IdWip.CT2);
-}
-
-public ClicTM(): void {
-  // this.comp2.openWindowForm(IdWip.TM);
-  this.dial.openOrder(IdWip.TM);
-}
-
-public ClicTF1(): void {
-  // this.comp2.openWindowForm(IdWip.TF1);
-  this.dial.openOrder(IdWip.TF1);
-}
-
-public ClicTF2(): void {
-  // this.comp2.openWindowForm(IdWip.TF2);
-  this.dial.openOrder(IdWip.TF2);
-}
-
-public ClicAbove(): void {
-  this.dialog.opendevice1();
-}
-
-public ClicDown(): void {
-  this.dialog.opendevice2();
-}
-
-public ClicTest(): void {
-  this.dial.openOrder(IdWip.IM7);
-}
-
-public ClicTest1(): void {
-  this.dial.openOrder(IdWip.IM6);
-}
-
-public ClicTest2(): void {
-  this.dial.openOrder(IdWip.CT1);
-}
-
-public ClicTest3(): void {
-  this.dial.openOrder(IdWip.ST12);
+  this.comp2.openWindowForm(IdWip.IM7);
 }
  
-ngOnDestroy() {
-  this.alive=false;
-  if (this.subscription) {
-    this.subscription.unsubscribe();
-  }
-  
-  this.sigalRService.alive=false;
-}
 
 }

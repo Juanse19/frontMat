@@ -7,14 +7,13 @@
       <div class="col-md-6">
          <!-- <nb-card> -->
             <p>Orden: <input type="text" id="ordenValor" status="info" name="ordenValor" nbInput #ordenValor required minlength="0" maxlength="30" size="10"></p>
-            <p>Tarjeta: <input type="text" id="tarjeta" status="info" name="tarjeta" nbInput #tarjeta  minlength="0" maxlength="30" size="10"></p>
             <p>Referencia: <input type="text" id="referenciaValue" status="info" name="referenciaValue" nbInput #referenciaValor required minlength="0" maxlength="30" size="10"></p>
-            <p>Combo: <input type="number" id="batchValor" status="info" name="batchValor" nbInput #batchValor required minlength="0" maxlength="30" size="10"></p>
+            <p>Batch: <input type="number" id="batchValor" status="info" name="batchValor" nbInput #batchValor required minlength="0" maxlength="30" size="10"></p>
             <p>Longitud: <input type="number" id="longitudValue" status="info" name="longitudValue" nbInput #longitudValor   required minlength="0" maxlength="30" size="10"></p>
             <p>Cortes: <input type="number" id="cortesValue" status="info" name="cortesValue" nbInput #cortesValor  required minlength="0" maxlength="30" size="10"></p>
             <p>Cortes Ancho: <input type="number" id="anchoValue" status="info" name="anchoValue" nbInput #anchoValor  required minlength="0" maxlength="30" size="10"></p>
             <p>Cortes Largo: <input type="number" id="largoValue" status="info" name="largoValue" height="20" nbInput #largoValor  required minlength="0" maxlength="30" size="10"></p>
-            <p>Número hojas: <input type="number" id="sheetsNumberValor" status="info" name="sheetsNumberValor" height="20" nbInput #sheetsNumberValor  required minlength="0" maxlength="30" size="10"></p>
+            <p>Sheets Number: <input type="number" id="sheetsNumberValor" status="info" name="sheetsNumberValor" height="20" nbInput #sheetsNumberValor  required minlength="0" maxlength="30" size="10"></p>
 
 
             <!-- </nb-card> -->
@@ -23,43 +22,24 @@
       <div class="col-md-6">
             
           <p><nb-card-header>Dispositivos Origen</nb-card-header></p>
-
-            <!-- <p><nb-select [(ngModel)]="maquinaOrigen.value" >
+            <p><nb-select [(ngModel)]="maquinaOrigen.value" >
             <nb-option *ngFor="let option of origen" [value]="option.value">
              {{ option.label }}
              </nb-option>             
-           </nb-select></p> -->
-
-           <div class="form-group">
-            <select   [(ngModel)]="maquinaOrigen.value" class="form-control" >
-              <option *ngFor="let option of origen" [value]="option.value">
-                {{ option.label }}
-                </option>
-              </select>
-            </div>
+           </nb-select></p>
     
-           <p><nb-card-header>Dispositivos Destino</nb-card-header></p> 
-
-           <!-- <p><nb-select [(ngModel)]="maquinaDestino.value"> 
-            <nb-option *ngFor="let option2 of destino" [value]="option2.value">
+           <p><nb-card-header>Dispositivos Destino</nb-card-header></p>  
+           <p><nb-select [(ngModel)]="maquinaDestino.value"> 
+            <nb-option *ngFor="let option2 of destino" [value]="option2.value" >
             {{ option2.label }}
             </nb-option>             
-            </nb-select></p> -->
+            </nb-select></p>
+            <p>Stack Height: <input type="number" id="stackHeightValor" status="info" name="stackHeightValor" height="20" nbInput #stackHeightValor  required minlength="0" maxlength="30" size="10"></p>
+            <p>SheetThickness: <input type="number" id="sheetsThicknessValor" status="info" name="sheetsThicknessValor" height="20" nbInput #sheetsThicknessValor  required minlength="0" maxlength="30" size="10"></p>
+            <p>ProductsMissing: <input type="number" id="productsMissingValor" status="info" name="productsMissingValor" height="20" nbInput #productsMissingValor  required minlength="0" maxlength="30" size="10"></p>
+            <nb-toggle [(ngModel)]="toggleNgModel" status="success">SignalStart</nb-toggle>
+            <p>SheetScrap: <input type="text" id="sheetScrapValor" status="info" name="sheetScrapValor" nbInput #sheetScrapValor required minlength="0" maxlength="30" size="10"></p>
 
-            <div class="form-group">
-              <select   [(ngModel)]="maquinaDestino.value" class="form-control" >
-                <option *ngFor="let option2 of destino" [value]="option2.value">
-                  {{ option2.label }}
-                  </option>
-                </select>
-              </div>
-
-            <p>Altura Pila: <input type="number" id="stackHeightValor" status="info" name="stackHeightValor" height="20" nbInput #stackHeightValor  required minlength="0" maxlength="30" size="10"></p>
-            <p>Espesor hoja: <input type="number" id="sheetsThicknessValor" status="info" name="sheetsThicknessValor" height="20" nbInput #sheetsThicknessValor  required minlength="0" maxlength="30" size="10"></p>
-            <p>Productos Falta: <input type="number" id="productsMissingValor" status="info" name="productsMissingValor" height="20" nbInput #productsMissingValor  required minlength="0" maxlength="30" size="10"></p>
-            <nb-toggle [(ngModel)]="toggleNgModel" status="success">Señal inicio</nb-toggle>
-            <p>Hoja Chatarra: <input type="text" id="sheetScrapValor" status="info" name="sheetScrapValor" nbInput #sheetScrapValor required minlength="0" maxlength="30" size="10"></p>
-            <nb-toggle [(ngModel)]="toggleNgModelInver" status="success">CorrInvertido</nb-toggle>
            
       </div>
     </div>

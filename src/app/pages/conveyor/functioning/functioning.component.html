@@ -1,0 +1,40 @@
+<nb-card>
+  <nb-card-header> Tiempo de funcionamiento por equipo </nb-card-header>
+
+  <nb-card-body>
+    <!-- <ng2-smart-table
+      class="dash-smart-table"
+      [settings]="settings"
+      [source]="funData"
+      (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table> -->
+
+    <div class="overlay">
+      <div class="spinner-border" *ngIf="loading"></div>
+      <b *ngIf="loading" style="margin-top: 4rem; margin-left: -3rem">Cargando...</b>
+    </div>
+    <br />
+
+    <ejs-grid #grid [dataSource]="funData" [allowPaging]="true" [pageSettings]="pageSettings" 
+    [filterSettings]="filterOptions" 
+    [showColumnChooser]= 'true'
+    [allowFiltering]="true"
+    allowSorting="true"
+    allowResizing= "true" 
+    (dataBound)='dataBound()'>
+      <e-columns>
+        <e-column field="DeviceName" headerText="Conveyor" width="110"></e-column>
+        <e-column field="CreatedDate" headerText="Fecha Activación" type="date" format="dd/MM/yyyy hh:mm:ss a"
+          width="120"></e-column>
+        <e-column field="On" headerText="Tiempo encendido" width="100"></e-column>
+        <e-column field="Off" headerText="Tiempo parado" width="100"></e-column>
+        <e-column field="On_Rev" headerText="Tiempo encendido reversa" width="100"></e-column>
+        <e-column field="Falla" headerText="Falla" width="100"></e-column>
+        <e-column field="Acumulacion" headerText="Acumulacion" width="100"></e-column>
+        <e-column field="Atascado" headerText="Atascado" width="100"></e-column>
+        <e-column field="Bloqueado" headerText="Bloqueado" width="100"></e-column>
+        <e-column field="Seccionador_Off" headerText="Seccionador_Off" width="100"></e-column>
+      </e-columns>
+    </ejs-grid>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,99 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="inline-form-card">
+            <nb-card-header>
+                <h6 id="h6">volumen de equipaje</h6>
+            </nb-card-header>
+            <nb-card-body id="form">
+                <form [formGroup]="airForm" class="form-inline" novalidate id="formId">
+
+
+                    <div class="form-group mx-sm-4 mb-3">
+                        <ejs-datepicker formControlName="StartTime" name=" StartTime " id="StartTime " data-name="StartTime " placeholder='Consultar' floatLabelType='Always' required>
+                        </ejs-datepicker>
+                    </div>
+
+                    <!-- <div>
+                        <input nbInput placeholder="Seleccione una fecha" formControlName="StartTime" [nbDatepicker]="formpicker">
+                        <nb-datepicker name=" StartTime" id="StartTime " #formpicker></nb-datepicker>
+                    </div> -->
+
+
+                    <button nbButton status="primary " class="btn btn-primary" (click)="date(airForm.controls.StartTime.value)">Cosultar</button>
+                    <!-- <button nbButton status="success " class="btn btn-success" (click)="generatePDF('open')">Abrir PDF</button>
+                    <button type="button" class="btn btn-secondary" (click)="generatePDF('download')">Descargar pdf</button> -->
+                    <!-- <button nbButton status="info " [disabled]="false " hero>Atras</button> -->
+                </form>
+
+                
+                    <div class="row ">
+                            
+                
+                         <ejs-grid #grid [dataSource]='daDate' [toolbar]='toolbar' (toolbarClick)='clickHandler($event)' [allowPaging]="true " [pageSettings]='pageSettings'
+                         [filterSettings]='filterOptions' [allowExcelExport]='true' allowTextWrap='true' [allowFiltering]="true" [allowPdfExport]='true' >
+                            <e-columns>
+                                <e-column field='ZoneName' headerText='Nombre' width=120></e-column>
+                                <e-column field='NumberTag' headerText='NúmeroEtiqueta' width=100></e-column>
+                            </e-columns>
+                        </ejs-grid>
+                
+                    </div>
+                <br>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<!-- <nb-card-body>
+    <table>
+        <tr>
+            <td style="width:50% ">Selected value: </td>
+            <td class="formtext ">{{ airForm.controls.StartTime.value | date:"dd-MM-yyyy " }}</td>
+        </tr>
+    </table>
+
+</nb-card-body> -->
+
+<!-- <nb-card> -->
+    <!-- <nb-card-header>
+    </nb-card-header> -->
+
+  <!-- <nb-card-body>
+    <div class="row ">
+            
+
+         <ejs-grid #grid [dataSource]='daDate' [toolbar]='toolbar' (toolbarClick)='clickHandler($event)' [allowPaging]="true " [pageSettings]='pageSettings'
+         [filterSettings]='filterOptions' [allowExcelExport]='true' allowTextWrap='true' [allowFiltering]="true" [allowPdfExport]='true' >
+            <e-columns>
+                <e-column field='ZoneName' headerText='Nombre' width=120></e-column>
+                <e-column field='NumberTag' headerText='NúmeroEtiqueta' width=100></e-column>
+            </e-columns>
+        </ejs-grid>
+
+    </div>
+</nb-card-body> -->
+    
+    
+<!-- </nb-card> -->
+
+<!-- <nb-card> -->
+<!-- <nb-card-header>
+        Datos del equipaje
+    </nb-card-header> -->
+<!-- <nb-card-body>
+        <div id="pdfTable" #pdfTable>
+            <ejs-grid [dataSource]='baggageData' [allowPaging]="true" [pageSettings]='pageSettings' [allowSorting]='true' [allowFiltering]="true">
+                <e-columns>
+                    <e-column field='BagTag' headerText='BagTag' textAlign='Right' width=120></e-column>
+                    <e-column field='FechaAtr' headerText='Fecha Atr' width=100 type='date' format="0:MM/dd/yyyy"></e-column>
+                    <e-column field='BhsId' headerText='Bhs' width=100></e-column>
+                    <e-column field='TipoEquipaje' headerText='Tipo Equipaje' width=100></e-column>
+                    <e-column field='FechaEds' headerText='Fecha' width=100 type='date' format="yMd"></e-column>
+                    <e-column field='estado1' headerText='estado1' width=100></e-column>
+                    <e-column field='estado2' headerText='estado2' width=100></e-column>
+                </e-columns>
+            </ejs-grid>
+        </div>
+    </nb-card-body>
+</nb-card> -->

@@ -1,0 +1,29 @@
+<nb-card>
+    <nb-card-header>
+        Paros por acumulación de equipaje
+    </nb-card-header>
+  
+    <nb-card-body>
+      <!-- <ng2-smart-table
+      class="dash-smart-table"
+      [settings]="settings"
+      [source]="UspStoppagesByBaggage"
+      (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table> -->
+
+    <div class="overlay">
+      <div class="spinner-border" *ngIf="loading"></div>
+      <b *ngIf="loading" style="margin-top: 4rem; margin-left: -3rem">Cargando...</b>
+    </div>
+    <br>
+
+    <ejs-grid [dataSource]='acumuData' [allowPaging]="true" [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true">
+      <e-columns>
+          <e-column field='Conveyors' headerText='Conveyors' width=130></e-column>
+          <e-column field='Duración' headerText='Duración' width=120></e-column>
+          <e-column field='Estado' headerText='Estado' width=100></e-column>
+      </e-columns>
+  </ejs-grid>
+
+      </nb-card-body>
+    </nb-card>

@@ -16,7 +16,7 @@ import { interval, Subscription,from } from 'rxjs';
 })
 export class SignalRService implements OnInit {
   public dataPackages:PackagesWIP[]=[];
-  public numeroAlarmas : {numeroAlarmas:number} = {numeroAlarmas:0}
+  public numeroAlarmas : {NumeroAlarmas:number} = {NumeroAlarmas:0}
   public dataPackageWip: PackagesWIP[]=this.dataPackages;
   public dataPackageST1: PackagesWIP[]=this.dataPackages;
   public dataPackageST2: PackagesWIP[]=this.dataPackages;
@@ -385,7 +385,7 @@ mergeMap((idDevice) => interval(1000)
 
 public GetDataAlarmManual(){
   this.aliveAlarm=true;
-
+  // debugger
   if (this.intervalSubscriptionsAlarm) {
     this.intervalSubscriptionsAlarm.unsubscribe();
   }
@@ -393,10 +393,10 @@ public GetDataAlarmManual(){
   this.intervalSubscriptionsAlarm = interval(5000)
   .pipe(
     takeWhile(() => this.aliveAlarm),
-    switchMap(() => this.http.get(this.api.apiUrlMatbox + '/Alarms/GetAlarmNumber')),
+    switchMap(() => this.http.get(this.api.apiUrlNode1 + '/GetNumberAlarm')),
   )
   .subscribe((res: any) => {
-    this.numeroAlarmas=res;
+    this.numeroAlarmas=res[0];
   });
 
 

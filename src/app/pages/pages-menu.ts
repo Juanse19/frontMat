@@ -16,14 +16,14 @@ export class PagesMenu {
   constructor(private accessChecker: NbAccessChecker) {}
 
   getMenu(): Observable<NbMenuItem[]> {
-    const dashboardMenu = [
-      {
-        title: 'Dashboard',
-        icon: 'monitor-outline',
-        link: '/pages/iot-dashboard',
-        children: undefined,
-      },
-    ];
+    // const dashboardMenu = [
+    //   {
+    //     title: 'Dashboard',
+    //     icon: 'monitor-outline',
+    //     link: '/pages/iot-dashboard',
+    //     children: undefined,
+    //   },
+    // ];
 
     const menu: NbMenuItem[] = [
       {
@@ -254,7 +254,7 @@ export class PagesMenu {
       children: undefined,
     };
 
-    const configurationMenu: NbMenuItem = {
+    const configurationsMenu: NbMenuItem = {
       title: 'Configuración',
       icon: 'settings-outline',
       // link: '/pages/analytics/analytics',
@@ -310,23 +310,19 @@ export class PagesMenu {
       title: 'Inducción',
       icon: 'archive-outline',
       // link: '/pages/analytics/analytics',
-      children: [
+      children: [,
         // {
-        //   title: 'Inducción',
-        //   link: '/pages/analytics/orposition',
+        //   title: 'Sic',
+        //   link: '/pages/sic-syncro/Sic',
+        // },
+        // {
+        //   title: 'Syncro',
+        //   link: '/pages/sic-syncro/syncro',
         // },
         {
-          title: 'Sic',
-          link: '/pages/sic-syncro/Sic',
+          title: 'GanttSheduler',
+          link: '/pages/sic-syncro/gantt',
         },
-        {
-          title: 'Syncro',
-          link: '/pages/sic-syncro/syncro',
-        },
-        // {
-        //   title: 'Gantt',
-        //   link: '/pages/sic-syncro/gantt',
-        // },
       ],
     };
 
@@ -406,12 +402,270 @@ export class PagesMenu {
         },
       ],
     };
+
+    //--------------------- new menú ----------------------------------
+
+    const dashboardMenu = [
+      {
+        title: 'Dashboard',
+        icon: 'monitor-outline',
+        link: '/pages/iot-dashboard',
+        children: [
+          
+          { 
+            title: 'BHS Salida',
+            link: '/pages/conveyor/bhs5',
+            children: [
+              {
+                title: 'Dashboard Salida', 
+                link: '/pages/conveyor/BhsSalidas',
+              },
+              { 
+                title: 'Security Feed Check In',
+                link: '/pages/conveyor/bhs5',
+              },
+              {
+                title: 'Security Feed',
+                link: '/pages/conveyor/bhs2',
+              },
+              {
+                title: 'Crossover',
+                link: '/pages/conveyor/bhs10',
+              },
+    
+              {
+                title: 'Transfer Line',
+                link: '/pages/conveyor/bhs1',
+              },
+              {
+                title: 'Make Up',
+                link: '/pages/conveyor/bhs3',
+              },
+              {
+                title: 'Alarm Line',
+                link: '/pages/conveyor/bhs4',
+              },
+              {
+                title: 'Clear Line',
+                link: '/pages/conveyor/bhs6',
+              },
+              {
+                title: 'Security Shunt',
+                link: '/pages/conveyor/bhs9', 
+              },
+              {
+                title: 'On Screen Resolution Line',
+                link: '/pages/conveyor/bhs7', 
+              },
+              {
+                title: 'Manual Encode',
+                link: '/pages/conveyor/bhs8',
+              },
+            ]
+          },
+
+          { 
+            title: 'BHS Llegada',
+            link: '/pages/conveyor/bhs5',
+            children: [
+              {
+                title: 'Dashboard Llegada',
+                link: '/pages/conveyor/info',
+              },
+              {
+                title: 'Inbound 1',
+                link: '/pages/conveyor/ib1',
+              },
+              {
+                title: 'Inbound 2',
+                link: '/pages/conveyor/ib2',
+              },
+              {
+                title: 'Inbound 3',
+                link: '/pages/conveyor/ib3',
+              },
+            ]
+          },
+
+          
+        ],
+      },
+    ];
+
+    const informacionMenu: NbMenuItem = {
+      title: 'Información',
+      icon: 'archive-outline',
+      children: [
+        
+        {
+          title: 'Equipos',
+          link: '/pages/conveyor/team',
+        },
+        {
+          title: 'Funcionamiento del sistema',
+          link: '/pages/conveyor/functioning',
+        },
+        {
+          title: 'Induccion Mensajes AMS',
+          link: '/pages/sita/MessageAMS',
+        },
+        {
+          title: 'Induccion Mensajes BM',
+          link: '/pages/sita/MessageBM',
+        },
+      ],
+    };
+
+    const functionMenu: NbMenuItem = {
+      title: 'Información',
+      icon: 'archive-outline',
+      // link: '/pages/analytics/analytics',
+      children: [
+        
+        {
+          title: 'Equipos',
+          link: '/pages/conveyor/team',
+        },
+        {
+          title: 'Funcionamiento del sistema',
+          link: '/pages/conveyor/functioning',
+        },
+        {
+          title: 'Induccion Mensajes AMS',
+          link: '/pages/sita/MessageAMS',
+        },
+        {
+          title: 'Induccion Mensajes BM',
+          link: '/pages/sita/MessageBM',
+        },
+      ],
+    };
+
+    const SchedulerMenu1: NbMenuItem = {
+      title: 'Asignación de aerolineas',
+      icon: 'calendar-outline',
+      // link: '/pages/analytics/analytics',
+      children: [
+        
+        {
+          title: 'Asignación de Salidas',
+          link: '/pages/gantt/ganttScheduler',
+        },
+      ],
+    };
+
+    const cosumeMenu: NbMenuItem = {
+      title: 'Consumo energético',
+      icon: 'activity-outline',
+      // link: '/pages/analytics/analytics',
+      children: [
+        {
+          title: 'Consumo generales',
+          link: '/pages/conveyor/energy',
+        },
+        {
+          title: 'Consumo por zonas',
+          link: '/pages/conveyor/energyZone',
+        },
+        // {
+        //   title: 'GanttSheduler',
+        //   link: '/pages/sic-syncro',
+        // },
+      ],
+    };
+
+    const repocbisMenu: NbMenuItem = {
+      title: 'Reportes',
+      icon: 'pie-chart-outline',
+      // link: '/pages/charts/charts-report',
+      children:[
+        {
+          title: 'Eficiencia ATR´S', 
+          link: '/pages/conveyor/Readerefficiency',
+        },
+        {
+          title: 'Estadisticas EDS',
+          link: '/pages/reports/edsstatistics',
+        },
+        {
+          title: 'Informe volumen',
+          link: '/pages/reports/report1',
+        },
+        // {
+        //   title: 'Informe diario volumen equipaje',
+        //   link: '/pages/reports-pia/report2',
+        // },
+        {
+          title: 'Informe ejecutivo BHS - SSI',
+          link: '/pages/reports/report3',
+        },
+        {
+          title: 'Informe ejecutivo CBRA - SSI',
+          link: '/pages/reports/report4',
+        },
+        {
+          title: 'Informe seguimiento de PEC',
+          link: '/pages/reports/report5',
+        },
+        // {
+        //   title: 'Informe equipaje CBRA',
+        //   link: '/pages/reports-pia/report6',
+        // },
+        // {
+        //   title: 'Informe de rendimiento por hora BHS ( Througput)',
+        //   link: '/pages/reports-pia/report7',
+        // },
+        {
+          title: 'Informe resumen diario por hora',
+          link: '/pages/reports/report8',
+        },
+        {
+          title: 'Informe mensual',
+          link: '/pages/reports/report10',
+        },
+      ],
+    };
+
+    const configurationMenu: NbMenuItem = {
+      title: 'Configuración',
+      icon: 'settings-outline',
+      // link: '/pages/analytics/analytics',
+      children: [ 
+        {
+          title: 'Usuarios',
+          link: '/pages/users/list',
+        },
+        {
+          title: 'Licencia',
+          link: '/pages/users/licenses',
+        },
+        {
+          title: 'Integración SITA AMS',
+          // link: '/pages/sita/SitaMessage',
+          children: [
+            {
+            title: 'Recepción Notificaciónes AMS',
+            link: '/pages/sita/ParametrizacionAMS',
+          },
+        ]},
+        {
+          title: 'Integración SITA BagMessage',
+          // link: '/pages/sita/SitaMessage',
+          children: [
+            {
+            title: 'Recepción Notificaciónes BM',
+            link: '/pages/sita/ParametrizacionBM',
+          },
+        ]},
+      ],
+    };
+
     return this.accessChecker.isGranted('view', 'fullMenu')
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          return [...dashboardMenu, procesosMenu, induccionMenu, repoMenu, analyticsMenu, configurationMenu, alarmMenu];
+          return [...dashboardMenu, functionMenu, SchedulerMenu1, cosumeMenu, repocbisMenu, configurationMenu, alarmMenu];
         } else {
           //return [...dashboardMenu, ...menu];
           return [...dashboardMenu, procesosMenu, alarmMenu];

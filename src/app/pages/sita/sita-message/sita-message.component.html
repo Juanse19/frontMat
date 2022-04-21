@@ -1,0 +1,68 @@
+
+<nb-card>
+  <nb-card-header>
+      Recepción de Notificaciones AMS
+  </nb-card-header>
+
+  <nb-card-body>
+      <!-- <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="ReportOrdens">
+      </ng2-smart-table> (actionBegin)="actionComplete($event)" -->
+
+      <ejs-grid [dataSource]='dataConfigu' [editSettings]='editSettings' [toolbar]='toolbar'
+       (actionBegin)='actionBegin($event)'  [allowPaging]="true"
+      [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
+      [allowFiltering]="true">
+          <e-columns>
+              
+              <!-- <e-column field='Id' headerText='Id' [isPrimaryKey]='true' width=30></e-column> -->
+              <e-column field='Parameter' headerText='Mensaje Queue' textAlign='Left' width=70></e-column>
+              <e-column field='Value' headerText='Nombre Queue Local' textAlign='Left' width=90></e-column>
+              <!-- <e-column field='CreateDate' headerText='Fecha ini' type="date" format="dd/MM/yyyy hh:mm:ss a" width=60></e-column>
+              <e-column field='UpdateDate' headerText='Fecha fin' type="date" format="dd/MM/yyyy hh:mm:ss a" width=60></e-column> -->
+              <e-column headerText='Editar' width='30' textAlign='center' [commands]='commands'></e-column>
+          </e-columns>
+
+      </ejs-grid>
+   
+      <div #container class='root-container'>
+          <ejs-dialog id='ejDialogTX' #ejDialogTX allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+              <ng-template #content>
+                  <div [formGroup]="orderForm">
+                      <div class="form-row">
+                          <!-- <div class="form-group col-md-12">
+                              <div class="e-float-input e-control-wrapper" >
+                                  <input formControlName="Id" disabled  id="Id" name="Id" type="text" >
+                                  <span class="e-float-line"></span>
+                                  <label class="e-float-text e-label-top" for="Id">Id</label>
+                              </div>
+                          </div> -->
+                          <div class="form-group col-md-12">
+                              <div class="e-float-input e-control-wrapper" >
+                                  <input formControlName="Parameter"  id="Parameter" name="Parameter" class="field left" readonly type="text" >
+                                  <span class="e-float-line"></span>
+                                  <label class="e-float-text e-label-top" for="Parameter" disabled="disabled" readonly="readonly" >Mensaje Queue</label>
+                              </div>
+                          </div>
+                          <div class="form-group col-md-12">
+                              <div class="e-float-input e-control-wrapper" >
+                                  <input formControlName="Value"  id="Value" name="Value" type="text" >
+                                  <span class="e-float-line"></span>
+                                  <label class="e-float-text e-label-top" for="Value">Nombre Queue Local</label>
+                              </div>
+                          </div>
+                          <div>
+                              <button nbButton status="info" (click)="updateData()" hero>Actualizar</button>
+                              <button nbButton status="danger" (click)="close()" hero>Cancelar</button>
+                          </div>
+                      </div> 
+                  </div>
+              </ng-template>
+          </ejs-dialog>
+      </div>
+
+
+  </nb-card-body>
+  <!-- <nb-card-footer>
+      <button nbButton status="warning" (click)="reconocer()" hero>Limpiar WCS</button>
+  </nb-card-footer> -->
+</nb-card>

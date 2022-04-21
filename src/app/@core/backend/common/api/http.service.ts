@@ -27,6 +27,10 @@ export class HttpService {
     return environment.apiUrlNode;
   }
 
+  get apiUrlNode1(): string {
+    return environment.apiUrlNode1;
+  }
+
   get apiUrl(): string {
     return environment.apiUrl;
   }

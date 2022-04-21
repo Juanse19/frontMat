@@ -1,0 +1,48 @@
+<nb-card>
+    <nb-card-header>
+        Mensajes BagMessage
+    </nb-card-header>
+  
+    <nb-card-body>
+
+    <div class="overlay">
+      <div class="spinner-border" *ngIf="loading"></div>
+      <b *ngIf="loading" style="margin-top: 4rem; margin-left: -3rem">Cargando...</b>
+    </div>
+    <br>
+
+    <ejs-grid #grid [dataSource]='bagMessageData' [allowPaging]="true"
+    [pageSettings]="pageSettings"
+    [filterSettings]="filterOptions"
+    [allowFiltering]="true" 
+    allowSorting="true"
+    allowResizing= "true"
+    (dataBound)='dataBound()'>
+      <e-columns>
+          <e-column field='Standard_Message_Identifier' headerText='Standard_Message_Identifier' minWidth='120' maxWidth='300' width=130></e-column>
+          <e-column field='Change_Status_Indicator' headerText='Change_Status_Indicator' type='date' format="dd/MM/yyyy hh:mm:ss a" minWidth='120' maxWidth='300' width=120></e-column>
+          <e-column field='Version_Supplementary_Data' headerText='Version_Supplementary_Data' minWidth='120' maxWidth='300' width=100></e-column>
+          <e-column field='Outbound_Flight_Information' headerText='Outbound_Flight_Information' minWidth='120' maxWidth='300' width=100></e-column>
+          <e-column field='Inbound_Flight_Information' headerText='Inbound_Flight_Information' width=100></e-column>
+          <e-column field='Onward_Flight_Information' headerText='Onward_Flight_Information' width=100></e-column>
+          <e-column field='Baggage_Tag_Details' headerText='Baggage_Tag_Details' width=100></e-column>
+          <e-column field='Check_in_Location_Information' headerText='Check_in_Location_Information' width=100></e-column>
+          <e-column field='Reconciliation_Data' headerText='Reconciliation_Data' width=100></e-column>
+          <e-column field='Handling_Location' headerText='Handling_Location' width=100></e-column>
+          <e-column field='Pieces_Weight_Dimensions_Type_Data' headerText='Pieces_Weight_Dimensions_Type_Data' width=100></e-column>
+          <e-column field='Passenger_Name' headerText='Passenger_Name' width=100></e-column>
+          <e-column field='Ground_Transport' headerText='Ground_Transport' width=100></e-column>
+          <e-column field='Frequent_Traveller_Numb' headerText='Frequent_Traveller_Numb' width=100></e-column>
+          <e-column field='Corporate_Group_Name' headerText='Corporate_Group_Name' width=100></e-column>
+          <e-column field='Automated_PNR_Address' headerText='Automated_PNR_Address' width=100></e-column>
+          <e-column field='Baggage_Tag_Printer_ID' headerText='Baggage_Tag_Printer_ID' width=100></e-column>
+          <e-column field='Default_Message_Printer' headerText='Default_Message_Printer' width=100></e-column>
+          <e-column field='Baggage_Exception_Data' headerText='Baggage_Exception_Data' width=100></e-column>
+          <e-column field='Internal_Airline_Data' headerText='Internal_Airline_Data' width=100></e-column>
+          <e-column field='Baggage_Security_Screening' headerText='Baggage_Security_Screening' width=100></e-column>
+         
+      </e-columns>
+  </ejs-grid>
+
+      </nb-card-body>
+    </nb-card>

@@ -1,0 +1,156 @@
+<!-- <div class="row">
+  <div class="col-md-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header>
+        <h6 id="h6">Seguimiento de maletas</h6>
+      </nb-card-header>
+      <nb-card-body id="form">
+        <form [formGroup]="airForm" class="form-inline" novalidate id="formId"> -->
+          <!-- <div class="form-group mx-sm-4 mb-3">
+                        <ejs-datepicker formControlName="Bag" name="Bag" placeholder='Consultar' required>
+                        </ejs-datepicker>
+                    </div> -->
+
+          <!-- <div class="col-xs-6 col-sm-4 col-lg-4 col-md-3">
+            <div class="e-input-group">
+              <input
+                class="e-input"
+                formControlName="Bag"
+                type="text"
+                placeholder="Ingrese el BagTag"
+                [(ngModel)]="bagtag"
+              />
+            </div>
+          </div> -->
+
+          <!-- <div class="form-group mx-sm-4 mb-3">
+                        <input type="text" id="firstname" name="firstname" class="required" formControlName="Bag" required>
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" for="Bag">First Name</label>
+                    </div>    -->
+
+          <!-- <div>
+                        <input nbInput type="text" placeholder="Consulte por BagTag">
+                        <nb-datepicker name=" StartTime" id="StartTime " #formpicker></nb-datepicker>
+                    </div> -->
+
+          <!-- <button nbButton status="primary " class="btn btn-primary">Cosultar</button> -->
+          <!-- <button
+            nbButton
+            status="primary "
+            class="btn btn-primary"
+            (click)="date(airForm.controls.Bag.value)"
+          >
+            Cosultar
+          </button>
+        </form>
+
+        <div class="row">
+        <ejs-grid
+        #grid
+        [dataSource]="bagdata"
+        [toolbar]="toolbar"
+        (toolbarClick)="clickHandler($event)"
+        [allowPaging]="true"
+        [pageSettings]="pageSettings"
+        [filterSettings]="filterOptions"
+        allowTextWrap="true"
+        [allowExcelExport]="true"
+        [allowFiltering]="true"
+        [allowPdfExport]="true"
+        height="400"
+      >
+        <e-columns>
+          <e-column
+            field="Name"
+            headerText="Nombre"
+            width="120"
+            type="string"
+          ></e-column>
+          <e-column
+            field="Description"
+            headerText="Descripción"
+            width="100"
+            type="string"
+          ></e-column>
+          <e-column
+            field="CreatedDate"
+            headerText="Fecha"
+            width="100"
+            type="string"
+            format="dd/MM/yyyy hh:mm:ss a"
+          ></e-column>
+        </e-columns>
+      </ejs-grid>
+      
+    </div>
+    <br>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div> -->
+
+<!-- <div>
+  <nb-card> -->
+    <!-- <nb-card-header>
+        Datos del equipaje
+    </nb-card-header> -->
+    <!-- <nb-card-body>
+      <div class="row"> -->
+        <!-- <ejs-grid #grid [dataSource]='bagdata' allowPaging='true' [toolbar]='toolbar' (toolbarClick)='toolbarClick($event)'  (toolbarClick)='clickHandler($event)' (toolbarClick)='clickHandlers($event)'  [pageSettings]='pageSettings' [filterSettings]='filterOptions'
+                [allowFiltering]="true" [allowExcelExport]='true' [allowPdfExport]='true' height='400'>
+                    <e-columns>
+                        
+                        
+                        <e-column field='Name' headerText='Nombre' width=100 type='string'></e-column>
+                        <e-column field='Description' headerText='Descripción' width=100 type='string'></e-column>
+                        <e-column field='CreatedDate' headerText='Fecha Creado' width=100 type='date' format="dd/MM/yyyy hh:mm:ss a"></e-column>
+                       
+                    </e-columns>
+                </ejs-grid> -->
+
+        <!-- <ejs-grid
+          #grid
+          [dataSource]="bagdata"
+          [toolbar]="toolbar"
+          (toolbarClick)="clickHandler($event)"
+          [allowPaging]="true"
+          [pageSettings]="pageSettings"
+          [filterSettings]="filterOptions"
+          allowTextWrap="true"
+          [allowExcelExport]="true"
+          [allowFiltering]="true"
+          [allowPdfExport]="true"
+          height="400"
+        >
+          <e-columns>
+            <e-column
+              field="Name"
+              headerText="Nombre"
+              width="120"
+              type="string"
+            ></e-column>
+            <e-column
+              field="Description"
+              headerText="Descripción"
+              width="100"
+              type="string"
+            ></e-column>
+            <e-column
+              field="CreatedDate"
+              headerText="Fecha"
+              width="100"
+              type="string"
+              format="dd/MM/yyyy hh:mm:ss a"
+            ></e-column>
+          </e-columns>
+        </ejs-grid>
+
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div> -->
+
+<bold-reportviewer id="reportViewer_Control3" [reportServiceUrl] = "reportServiceUrl1" [reportServerUrl]="reportServerUrl1" 
+  [serviceAuthorizationToken]="serviceAuthorizationToken"  [reportPath] = "reportPath14" style="width: 100%;height: 950px">
+</bold-reportviewer>

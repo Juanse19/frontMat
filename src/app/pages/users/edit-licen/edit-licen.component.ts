@@ -7,8 +7,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService, NbWindowRef } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { NbAccessChecker } from '@nebular/security';
-import { UserStore } from '../../../@core/stores/user.store';
 
 interface licens {
   // Id: string;
@@ -38,8 +36,6 @@ export class EditLicenComponent implements OnInit {
   submitted: boolean = false;
   licenForm: FormGroup;
   public licesData: licens[]=[];
-  public select = false;
-  mostrar: Boolean;
 
   get Value() { return this.licenForm.get('Value'); }
 
@@ -49,8 +45,6 @@ export class EditLicenComponent implements OnInit {
     private fb: FormBuilder,
     private toastrService: NbToastrService,
     private apiGetComp: ApiGetService,
-    public accessChecker: NbAccessChecker,
-    private userStore: UserStore,
   ) { }
 
   open(){ 
@@ -81,7 +75,7 @@ export class EditLicenComponent implements OnInit {
 
   loadLices(){
 
-    this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getlicenses').subscribe((res: any) => {
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/api/getlicenses').subscribe((res: any) => {
       // this.licesData.values = res[0].Value;
       this.licesData.values = crypto.AES.decrypt(res[0].Value.trim(), this.desPass.trim()).toString(crypto.enc.Utf8);
      
@@ -101,7 +95,7 @@ export class EditLicenComponent implements OnInit {
   }
 
   convertirTexto(conversion: string) {
-
+    // debugger
     if (this.encPass === '') {
       alert('por favor ingresa la password');
     } else if (this.encPass === null) {
@@ -126,7 +120,7 @@ export class EditLicenComponent implements OnInit {
           Value: this.textoEncriptado
         }
   
-        this.apiGetComp.PostJson(this.api.apiUrlNode + '/api/updatelicens', respons)
+        this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/api/updatelicens', respons)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
             this.toastrService.success('', '¡Se edito licencia con exito!'); 
@@ -151,62 +145,10 @@ export class EditLicenComponent implements OnInit {
       
     }
   }
-
-}
-
-reconocer() {
-
-  
-  this.accessChecker.isGranted('edit', 'ordertable')
-  .pipe(takeWhile(() => this.alive))
-  .subscribe((res: any) => {
-    if(res){ 
-    Swal.fire({
-    title: 'Desea Eliminar los datos del WCS?',
-    text: `¡Eliminará toda la información!`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: '¡Sí, Eliminar!'
-  }).then(result => {
-    debugger 
-    if (result.value) {
-      debugger
-
-      const currentUserId = this.userStore.getUser().id;
-    const currentUser = this.userStore.getUser().firstName;
-  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-  var respons = 
-  {
-    user: currentUser,
-    message:"Eliminó todo el WCS",
-    users: currentUserId,  
-};
-  this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-        //  console.log("Envió: ", res);
-      });
-
-      this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/deleteallposition')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-    });
- 
-       Swal.fire('¡Se Eliminaron Exitosamente', 'success');
-       
-   }
- });
-         
-       this.select = false;
-       this.mostrar = false;
-     }else {
-       this.select=true;
-       this.mostrar=true;
-     }
-   });
-   
+    
+    // else {
+    //   this.textoDesencriptado = crypto.AES.decrypt(this.destexto.trim(), this.desPass.trim()).toString(crypto.enc.Utf8);
+    // }
 }
 
 ngOnDestroy(): void {

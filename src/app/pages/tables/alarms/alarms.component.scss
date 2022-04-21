@@ -1,29 +1,29 @@
-@import '~@nebular/theme/styles/core/mixins';
-@import '../../../@theme/styles/themes';
-
-@include nb-install-component() {
-    button[nbButton] {
-        margin: 0.25rem;
-    }
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-    input {
-        width: 20rem;
-    }
-     :host {
-        button {
-            @include nb-ltr(margin, 0 0.75rem 0 0);
-            @include nb-rtl(margin, 0 0 0 0.75rem);
-        }
-    }
-     ::ng-deep .user-smart-table {
-        .form-control {
-            color: nb-theme(form-control-color);
-        }
-    }
+// @import '~@nebular/theme/styles/core/mixins';
+// @import '../../../@theme/styles/themes';
+// @import '../node_modules/@syncfusion/ej2-grids/styles/material.css';
+// @include nb-install-component() {
+//     button[nbButton] {
+//         margin: 0.25rem;
+//     }
+//     .container {
+//         display: flex;
+//         flex-wrap: wrap;
+//         justify-content: space-around;
+//     }
+//     input {
+//         width: 20rem;
+//     }
+//      :host {
+//         button {
+//             @include nb-ltr(margin, 0 0.75rem 0 0);
+//             @include nb-rtl(margin, 0 0 0 0.75rem);
+//         }
+//     }
+//      ::ng-deep .user-smart-table {
+//         .form-control {
+//             color: nb-theme(form-control-color);
+//         }
+//     }
 
     
     // .e-grid .e-gridpager {
@@ -31,15 +31,15 @@
     //     background-color: #6faae0;
     // }
 
-    .e-grid .e-pager.e-rtl .e-numericitem {
-        border-left-color: #616161;
-      }
+    // .e-grid .e-pager.e-rtl .e-numericitem {
+    //     border-left-color: #616161;
+    //   }
 
-    .e-grid .e-gridpager .e-numericitem {
+    // .e-grid .e-gridpager .e-numericitem {
         
-        color: #35812b;
-        background: #1d9742;
-    }
+    //     color: #35812b;
+    //     background: #1d9742;
+    // }
 
 //     .e-currentitem:hover {
 //         background: #a89f18;
@@ -111,4 +111,4 @@
 //   border-left-color: #e0e0e0;
 // }
 
-}
+// }

@@ -1,0 +1,22 @@
+.overlay {
+    position: fixed;
+    width: 78%;
+    // height: 100%;
+    // background-color: rgba(74, 74, 74, .8);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-inline [fullWidth] {
+    flex: 1;
+}
+
+.form-inline>* {
+    margin: 0 1.5rem 1.5rem 0;
+}
+
+#form {
+    margin-left: 05px;
+}

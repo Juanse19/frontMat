@@ -1,0 +1,60 @@
+<!-- <div class="row">
+    <div class="col-md-12">
+        <nb-card class="inline-form-card">
+            <nb-card-header>
+                <h6 id="h6">Eventos BHS</h6>
+            </nb-card-header>
+            <nb-card-body id="form">
+                <form class="form-inline" novalidate id="formId">
+
+
+                    <div class="form-group mx-sm-4 mb-3">
+                        <ejs-datepicker  name=" StartTime " id="StartTime " class="e-field " data-name="StartTime " placeholder='Consultar' format="yyyy/mm/dd " floatLabelType='Always' required>
+                        </ejs-datepicker>
+                    </div> -->
+
+                    <!-- <div>
+                        <input nbInput placeholder="Seleccione una fecha" formControlName="StartTime" [nbDatepicker]="formpicker">
+                        <nb-datepicker name=" StartTime" id="StartTime " #formpicker></nb-datepicker>
+                    </div> -->
+
+
+                    <!-- <button nbButton status="primary " class="btn btn-primary">Cosultar</button> -->
+                    <!-- <button nbButton status="success " class="btn btn-success" disabled="true">Imprimir a PDF</button>
+                    <button type="button" class="btn btn-secondary" disabled="true">Descargar pdf</button> -->
+                    <!-- <button nbButton status="info " [disabled]="false " hero>Atras</button> -->
+                <!-- </form>
+
+                <nb-card-body>
+                    <ejs-grid [dataSource]='bhseventData' [allowPaging]="true" (queryCellInfo)='tooltip($event)' [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true">
+                        <e-columns>
+                            <e-column field='Eventtype' headerText='Tipo de evento' width=120></e-column>
+                            <e-column field='Eventtime' headerText='Fecha del evento ' width=100></e-column>
+                            <e-column field='Totaleventtime' headerText='Tiempo total del evento' width=100></e-column>
+                        </e-columns>
+                    </ejs-grid>
+                </nb-card-body>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div> -->
+
+<!-- <nb-card> -->
+    <!-- <nb-card-header>
+        Eventos BHS
+    </nb-card-header> -->
+    <!-- <nb-card-body>
+        <ejs-grid [dataSource]='bhseventData' [allowPaging]="true" (queryCellInfo)='tooltip($event)' [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true">
+            <e-columns>
+                <e-column field='Eventtype' headerText='Tipo de evento' width=120></e-column>
+                <e-column field='Eventtime' headerText='Fecha del evento ' width=100></e-column>
+                <e-column field='Totaleventtime' headerText='Tiempo total del evento' width=100></e-column>
+            </e-columns>
+        </ejs-grid>
+    </nb-card-body>
+</nb-card> -->
+
+<bold-reportviewer id="reportViewer_Control6" [reportServiceUrl] = "reportServiceUrl" [reportServerUrl]="reportServerUrl" 
+  [serviceAuthorizationToken]="serviceAuthorizationToken"  [reportPath] = "reportPath" style="width: 100%;height: 950px">
+</bold-reportviewer>

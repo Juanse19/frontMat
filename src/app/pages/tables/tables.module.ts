@@ -5,7 +5,7 @@
  */
 
 import { NgModule } from '@angular/core';
-import { NbCardModule, NbIconModule, NbTabsetModule, NbRouteTabsetModule, NbInputModule, NbSelectModule, NbTreeGridModule, NbRadioModule, NbCheckboxModule, 
+import { NbCardModule, NbTabsetModule, NbIconModule, NbInputModule, NbSelectModule, NbTreeGridModule, NbRadioModule, NbCheckboxModule, 
   NbActionsModule, NbUserModule, NbDatepickerModule, NbButtonModule, NbToggleModule} from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
@@ -23,7 +23,7 @@ import {ApiWindowCreateOrderPopup} from './WindowCreateOrderPopup/apiWindowCreat
 import {WindowCreateComponent} from './WindowCreateOrderPopup/windowsCreateOrderPopup.component';
 import { AlarmsComponent } from './alarms/alarms.component'
 import { GridModule } from '@syncfusion/ej2-angular-grids';
-import { PageService, SortService, FilterService, GroupService, ToolbarService } from '@syncfusion/ej2-angular-grids';
+import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 
 @NgModule({
@@ -52,7 +52,6 @@ import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
     NbButtonModule,
     NbToggleModule,
     NbTabsetModule,
-    NbRouteTabsetModule,
     GridModule,
     DropDownListAllModule,
   ],
@@ -68,11 +67,10 @@ import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
     ApiGetService,
     ApiWindowOrderPopup,
     ApiWindowCreateOrderPopup,
-    PageService, 
-    SortService, 
-    FilterService, 
+    PageService,
+    SortService,
+    FilterService,
     GroupService,
-    ToolbarService,
   ],
 })
 export class TablesModule { }

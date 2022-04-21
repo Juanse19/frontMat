@@ -1,0 +1,30 @@
+
+    <nb-card>
+        <nb-card-header>
+            CL1_16
+        </nb-card-header>
+    <nb-card-body>
+    <ejs-circulargauge  #gaugeCL1_16 id="sample-dataCL1_16" style='display: block; height:150px; '>
+        <e-axes>
+            <e-axis startAngle=260 endAngle=100 [majorTicks]="majorTicks" [minorTicks]=""
+                [labelStyle]="labelStyle" [lineStyle]="lineStyle" [ranges]="ranges" [pointers]="pointers2">
+                <e-annotations>
+                    <e-annotation [content]="annotation" angle=180 radius='30%' zIndex='1'></e-annotation>
+                    <!-- <e-annotation [content]="annotation2" angle=180 radius='65%' zIndex='1'></e-annotation> -->
+                </e-annotations>
+            </e-axis>
+        </e-axes>
+    </ejs-circulargauge>
+    <div  style="margin-left: 23%; margin-top: -0%; padding-top: -40px; padding-block-start: -98px;"> 
+       <!-- <p> {{TeamCL1_16?.CL1_16_CorrienteActualMotor | number : '1.4-5' }} Corriente </p>
+       <p> {{TeamCL1_16?.CL1_16_PotenciaActualMotor | number : '1.2-2' }} Potencia </p>
+       <p> {{TeamCL1_16?.CL1_16_KWh | number : '1.4-5' }} kWh </p> -->
+       
+       <pre style="padding: 0.5625em 0.625em; margin-top: -0.10rem;"><b>Corriente:</b>  {{TeamCL1_16?.CorrienteActualMotor}}  &nbsp; A</pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Potencia:</b>   {{TeamCL1_16?.PotenciaActualMotor}} &nbsp; W</pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Voltaje:</b>    {{TeamCL1_16?.VoltajeActualMotor | number}}   VAC </pre>
+       <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Consumo:</b>    {{TeamCL1_16?.KWh | number}}  &nbsp; kwh </pre>
+
+    </div>
+</nb-card-body>
+</nb-card>

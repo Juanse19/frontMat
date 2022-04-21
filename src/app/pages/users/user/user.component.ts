@@ -21,7 +21,7 @@ import {EMAIL_PATTERN, NgxResetPasswordComponent, NUMBERS_PATTERN} from '../../.
 import {NbAuthOAuth2JWTToken, NbTokenService} from '@nebular/auth';
 import {UserStore} from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
+import { ApiGetService } from "../../../@core/backend/common/api/apiGet.services";
 import { NbAccessChecker } from '@nebular/security';
 import * as crypto from 'crypto-js'; 
 
@@ -135,7 +135,7 @@ export class UserComponent implements OnInit, OnDestroy {
               private apiGetComp: ApiGetService,
               private api: HttpService,
               public resetPassword: NgxResetPasswordComponent) {
-                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getroles').subscribe((res: any) => {
+                this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/api/getroles').subscribe((res: any) => {
                   this.listaRoles=res;
                   // console.log('roles', this.listaRoles.length);
                 });
@@ -144,13 +144,13 @@ export class UserComponent implements OnInit, OnDestroy {
                 //   this.listaLicens=res;
                 // });
 
-                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getuserstate').subscribe((res: any) => {
+                this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/api/getuserstate').subscribe((res: any) => {
                   this.listaUsers=res;
                   this.listaLicens=res;
                   // console.log('Status: ', this.listaUsers);
                 });
 
-                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getlicenses').subscribe((res: any) => {
+                this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/api/getlicenses').subscribe((res: any) => {
                   // this.licenTotalData=res;
                   this.licData = crypto.AES.decrypt(res[0].Value.trim(), this.desPass.trim()).toString(crypto.enc.Utf8);
                   
@@ -158,7 +158,7 @@ export class UserComponent implements OnInit, OnDestroy {
                   // console.log('Total Licens: ', this.licenTotalData[0]);
                 });
 
-                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getvalidation').subscribe((res: any) => {
+                this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/api/getvalidation').subscribe((res: any) => {
                   this.licenAcitveTotalData=res;
                   // console.log('Total Licens Activas: ', this.licenAcitveTotalData[0].Licens_id);
                   // if (this.licenAcitveTotalData[0].Licens_id > this.licenTotalData[0].Value) {
@@ -197,7 +197,7 @@ export class UserComponent implements OnInit, OnDestroy {
       licens: this.fb.control('', [ Validators.min(1),
         Validators.max(120), Validators.pattern(NUMBERS_PATTERN)]),
       state: this.fb.control(''),
-      firstName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
+      firstName: this.fb.control('',  [Validators.minLength(3), Validators.maxLength(20)]),
       lastName: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20)]),
       login: this.fb.control('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
       age: this.fb.control('', [ Validators.min(1),
@@ -248,7 +248,7 @@ export class UserComponent implements OnInit, OnDestroy {
         // debugger
         if(user.licens_id === null )
           {
-            this.apiGetComp.GetJson(this.api.apiUrlNode +'/userrole/getrolebyuser?idUser='+user.id).subscribe((res: any) => {
+            this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/userrole/getrolebyuser?idUser='+user.id).subscribe((res: any) => {
               // console.log('data Rols: ', res);
               
               if (res == undefined) {
@@ -306,7 +306,7 @@ export class UserComponent implements OnInit, OnDestroy {
             //   this.selectLicen=true;
             //   alert('no se puede asignar más licencia')
             // }
-            this.apiGetComp.GetJson(this.api.apiUrlNode +'/userrole/getrolebyuser?idUser='+user.id).subscribe((res: any) => {
+            this.apiGetComp.GetJson(this.api.apiUrlNode1 +'/userrole/getrolebyuser?idUser='+user.id).subscribe((res: any) => {
               // debugger
               // console.log('data Rols: ', res);
               
@@ -392,7 +392,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
     let observable = new Observable<User>();
     if (this.mode === UserFormMode.EDIT_SELF) {
-      // debugger
+      debugger
       const currentUserId = this.userStore.getUser().id;
       const currentUser = this.userStore.getUser().firstName;
   // console.log("este es el usuario: ",this.userStore.getUser().firstName);
@@ -402,7 +402,7 @@ export class UserComponent implements OnInit, OnDestroy {
             message:"Edito usuario", 
             users: currentUserId,
     };
-      this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
+      this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any) => {
         //  console.log("Envió: ", res);
@@ -414,7 +414,7 @@ export class UserComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.alive))
       .subscribe((result: any) => {   
         // debugger;
-      this.apiGetComp.PostJson(this.api.apiUrlNode + '/update', user)
+      this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/update', user)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         // console.log('data update', user, res);
@@ -426,7 +426,7 @@ export class UserComponent implements OnInit, OnDestroy {
           sesion: 0, 
           
     };
-    this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respon)
+    this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
       //  console.log("Envió: ", res);
@@ -436,7 +436,7 @@ export class UserComponent implements OnInit, OnDestroy {
           IdUser:user.id,
           Role:user.role
         };
-        this.apiGetComp.PostJson(this.api.apiUrlNode + '/userrole/postupdateroleuser',userRole)
+        this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/userrole/postupdateroleuser',userRole)
         .pipe(takeWhile(() => this.alive))
         .subscribe();
           this.tokenService.set(new NbAuthOAuth2JWTToken(result, 'email', new Date()));
@@ -455,7 +455,7 @@ export class UserComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => {
         // debugger;
-      this.apiGetComp.PostJson(this.api.apiUrlNode + '/update', user)
+      this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/update', user)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         // console.log('data update', user);
@@ -468,7 +468,7 @@ export class UserComponent implements OnInit, OnDestroy {
           sesion: 0, 
           
     };
-    this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respon)
+    this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
       //  console.log("Envió: ", res);
@@ -478,7 +478,7 @@ export class UserComponent implements OnInit, OnDestroy {
           IdUser:user.id,
           Role:user.role
         };
-        this.apiGetComp.PostJson(this.api.apiUrlNode + '/userrole/postupdateroleuser',userRole)
+        this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/userrole/postupdateroleuser',userRole)
         .pipe(takeWhile(() => this.alive))
         .subscribe();
 

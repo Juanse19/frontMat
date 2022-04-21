@@ -234,20 +234,20 @@ export class WindowComponentAlarm {
 //       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
 //   })
 //  }
-//   MaquinasDestinoLista() {
+// //   MaquinasDestinoLista() {
 
-//     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerMaquinasDestinoLista').subscribe((res: any) => {
-//       DESTINOS = res;
-//       });
-//   }
+// //     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerMaquinasDestinoLista').subscribe((res: any) => {
+// //       DESTINOS = res;
+// //       });
+// //   }
 
-//   MaquinasOrigenLista() {
+// //   MaquinasOrigenLista() {
 
-//     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerMaquinasOrigenLista').subscribe((res: any) => {
-//       ORIGENES = res;
-//       // console.log(ORIGENES);
-//       });
-//   }
+// //     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerMaquinasOrigenLista').subscribe((res: any) => {
+// //       ORIGENES = res;
+// //       // console.log(ORIGENES);
+// //       });
+// //   }
 
 
 // openWindow(contentTemplate, titleValue: string, textValue: string, numberValue: number, nameValue: string, value: number) {

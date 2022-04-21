@@ -1,6 +1,12 @@
 /***************************************************************************************************
  * Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
  */
+
+ import * as jquery from 'jquery';
+ let windowInstance = (window as { [key: string]: any });
+ windowInstance['jQuery'] = jquery;
+ windowInstance['$'] = jquery;
+
 import '@angular/localize/init';
 /*
  * Copyright (c) Akveo 2019. All Rights Reserved.
@@ -65,3 +71,5 @@ import 'core-js/es7/object';
 if (typeof SVGElement.prototype.contains === 'undefined') {
   SVGElement.prototype.contains = HTMLDivElement.prototype.contains;
 }
+
+(window as any).global = window;

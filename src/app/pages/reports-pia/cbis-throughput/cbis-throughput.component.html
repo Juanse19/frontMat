@@ -1,0 +1,108 @@
+<!-- <div class="row">
+  <div class="col-md-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header>
+        <h6 id="h6">Rendimiento por hora CBIS</h6>
+      </nb-card-header>
+      <nb-card-body id="form">
+        <form [formGroup]="airForm" class="form-inline" novalidate id="formId">
+
+
+            <div class="form-group mx-sm-4 mb-3">
+                <ejs-datepicker formControlName="StartTime" name=" StartTime " id="StartTime " data-name="StartTime " placeholder='Consultar' floatLabelType='Always' required>
+                </ejs-datepicker>
+            </div> -->
+
+            <!-- <div>
+                <input nbInput placeholder="Seleccione una fecha" formControlName="StartTime" [nbDatepicker]="formpicker">
+                <nb-datepicker name=" StartTime" id="StartTime " #formpicker></nb-datepicker>
+            </div> -->
+
+
+            <!-- <button nbButton status="primary " class="btn btn-primary" (click)="date(airForm.controls.StartTime.value)">Cosultar</button> -->
+            <!-- <button nbButton status="success " class="btn btn-success" (click)="generatePDF('open')">Abrir PDF</button>
+            <button type="button" class="btn btn-secondary" (click)="generatePDF('download')">Descargar pdf</button> -->
+            <!-- <button nbButton status="info " [disabled]="false " hero>Atras</button> -->
+        <!-- </form>
+
+        <div class="row">
+            <ejs-grid #grid [dataSource]='dataCbis' [toolbar]='toolbar' (toolbarClick)='clickHandler($event)' [allowPaging]="true " [pageSettings]='pageSettings'
+            [filterSettings]='filterOptions' [allowExcelExport]='true' allowTextWrap='true' [allowFiltering]="true" [allowPdfExport]='true' >
+               <e-columns>
+                   <e-column field='CreateDate' headerText='Fecha' width=120></e-column>
+                   <e-column field='NumberBags' headerText='NúmeroBolsas' width=100></e-column>
+                   <e-column field='Alarms' headerText='Alarms' width=100></e-column>
+               </e-columns>
+           </ejs-grid>
+        </div>
+        <br />
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div> -->
+
+<!-- <div>
+    <nb-card> -->
+<!-- <nb-card-header>
+          Datos del equipaje
+      </nb-card-header> -->
+<!-- <nb-card-body>
+        <div class="row"> -->
+<!-- <ejs-grid #grid [dataSource]='bagdata' allowPaging='true' [toolbar]='toolbar' (toolbarClick)='toolbarClick($event)'  (toolbarClick)='clickHandler($event)' (toolbarClick)='clickHandlers($event)'  [pageSettings]='pageSettings' [filterSettings]='filterOptions'
+                  [allowFiltering]="true" [allowExcelExport]='true' [allowPdfExport]='true' height='400'>
+                      <e-columns>
+                          
+                          
+                          <e-column field='Name' headerText='Nombre' width=100 type='string'></e-column>
+                          <e-column field='Description' headerText='Descripción' width=100 type='string'></e-column>
+                          <e-column field='CreatedDate' headerText='Fecha Creado' width=100 type='date' format="dd/MM/yyyy hh:mm:ss a"></e-column>
+                         
+                      </e-columns>
+                  </ejs-grid> -->
+
+<!-- <ejs-grid
+            #grid
+            [dataSource]="bagdata"
+            [toolbar]="toolbar"
+            (toolbarClick)="clickHandler($event)"
+            [allowPaging]="true"
+            [pageSettings]="pageSettings"
+            [filterSettings]="filterOptions"
+            allowTextWrap="true"
+            [allowExcelExport]="true"
+            [allowFiltering]="true"
+            [allowPdfExport]="true"
+            height="400"
+          >
+            <e-columns>
+              <e-column
+                field="Name"
+                headerText="Nombre"
+                width="120"
+                type="string"
+              ></e-column>
+              <e-column
+                field="Description"
+                headerText="Descripción"
+                width="100"
+                type="string"
+              ></e-column>
+              <e-column
+                field="CreatedDate"
+                headerText="Fecha"
+                width="100"
+                type="string"
+                format="dd/MM/yyyy hh:mm:ss a"
+              ></e-column>
+            </e-columns>
+          </ejs-grid>
+  
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div> -->
+
+
+  <bold-reportviewer id="reportViewer_Control2" [reportServiceUrl] = "reportServiceUrl" [reportServerUrl]="reportServerUrl" 
+  [serviceAuthorizationToken]="serviceAuthorizationToken"  [reportPath] = "reportPath" style="width: 100%;height: 950px">
+</bold-reportviewer>

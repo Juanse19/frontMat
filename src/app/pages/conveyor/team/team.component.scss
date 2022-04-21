@@ -1,0 +1,72 @@
+// @import '../../../@theme/styles/themes';
+
+// @include nb-install-component() {
+//   nb-card {
+//     transform: translate3d(0, 0, 0);
+//   }
+
+//   ::ng-deep .example-smart-table {
+//     .form-control {
+//       color: nb-theme(form-control-color);
+//     }
+//   }
+// }
+
+
+// .e-grid .e-gridpager {
+//   font-family: cursive;
+//   background-color: #802783;
+// }
+
+
+// .e-grid .e-pagercontainer {
+//   background-color: #2e5070;
+// }
+
+
+// .e-grid .e-gridpager .e-prevpagedisabled,
+// .e-grid .e-gridpager .e-prevpage,
+// .e-grid .e-gridpager .e-nextpage,
+// .e-grid .e-gridpager .e-nextpagedisabled,
+// .e-grid .e-gridpager .e-lastpagedisabled,
+// .e-grid .e-gridpager .e-lastpage,
+// .e-grid .e-gridpager .e-firstpage,
+// .e-grid .e-gridpager .e-firstpagedisabled {
+//     background-color: #177747;
+// }
+
+
+// .e-grid .e-gridpager .e-numericitem {
+//   border-radius: initial;
+//   background-color: #177747;
+// }
+
+// .e-grid .e-gridpager .e-numericitem .e-grid .e-currentitem:hover {
+//   background: #1e2f91;
+//   color: #fff;
+//   opacity: 1;
+// }
+
+
+// .e-grid .e-gridpager .e-currentitem {
+//   background-color: #0078d7;
+// }
+
+// .e-grid .e-gridpager .e-currentitem,
+// .e-gridpager .e-currentitem:hover {
+//   background: #4625a0;
+//   color: #fff;
+//   opacity: 1;
+// }
+
+.overlay {
+    position: fixed;
+    width: 78%;
+    // height: 100%;
+    // background-color: rgba(74, 74, 74, .8);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

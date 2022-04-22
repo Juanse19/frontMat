@@ -257,6 +257,14 @@ export interface consume {
     kwhTotal: number;
 }
 
+export interface ReqResResponse {
+    slug:     string;
+    ZoneName: string;
+    KWh:      number;
+    porcent:  number;
+    kwhTotal: number;
+  }
+
 export interface BagData {
     CreatedDate: string;
     Name: string;

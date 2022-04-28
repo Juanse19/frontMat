@@ -4,7 +4,8 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 import {
   NbActionsModule,
   NbButtonModule,
@@ -121,6 +122,9 @@ import { BhsDashboardComponent } from './bhs-dashboard/bhs-dashboard.component'
     BhsArrivalComponent,
     WindowPopComponentComponent,
     BhsDashboardComponent,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [PageService,
     SortService,

@@ -7,7 +7,6 @@
         <div class="row show-grid" >
           <div class="col-md-3">
             <nb-card  >
-              <!-- <nb-card-header>Security Feed Check In</nb-card-header> -->
               <nb-card-header>SECURITY FEED-CHECK IN</nb-card-header>
               <nb-card-body >
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
@@ -34,8 +33,6 @@
                           alt="..."
                         />
                       </div>
-                  <!-- <div class="h4 value"> {{consumeData[6]?.KWh}} kWh</div>
-                  <div class="h4 value"> {{consumeData[6]?.kwhTotal}} KWh Total</div> -->
                   <pre><b>KWh:</b>        {{consumeZone12Data[0]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeZone12Data[0]?.kwhTotal | number : '1.0-0'}}</pre>
                 </div>
@@ -48,7 +45,7 @@
     
           <div class="col-md-3">
             <nb-card >
-              <nb-card-header>{{consumeZone1Data[0]?.ZoneName}}</nb-card-header>
+              <nb-card-header>SECURITY FEED</nb-card-header>
               <nb-card-body>
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
                     <div class="progress-container-align">
@@ -87,7 +84,7 @@
     
           <div class="col-md-3">
             <nb-card>
-              <nb-card-header>{{consumeData[2]?.ZoneName}}</nb-card-header>
+              <nb-card-header>CROSS OVER</nb-card-header>
               <nb-card-body>
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
                     <div class="progress-container-align">
@@ -112,7 +109,6 @@
                           alt="..."
                         />
                       </div>
-                  <!-- <div class="h4 value">{{zonConsData[7]?.KWh}} kWh</div> -->
                   <pre><b>KWh:</b>        {{consumeData[2]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[2]?.kwhTotal | number : '1.0-0' }}</pre>
                 </div>
@@ -125,7 +121,7 @@
     
           <div class="col-md-3">
             <nb-card >
-              <nb-card-header>{{consumeData[11]?.ZoneName}}</nb-card-header>
+              <nb-card-header>TRANSFER LINE</nb-card-header>
               <nb-card-body>
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
                     <div class="progress-container-align">
@@ -154,7 +150,6 @@
                   
                 </div> 
                 <div >
-                <!-- <div class="h4 value">{{zonConsData[3]?.KWh}} kWh</div> -->
                   <pre><b>KWh:</b>        {{consumeData[2]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeData[2]?.kwhTotal | number : '1.0-0'}}</pre>
                 </div>
@@ -192,7 +187,6 @@
                           alt="..."
                         />
                       </div>
-                  <!-- <div class="h4 value">{{zonConsData[5]?.KWh}} kWh</div> -->
                   <pre><b>KWh:</b>        {{consumeZone11Data[0]?.KWh | number : '1.0-0'}}</pre>
                   <pre><b>KWh Total:</b>  {{consumeZone11Data[0]?.kwhTotal | number : '1.0-0'}}</pre>
                 </div>
@@ -384,9 +378,9 @@
             </nb-card>
           </div> 
 
-          <!-- <div class="col-md-3">
+          <div class="col-md-3">
             <nb-card>
-              <nb-card-header>{{consumeData[1]?.ZoneName}}</nb-card-header>
+              <nb-card-header>INBOUND 1</nb-card-header>
               <nb-card-body>
                 <div class="control-section progress-bar-parent">
                     <div class="row">
@@ -420,11 +414,11 @@
                 </div>
               </nb-card-body>
             </nb-card>
-          </div> -->
+          </div>
     
           <div class="col-md-3">
             <nb-card>
-              <nb-card-header>{{consumeData[3]?.ZoneName}}</nb-card-header>
+              <nb-card-header>INBOUND 2</nb-card-header>
               <nb-card-body>
                 <div class="progress-container-align">
                     <div id="ib02">

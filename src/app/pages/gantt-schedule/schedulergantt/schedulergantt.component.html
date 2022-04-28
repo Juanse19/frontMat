@@ -2,15 +2,23 @@
     <nb-card-body>
     <form [formGroup]="airForm" class="form-inline" novalidate id="formId">
         <div class="form-group mx-sm-4 mb-3">
-          <ejs-datepicker formControlName="StartDates" id="StartDates" data-cy="date-std-field" [(ngModel)]="StartDates" class="e-field" data-name="StartDates"  placeholder='Fecha Inicio' floatLabelType='Always' required>
-          </ejs-datepicker>
+            <div>
+                <ejs-datepicker formControlName="StartDates" id="StartDates" data-cy="date-std-field" [(ngModel)]="StartDates" class="e-field" data-name="StartDates"  placeholder='Fecha Inicio' floatLabelType='Always' required>
+                </ejs-datepicker>
+    
+            </div>
       </div>
       <br>
         <div class="form-group mx-sm-4 mb-3">
+            <div>
             <ejs-datepicker formControlName="EndDate" id="EndDate" data-cy="date-etd-field" [(ngModel)]="EndDate" class="e-field" data-name="EndDate"  placeholder='Fecha de Fin' floatLabelType='Always' required>
             </ejs-datepicker>
+
         </div>
-        <button nbButton status="primary " class="btn btn-primary" data-cy="consulta-submit-button" style="margin-top: 4px;" (click)="date(airForm.controls.StartDates.value, airForm.controls.EndDate.value)">Cosultar</button>
+        </div>
+
+        <button nbButton status="primary" class="btn btn-primary" data-cy="consulta-submit-button" style="margin-top: 4px;" (click)="date(airForm.controls.StartDates.value, airForm.controls.EndDate.value)">Cosultar</button>
+
     <br>
     <br>
     </form>
@@ -36,55 +44,75 @@
     [editSettings]="editSettings" [toolbar]="toolbar"
     (actionBegin)="actionBegin($event)" 
     (actionComplete)="actionComplete($event)"
-    (actionBegin)="actionBegin2($event)"
+    
     [eventMarkers]="eventMarkers"
     >
     </ejs-gantt>
 
-    <div #container class='root-container'>
+    <!-- (actionBegin)="actionBegin2($event)" 
+        <div #container class='root-container'>
       <ejs-dialog id='ejDialogTX' #ejDialogTX allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
           <ng-template #content>
               <div [formGroup]="orderForm">
                   <div class="form-row">
-                      <!-- <div class="form-group col-md-12">
-                          <div class="e-float-input e-control-wrapper" >
-                              <input formControlName="Id" disabled  id="Id" name="Id" type="text" >
-                              <span class="e-float-line"></span>
-                              <label class="e-float-text e-label-top" for="Id">Id</label>
-                          </div>
-                      </div> --> 
+                      
+
                       <div class="form-group col-md-12">
-                          <div class="e-float-input e-control-wrapper" >
-                              <input formControlName="Subject"  id="Subject" name="Subject" class="field left" readonly type="text" >
-                              <span class="e-float-line"></span>
-                              <label class="e-float-text e-label-top" for="Subject">Subject</label>
-                          </div>
-                      </div>
+                        <div class="e-float-input e-control-wrapper" >
+                            <input formControlName="Subject"  id="Subject" name="Subject" class="field left" readonly type="text" >
+                            
+                            <span class="e-float-line"></span>
+                            <label class="e-float-text e-label-top" for="Subject">Vuelo</label>
+                        </div>
+                    </div>
+
+                      <div class="form-group col-md-12">
+                        <div class="e-float-input e-control-wrapper" >
+                            <ejs-dropdownlist formControlName="ChuteName" name="ChuteName" value='value' [fields]='fields1' [dataSource]='carrData' placeholder="Make up" [allowFiltering]='true' floatLabelType='Auto' required>
+                            </ejs-dropdownlist>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="e-float-input e-control-wrapper" >
+                            <ejs-dropdownlist formControlName="taskID" name="taskID" value='value' [fields]='fields' [dataSource]='airlinesData' placeholder="Airline" [allowFiltering]='true' floatLabelType='Auto' required>
+                            </ejs-dropdownlist>
+                        </div>
+                    </div>
+
+                      
+
                       <div class="form-group col-md-12">
                           <div class="e-float-input e-control-wrapper" >
                               <input formControlName="taskName"  id="taskName" name="taskName" type="text" >
                               <span class="e-float-line"></span>
-                              <label class="e-float-text e-label-top" for="taskName">taskName</label>
+                              <label class="e-float-text e-label-top" for="taskName">Aerolineas</label>
                           </div>
                       </div>
-                      <!-- <div class="form-group col-md-12">
+
+                      <div class="form-group col-md-12">
                         <div class="e-float-input e-control-wrapper" >
-                            <input formControlName="Value"  id="Value" name="Value" type="text" >
-                            <span class="e-float-line"></span>
-                            <label class="e-float-text e-label-top" for="Value">Nombre Queue Local</label>
+                            <ejs-datetimepicker formControlName="StartTime" id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm:ss a" [value]="dateParser" placeholder='Hora de inicio' floatLabelType='Always' required>
+                            </ejs-datetimepicker>
                         </div>
-                    </div> -->
-                      <!-- <div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="e-float-input e-control-wrapper" >
+                            <ejs-datetimepicker formControlName="EndTime" id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm:ss a" name="datetime" placeholder='Hora de finalización' floatLabelType='Always' required>
+                            </ejs-datetimepicker>
+                        </div>
+                    </div>
+
+                      <div>
                           <button nbButton status="info" (click)="updateData()" hero>Actualizar</button>
-                      </div> -->
+                          <div class="desc"><pre><span>                                                            </span></pre></div>
+                      </div>
                   </div> 
               </div>
           </ng-template>
       </ejs-dialog>
-  </div>
-  <div class='root-container'>
-    <ngx-windows-scheduler></ngx-windows-scheduler>
-</div>
+  </div> -->
+
 </div>
 </nb-card-body>
 </nb-card>

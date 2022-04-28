@@ -56,7 +56,7 @@
     "@syncfusion/ej2-angular-charts": "19.2.49",
     "@syncfusion/ej2-angular-circulargauge": "19.4.38",
     "@syncfusion/ej2-angular-dropdowns": "19.1.67",
-    "@syncfusion/ej2-angular-gantt": "^18.4.49",
+    "@syncfusion/ej2-angular-gantt": "^19.1.54",
     "@syncfusion/ej2-angular-grids": "^19.1.67",
     "@syncfusion/ej2-angular-inputs": "19.4.52",
     "@syncfusion/ej2-angular-layouts": "19.4.52",

@@ -189,6 +189,7 @@ clickHandler(args: ClickEventArgs): void {
 
 actionBegin(args) {
   if (( args.requestType === 'delete')) {
+    // console.log("args DELETE", args);
     // const Id = 'Id';
     // console.log('Type Delete: ', args.data[0].Id);
     this.accessChecker.isGranted('edit', 'ordertable')
@@ -206,7 +207,7 @@ actionBegin(args) {
     
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
-       console.log("alarmId", res);
+       
        if (res) {
         this.toastrService.success('', '¡Alarma solucionada!'); 
         this.Chargealarms();

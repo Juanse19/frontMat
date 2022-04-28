@@ -10,5 +10,5 @@ export const ROLES = {
   ADMIN: 'admin',
   PROGRAMADOR: 'programador',
   SUPERVISOR: 'supervisor',
-  OPERARIO: 'operario'
+  OPERARIO: 'operario',
 };

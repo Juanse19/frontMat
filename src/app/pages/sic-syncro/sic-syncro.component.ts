@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'ngx-sic-syncro',
   template: `<router-outlet>
     <h4>Scheduler</h4>
-    <ngx-gantt></ngx-gantt>
+    <!-- <ngx-gantt></ngx-gantt> -->
   </router-outlet>`, 
 })
 export class SicSyncroComponent implements OnInit {

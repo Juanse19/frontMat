@@ -19,9 +19,9 @@ import { InitUserService } from '../../../@theme/services/init-user.service';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { takeWhile } from 'rxjs/operators';
-import { NbToastrService } from "@nebular/theme";
-import { UserStore } from "../../../@core/stores/user.store";
-import Swal from "sweetalert2";
+import { NbToastrService } from '@nebular/theme';
+import { UserStore } from '../../../@core/stores/user.store';
+import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 
 interface dataLicens {
@@ -127,7 +127,7 @@ export class NgxLoginComponent implements OnInit {
     this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
 
-    this.apiGetComp.GetJson(this.api.apiUrlNode1 + "/api/getlEmailuser?Email=" + this.user.email)
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/getlEmailuser?Email=' + this.user.email)
     .subscribe((res: any) => {
      
       this.validData = res;
@@ -136,13 +136,13 @@ export class NgxLoginComponent implements OnInit {
 
       if (
         ( this.validData[0].Lat === 0 &&
-          this.validData[0].Licens_id === "1" &&
+          this.validData[0].Licens_id === '1' &&
           this.validData[0].States === 1) ||
           this.validData[0].Lat === null) {
         // debugger;
         
           
-        debugger
+        debugger;
 
         if (result.isSuccess()) {
           this.messages = result.getMessages();
@@ -159,24 +159,24 @@ export class NgxLoginComponent implements OnInit {
             return this.router.navigateByUrl(redirect);
           }, this.redirectDelay);
 
-          var respon = {
+          const respon = {
             user: this.validData[0].Id,
             sesion: 1,
           };
 
           this.apiGetComp
-            .PostJson(this.api.apiUrlNode1 + "/updateSesion", respon)
+            .PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
             .pipe(takeWhile(() => this.alive))
             .subscribe((res: any) => {
               //  console.log("Envió: ", res);
             });
-            var respons = {
+            const respons = {
             user: this.user.email,
-            message: "Inicio sesión",
+            message: 'Inicio sesión',
             users: currentUserId,
           };
           this.apiGetComp
-            .PostJson(this.api.apiUrlNode1 + "/postSaveAlarmUser", respons)
+            .PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
             .pipe(takeWhile(() => this.alive))
             .subscribe((res: any) => {
             });
@@ -187,17 +187,17 @@ export class NgxLoginComponent implements OnInit {
 
         
 
-      } else if (this.validData[0].Licens_id === "2") {
+      } else if (this.validData[0].Licens_id === '2') {
         // debugger
-        console.log("licencia de usuario inactiva");
+        console.log('licencia de usuario inactiva');
         this.toasterService.danger(
-          "",
-          `¡Licencia Inactiva, por favor comuniquese con el administrador!`
+          '',
+          `¡Licencia Inactiva, por favor comuniquese con el administrador!`,
         );
       } else if (this.validData[0].Licens_id === null) {
 
         // console.log("No tiene tiene licencia ");
-        this.toasterService.danger("", `¡No tiene tiene licencia!`);
+        this.toasterService.danger('', `¡No tiene tiene licencia!`);
 
       } else if (
 
@@ -207,51 +207,51 @@ export class NgxLoginComponent implements OnInit {
       ) {
 
         // console.log("Usuario Inactivo");
-        this.toasterService.danger("", `¡Usuario Inactivo!`);
+        this.toasterService.danger('', `¡Usuario Inactivo!`);
 
       } else {
-        debugger
+        debugger;
         const redirect = result.getRedirect();
         if (redirect == undefined) {
-          debugger
+          debugger;
 
           this.errors = result.getErrors();
           this.messages = result.getMessages();
           this.initUserService.initCurrentUser().subscribe();
         } else {
-        debugger
+        debugger;
 
         Swal.fire({
-          title: "Sesión encontrada",
+          title: 'Sesión encontrada',
           text: `Actualmente tienes una sesión iniciada en nuestra plataforma, debes finalizar para continuar.  
         ¿Desea cerrar la sesión activa?`,
           // timer: 10000,
-          icon: "success",
+          icon: 'success',
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "SI",
-          cancelButtonText: "No",
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'SI',
+          cancelButtonText: 'No',
         }).then((result) => {
 
           if (result.value) {
-            let timers = 4500;
+            const timers = 4500;
 
-            var respon = {
+            const respon = {
               user: this.validData[0].Id,
               sesion: 0,
             };
 
             this.apiGetComp
-              .PostJson(this.api.apiUrlNode1 + "/updateSesion", respon)
+              .PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
               .pipe(takeWhile(() => this.alive))
               .subscribe((res: any) => {
                 // console.log("Se actualizó: ", res);
               });
 
             Swal.fire({
-              title: "¡Cargando!",
-              text: "Esperando que se cierre la sesión",
+              title: '¡Cargando!',
+              text: 'Esperando que se cierre la sesión',
               allowEscapeKey: false,
               allowOutsideClick: false,
               timer: timers,
@@ -266,8 +266,8 @@ export class NgxLoginComponent implements OnInit {
                 this.apiGetComp
                   .GetJson(
                     this.api.apiUrlNode1 +
-                    "/api/getlEmailuser?Email=" +
-                    this.user.email
+                    '/api/getlEmailuser?Email=' +
+                    this.user.email,
                   )
                   .pipe(takeWhile(() => this.alive))
                   .subscribe((res: any) => {
@@ -275,15 +275,15 @@ export class NgxLoginComponent implements OnInit {
 
                     if (this.validData[0].Lat == 1) {
                       Swal.fire({
-                        title: "El usuario continua con la sesión, Vuelva ha intentar!",
-                        icon: "warning",
+                        title: 'El usuario continua con la sesión, Vuelva ha intentar!',
+                        icon: 'warning',
                         timer: 2000,
                         showConfirmButton: false,
                       });
                     } else {
                       Swal.fire({
-                        title: "Se finalizó la sesión, Ya puede ¡iniciar sesión!",
-                        icon: "success",
+                        title: 'Se finalizó la sesión, Ya puede ¡iniciar sesión!',
+                        icon: 'success',
                         timer: 2000,
                         showConfirmButton: false,
                       });

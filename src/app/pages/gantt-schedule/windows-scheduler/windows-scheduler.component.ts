@@ -1,72 +1,127 @@
-import { Component, ElementRef, Injectable, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DialogComponent, ResizeDirections } from '@syncfusion/ej2-angular-popups';
-import { EmitType } from '@syncfusion/ej2-base';
-import { HttpService } from '../../../@core/backend/common/api/http.service';
-import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
-import { HttpClient } from '@angular/common/http';
-import { takeWhile } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbDateService, NbToastrService } from '@nebular/theme';
+import {
+  Component,
+  ElementRef,
+  Injectable,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from "@angular/core";
+import {
+  DialogComponent,
+  ResizeDirections,
+} from "@syncfusion/ej2-angular-popups";
+import { EmitType } from "@syncfusion/ej2-base";
+import { HttpService } from "../../../@core/backend/common/api/http.service";
+import { ApiGetService } from "../../../@auth/components/register/apiGet.services";
+import { HttpClient } from "@angular/common/http";
+import { takeWhile } from "rxjs/operators";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  NbDateService,
+  NbToastrService,
+  NbWindowRef,
+  NbWindowService,
+} from "@nebular/theme";
+import { UserStore } from "../../../@core/stores/user.store";
+import Swal from "sweetalert2";
+import { DatePipe } from "@angular/common";
+import { MessageService } from "../../dashboard/services/MessageService";
 
 interface airLine {
-  AirlineId: string;
-  AirlineCode: string;
-  AirlineICAO: string;
-  AirlineName: string;
-  AirlineColor: string;
+  id?: string;
+  AirlineCode?: string;
+  AirlineIATA?: string;
+  text?: string;
+  color?: string;
 }
 
 interface carr {
-  text: string;
-  id: string;
-  color: string;
+  text?: string;
+  id?: string;
+  color?: string;
 }
 
 interface makeData {
   Id: number;
-  Subject: string;
-  StartTime: string;
-  EndTime: string;
-  ProjectId: string;
-  TaskId: string;
+  subject: string;
+  startTime: string;
+  endTime: string;
+  taskId: string;
+  airlinesId: string;
+  chuteName: string;
+  idUser: number;
 }
 
-let AirData: makeData[]= []; 
+interface gantt {
+  Id?: number;
+  taskName?: string;
+  Subject?: string;
+  IATA?: string;
+  StartTime?: string;
+  EndTime?: string;
+  ChuteName?: string;
+  taskID?: string;
+}
 
-let MAKEData: makeData
+let AirData: makeData[] = [];
+
+let GANTTD: gantt;
+
+let AirChange: airLine;
+let MakeChange: carr;
+
+let MAKEData: makeData;
 {
+}
 
-};
-
-
+let win: NbWindowRef;
 
 @Component({
-  selector: 'ngx-windows-scheduler',
-  templateUrl: './windows-scheduler.component.html',
-  
-  styleUrls: ['./windows-scheduler.component.scss'],
+  selector: "ngx-windows-scheduler",
+  templateUrl: "./windows-scheduler.component.html",
+
+  styleUrls: ["./windows-scheduler.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class WindowsSchedulerComponent implements OnInit {
-
   private alive = true;
 
   airForm: FormGroup;
   selectedAir;
-  public airlinesData: airLine [] = [];
-  public carrData: carr [] = [];
-  listaAir: airLine []=[];
+  public airlinesData: airLine[] = [];
+  public carrData: carr[] = [];
+  listaAir: airLine[] = [];
+  changeAir = AirChange;
+  changeMake = MakeChange;
   public date: Object = new Date();
-  public format: string = 'Mm/dd/yyy HH:mm:ss';
+  public format: string = "Mm/dd/yyy HH:mm:ss";
+  public close = true;
+  public taskI: string;
 
-  get Subject() { return this.airForm.get('Subject'); }
-  get ProjectId() { return this.airForm.get('ProjectId'); }
-  get TaskId() { return this.airForm.get('TaskId'); }
-  get StartTime() { return this.airForm.get('StartTime'); }
-  get EndTime() { return this.airForm.get('EndTime'); }
+  get Subject() {
+    return this.airForm.get("Subject");
+  }
+  get ChuteName() {
+    return this.airForm.get("taskID");
+  }
+  get taskID() {
+    return this.airForm.get("taskID");
+  }
+  get taskName() {
+    return this.airForm.get("taskName");
+  }
+  get IATA() {
+    return this.airForm.get("IATA");
+  }
+  get StartTime() {
+    return this.airForm.get("StartTime");
+  }
+  get EndTime() {
+    return this.airForm.get("EndTime");
+  }
 
   public dateParser(data: string) {
     return new Date(data);
@@ -74,172 +129,267 @@ export class WindowsSchedulerComponent implements OnInit {
 
   public showCloseIcon: Boolean = true;
 
-  @ViewChild('device1') device1: DialogComponent;
+  @ViewChild("device1") device1: DialogComponent;
 
   // Create element reference for dialog target element.
-  @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
+  @ViewChild("container", { read: ElementRef, static: true })
+  container: ElementRef;
   // The Dialog shows within the target element.
   public targetElement: HTMLElement;
 
   public visible: Boolean = true;
   public hidden: Boolean = false;
 
- 
-
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private api: HttpService,
     private apiGetComp: ApiGetService,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
-    protected dateService: NbDateService<Date>) { 
+    private userStore: UserStore,
+    private windowService: NbWindowService,
+    private miDatePipe: DatePipe,
+    private messageService: MessageService,
+    protected dateService: NbDateService<Date>
+  ) {
+    this.taskI = "MA_2";
+  }
 
-    }
-
-    public fields: Object = { text: 'text', value: 'id' };
-    public fields1: Object = { text: 'text', value: 'text' };
-  
-    initForm() {
-      this.airForm = this.fb.group({
-        Subject: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
-        ProjectId: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
-        TaskId: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
-        StartTime: '',
-        EndTime: ['', Validators.required],
-        // cutLengthForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
-        // cutCountForm: this.fb.control(2, [Validators.minLength(3), Validators.maxLength(20)]),
-      });
-    }
-
-    public opendevice1(){
-      // debugger
-      this.device1.show();
-    }
+  public fieldsMake: Object = { text: "text", value: "text" };
+  public fieldsAir: Object = { text: "text", value: "text" };
 
   ngOnInit(): void {
-     this.initForm();
+    this.initForm();
+    this.loadDataForm();
     this.ChangeAir();
     this.changeCarr();
   }
 
-   // Initialize the Dialog component's target element.
-   public initilaizeTarget: EmitType<object> = () => {
-    this.targetElement = this.container.nativeElement.parentElement;
-      }
-      // Hide the Dialog when click the footer button.
-      public hideDialog: EmitType<object> = () => {
-        
-      }
-      // Enables the footer buttons
-      public buttons: Object = [
-      
-      ];
-
-     
-
-   
-
-ChangeAir() {
-  this.http.get(this.api.apiUrlNode1 + '/GetAirlineList')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{
-      this.airlinesData=res;
-      // console.log('Airlines:', res  );
+  loadDataForm() {
+    this.airForm.setValue({
+      Id: GANTTD.Id,
+      Subject: GANTTD.Subject,
+      taskName: GANTTD.taskName,
+      taskID: GANTTD.taskID,
+      ChuteName: GANTTD.ChuteName,
+      StartTime: GANTTD.StartTime,
+      EndTime: GANTTD.EndTime,
     });
-}
+  }
 
-changeCarr() {
-  this.http.get(this.api.apiUrlNode1 + '/GetMakeUpListNew')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{
-      this.carrData=res;
-      // console.log('Carr:', res  );
+  initForm() {
+    this.airForm = this.fb.group({
+      Id: this.fb.control(-1),
+      Subject: this.fb.control("", [
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.required,
+      ]),
+      ChuteName: this.fb.control("", [
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.required,
+      ]),
+      taskID: this.fb.control("", [
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.required,
+      ]),
+      taskName: this.fb.control("", [
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.required,
+      ]),
+      StartTime: ["", Validators.required],
+      EndTime: ["", Validators.required],
     });
-}
-
-handleSuccessResponse() {
-  this.toasterService.success('', '¡Guardado con exito!' );
-  this.close();
-}
- 
-handleWrongResponse() {
-  this.toasterService.danger('', 'Error almacenando ');
-}
-
-test(){
-  console.log('Prueba');
-  this.saveData();
-}
-
-save(){
-  console.log('Guardo');
-  debugger
-  let formulario = this.airForm.value;
-
-  if(formulario.ProjectId){
-debugger
-  MAKEData = {
-    Id: formulario.id,
-    Subject: formulario.Subject,
-    ProjectId: formulario.ProjectId,
-    TaskId: formulario.TaskId,
-    StartTime: formulario.StartTime,
-    EndTime: formulario.EndTime,
-  }
-  debugger
-  console.log(MAKEData);
-  
- 
-//   if (MAKEData == undefined) {
-//     // this.handleWrongResponse();
-//   }else{
-//     debugger
-//     this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/PostDataResourceNew', MAKEData).subscribe((res:any)=>{
-//     // this.handleSuccessResponse();
-//   });
-// }
-}
-}
-
-saveData(){
-  
-  let formulario = this.airForm.value;
-
-  if(formulario.ProjectId){
-
-  MAKEData = {
-    Id: formulario.id,
-    Subject: formulario.Subject,
-    ProjectId: formulario.ProjectId,
-    TaskId: formulario.TaskId,
-    StartTime: formulario.StartTime,
-    EndTime: formulario.EndTime,
-  }
- 
-  if (MAKEData == undefined) {
-    this.handleWrongResponse();
-  }else{
-    debugger
-    this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/PostDataResourceNew', MAKEData).subscribe((res:any)=>{
-    this.handleSuccessResponse();
-  });
-}
-
-  // this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/PostDataResource', MAKEData).subscribe((res:any)=>{
-  //   this.handleSuccessResponse();
-  // });
-  
-} 
-  
-  // console.log('Data: ', MAKEData);
-
-}
-
-  close() {
-    // this.windowRef.close();
   }
 
-      ngOnDestroy() {
-        this.alive = false;
+  openWindowForm(nombreWindow: string, ganttDATA: gantt) {
+    GANTTD = ganttDATA;
+
+    win = this.windowService.open(WindowsSchedulerComponent, {
+      title: nombreWindow,
+    });
+  }
+
+  ChangeAir() {
+    this.http
+      .get(this.api.apiUrlNode1 + "/api/getairlinelist")
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        // this.airlinesData=res;
+        AirChange = res;
+        this.changeAir = AirChange;
+        // console.log('Airlines:', res  );
+      });
+  }
+
+  changeCarr() {
+    this.http
+      .get(this.api.apiUrlNode1 + "/api/getmakeupList")
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        // this.carrData=res;
+        MakeChange = res;
+        this.changeMake = MakeChange;
+        // console.log('Carr:', res  );
+      });
+  }
+
+  handleSuccessResponse() {
+    this.toasterService.success("", "¡Se edito con exito!");
+    this.closes();
+    this.back();
+  }
+
+  handleWrongResponse() {
+    this.toasterService.danger("", "Error almacenando ");
+  }
+
+  editData() {
+    const currentUserId = this.userStore.getUser().id;
+
+    const task = "MA_2";
+
+    let formulario = this.airForm.value;
+
+    // debugger
+
+    if (
+      formulario.EndTime == "" &&
+      formulario.ProjectId == "" &&
+      formulario.StartTime == "" &&
+      formulario.Subject == "" &&
+      formulario.TaskId == ""
+    ) {
+      this.toasterService.danger("", "No dejes ningun dato vacio");
+    } else if (
+      formulario.ProjectId == "" ||
+      formulario.Subject == "" ||
+      formulario.TaskId == ""
+    ) {
+      this.toasterService.danger("", "Error No dejes ningun campo vacio.");
+    } else if (
+      formulario.StartTime == "" ||
+      formulario.StartTime == null ||
+      formulario.StartTime == undefined
+    ) {
+      this.toasterService.danger("", "Ingresa las fechas ");
+    } else if (
+      formulario.EndTime == "" ||
+      formulario.EndTime == null ||
+      formulario.EndTime == undefined
+    ) {
+      this.toasterService.danger("", "Ingresa las fechas ");
+    } else {
+      if (formulario.Subject) {
+        const fechaSTD = this.miDatePipe.transform(
+          this.airForm.controls.StartTime.value,
+          "yyyy-MM-dd h:mm:ss"
+        );
+        const fechaETD = this.miDatePipe.transform(
+          this.airForm.controls.EndTime.value,
+          "yyyy-MM-dd h:mm:ss"
+        );
+
+        MAKEData = {
+          Id: formulario.Id,
+          airlinesId: formulario.taskName,
+          subject: formulario.Subject,
+          startTime: fechaSTD,
+          endTime: fechaETD,
+          chuteName: formulario.ChuteName,
+          idUser: currentUserId,
+          taskId: task,
+        };
+
+        // console.log("fechas ini", fechaSTD[1]);
+        // console.log("fechas fin", fechaETD[11]);
+
+        if (fechaSTD[9] !== fechaETD[9]) {
+          this.toasterService.warning("", "La fecha no puede ser diferente.");
+        } else if (fechaETD[11] < fechaSTD[11]) {
+          this.toasterService.warning("", "la hora no puede ser menor.");
+        } 
+        // else if (fechaETD[11] > fechaSTD[11]) {
+        //   this.toasterService.warning("", "la hora no puede ser menor.");
+        // } 
+        else {
+          if (MAKEData == undefined) {
+            this.handleWrongResponse();
+          } else {
+            console.log("MAKEData", MAKEData);
+            this.apiGetComp
+              .PostJson(this.api.apiUrlNode1 + "/api/updateflight", MAKEData)
+              .subscribe((res: any) => {
+                this.messageService.sendMessage("PackageUpdate");
+                this.handleSuccessResponse();
+              });
+          }
+        }
       }
+    }
+  }
 
+  delete() {
+    const task = "MA_2";
+
+    var respons = {
+      Id: GANTTD.Id,
+      taskId: task,
+    };
+
+    let formulario = this.airForm.value;
+
+    Swal.fire({
+      title: "Desea eliminar vuelo asignado?",
+      text: `¡Eliminará un vuelo asignado manual!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Sí, Eliminar!",
+    }).then((result) => {
+      // debugger
+      if (result.value) {
+        this.apiGetComp
+          .GetJson(
+            this.api.apiUrlNode1 +
+              "/api/deleteFlight?id=" +
+              GANTTD.Id +
+              "&taskId=" +
+              this.taskI
+          )
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res: any) => {
+            console.log("Se envió", res);
+            this.messageService.sendMessage("PackageUpdate");
+            this.back();
+          });
+        // Swal.fire('¡Se Eiliminó Exitosamente', 'success');
+        Swal.fire({
+          icon: "warning",
+          timer: 2000,
+          text: "¡Se Eiliminó Exitosamente!",
+        });
+        this.messageService.sendMessage("PackageUpdate");
+        this.back();
+      }
+    });
+  }
+
+  back() {
+    win.close();
+  }
+
+  closes() {
+    win.close;
+    close: this.close;
+    this.close = false;
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
+  }
 }

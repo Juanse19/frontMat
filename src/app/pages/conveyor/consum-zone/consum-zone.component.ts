@@ -246,8 +246,6 @@ export class ConsumZoneComponent implements OnInit {
       }
 
       ngOnInit(): void {
-        const data = this.Dazone 
-        console.log('dataZone', this.Dazone);
         
         this.consumeZoneChange();
       }

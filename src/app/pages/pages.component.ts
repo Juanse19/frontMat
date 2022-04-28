@@ -16,13 +16,13 @@ import { HttpService } from '../@core/backend/common/api/http.service';
 import { Router } from '@angular/router';
 import { UserStore } from '../@core/stores/user.store';
 import Swal from 'sweetalert2';
-import { ApiGetService } from '../@core/backend/common/api/apiGet.services'
+import { ApiGetService } from '../@core/backend/common/api/apiGet.services';
 
 interface dataLicens {
-  Id: number
-  Lat: number
-  States: number
-  Licens_id: string
+  Id: number;
+  Lat: number;
+  States: number;
+  Licens_id: string;
 }
 
 @Component({
@@ -39,7 +39,7 @@ export class PagesComponent implements OnDestroy {
 
   menu: NbMenuItem[];
   alive: boolean = true;
-  public validData: dataLicens[] = []
+  public validData: dataLicens[] = [];
   intervalSubscriptionStatusSesion: Subscription;
 
   constructor(private pagesMenu: PagesMenu,
@@ -49,7 +49,7 @@ export class PagesComponent implements OnDestroy {
     private router: Router,
     private api: HttpService,
     private apiGetComp: ApiGetService,
-    private userStore: UserStore
+    private userStore: UserStore,
   ) {
     this.initMenu();
 
@@ -70,7 +70,7 @@ export class PagesComponent implements OnDestroy {
       this.AutoLogoutCharge();
   }
 
-  public AutoLogoutCharge(){
+  public AutoLogoutCharge() {
     try {
     if (this.intervalSubscriptionStatusSesion) {
       this.intervalSubscriptionStatusSesion.unsubscribe();
@@ -92,11 +92,10 @@ export class PagesComponent implements OnDestroy {
           // console.log('Si hay');
           
         
-        this.validData = res
+        this.validData = res;
         // debugger
         // console.log('Email ValidData: ', this.validData[0].Id)
-        if ( this.validData[0].Lat === 0 && this.validData[0].Licens_id === '1') 
-        {
+        if ( this.validData[0].Lat === 0 && this.validData[0].Licens_id === '1') {
           // debugger
           this.intervalSubscriptionStatusSesion.unsubscribe();
           Swal.fire({
@@ -108,20 +107,20 @@ export class PagesComponent implements OnDestroy {
             confirmButtonColor: '#3085d6',
             // cancelButtonColor: '#d33',
             cancelButtonText: 'Cerrar!',
-            confirmButtonText: '¡Desea continuar!'
+            confirmButtonText: '¡Desea continuar!',
           }).then(result => {
             if (result.value) {
              
-              var respon = {
+              let respon = {
                 user: this.validData[0].Id,
                 sesion: 1,
-              }
+              };
               this.apiGetComp
                 .PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
                 .pipe(takeWhile(() => this.alive))
                 .subscribe((res: any) => {
                   //  console.log("Envió: ", res);
-                })
+                });
               // this.intervalSubscriptionStatusSesion.unsubscribe();
               
               // console.log("Continua navegando: ", res);
@@ -143,7 +142,7 @@ export class PagesComponent implements OnDestroy {
 
         }
     }
-  }
+  },
     );
   } catch (error) {
         console.log('No fount data.');

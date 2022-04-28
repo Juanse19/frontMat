@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { takeWhile } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDateService, NbToastrService } from '@nebular/theme';
+import { UserStore } from '../../../../@core/stores/user.store';
 
 
 
@@ -24,12 +25,13 @@ interface carr {
 }
 
 interface makeData {
-  Id: number;
+  // Id: number;
   Subject: string;
-  StartTime: string;
-  EndTime: string;
-  ProjectId: string;
-  TaskId: string;
+  startTime: string;
+  endTime: string;
+  projectId: string;
+  taskId: string;
+  idUser: number;
 }
 
 let AirData: makeData[]= []; 
@@ -63,6 +65,7 @@ export class WindowFormComponent implements OnInit {
   get TaskId() { return this.airForm.get('TaskId'); }
   get StartTime() { return this.airForm.get('StartTime'); }
   get EndTime() { return this.airForm.get('EndTime'); }
+  // get idUser() { return this.airForm.get('idUser'); }
 
   public dateParser(data: string) {
     return new Date(data);
@@ -73,6 +76,7 @@ export class WindowFormComponent implements OnInit {
         private api: HttpService,
         private apiGetComp: ApiGetService,
         private fb: FormBuilder,
+        private userStore: UserStore,
         private toasterService: NbToastrService,
         protected dateService: NbDateService<Date>) { 
    
@@ -94,6 +98,7 @@ export class WindowFormComponent implements OnInit {
       TaskId: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
       StartTime: '',
       EndTime: ['', Validators.required],
+      // idUser: this.fb.control('', [Validators.minLength(3), Validators.maxLength(20),Validators.required]),
       // cutLengthForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
       // cutCountForm: this.fb.control(2, [Validators.minLength(3), Validators.maxLength(20)]),
     });
@@ -128,25 +133,33 @@ handleWrongResponse() {
 
 saveData(){
   
+  const currentUserId = this.userStore.getUser().id;
+          var respons = 
+            {
+              UserIdAcknow: currentUserId
+            };            
+
   let formulario = this.airForm.value;
 
   if(formulario.ProjectId){
 
   MAKEData = {
-    Id: formulario.id,
+    // Id: formulario.id,
+    idUser: currentUserId,
     Subject: formulario.Subject,
-    ProjectId: formulario.ProjectId,
-    TaskId: formulario.TaskId,
-    StartTime: formulario.StartTime,
-    EndTime: formulario.EndTime,
+    projectId: formulario.ProjectId,
+    taskId: formulario.TaskId,
+    startTime: formulario.StartTime,
+    endTime: formulario.EndTime,
   }
  
   if (MAKEData == undefined) {
     this.handleWrongResponse();
   }else{
-    this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/PostDataResourceNew', MAKEData).subscribe((res:any)=>{
-    this.handleSuccessResponse();
-  });
+    console.log(MAKEData);
+  //   this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/api/createflight', MAKEData).subscribe((res:any)=>{
+  //   this.handleSuccessResponse();
+  // });
 }
 
   // this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/PostDataResource', MAKEData).subscribe((res:any)=>{

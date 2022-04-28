@@ -39,13 +39,12 @@ export class NgxLogoutComponent implements OnInit {
     // debugger
     const currentUserId = this.userStore.getUser().id;
   // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-      var respons = 
-        {
+      let respons = {
             user: currentUserId,
             sesion: 0, 
             
     };
-      this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respons)
+      this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/updateSesion', respons)
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any) => {
         //  console.log("Envió: ", res);
@@ -56,7 +55,7 @@ export class NgxLogoutComponent implements OnInit {
       if (redirect) {
         setTimeout(() => {
           return this.router.navigateByUrl(redirect);
-        }, this.redirectDelay,this.time);
+        }, this.redirectDelay, this.time);
       }
     });
   }

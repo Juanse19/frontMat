@@ -1,14 +1,6 @@
-<div #container class='root-container'>
+
     <ejs-dialog id='device1' #device1 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
         <ng-template #content>
-            <!-- <div class="row" *ngIf='divices1==""' [ngIfElse]="fueradeservicio">
-                <ul *ngFor="let tx1 of divices1">
-                    <li>Id: <span>{{tx1.DeviceId}}</span></li>
-                </ul>
-            </div>
-            <ng-template #fueradeservicio>
-                <h1>Sitio fuera de servicio</h1>
-            </ng-template> -->
             <div class="media">
 
                 <img class="align-self-center mr-3" src="./assets/img/band.png" width="75px" alt="Card " />
@@ -16,37 +8,19 @@
 
                 <div class="media-body" *ngFor="let tx1 of divices1">
 
-                    <!-- <b>Id equipo:</b>
-                    <p>{{tx1?.DeviceId}}</p> -->
-
-                    <!-- <b>Estado:</b>
-                    <p>{{tx1?.Estado}}</p>
-
-                    <b>Consumo (KWH):</b>
-                    <p>{{tx1?.Consumo}}</p>
-
-                    <b>Tiempo Encendido:</b>
-                    <p>{{tx1?.TiempoOn}}</p>
-
-                    <b>Tiempo apagado:</b>
-                    <p>{{tx1?.TiempoOff}}</p> -->
+                 
                     <br><br>
                     <pre class="pre"><b>Nombre:</b>         {{tx1?.Name}}</pre>
                     <pre class="pre"><b>Estado:</b>         {{tx1?.Estado}}</pre>
                     <pre class="pre"><b>Consumo (KWH):</b>  {{tx1?.Consumo | number: '1.0-0'}} </pre>
                     <pre class="pre"><b>TiempoOn:</b>       {{tx1?.TiempoOn}} </pre>
                     <pre class="pre"><b>TiempoOff:</b>      {{tx1?.TiempoOff}} </pre>
-                    <!-- <pre style="padding: 0.5625em 0.625em; margin-top: -0.10rem;"><b>Id equipo:</b>        {{tx1?.DeviceId}}</pre>
-                    <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Estado:</b>            {{tx1?.Estado}}</pre>
-                    <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Consumo (KWH):</b>     {{tx1?.Consumo}}</pre>
-                    <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Tiempo Encendido:</b>  {{tx1?.TiempoOn}}</pre>
-                    <pre style="padding: 0.5625em 0.625em; margin-top: -1.9rem;"><b>Tiempo apagado:</b>    {{tx1?.TiempoOff}}</pre> -->
-
+                   
                 </div>
             </div>
         </ng-template>
     </ejs-dialog>
-</div>
+
 
 <div #container class='root-container'>
     <ejs-dialog id='device2' #device2 allowDragging='true' header='' [visible]='hidden' [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>

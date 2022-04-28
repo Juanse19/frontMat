@@ -11,6 +11,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { ServerDataSource } from 'ng2-smart-table';
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { retry } from 'rxjs/operators';
 
 @Injectable()
 export class HttpService {
@@ -53,10 +54,11 @@ export class HttpService {
 
   get(endpoint: string, options?): Observable<any> {
     return this.http.get(`${this.apiUrl}/${endpoint}`, options).pipe(
+      retry(3),
       catchError((error) => {
         console.log();
-        return throwError(error)
-      })
+        return throwError(error);
+      }),
     );
   }
 
@@ -64,7 +66,7 @@ export class HttpService {
     return this.http.post(`${this.apiUrl}/${endpoint}`, data, options);
   }
 
-  postUserRol(endpoint: string, data, options?, ): Observable<any> {
+  postUserRol(endpoint: string, data, options? ): Observable<any> {
     return this.http.post(`${this.apiUrl}/${endpoint}`, data, options);
   } 
 

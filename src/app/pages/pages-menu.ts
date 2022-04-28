@@ -270,7 +270,7 @@ export class PagesMenu {
         {
           title: 'Parametrización',
           link: '/pages/users/param',
-        }
+        },
       ],
     };
 
@@ -311,18 +311,18 @@ export class PagesMenu {
       icon: 'archive-outline',
       // link: '/pages/analytics/analytics',
       children: [,
-        // {
-        //   title: 'Sic',
-        //   link: '/pages/sic-syncro/Sic',
-        // },
-        // {
-        //   title: 'Syncro',
-        //   link: '/pages/sic-syncro/syncro',
-        // },
         {
-          title: 'GanttSheduler',
-          link: '/pages/sic-syncro/gantt',
+          title: 'Sic',
+          link: '/pages/sic-syncro/Sic',
         },
+        {
+          title: 'Syncro',
+          link: '/pages/sic-syncro/syncro',
+        },
+        // {
+        //   title: 'GanttSheduler',
+        //   link: '/pages/sic-syncro/gantt',
+        // },
       ],
     };
 
@@ -330,7 +330,7 @@ export class PagesMenu {
       title: 'Procesos',
       icon: 'grid-outline',
       link: '/pages/tables/OrderTable',
-      children:[
+      children: [
         {
           title: 'Ordenes',
           link: '/pages/tables/OrderTable',
@@ -343,7 +343,7 @@ export class PagesMenu {
           title: 'Rutas',
           link: '/pages/analytics/routs',
         },
-      ]
+      ],
     };
 
     // const reportMenu: NbMenuItem = {
@@ -357,7 +357,7 @@ export class PagesMenu {
       title: 'Reportes',
       icon: 'pie-chart-outline',
       // link: '/pages/charts/charts-report',
-      children:[
+      children: [
         {
           title: 'Reporte Maquina',
           link: '/pages/charts/report',
@@ -380,7 +380,7 @@ export class PagesMenu {
       children: undefined,
     };
 
-    const registerMenu: NbMenuItem ={
+    const registerMenu: NbMenuItem = {
       title: 'Auth',
       icon: 'lock-outline',
       children: [ 
@@ -403,7 +403,7 @@ export class PagesMenu {
       ],
     };
 
-    //--------------------- new menú ----------------------------------
+    // --------------------- new menú ----------------------------------
 
     const dashboardMenu = [
       {
@@ -461,7 +461,7 @@ export class PagesMenu {
                 title: 'Manual Encode',
                 link: '/pages/conveyor/bhs8',
               },
-            ]
+            ],
           },
 
           { 
@@ -484,7 +484,7 @@ export class PagesMenu {
                 title: 'Inbound 3',
                 link: '/pages/conveyor/ib3',
               },
-            ]
+            ],
           },
 
           
@@ -578,7 +578,7 @@ export class PagesMenu {
       title: 'Reportes',
       icon: 'pie-chart-outline',
       // link: '/pages/charts/charts-report',
-      children:[
+      children: [
         {
           title: 'Eficiencia ATR´S', 
           link: '/pages/conveyor/Readerefficiency',
@@ -667,7 +667,7 @@ export class PagesMenu {
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
           return [...dashboardMenu, functionMenu, SchedulerMenu1, cosumeMenu, repocbisMenu, configurationMenu, alarmMenu];
         } else {
-          //return [...dashboardMenu, ...menu];
+          // return [...dashboardMenu, ...menu];
           return [...dashboardMenu, procesosMenu, alarmMenu];
         }
       }));

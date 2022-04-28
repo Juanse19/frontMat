@@ -92,7 +92,7 @@
 
 export const authSettings = {
   operario: {
-    view: ['devices', 'current-user','dashboard','iot-dashboard'],
+    view: ['devices', 'current-user', 'dashboard', 'iot-dashboard'],
     edit: ['devices', 'current-user', 'editOrd', 'dialog'],
   },
   // operario: {
@@ -100,13 +100,13 @@ export const authSettings = {
   // },
   supervisor: {
     parent: 'operario',
-      view: ['devices', 'current-user','dashboard','iot-dashboard','report','reports', 'fullMenu'],
+      view: ['devices', 'current-user', 'dashboard', 'iot-dashboard', 'report', 'reports', 'fullMenu'],
       edit: ['devices', 'current-user', 'dialog', 'propi'],
   },
   programador: {
     parent: 'supervisor',
-      view: ['devices', 'current-user', 'users', 'dashboard', 'iot-dashboard','dashboard','report','reports','order','ordertable','machine'],
-      edit: ['devices', 'current-user',  'dashboard', 'iot-dashboard','dashboard','report','reports','order','ordertable','machine'],
+      view: ['devices', 'current-user', 'users', 'dashboard', 'iot-dashboard', 'dashboard', 'report', 'reports', 'order', 'ordertable', 'machine'],
+      edit: ['devices', 'current-user',  'dashboard', 'iot-dashboard', 'dashboard', 'report', 'reports', 'order', 'ordertable', 'machine'],
   },
   admin: {
     parent: 'programador',

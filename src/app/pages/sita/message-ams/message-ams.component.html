@@ -4,20 +4,32 @@
 </nb-card-header>
 <nb-card-body>
   <form [formGroup]="airForm" class="form-inline" novalidate id="formId">
+
     <div class="form-group mx-sm-4 mb-3">
       <ejs-datetimepicker formControlName="StartTime" id="StartTime" data-cy="date-std"  class="e-field" data-name="StartTime" format="M/dd/yy h:mm:ss a"  placeholder='Fecha Incial' floatLabelType='Always' required>
       </ejs-datetimepicker>
       
   </div>
+  <!-- <div *ngIf="airForm.controls['StartTime'].hasError('required') && airForm.controls['StartTime'].touched" class="alert alert-danger">DateRange is required</div>
+      <div *ngIf="airForm.controls['StartTime'].value" class="alert alert-success"></div> -->
+
   <br>
+
   <div class="form-group mx-sm-4 mb-3">
     <ejs-datetimepicker formControlName="EndTime" id="EndTime" data-cy="date-etd"  class="e-field" data-name="EndTime" format="M/dd/yy h:mm:ss a" name="datetime" placeholder='Fecha Final' floatLabelType='Always' required>
     </ejs-datetimepicker>
+    
 </div>
+<!-- <div *ngIf="airForm.controls['EndTime'].hasError('required') && airForm.controls['EndTime'].touched" class="alert alert-danger">DateRange is required</div>
+      <div *ngIf="airForm.controls['EndTime'].value" class="alert alert-success"></div> -->
+
 <br>
+
 <button nbButton status="primary " class="btn btn-primary" data-cy="Consult-submit-button" style="margin-top: 26px;" (click)="date(airForm.controls.StartTime.value, airForm.controls.EndTime.value)">Cosultar</button>
+
 <br>
 <br>
+
 </form>
 <div>
   <pre>    Consulta de la api AMS de forma manual</pre>

@@ -20,7 +20,7 @@ export interface Team {
   State: string;
   power: number;
   current: number;
-  voltage: string;
+  Voltage: string;
   failure: string;
 }
 

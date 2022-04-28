@@ -40,7 +40,7 @@ export class NgxRegisterComponent implements OnInit {
   errors: string[] = [];
   messages: string[] = [];
   user: any = {};
-  listaRoles:Roles[]=[];
+  listaRoles: Roles[] = [];
   private alive = true;
 
 
@@ -54,10 +54,10 @@ export class NgxRegisterComponent implements OnInit {
     private apiGetComp: ApiGetService,
     ) {
       
-      this.apiGetComp.GetJson(this.httpService.apiUrlMatbox+'/userrole/getroles')
+      this.apiGetComp.GetJson(this.httpService.apiUrlMatbox + '/userrole/getroles')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
-        this.listaRoles=res;
+        this.listaRoles = res;
       });
   }
 

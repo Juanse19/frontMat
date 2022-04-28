@@ -28,10 +28,10 @@ import { NbAccessChecker } from '@nebular/security';
   templateUrl: './header.component.html',
 })
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  public numeroAlarmas = "0";
+  public numeroAlarmas = '0';
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: User;
@@ -81,12 +81,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
               public sigalRService: SignalRService) {
 
                 this.accessChecker.isGranted('edit', 'ordertable').subscribe((res: any) => {
-                  if(res){ 
+                  if (res) { 
                     this.select = false;
                     this.mostrar = false;
-                  }else {
-                    this.select=true;
-                    this.mostrar=true;
+                  } else {
+                    this.select = true;
+                    this.mostrar = true;
                   }
                 });
 
@@ -138,7 +138,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-    this.sigalRService.aliveAlarm=false;
+    this.sigalRService.aliveAlarm = false;
   }
 
   changeTheme(themeName: string) {
@@ -150,9 +150,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.themeService.changeTheme(themeName);
   }
 
-  private startHttpRequestAlarmas(){    
-    this.http.get(this.api.apiUrlMatbox + "/sralarms")
-    .subscribe(res=>{
+  private startHttpRequestAlarmas() {    
+    this.http.get(this.api.apiUrlMatbox + '/sralarms')
+    .subscribe(res => {
       // console.log(res);
     });
       }
@@ -177,7 +177,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/pages/tables/alarms/']);
   }
 
-  Actualizar(){
+  Actualizar() {
     Swal.fire({
       title: 'Desea sincronizar?',
       text: `¡Sincronizara Syncro y Sic!`,
@@ -185,7 +185,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, Sincronizar!'
+      confirmButtonText: '¡Sí, Sincronizar!',
     }).then(result => {
       if (result.value) {
         // this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/SyncOrder')
@@ -203,10 +203,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // let users = {user: event.user.id};
   const currentUserId = this.userStore.getUser().firstName;
   // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-  var respons = 
-  {
+  let respons = {
     user: currentUserId,
-    message:"Sincronización de ordenes"
+    message: 'Sincronización de ordenes',
 };
   this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
     .pipe(takeWhile(() => this.alive))
@@ -214,7 +213,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         //  console.log("Envió: ", res);
       });
 
-    this.http.get(this.api.apiUrlMatbox + "/Orders/SyncOrder", { observe: 'response' })
+    this.http.get(this.api.apiUrlMatbox + '/Orders/SyncOrder', { observe: 'response' })
   .pipe()
   .subscribe(user => {
     if (user.status === 200 ) { 
@@ -227,7 +226,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         
       // });
     } else {
-      console.log(false)
+      console.log(false);
     }
   } , err => console.log(err));
   

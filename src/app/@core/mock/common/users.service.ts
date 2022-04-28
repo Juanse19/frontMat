@@ -63,7 +63,7 @@ export class UsersService extends UserData {
       login: '@mdo',
       email: 'mdo@gmail.com',
       age: 0,
-      states:1,
+      states: 1,
       licens_id: 12,
       picture: '',
       address: {
@@ -83,7 +83,7 @@ export class UsersService extends UserData {
       login: '@mdo',
       email: 'mdo@gmail.com',
       age: 0,
-      states:1,
+      states: 1,
       licens_id: 13,
       picture: '',
       address: {
@@ -103,7 +103,7 @@ export class UsersService extends UserData {
       login: '@twitter',
       email: 'twitter@outlook.com',
       age: 0,
-      states:1,
+      states: 1,
       licens_id: 12,
       picture: '',
       address: {
@@ -123,7 +123,7 @@ export class UsersService extends UserData {
       login: '@snow',
       email: 'snow@gmail.com',
       age: 0,
-      states:1,
+      states: 1,
       licens_id: 12,
       picture: '',
       address: {

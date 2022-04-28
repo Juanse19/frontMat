@@ -78,7 +78,7 @@ export function filterInterceptorRequest(req: HttpRequest<any>): boolean {
 }
 
 @NgModule({
-  declarations: [...PIPES, ...COMPONENTS, ],
+  declarations: [...PIPES, ...COMPONENTS ],
   imports: [
     
     AuthRoutingModule,

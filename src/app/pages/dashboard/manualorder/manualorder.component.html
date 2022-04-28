@@ -2,7 +2,7 @@
     <div class="control-section">
         <div style="height:100%; width:100%;">
             <div style="position:relative; top:10px; left:10px;">
-    <ejs-dialog id='device1' #device1 allowDragging='true' [header]='header' [visible]='hidden' [target]='targetElement' 
+    <!-- <ejs-dialog id='device1' #device1 allowDragging='true' [header]='header' [visible]='hidden' [target]='targetElement' 
     width='69%' height='80%' [buttons]='dlgButtons' [position]='{ X: 385.306, Y: 130 }' [showCloseIcon]='showCloseIcon' >
         <ng-template #content>
             <nav ngbNav #nav="ngbNav" class="nav-tabs">
@@ -39,33 +39,18 @@
 			<ng-template ngbNavContent>
 				<div class="row">
 					<div class="col-md-4">
-						<!-- <nb-card> -->
+						
 							<p><b>Estado</b></p>
 							<nb-toggle [(ngModel)]="propiedades.isOn" status="success">{{propiedades.isOn}}</nb-toggle>
-							<!-- <nb-toggle [(checked)]="checked"></nb-toggle> -->
+							
 							<p><b>Nombre</b></p>
 							<input  type="text" nbInput #nameMachine value="{{ propiedades.description }}" required minlength="0" maxlength="30" size="10">
-							<!-- <input type="text" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"> -->
-							<!-- <input type="text" nbInput #prioridadValor fullWidth fieldSize="small" placeholder="Input" [(ngModel)]="inputItemNgModel"> -->
-							<!-- <p>{{data.text}}</p> --> 
-	
-							<!-- <p><nb-card-header>Color</nb-card-header></p> -->
 							
-					  <!-- </nb-card> -->
 					</div>
 					<div class="col-md-4">
-						<!-- <nb-card> -->
-							<!-- <p><nb-card-header>Tipo de dispositivo</nb-card-header></p> -->
+						
 							<p><b>Tipo dispositivo</b></p>
-							<!-- <p> -->
-								<!-- <div class="form-group">
-								<nb-select [(ngModel)]="propiedades.type" [disabled]="selec" class="form-control" >
-								<nb-option *ngFor="let option of devicesType" [value]="option.value"  >
-								  {{ option.label }}
-								</nb-option>             
-							  </nb-select>
-								</div> -->
-							<!-- </p> -->
+							
 							
 							<div class="form-group">
 								<select   [(ngModel)]="propiedades.type" [disabled]="selec" class="form-control"  >
@@ -74,22 +59,16 @@
 									  </option>
 								  </select>
 							  </div>
-							  <!-- <p>Prioridad: <input #prioridadValor type="number" nbInput value="{{ propiedades.prioridad }}" required minlength="0" maxlength="30" size="10"></p> -->
+							  
 							  <p><label><b>Ancho</b> </label> {{propiedades.width}}</p>
 							  
-						<!-- </nb-card> [ngStyle]="{'margin-right':  '10rem' }" -->
+						
 					</div>
 					<div class="col-md-4">
 						<div #wips *ngIf="propiedades.type=='Target'">
 							<p><b>Color</b></p>
 							
-								<!-- <div class="form-group">
-								<nb-select [(ngModel)]="propiedades.valor" >
-								<nb-option *ngFor="let option of colorLista" [value]="option.value">
-								  {{ option.label }}  
-								</nb-option>             
-							  </nb-select>
-							</div> -->
+								
 							
 							<div class="form-group">
 								<select class="form-select"  [(ngModel)]="propiedades.valor" class="form-control"  >
@@ -141,12 +120,7 @@
 					</div>
 				</div>
 				
-				<!-- <div class="row"> 
-					
-					<div class="col-sm-12">
-					<p><button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="EditPropiedades()">GUARDAR</button></p>
-				  </div>
-				  </div> -->
+				
 			</ng-template>
 		  </ng-container>
 
@@ -156,9 +130,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<nb-card-body>
-						<!-- <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)"> -->
-						<!-- <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="aliasData" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onSaveConfirm($event)"
-						(createConfirm)="onCreateConfirm($event)"></ng2-smart-table> -->
+						
                         <ejs-grid [dataSource]='aliasData' [allowPaging]="true" [editSettings]='editSettings'  (actionBegin)="actionBeginss($event)" [pageSettings]='pageSettings' [filterSettings]='filterOptions' [allowFiltering]="true">
                             <e-columns>
                                 <e-column headerText='Editar' width='85' textAlign='Left' [commands]='commands'></e-column>
@@ -173,13 +145,7 @@
                                 <ng-template #content>
                                     <div [formGroup]="orderForm">
                                         <div class="form-row">
-                                            <!-- <div class="form-group col-md-12">
-                                                <div class="e-float-input e-control-wrapper" >
-                                                    <input formControlName="Id" disabled  id="Id" name="Id" type="text" >
-                                                    <span class="e-float-line"></span>
-                                                    <label class="e-float-text e-label-top" for="Id">Id</label>
-                                                </div>
-                                            </div> -->
+                                           
                                             <div class="form-group col-md-12">
                                                 <div class="e-float-input e-control-wrapper" >
                                                     <input formControlName="Alias"  id="Alias" name="Alias" type="text" >
@@ -235,39 +201,18 @@
 		 </div>
 		</ng-template>
 	</ng-container>
-            <!-- <ng-container ngbNavItem *ngIf="ocultar">
-                <a ngbNavLink>Test</a>
-                <ng-template ngbNavContent>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <nb-card-body>
-                                
-                                <h4>Test</h4>
-                            </nb-card-body>
-                        </div>
-                 </div>
-                </ng-template>
-            </ng-container> -->
-
-			<!-- <ng-container ngbNavItem *ngIf="ocultarPedido">
-				<a ngbNavLink>properties</a>
-				<ng-template ngbNavContent>
-					<div class="row">
-						<ngx-properties></ngx-properties>
-				 </div>
-				</ng-template>
-			</ng-container> -->
+           
 
 	</nav>
     <div [ngbNavOutlet]="nav" class="mt-2"></div>
         </ng-template>
-    </ejs-dialog>
+    </ejs-dialog> -->
 	
 <!-- </div> -->
 </div>
 </div>
 </div>
 
-<nb-card-body>
+<!-- <nb-card-body>
 	<ngx-ormanual></ngx-ormanual>
-</nb-card-body>
+</nb-card-body> -->

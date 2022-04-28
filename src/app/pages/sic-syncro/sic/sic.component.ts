@@ -12,6 +12,16 @@ import { NbAccessChecker } from '@nebular/security';
 import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, ToolbarItems, ToolbarService, EditService, PageService, CommandColumnService, CommandModel } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
+interface resourceDa {
+  Id: number,
+  Subject: string,
+  StartTime: string,
+  EndTime: string,
+  IsAllDay: boolean,
+  ProjectId: number,
+  TaskId: number,
+}
+
 @Component({
   selector: 'ngx-sic',
   templateUrl: './sic.component.html',
@@ -128,7 +138,7 @@ export class SicComponent implements OnInit {
   };
 
   source5: LocalDataSource = new LocalDataSource();
-  public ReportSic: Sic[];
+  public ReportSic: resourceDa[];
 
   constructor( 
     public accessChecker: NbAccessChecker,
@@ -182,11 +192,11 @@ export class SicComponent implements OnInit {
 
   } 
 
-  created($event): void {
-    document.getElementById(this.grid.element.id + "_searchbar").addEventListener('keyup', () => {
-            this.grid.search((event.target as HTMLInputElement).value)
-    });
-}
+//   created($event): void {
+//     document.getElementById(this.grid.element.id + "_searchbar").addEventListener('keyup', () => {
+//             this.grid.search((event.target as HTMLInputElement).value)
+//     });
+// }
 
   clickHandler(args: ClickEventArgs): void {
     if (args.item.id === 'Click') {
@@ -209,24 +219,12 @@ export class SicComponent implements OnInit {
   }
 
   ChargeReportSic() {
-    this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetOrderSic')
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/timelineResourceData')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
-      //REPORTOCUPATION=res;
-      // console.log("Report Ocupacion:", res);
       this.ReportSic = res;
-      this.source5.load(res);
     });
-    const contador = interval(60000)
-    contador.subscribe((n) => {
-      this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetOrderSic')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        //REPORTOCUPATION=res;
-        this.ReportSic = res;
-        this.source5.load(res);
-      });
-    });
+   
 
   }
 

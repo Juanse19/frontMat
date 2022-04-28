@@ -1,16 +1,8 @@
-import { Component, ElementRef, PipeTransform, TemplateRef, ViewChild,Injectable } from '@angular/core';
-import { NbComponentStatus, NbWindowService } from '@nebular/theme';
+import { Component, PipeTransform, Injectable } from '@angular/core';
 import {ApiGetService} from './apiGet.services';
-import { HttpService } from '../../../@core/backend/common/api/http.service';
 // import { WindowComponent } from '../../modal-overlays/window/window.component';
-import { title } from 'process';
-import { threadId } from 'worker_threads';
 import { DecimalPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { debounceTime, delay, map, startWith, switchMap, tap } from 'rxjs/operators';
 // import {WindowComponentAlarm } from '../AlarmPopup/alarmPopup.component'
-import { HttpClient } from '@angular/common/http';
 
 // import { ApiGetService } from '../OrderTable/apiGet.services';
 // import {HttpClient} from '@angular/common/http'
@@ -40,7 +32,7 @@ interface Country {
     searchTerm: string;
   }
   
-  let ALARMAS: Alarmas[] = [
+  const ALARMAS: Alarmas[] = [
 
 
   ];
@@ -55,26 +47,26 @@ interface Country {
       name: 'Russia',
       flag: 'f/f3/Flag_of_Russia.svg',
       area: 17075200,
-      population: 146989754
+      population: 146989754,
     },
     {
       name: 'Canada',
       flag: 'c/cf/Flag_of_Canada.svg',
       area: 9976140,
-      population: 36624199
+      population: 36624199,
     },
     {
       name: 'United States',
       flag: 'a/a4/Flag_of_the_United_States.svg',
       area: 9629091,
-      population: 324459463
+      population: 324459463,
     },
     {
       name: 'China',
       flag: 'f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
       area: 9596960,
-      population: 1409517397
-    }
+      population: 1409517397,
+    },
   ];
 
   function matches2(alarmas: Alarmas, term: string, pipe: PipeTransform) {
@@ -87,13 +79,13 @@ interface Country {
 
 @Component({
   providers: [ApiGetService,
-    DecimalPipe,],
+    DecimalPipe],
   selector: 'ngx-windowOrderPopup',
   templateUrl: './alarmPopup.component.html',
   styleUrls: ['alarmPopup.component.scss'],
 })
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WindowComponentAlarm {
 

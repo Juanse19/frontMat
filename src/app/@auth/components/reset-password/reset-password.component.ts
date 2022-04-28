@@ -5,14 +5,11 @@
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router,ActivatedRoute } from '@angular/router';
-import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult, NbAuthJWTToken } from '@nebular/auth';
-import { runInThisContext } from 'node:vm';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult } from '@nebular/auth';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
-import { authSettings } from '../../access.settings';
 import { getDeepFromObject } from '../../helpers';
-import { HttpClient } from '@angular/common/http';
 import { UserStore } from '../../../@core/stores/user.store';
 import { takeWhile } from 'rxjs/operators';
 
@@ -76,10 +73,9 @@ this.user.password += ';' + this.userId;
 
 const currentUserId = this.userStore.getUser().firstName;
   // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-  var respons = 
-  {
+  let respons = {
     user: currentUserId,
-    message:"Cambio la contraseña" 
+    message: 'Cambio la contraseña', 
 };
 this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
 .pipe(takeWhile(() => this.alive))

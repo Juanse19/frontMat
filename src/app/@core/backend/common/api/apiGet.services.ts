@@ -3,23 +3,8 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 // import { Observable, Subject, of } from 'rxjs';
+import { retry } from 'rxjs/operators';
 
-
-interface Ordenes {
-    order: string;
-    name: string;
-    description: string;
-    reference: string;
-    orderLength: number;
-  }
-
-  interface PropiedadesActualizar {
-    descripcionMaquina: string;
-    type: string;
-    valor: string;
-    isOn: boolean;
-    prioridad: number;
-  }
 
 @Injectable({
     providedIn: 'root',
@@ -39,11 +24,12 @@ export class ApiGetService {
 
     GetJson(url: string) {
         return this.http.get(url).pipe(
+          retry(3),
           catchError((error) => {
             console.log();
-            return throwError(error)
-          })
-        );;
+            return throwError(error);
+          }),
+        );
     }
 
     PostJson(url: string, propiedadesActualizar) {

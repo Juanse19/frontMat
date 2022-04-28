@@ -1,3 +1,4 @@
+import { messages } from './../../extra-components/chat/messages';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LocalDataSource } from 'ng2-smart-table';
@@ -141,56 +142,81 @@ export class MessageAMSComponent implements OnInit {
 
     if (fechaFormateada == null && fechaFormateadaeTD == null) {
       
-      this.toastrService.warning('', 'No pusiste la fecha.');
+      this.toastrService.warning('', 'Para consultar la información debe ingresar la fecha iniciar y fecha final');
 
     }else if (fechaFormateadaeTD < fechaFormateada ) {
 
-      this.toastrService.warning('', 'Pon las fechas correctas.');
+      this.toastrService.warning('', 'Para no puede ser menor');
 
     } 
     else if ( fechaFormateada > fechaFormateadaeTD) {
      
       this.toastrService.warning('', 'La fecha no puede ser mayor.');
 
-    } 
+    } else if(fechaFormateada == null){
+     
+      this.toastrService.warning('', 'debes ingresar la fecha inicail');
+      StartTime = '';
+      EndTime= '';
+      
+      this.ress();
+    } else if(fechaFormateadaeTD == null){
+
+      this.toastrService.warning('', 'debes ingresar la fecha final');
+      StartTime = '';
+      EndTime= '';
+      this.ress();
+    }
     else {
-      Swal.fire({
-        title: 'Consulta exitosa?',
-        text: `¡Consulta de las aerolineas exitosa!`,
-        icon: 'success',
-        // timer: 2500,
-        showCancelButton: false,
-        confirmButtonColor: '#3085d6',
-        // cancelButtonColor: '#d33',
-        cancelButtonText: 'Cerrar!',
-        // confirmButtonText: '¡Desea continuar!'
-      }).then(result => {
-        if (result.value) {
-         
-          
-          // this.intervalSubscriptionStatusSesion.unsubscribe();
-          
-          // console.log("Continua navegando: ", res);
-          // this.AutoLogoutCharge();
-    // Swal.fire('¡Se sincronizo Exitosamente', 'success');
-        } else {
-          // console.log('Se cierra por tiempo');
-          
-          // this.router.navigate(['/auth/logout']);
-        }
+
+      this.http.get(this.api.apiUrlNode1 + '/api/date?from='+ fechaFormateada + '&to=' + fechaFormateadaeTD)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any)=>{
+        
+        Swal.fire({
+              title: '',
+              text: res.message,
+              icon: 'success',
+              // timer: 2500,
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              // cancelButtonColor: '#d33',
+              cancelButtonText: 'Cerrar!',
+              // confirmButtonText: '¡Desea continuar!'
+            })
+        
       });
 
-    //   this.http.get(this.api.apiUrlNode1 + '/api/date?from='+ fechaFormateada + '&to=' + fechaFormateadaeTD)
-    // .pipe(takeWhile(() => this.alive))
-    // .subscribe((res: any)=>{
+    //   Swal.fire({
+    //     title: 'Consulta exitosa?',
+    //     text: `¡Consulta de las aerolineas exitosa!`,
+    //     icon: 'success',
+    //     // timer: 2500,
+    //     showCancelButton: false,
+    //     confirmButtonColor: '#3085d6',
+    //     // cancelButtonColor: '#d33',
+    //     cancelButtonText: 'Cerrar!',
+    //     // confirmButtonText: '¡Desea continuar!'
+    //   }).then(result => {
+    //     if (result.value) {
+         
+          
+    //       // this.intervalSubscriptionStatusSesion.unsubscribe();
+          
+    //       // console.log("Continua navegando: ", res);
+    //       // this.AutoLogoutCharge();
+    // // Swal.fire('¡Se sincronizo Exitosamente', 'success');
 
-    //   Swal.fire(
-    //     'Deleted!',
-    //     'Your file has been deleted.',
-    //     'success'
-    //   )
-      
-    // });
+
+
+    //     } else {
+    //       // console.log('Se cierra por tiempo');
+          
+    //       // this.router.navigate(['/auth/logout']);
+    //     }
+    //   });
+
+   
 
     // let respons =
     //     {
@@ -206,6 +232,12 @@ export class MessageAMSComponent implements OnInit {
 
     }
 
+  }
+
+  ress() {
+    this.StartDates = null;
+    this.EndDate = null;
+    
   }
 
   chargeDataAMS() {

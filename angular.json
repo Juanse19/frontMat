@@ -61,9 +61,9 @@
           },
           "stylePreprocessorOptions": {
             "includePaths": [
-            "node_modules/@syncfusion"
-           ]
-         },
+              "node_modules/@syncfusion"
+            ]
+          },
           "configurations": {
             "production": {
               "budgets": [
@@ -153,10 +153,42 @@
           "options": {
             "tsConfig": [
               "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "src/tsconfig.spec.json",
+              "cypress/tsconfig.json"
             ],
             "typeCheck": true,
             "exclude": []
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "ngx-admin-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "ngx-admin-demo:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo:serve:production"
+            }
           }
         }
       }
@@ -167,19 +199,43 @@
       "projectType": "application",
       "architect": {
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "builder": "@cypress/schematic:cypress",
           "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "ngx-admin-demo:serve"
+            "devServerTarget": "ngx-admin-demo-e2e:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo-e2e:serve:production"
+            }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "e2e/tsconfig.e2e.json"
+              "cypress/tsconfig.json"
             ],
             "exclude": []
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "ngx-admin-demo-e2e:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo-e2e:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
           }
         }
       }

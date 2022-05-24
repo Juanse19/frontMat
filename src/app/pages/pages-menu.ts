@@ -546,11 +546,10 @@ export class PagesMenu {
       icon: 'calendar-outline',
       // link: '/pages/analytics/analytics',
       children: [
-        
         {
           title: 'Asignación de Salidas',
           link: '/pages/gantt/ganttScheduler',
-        },
+        }
       ],
     };
 

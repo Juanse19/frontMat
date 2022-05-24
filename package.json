@@ -27,7 +27,9 @@
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
     "prepush": "npm run lint:ci",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@akveo/ng2-completer": "^9.0.1",
@@ -127,6 +129,7 @@
     "@boldreports/angular-reporting-components": "^3.3.28",
     "@boldreports/types": "^3.3.28",
     "@compodoc/compodoc": "1.0.1",
+    "@cypress/schematic": "^1.6.0",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@types/d3-color": "1.0.5",
     "@types/googlemaps": "^3.39.3",
@@ -152,6 +155,7 @@
     "ts-node": "3.2.2",
     "tslint": "^5.7.0",
     "tslint-language-service": "^0.9.9",
-    "typescript": "3.7.3"
+    "typescript": "3.7.3",
+    "cypress": "latest"
   }
 }

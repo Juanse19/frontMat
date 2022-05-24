@@ -9,6 +9,7 @@
 @import "../node_modules/@syncfusion/ej2-base/styles/bootstrap.css";
 @import "../node_modules/@syncfusion/ej2-buttons/styles/bootstrap.css";
 
-@import '../node_modules/@syncfusion/ej2-angular-buttons/styles/bootstrap.css';
-@import '../node_modules/@syncfusion/ej2-gantt/styles/bootstrap4.css';
-@import '../node_modules/@syncfusion/ej2-angular-gantt/styles/bootstrap.css';
+/* @import '../node_modules/@syncfusion/ej2-angular-buttons/styles/bootstrap.css'; */
+@import '../node_modules/@syncfusion/ej2-gantt/styles/bootstrap.css';
+
+/* @import '../node_modules/@syncfusion/ej2-angular-gantt/styles/bootstrap.css'; */

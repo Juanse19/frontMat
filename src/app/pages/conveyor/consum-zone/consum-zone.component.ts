@@ -233,6 +233,7 @@ export class ConsumZoneComponent implements OnInit {
     public consumeZone10Data: ReqResResponse[]=[];
     public consumeZone11Data: ReqResResponse[]=[];
     public consumeZone12Data: ReqResResponse[]=[];
+    public consumeZone13Data: ReqResResponse[]=[];
 
     public Dazone: {"zone":"zona1"}
 
@@ -280,7 +281,7 @@ export class ConsumZoneComponent implements OnInit {
         this.http.get(this.api.apiUrlNode1 + '/api/GetKwhZone?slug=' + 'zona3')
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any)=>{
-          this.consumeZone3Data = res[0];
+          this.consumeZone3Data = res;
         });
 
         // Service zona 4
@@ -304,12 +305,12 @@ export class ConsumZoneComponent implements OnInit {
           this.consumeZone6Data = res;
         });
 
-        // // Service zona 7
-        // this.http.get(this.api.apiUrlNode1 + '/api/GetKwhZone?slug=' + 'zona7')
-        // .pipe(takeWhile(() => this.alive))
-        // .subscribe((res: any)=>{
-        //   this.consumeZone7Data = res;
-        // });
+        // Service zona 7
+        this.http.get(this.api.apiUrlNode1 + '/api/GetKwhZone?slug=' + 'zona7')
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any)=>{
+          this.consumeZone7Data = res;
+        });
 
         // // Service zona 8
         // this.http.get(this.api.apiUrlNode1 + '/api/GetKwhZone?slug=' + 'zona8')
@@ -317,6 +318,13 @@ export class ConsumZoneComponent implements OnInit {
         // .subscribe((res: any)=>{
         //   this.consumeZone8Data = res;
         // });
+
+        // Service zona 9
+        this.http.get(this.api.apiUrlNode1 + '/api/GetKwhZone?slug=' + 'zona9')
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any)=>{
+          this.consumeZone9Data = res;
+        });
 
         // Service zona 11
         this.http.get(this.api.apiUrlNode1 + '/api/GetKwhZone?slug=' + 'zona11')
@@ -330,6 +338,13 @@ export class ConsumZoneComponent implements OnInit {
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any)=>{
           this.consumeZone12Data = res;
+        });
+
+        // Service zona 13
+        this.http.get(this.api.apiUrlNode1 + '/api/GetKwhZone?slug=' + 'zona13')
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any)=>{
+          this.consumeZone13Data = res;
         });
 
       }

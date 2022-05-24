@@ -31,13 +31,13 @@
 <br>
 
 </form>
-<div>
+
   <pre>    Consulta de la api AMS de forma manual</pre>
-</div>
+
 </nb-card-body>
 </nb-card>
 
-<nb-card>
+<!-- <nb-card>
     <nb-card-header>
         Mensajes AMS
     </nb-card-header>
@@ -98,4 +98,27 @@
   </ejs-grid>
 
       </nb-card-body>
+    </nb-card> -->
+
+
+    <nb-card>
+    
+     <nb-card-header>
+       Logs AMS
+    </nb-card-header>
+
+    <nb-card-body>
+      <ejs-grid [dataSource]='Alarm' [editSettings]='editSettings'  [toolbar]='toolbar'   [allowPaging]="true"
+                [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
+                [allowFiltering]="true" height='350'>
+                    <e-columns>
+                        <e-column field='Descripcion' headerText='Mensaje' width=180 isPrimaryKey='true'></e-column>
+                        <e-column field='Nivel' headerText='Nivel' width=85></e-column>
+                        <!-- <e-column field='UserId' headerText='Usuario' width=100></e-column> -->
+                        <e-column field='FechaRegistro' headerText='Fecha' width=90 type="date" format="dd/MM/yyyy hh:mm:ss a"></e-column>
+                        <!-- <e-column headerText='Administrar Alarmas' width='100' textAlign='center' [commands]='commands'></e-column> -->
+                    </e-columns>
+                </ejs-grid>
+    </nb-card-body>
+
     </nb-card>

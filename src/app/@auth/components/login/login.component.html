@@ -28,7 +28,7 @@
 <form (ngSubmit)="login()" [formGroup]="loginForm" >
 
     <div class="form-control-group">
-        <label for="input-email">correo electrónico:</label>
+        <label class="label" for="input-email">Correo electrónico:</label>
         <input nbInput fullWidth id="input-email" formControlName="email" [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : 'basic'" [attr.aria-invalid]="email.invalid && email.touched ? true : null" placeholder="Email address">
         <ngx-validation-message label="Email address" [showPattern]="email?.hasError('pattern') && email.touched" [showRequired]="email?.errors?.required && email.touched"></ngx-validation-message>
     </div>

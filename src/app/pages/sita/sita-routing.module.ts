@@ -5,6 +5,7 @@ import { SitaMessageComponent } from './sita-message/sita-message.component';
 import { MessageAMSComponent } from './message-ams/message-ams.component';
 import { MessageBMComponent } from './message-bm/message-bm.component';
 import { SitaMessageBMComponent } from './sita-message-bm/sita-message-bm.component';
+import { StoreMessageComponent } from './store-message/store-message.component';
 
 
 const routes: Routes = [{
@@ -27,7 +28,10 @@ const routes: Routes = [{
       path: 'ParametrizacionBM',
       component: SitaMessageBMComponent,
     },
-    
+    {
+      path: 'storeMessage',
+      component: StoreMessageComponent,
+    },
   ],
 }];
 

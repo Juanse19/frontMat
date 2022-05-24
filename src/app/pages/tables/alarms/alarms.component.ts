@@ -153,7 +153,7 @@ export class AlarmsComponent implements OnDestroy {
 
    this.toolbar = [
       //  {text: 'Delete', prefixIcon: 'fas fa-check'},
-     { text: 'Reconocer alarmas', tooltipText: 'Click', prefixIcon: 'fas fa-check-double', id: 'Click' }];
+     { text: 'Reconocer alarmas', tooltipText: 'Click', prefixIcon: 'fa fa-check-double', id: 'Click' }];
 
      this.commands = [
       // { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },

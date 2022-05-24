@@ -14,15 +14,15 @@
         </ng2-smart-table>
     </nb-card-body> -->
     <nb-card-body>
-        <ejs-grid [dataSource]='userData' [editSettings]='editSettings' (actionBegin)="actionBegin($event)"  [allowPaging]="true"
+        <ejs-grid [dataSource]='usersChange' [editSettings]='editSettings' (actionBegin)="actionBegin($event)"  [allowPaging]="true"
         [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
         [allowFiltering]="true" >
-                    <e-columns>
-                        <e-column field='firstName' headerText='Primer nombre' width=100 textAlign='Left' isPrimaryKey='true'></e-column>
-                        <e-column field='lastName' headerText='Apellido' width=90></e-column>
-                        <e-column field='login' headerText='Usuario' width=90></e-column>
-                        <e-column field='email' headerText='email' width=160  ></e-column>
-                        <e-column headerText='Administrar usuarios' width='100' [commands]='commands'></e-column>
+                <e-columns>
+                        <e-column field='firstName' headerText='Primer nombre' width=100 textAlign='left' isPrimaryKey='true'></e-column>
+                        <e-column field='lastName' headerText='Apellido' width=90 textAlign='left'></e-column>
+                        <e-column field='login' headerText='Usuario' width=90 textAlign='left'></e-column>
+                        <e-column field='email' headerText='Email' width=140  textAlign='center'></e-column>
+                        <e-column headerText='Administrar usuarios' width='100' textAlign='center' [commands]='commands'></e-column>
                     </e-columns>
                 </ejs-grid>
 

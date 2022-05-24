@@ -207,7 +207,7 @@ public tooltipInterval1: number;
       } else {
       this.TeamSS1_1 = res[0]
       // this.dataSF1_1 = TeamSF1_1
-      this.velocidadSS1_1 = this.decimalPipe.transform(this.TeamSS1_1?.VelocidadActualMotor) ?? 0;
+      this.velocidadSS1_1 = this.TeamSS1_1?.VelocidadActualMotor ?? 0;
     }
     });
   }
@@ -232,7 +232,7 @@ public tooltipInterval1: number;
           } else {
             this.TeamSS1_1 = res[0]
             // this.dataSF1_1 = TeamSF1_1
-            this.velocidadSS1_1 = this.decimalPipe.transform(this.TeamSS1_1?.VelocidadActualMotor) ?? 0;
+            this.velocidadSS1_1 = this.TeamSS1_1?.VelocidadActualMotor ?? 0;
           }
 
     },(error) => (console.log(error)),

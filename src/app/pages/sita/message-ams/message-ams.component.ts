@@ -54,6 +54,27 @@ export interface ams {
   SITAAMSFlightsResultWebServiceResultApiResponseID: number,
 }
 
+interface Alarmas {
+  // Id: number;
+  // Message: string;
+  // Level: string;
+  // Exception: string;
+  // UserId: string;
+  // TimeStamp: string;
+  // ETD: string;
+  // UserIdAcknow: string;
+  // IdDevice: string;
+  Id: number;
+  FechaRegistro: string;
+  Descripcion: string;
+  Nivel: string;
+}
+
+let ALARMAS: Alarmas[] = [
+
+
+];
+
 @Component({
   selector: 'ngx-message-ams',
   templateUrl: './message-ams.component.html',
@@ -66,6 +87,9 @@ export class MessageAMSComponent implements OnInit {
   public grid: GridComponent;
 
   ams = [];
+
+  alarmas = ALARMAS;
+  public Alarm: Alarmas[]=[];
 
   public airForm: FormGroup;
 
@@ -94,6 +118,7 @@ export class MessageAMSComponent implements OnInit {
   public header: string;
   
   intervalSubscriptionAms: Subscription;
+  intervalSubscriptionLogsAms: Subscription;
 
   public StartDates: Date = new Date();
   public EndDate: Date = new Date();
@@ -113,7 +138,8 @@ export class MessageAMSComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.chargeDataAMS()
+    // this.chargeDataAMS()
+    this.changeLogsAms();
     this.toolbarOptions = ['ColumnChooser'];
     this.pageSettings = { pageSize: 10 };
       this.filterOptions = {
@@ -315,17 +341,43 @@ export class MessageAMSComponent implements OnInit {
   }
 
   dataBound() {
-    this.grid.autoFitColumns(
-      ['FlightIdFlightKind','FlightIdAirlineDesignatorIATA', 'FlightIdAirlineDesignatorICAO', 'FlightIdFlightNumber',
-       'FlightIdScheduledDate', 'FlightIdAirportCodeIATA', 'FlightIdAirportCodeICAO', 'FlightStateScheduledTime', 
-       'FlightStateLinkedFlightFlightIdFlightKind', 'FlightStateLinkedFlightFlightIdFlightKindIATA','FlightStateLinkedFlightFlightIdFlightKindICAO',
-        'FlightStateLinkedFlightFlightIdFlightNumber', 'FlightStateLinkedFlightFlightIdScheduledDate', 'FlightStateLinkedFlightFlightIdAirportCodeIATA', 
-        'FlightStateLinkedFlightFlightIdAirportCodeICAO', 'FlightStateLinkedFlightFlightUniqueID', 'FlightStateLinkedFlightScheduledTime', 
-        'FlightStateAircraftTypeAircraftTypeIdAircraftTypeCodeIATA', 'FlightStateAircraftTypeAircraftTypeIdAircraftTypeCodeICAO', 
-        'FlightStateAircraftTypeName', 'FlightStateAircraftAircraftIdRegistration', 'FlightStateAircraftIsRetired', 'FlightStateRouteattributescustomsType', 
-        'FlightStateRouteViaPointsRouteViaPointattributessequenceNumber', 'FlightStateRouteViaPointsAirportCodeIATA', 'FlightStateRouteViaPointsAirportCodeICAO', 
-        'FlightStateFlightUniqueID', 'FlightStateChuteSlotsChuteSlotStartTime', 'FlightStateChuteSlotsChuteSlotEndTime', 'FlightStateChuteSlotsChuteSlotChuteName', 
-        'FlightStateChuteSlotsChuteSlotChuteExternalName', 'SITAAMSFlightsResultWebServiceResultApiResponseID', 'CreatedDate', 'UpdatedDate']);
+    // this.grid.autoFitColumns(
+    //   ['FlightIdFlightKind','FlightIdAirlineDesignatorIATA', 'FlightIdAirlineDesignatorICAO', 'FlightIdFlightNumber',
+    //    'FlightIdScheduledDate', 'FlightIdAirportCodeIATA', 'FlightIdAirportCodeICAO', 'FlightStateScheduledTime', 
+    //    'FlightStateLinkedFlightFlightIdFlightKind', 'FlightStateLinkedFlightFlightIdFlightKindIATA','FlightStateLinkedFlightFlightIdFlightKindICAO',
+    //     'FlightStateLinkedFlightFlightIdFlightNumber', 'FlightStateLinkedFlightFlightIdScheduledDate', 'FlightStateLinkedFlightFlightIdAirportCodeIATA', 
+    //     'FlightStateLinkedFlightFlightIdAirportCodeICAO', 'FlightStateLinkedFlightFlightUniqueID', 'FlightStateLinkedFlightScheduledTime', 
+    //     'FlightStateAircraftTypeAircraftTypeIdAircraftTypeCodeIATA', 'FlightStateAircraftTypeAircraftTypeIdAircraftTypeCodeICAO', 
+    //     'FlightStateAircraftTypeName', 'FlightStateAircraftAircraftIdRegistration', 'FlightStateAircraftIsRetired', 'FlightStateRouteattributescustomsType', 
+    //     'FlightStateRouteViaPointsRouteViaPointattributessequenceNumber', 'FlightStateRouteViaPointsAirportCodeIATA', 'FlightStateRouteViaPointsAirportCodeICAO', 
+    //     'FlightStateFlightUniqueID', 'FlightStateChuteSlotsChuteSlotStartTime', 'FlightStateChuteSlotsChuteSlotEndTime', 'FlightStateChuteSlotsChuteSlotChuteName', 
+    //     'FlightStateChuteSlotsChuteSlotChuteExternalName', 'SITAAMSFlightsResultWebServiceResultApiResponseID', 'CreatedDate', 'UpdatedDate']);
+}
+
+public changeLogsAms() {
+  this.http.get(this.api.apiUrlNode1 + '/api/logsAMS')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      this.Alarm = res;
+      // console.log('logs:', this.Alarm);
+    });
+}
+
+public logsAMSCharge(){
+
+  if (this.intervalSubscriptionLogsAms) {
+    this.intervalSubscriptionLogsAms.unsubscribe();
+  }
+  
+  this.intervalSubscriptionLogsAms = interval(36000)
+  .pipe(
+    takeWhile(() => this.alive),
+    switchMap(() => this.http.get(this.api.apiUrlNode1 + '/api/logsAMS')),
+  )
+  .subscribe((res: any) => {
+    this.Alarm = res;
+      
+  });
 }
 
   ngOnDestroy() {

@@ -75,7 +75,7 @@ export class EnergyComponent implements OnInit {
  }
 
   ngOnInit(): void {
-   this.consumeCharge();
+  //  this.consumeCharge();
   }
 
   public consumeCharge(){

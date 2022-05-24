@@ -189,16 +189,17 @@ export class WindowFormComponent implements OnInit {
     ) {
       this.toasterService.danger("", "Ingresa las fechas ");
     } else {
+      
       if (formulario.ProjectId) {
         const fechaSTD = this.miDatePipe.transform(
           this.airForm.controls.StartTime.value,
-          "yyyy-MM-dd h:mm:ss"
+          "yyyy-MM-dd HH:mm:ss"
         );
         // "yyyy-MM-dd h:mm:ss a z"
         // "yyyy-MM-dd h:mm:ss a zzzz"
         const fechaETD = this.miDatePipe.transform(
           this.airForm.controls.EndTime.value,
-          "yyyy-MM-dd h:mm:ss"
+          "yyyy-MM-dd HH:mm:ss"
         );
 
         MAKEData = {
@@ -211,11 +212,15 @@ export class WindowFormComponent implements OnInit {
           endTime: fechaETD,
         };
 
-        if (fechaSTD[9] !== fechaETD[9]) {
+        console.log("fechas ini", fechaSTD);
+        console.log("fechas fin", fechaETD);
+
+        if (fechaSTD[9] == fechaETD[10]) {
           this.toasterService.warning("", "La fecha no puede ser diferente.");
-        } else if (fechaETD[11] < fechaSTD[11]) {
-          this.toasterService.warning("", "la hora no puede ser menor.");
         } 
+        // else if (fechaETD[11] < fechaSTD[11]) {
+        //   this.toasterService.warning("", "la hora no puede ser menor.");
+        // } 
         // else if (fechaETD[11] > fechaSTD[11]) {
         //   this.toasterService.warning("", "la hora no puede ser menor.");
         // }
@@ -223,8 +228,8 @@ export class WindowFormComponent implements OnInit {
           if (MAKEData == undefined) {
             this.handleWrongResponse();
           } else {
-            console.log(MAKEData);
-
+            // console.log(MAKEData);
+            
             this.apiGetComp
               .PostJson(this.api.apiUrlNode1 + "/api/createflight", MAKEData)
               .subscribe((res: any) => {

@@ -66,11 +66,11 @@ export class FunctioningComponent implements OnInit {
 
     ngOnInit() {
       // this.ChargeFunData();
-      this.chargeData();
-      this.pageSettings = { pageSize: 10 };
-      this.filterOptions = {
-      type: 'Menu',
-   }
+  //     this.chargeData();
+  //     this.pageSettings = { pageSize: 10 };
+  //     this.filterOptions = {
+  //     type: 'Menu',
+  //  }
       }
 
       

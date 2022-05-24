@@ -24,6 +24,16 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { UsersService } from '../../../@core/backend/common/services/users.service'
 import { User } from '../../../@core/interfaces/common/users'
 
+interface UserChange {
+  id: number,
+  login: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  states: number,
+  licens_id: string,
+}
+
 @Component({
   selector: 'ngx-users-table',
   templateUrl: './users-table.component.html',
@@ -42,6 +52,7 @@ export class UsersTableComponent implements OnDestroy {
     public filterOptions: FilterSettingsModel;
     public commands: CommandModel[];
     public userData: User[];
+    public usersChange: UserChange[]
 
   settings = {
     mode: 'external',
@@ -115,6 +126,9 @@ export class UsersTableComponent implements OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.changeUser();
+
     this.editSettings = {
       allowEditing: true,
       allowAdding: true,
@@ -130,7 +144,7 @@ export class UsersTableComponent implements OnDestroy {
    };
   //  this.editSettings = { allowEditing: true, allowAdding: false, allowDeleting: true , newRowPosition: 'Top' };
   //  this.toolbar = [{text: 'Edit'},{text: 'Delete'}];
-   this.users();
+  //  this.users();
 
    this.commands = [
     {
@@ -154,13 +168,22 @@ export class UsersTableComponent implements OnDestroy {
     
   }
 
-  users(){
-    this.apiGetComp.GetJson(this.api.apiUrl + '/users',)
+  changeUser(){
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/users')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
-        //  console.log("Users: ", res.items);
-        this.userData = res.items
-        // console.log("Users: ", this.userData);
+      this.usersChange = res
+      // console.log("Users change: ", this.usersChange);
+    });
+  }
+
+  users(){
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/users')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+         
+        this.userData = res
+        console.log("Users: ", this.userData);
       });
   }
 
@@ -211,12 +234,12 @@ export class UsersTableComponent implements OnDestroy {
           .subscribe((res: any) => {
               //  console.log("Envió: ", res);
               this.users();
-              this.source.refresh();
+              
               args.cancel = false;
             });
       
             Swal.fire('¡Se Eliminó Exitosamente', 'success');
-            this.source.refresh();
+            
         });
         }
       

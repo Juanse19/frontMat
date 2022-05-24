@@ -142,7 +142,7 @@ export class NgxLoginComponent implements OnInit {
         // debugger;
         
           
-        debugger;
+        // debugger;
 
         if (result.isSuccess()) {
           this.messages = result.getMessages();
@@ -210,16 +210,16 @@ export class NgxLoginComponent implements OnInit {
         this.toasterService.danger('', `¡Usuario Inactivo!`);
 
       } else {
-        debugger;
+        // debugger;
         const redirect = result.getRedirect();
         if (redirect == undefined) {
-          debugger;
+          // debugger;
 
           this.errors = result.getErrors();
           this.messages = result.getMessages();
           this.initUserService.initCurrentUser().subscribe();
         } else {
-        debugger;
+        // debugger;
 
         Swal.fire({
           title: 'Sesión encontrada',

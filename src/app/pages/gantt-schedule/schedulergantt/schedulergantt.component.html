@@ -3,7 +3,7 @@
     <form [formGroup]="airForm" class="form-inline" novalidate id="formId">
         <div class="form-group mx-sm-4 mb-3">
             <div>
-                <ejs-datepicker formControlName="StartDates" id="StartDates" data-cy="date-std-field" [(ngModel)]="StartDates" class="e-field" data-name="StartDates"  placeholder='Fecha Inicio' floatLabelType='Always' required>
+                <ejs-datepicker formControlName="StartDates" id="StartDates" data-cy="date-std-field" [(ngModel)]="StartDates" format="MM/dd/yyyy" class="e-field" data-name="StartDates"  placeholder='Fecha Inicio' floatLabelType='Always' required>
                 </ejs-datepicker>
     
             </div>
@@ -11,13 +11,13 @@
       <br>
         <div class="form-group mx-sm-4 mb-3">
             <div>
-            <ejs-datepicker formControlName="EndDate" id="EndDate" data-cy="date-etd-field" [(ngModel)]="EndDate" class="e-field" data-name="EndDate"  placeholder='Fecha de Fin' floatLabelType='Always' required>
+            <ejs-datepicker formControlName="EndDate" id="EndDate" data-cy="date-etd-field" [(ngModel)]="EndDate" format="MM/dd/yyyy" class="e-field" data-name="EndDate"  placeholder='Fecha de Fin' floatLabelType='Always' required>
             </ejs-datepicker>
 
         </div>
         </div>
 
-        <button nbButton status="primary" class="btn btn-primary" data-cy="consulta-submit-button" style="margin-top: 4px;" (click)="date(airForm.controls.StartDates.value, airForm.controls.EndDate.value)">Cosultar</button>
+        <button nbButton status="primary" class="btn btn-primary" data-cy="consulta-submit-button"  (click)="date(airForm.controls.StartDates.value, airForm.controls.EndDate.value)">Cosultar</button>
 
     <br>
     <br>
@@ -37,16 +37,11 @@
       </button> -->
 <ejs-gantt #gantt id="ganttDefault" height="430px" [dataSource]="ganttData" [taskFields]="taskSettings" 
      [columns]="columns" [dayWorkingTime]="dayWorkingTime" [treeColumnIndex]="1"  [includeWeekend]="true"
-    [timelineSettings]="timelineSettings"  durationUnit="Hour"
-    dateFormat="dd-MM-yyyy hh:mm a" height="70%"  [labelSettings]="labelSettings" 
-    [highlightWeekends]="true" [gridLines]="gridLines" [allowFiltering]="true" [allowSorting]="true" 
-    [allowResizing]="true" [splitterSettings]="splitterSettings"
-    [editSettings]="editSettings" [toolbar]="toolbar"
-    (actionBegin)="actionBegin($event)" 
-    (actionComplete)="actionComplete($event)"
-    
-    [eventMarkers]="eventMarkers"
-    >
+    [timelineSettings]="timelineSettings"  durationUnit="Hour" dateFormat="dd-MM-yyyy hh:mm a" height="70%"  
+    [labelSettings]="labelSettings" [highlightWeekends]="true" [gridLines]="gridLines" [allowFiltering]="true" 
+    allowSelection='true' [allowSorting]="true" [allowResizing]="true" [splitterSettings]="splitterSettings"
+    [editSettings]="editSettings" [toolbar]="toolbar" (toolbarClick)='toolbarClick($event)'
+    (actionBegin)="actionBegin($event)" [eventMarkers]="eventMarkers" >
     </ejs-gantt>
 
     <!-- (actionBegin)="actionBegin2($event)" 

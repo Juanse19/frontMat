@@ -82,42 +82,7 @@
             </nb-card>
           </div>
     
-          <div class="col-md-3">
-            <nb-card>
-              <nb-card-header>CROSS OVER</nb-card-header>
-              <nb-card-body>
-                <div class="col-lg-4 col-md-4 col-4 progress-container">
-                    <div class="progress-container-align">
-                        <div id="continuo">
-                            <ejs-progressbar #annotation5 id='continuo-container' [type]='type5' [maximum]='max5' [minimum]='min5'
-                                [value]='consumeData[2]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
-                                <e-progressbar-annotations>
-                                    <e-progressbar-annotation
-                                        content='<div id="point1" style="font-size:20px;font-weight:bold;color:#black;fill:#black"><span>80%</span></div>'>
-                                    </e-progressbar-annotation>
-                                </e-progressbar-annotations>
-                            </ejs-progressbar>
-                        </div>
-                    </div>
-                </div>
-                <div class="info">
-                    <div>
-                        <img
-                          src="./assets/img/cr.png"
-                          class="rounded float-right"
-                          width="88px"
-                          alt="..."
-                        />
-                      </div>
-                  <pre><b>KWh:</b>        {{consumeData[2]?.KWh | number : '1.0-0'}}</pre>
-                  <pre><b>KWh Total:</b>  {{consumeData[2]?.kwhTotal | number : '1.0-0' }}</pre>
-                </div>
-                <div>
-                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" >Ver Info</button>
-                </div>
-              </nb-card-body>
-            </nb-card>
-          </div>
+          
     
           <div class="col-md-3">
             <nb-card >
@@ -127,7 +92,7 @@
                     <div class="progress-container-align">
                         <div id="sfc">
                             <ejs-progressbar #annotation6 id='sfc-container' [type]='type6' [maximum]='max6' [minimum]='min6'
-                                [value]='consumeData[11]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
+                                [value]='consumeZone13Data[0]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
                                 <e-progressbar-annotations>
                                     <e-progressbar-annotation
                                         content='<div id="point1" style="font-size:20px;font-weight:bold;color:#black;fill:#black"><span>80%</span></div>'>
@@ -150,8 +115,8 @@
                   
                 </div> 
                 <div >
-                  <pre><b>KWh:</b>        {{consumeData[2]?.KWh | number : '1.0-0'}}</pre>
-                  <pre><b>KWh Total:</b>  {{consumeData[2]?.kwhTotal | number : '1.0-0'}}</pre>
+                  <pre><b>KWh:</b>        {{consumeZone13Data[0]?.KWh | number : '1.0-0'}}</pre>
+                  <pre><b>KWh Total:</b>  {{consumeZone13Data[0]?.kwhTotal | number : '1.0-0'}}</pre>
                 </div>
                 <div>
                   <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="gotx()">Ver Info</button>
@@ -380,6 +345,43 @@
 
           <div class="col-md-3">
             <nb-card>
+              <nb-card-header>CROSS OVER</nb-card-header>
+              <nb-card-body>
+                <div class="col-lg-4 col-md-4 col-4 progress-container">
+                    <div class="progress-container-align">
+                        <div id="continuo">
+                            <ejs-progressbar #annotation5 id='continuo-container' [type]='type5' [maximum]='max5' [minimum]='min5'
+                                [value]='consumeData[2]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
+                                <e-progressbar-annotations>
+                                    <e-progressbar-annotation
+                                        content='<div id="point1" style="font-size:20px;font-weight:bold;color:#black;fill:#black"><span>80%</span></div>'>
+                                    </e-progressbar-annotation>
+                                </e-progressbar-annotations>
+                            </ejs-progressbar>
+                        </div>
+                    </div>
+                </div>
+                <div class="info">
+                    <div>
+                        <img
+                          src="./assets/img/cr.png"
+                          class="rounded float-right"
+                          width="88px"
+                          alt="..."
+                        />
+                      </div>
+                  <pre><b>KWh:</b>        {{consumeData[2]?.KWh | number : '1.0-0'}}</pre>
+                  <pre><b>KWh Total:</b>  {{consumeData[2]?.kwhTotal | number : '1.0-0' }}</pre>
+                </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" >Ver Info</button>
+                </div>
+              </nb-card-body>
+            </nb-card>
+          </div>
+
+          <div class="col-md-3">
+            <nb-card>
               <nb-card-header>INBOUND 1</nb-card-header>
               <nb-card-body>
                 <div class="control-section progress-bar-parent">
@@ -388,7 +390,7 @@
                     <div class="progress-container-align">
                         <div id="ib">
                             <ejs-progressbar #annotation14 id='ib2-container'  [type]='type12' [maximum]='max12' [minimum]='min12'
-                                [value]='consumeData[1]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
+                                [value]='consumeZone7Data[0]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
                                 <e-progressbar-annotations >
                                     <e-progressbar-annotation
                                     content='<div id="point1" style="font-size:20px;font-weight:bold;color:#black;fill:#black"><span>80%</span></div>'>
@@ -409,8 +411,11 @@
                           alt="..."
                         />
                       </div>
-                  <pre><b>KWh:</b>        {{consumeData[1]?.KWh}}</pre>
-                  <pre><b>KWh Total:</b>  {{consumeData[1]?.kwhTotal}}</pre> 
+                  <pre><b>KWh:</b>        {{consumeZone7Data[0]?.KWh}}</pre>
+                  <pre><b>KWh Total:</b>  {{consumeZone7Data[0]?.kwhTotal}}</pre> 
+                </div>
+                <div>
+                  <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" >Ver Info</button>
                 </div>
               </nb-card-body>
             </nb-card>
@@ -455,13 +460,13 @@
     
           <div class="col-md-3">
             <nb-card>
-              <nb-card-header>Inbound 3</nb-card-header>
+              <nb-card-header>INBOUND 3</nb-card-header>
               <nb-card-body>
                 <div class="col-lg-4 col-md-4 col-4 progress-container">
                     <div class="progress-container-align">
                     <div id="ib">
                         <ejs-progressbar #annotation13 id='ib-container' [type]='type13' [maximum]='max13' [minimum]='min13'
-                            [value]='consumeData[4]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
+                            [value]='consumeZone9Data[0]?.porcent' [width]='width' [height]='height' [animation]='animation'  (load)='load($event)'>
                             <e-progressbar-annotations>
                                 <e-progressbar-annotation
                                     content='<div id="point1" style="font-size:20px;font-weight:bold;color:#black;fill:#black"><span>80%</span></div>'>
@@ -481,8 +486,8 @@
                     />
                   </div>
                   <!-- <div class="h4 value">{{zonConsData[11]?.KWh}} kWh</div> -->
-                  <pre><b>KWh:</b>        {{consumeData[4]?.KWh | number : '1.0-0'}}</pre>
-                  <pre><b>KWh Total:</b>  {{consumeData[4]?.kwhTotal | number : '1.0-0'}}</pre> 
+                  <pre><b>KWh:</b>        {{consumeZone9Data[0]?.KWh | number : '1.0-0'}}</pre>
+                  <pre><b>KWh Total:</b>  {{consumeZone9Data[0]?.kwhTotal | number : '1.0-0'}}</pre> 
                 </div>
                 <div>
                   <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" >Ver Info</button>

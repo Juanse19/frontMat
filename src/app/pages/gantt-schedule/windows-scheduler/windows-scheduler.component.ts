@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Injectable,
@@ -57,8 +58,8 @@ interface gantt {
   taskName?: string;
   Subject?: string;
   IATA?: string;
-  StartTime?: string;
-  EndTime?: string;
+  startTime?: string;
+  endTime?: string;
   ChuteName?: string;
   taskID?: string;
 }
@@ -79,7 +80,7 @@ let win: NbWindowRef;
 @Component({
   selector: "ngx-windows-scheduler",
   templateUrl: "./windows-scheduler.component.html",
-
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ["./windows-scheduler.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
@@ -152,7 +153,9 @@ export class WindowsSchedulerComponent implements OnInit {
     private messageService: MessageService,
     protected dateService: NbDateService<Date>
   ) {
-    this.taskI = "MA_2";
+    this.taskI = "MA";
+    this.ChangeAir();
+    this.changeCarr();
   }
 
   public fieldsMake: Object = { text: "text", value: "text" };
@@ -161,8 +164,7 @@ export class WindowsSchedulerComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.loadDataForm();
-    this.ChangeAir();
-    this.changeCarr();
+    
   }
 
   loadDataForm() {
@@ -172,8 +174,8 @@ export class WindowsSchedulerComponent implements OnInit {
       taskName: GANTTD.taskName,
       taskID: GANTTD.taskID,
       ChuteName: GANTTD.ChuteName,
-      StartTime: GANTTD.StartTime,
-      EndTime: GANTTD.EndTime,
+      StartTime: GANTTD.startTime,
+      EndTime: GANTTD.endTime,
     });
   }
 
@@ -207,7 +209,8 @@ export class WindowsSchedulerComponent implements OnInit {
 
   openWindowForm(nombreWindow: string, ganttDATA: gantt) {
     GANTTD = ganttDATA;
-
+    // console.log('ganttDATA', ganttDATA);
+    
     win = this.windowService.open(WindowsSchedulerComponent, {
       title: nombreWindow,
     });
@@ -286,11 +289,11 @@ export class WindowsSchedulerComponent implements OnInit {
       if (formulario.Subject) {
         const fechaSTD = this.miDatePipe.transform(
           this.airForm.controls.StartTime.value,
-          "yyyy-MM-dd h:mm:ss"
+          "yyyy-MM-dd HH:mm:ss"
         );
         const fechaETD = this.miDatePipe.transform(
           this.airForm.controls.EndTime.value,
-          "yyyy-MM-dd h:mm:ss"
+          "yyyy-MM-dd HH:mm:ss"
         );
 
         MAKEData = {
@@ -309,9 +312,10 @@ export class WindowsSchedulerComponent implements OnInit {
 
         if (fechaSTD[9] !== fechaETD[9]) {
           this.toasterService.warning("", "La fecha no puede ser diferente.");
-        } else if (fechaETD[11] < fechaSTD[11]) {
-          this.toasterService.warning("", "la hora no puede ser menor.");
         } 
+        // else if (fechaETD[11] < fechaSTD[11]) {
+        //   this.toasterService.warning("", "la hora no puede ser menor.");
+        // } 
         // else if (fechaETD[11] > fechaSTD[11]) {
         //   this.toasterService.warning("", "la hora no puede ser menor.");
         // } 
@@ -333,11 +337,14 @@ export class WindowsSchedulerComponent implements OnInit {
   }
 
   delete() {
-    const task = "MA_2";
+
+    const currentUserId = this.userStore.getUser().id;
+
+    
 
     var respons = {
       Id: GANTTD.Id,
-      taskId: task,
+      taskId: this.taskID,
     };
 
     let formulario = this.airForm.value;
@@ -354,13 +361,7 @@ export class WindowsSchedulerComponent implements OnInit {
       // debugger
       if (result.value) {
         this.apiGetComp
-          .GetJson(
-            this.api.apiUrlNode1 +
-              "/api/deleteFlight?id=" +
-              GANTTD.Id +
-              "&taskId=" +
-              this.taskI
-          )
+          .GetJson(this.api.apiUrlNode1 + "/api/deleteFlight?id=" + GANTTD.Id + "&taskId=" + this.taskI + "&idUser=" +  currentUserId  + "&subject=" +  formulario.Subject)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
             console.log("Se envió", res);

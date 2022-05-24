@@ -41,6 +41,8 @@
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/leaflet/dist/leaflet.css",
               "src/app/@theme/styles/styles.scss",
+              "src/styles.css",
+              "src/bootstrap4.css",
               {
                 "input": "./src/estilos.css"
               }
@@ -57,6 +59,11 @@
               "node_modules/chart.js/dist/Chart.min.js"
             ]
           },
+          "stylePreprocessorOptions": {
+            "includePaths": [
+            "node_modules/@syncfusion"
+           ]
+         },
           "configurations": {
             "production": {
               "budgets": [

@@ -232,6 +232,8 @@ public tooltipInterval1: number;
           } else {
             this.TeamMU1_5M01 = res[0]
             this.velocidadMU1_5M01 = this.TeamMU1_5M01?.VelocidadActualMotor ?? 0;
+            console.log('TeamMU1_5M01', this.TeamMU1_5M01);
+            
           }
  
     },(error) => (console.log(error)),

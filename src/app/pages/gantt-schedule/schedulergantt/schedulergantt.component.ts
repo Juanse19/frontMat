@@ -1,4 +1,4 @@
-import { Component, ElementRef, Injectable, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Injectable, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { interval, Subscription } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { ApiGetService } from "../../../@core/backend/common/api/apiGet.services";
@@ -19,131 +19,8 @@ import { WindowsSchedulerComponent } from './../windows-scheduler/windows-schedu
 import { NbToastrService } from '@nebular/theme';
 import { DatePipe } from '@angular/common';
 import { DayMarkersService, EditService, FilterService, GanttComponent, SelectionService, SortService, ToolbarService } from '@syncfusion/ej2-angular-gantt';
-
-
-
-import { L10n, loadCldr } from '@syncfusion/ej2-base';
 import { MessageService } from '../../dashboard/services/MessageService';
 
-declare let require: Function;
-//  loadCldr(
-//       require('../../node_modules/cldr-data/supplemental/numberingSystems.json'),
-//       require('../../node_modules/cldr-data/main/es/ca-gregorian.json'),
-//       require('../../node_modules/cldr-data/main/es/currencies.json'),
-//       require('../../node_modules/cldr-data/main/es/numbers.json'),
-//       require('../../node_modules/cldr-data/main/es/timeZoneNames.json')
-//     );
-   L10n.load({
-        "es": {
-      "schedule": {
-        "day": "Día",
-        "week": "Semana",
-        "workWeek": "Semana laboral",
-        "month": "Mes",            
-        "agenda": "Agenda",
-        "weekAgenda": "Agenda semanal",
-        "workWeekAgenda": "Agenda de la semana laboral",
-        "monthAgenda": "Month Agenda",
-        "today": "Hoy",
-        "noEvents": "Sin eventos",
-        "emptyContainer": "No hay eventos programados para hoy.",
-        "allDay": "Todo el día",
-        "start": "Inicio",
-        "end": "Fin",
-        "more": "Más",
-        "close": "Cerrar",
-        "cancel": "Cancelar",
-        "noTitle": "(Sin título)",
-        "delete": "Borrar",
-        "deleteEvent": "Borrar evento",
-        "deleteMultipleEvent": "Borrar eventos",
-        "selectedItems": "Items seleccionados",
-        "deleteSeries": "Borrar series",
-        "Add": "Agregar",
-        "Edit": "Editar",
-        "edit": "Editar",
-        "editSeries": "Editar series",
-        "editEvent": "Editar evento",
-        "createEvent": "Crear",
-        "subject": "Título",
-        "addTitle": "Añadir título",
-        "moreDetails": "Más Detalles",
-        "save": "Guardar",
-        "editContent": "¿Quieres editar sólo este evento o la serie entera?",
-        "deleteRecurrenceContent": "¿Quieres borrar sólo este evento o toda la serie?",
-        "deleteContent": "¿Estás seguro de que quieres borrar este evento?",
-        "deleteMultipleContent": "¿Estás seguro de que quieres borrar los eventos seleccionados?",
-        "newEvent": "Nuevo evento",
-        "title": "Título",
-        "location": "Ubicación",
-        "description": "Descripción",
-        "timezone": "Zona horaria",
-        "startTimezone": "Zona horaria inicial",
-        "endTimezone": "Zona horaria final",
-        "repeat": "Repetir",
-        "saveButton": "Guardar",
-        "cancelButton": "Cancelar",
-        "deleteButton": "Borrar",
-        "recurrence": "Recurrencia",
-        "wrongPattern": "El patrón de recurrencia no es válido.",
-        "seriesChangeAlert": "Los cambios hechos a instancias específicas de esta serie serán cancelados y esos eventos volverán a coincidir con la serie.",
-        "createError": "La duración del evento debe ser más corta que la frecuencia con la que se produce. Acorta la duración o cambia el patrón de recurrencia en el editor de eventos de recurrencia.",
-        "recurrenceDateValidation": "Algunos meses tienen menos de la fecha seleccionada. Para estos meses, la ocurrencia caerá en la última fecha del mes.",
-        "sameDayAlert": "Dos ocurrencias del mismo evento no pueden ocurrir en el mismo día.",
-        "editRecurrence": "Editar recurrencia",
-        "repeats": "Repeticiones",
-        "alert": "Alerta",
-        "startEndError": "La fecha final seleccionada se produce antes de la fecha de inicio.",
-        "invalidDateError": "El valor de la fecha introducida no es válido.",
-        "ok": "Ok",
-        "occurrence": "Occurrencia",
-        "series": "Series",
-        "previous": "Anterior",
-        "next": "Siguiente",
-        "timelineDay": "Línea de tiempo diaria",
-        "timelineWeek": "Línea de tiempo semanal",
-        "timelineWorkWeek": "Línea de tiempo laboral",
-        "timelineMonth": "Línea de tiempo mensual"
-    },
-    "recurrenceeditor": {
-        "none": "Ninguno",
-        "daily": "Diariamente",
-        "weekly": "Semanalmente",
-        "monthly": "Mensualmente",
-        "month": "Mes",
-        "yearly": "Anualmente",
-        "never": "Nunca",
-        "until": "Hasta",
-        "count": "Cuenta",
-        "first": "Primero",
-        "second": "Segundo",
-        "third": "Tercero",
-        "fourth": "Cuarto",
-        "last": "Último",
-        "repeat": "Repetir",
-        "repeatEvery": "Repetir cada",
-        "on": "Repetir en",
-        "end": "Fin",
-        "onDay": "Día",
-        "days": "Día(s)",
-        "weeks": "Semana(s)",
-        "months": "Mes(es)",
-        "years": "Año(s)",
-        "every": "cada",
-        "summaryTimes": "tiempo(s)",
-        "summaryOn": "en",
-        "summaryUntil": "hasta",
-        "summaryRepeat": "Repeticiones",
-        "summaryDay": "día(s)",
-        "summaryWeek": "semana(s)",
-        "summaryMonth": "mes(es)",
-        "summaryYear": "año(s)"
-    },
-    "calendar": {
-      "today": "Hoy"
-    },
-  }
-  });
 
 
 interface gantt {
@@ -151,8 +28,8 @@ interface gantt {
   taskName?: string;
   Subject?: string;
   IATA?: string;
-  StartTime?: string;
-  EndTime?: string;
+  startTime?: string;
+  endTime?: string;
   ChuteName?: string;
   taskID?: string;
 }
@@ -179,37 +56,39 @@ let GANTTLIST: gantt;
 @Component({
   selector: 'ngx-schedulergantt',
   templateUrl: './schedulergantt.component.html',
-  // styleUrls: ['./schedulergantt.component.scss']
+  styleUrls: ['./schedulergantt.component.scss'],
   providers: [ EditService , FilterService, SortService, SelectionService,ToolbarService,DayMarkersService ],
-  encapsulation: ViewEncapsulation.None
+  // encapsulation: ViewEncapsulation.None,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class SchedulerganttComponent implements OnInit {
 
-  public airForm: FormGroup;
-  public taskSettings: object;
-  public columns: object[];
+  public airForm!: FormGroup;
+  public taskSettings!: object;
+  public columns!: object[];
   public splitterSettings: object;
-  public toolbar: object;
-  public editSettings: object;
-  public gridLines: string;
-  public editDialogFields: object[];
-  public labelSettings: object;
-  public timelineSettings: object;
-  public eventMarkers: object[];
+  public toolbar!: object;
+  public editSettings!: object;
+  public gridLines!: string;
+  public editDialogFields!: object[];
+  public labelSettings!: object;
+  public timelineSettings!: object;
+  public eventMarkers!: object[];
   // public timezoneValue: string = 'UTC-06:00';
-  public dayWorkingTime: object[];
+  public dayWorkingTime!: object[];
   public  intervalSubscriptionScheduleGantt: Subscription;
   private alive = true;
-  public ganttData?: gantt[];
-  public ganttSheduData = GANTTLIST;
+  public ganttData?: gantt[] = [];
+  public data!: object[];
+  public ganttSheduData? = GANTTLIST;
   public orderForm: FormGroup;
   public mostrar: Boolean;
   public showCloseIcon: Boolean = true;
-  public enctexto: string;
-  public airlinesData: airLine [] = [];
-  public carrData: carr [] = [];
-  public dataGantt = GANTTLIST;
+  public enctexto?: string;
+  public airlinesData?: airLine [] = [];
+  public carrData?: carr [] = [];
+  public dataGantt? = GANTTLIST;
   subscription: Subscription;
   
 
@@ -218,8 +97,6 @@ export class SchedulerganttComponent implements OnInit {
 
   public StartDates: Date = new Date();
   public EndDate: Date = new Date();
-
-  @ViewChild('ejDialogTX') ejDialogTX: DialogComponent;
 
   get Subject() { return this.orderForm.get('Subject')}
   get ChuteName() { return this.orderForm.get('taskID')}
@@ -231,15 +108,6 @@ export class SchedulerganttComponent implements OnInit {
   
 
     public divElement: any;
-    // public inputs = {
-    //    booleanedit: CheckBox,
-    //    dropdownedit: DropDownList,
-    //    datepickeredit: DatePicker,
-    //    datetimepickeredit: DateTimePicker,
-    //    maskededit: MaskedTextBox,
-    //    numericedit: NumericTextBox,
-    //    stringedit: TextBox
-    // };
 
   constructor(private http: HttpClient,
     private api: HttpService,
@@ -251,7 +119,7 @@ export class SchedulerganttComponent implements OnInit {
     public apiGetComp: ApiGetService,
     private messageService: MessageService,
     private ganttPopup: WindowsSchedulerComponent,) { 
-     this.loadData();
+      this.loadData();
      }
 
      loadData(){
@@ -259,17 +127,9 @@ export class SchedulerganttComponent implements OnInit {
       .pipe(takeWhile(() => this.alive))
       .subscribe(message => {
         if (message.text=="PackageUpdate") {
-          // debugger
-          //this.messages.push(message);
-          
-          // this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/ObtenerOrderMaquina?IdMaquina=')
-          // .pipe(takeWhile(() => this.alive))
-          // .subscribe((res: any) => {
-        
-          // });
 
           this.date(this.StartDates, this.EndDate);
-          console.log('Cargo exitosamente..!');
+          // console.log('Cargo exitosamente..!');
           
         } 
       });
@@ -277,16 +137,17 @@ export class SchedulerganttComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.ganttObj.locale = 'es'
+    this.data = []
 
     this.date(this.StartDates, this.EndDate);
     
     this.initForm();
+
     this.taskSettings = {
       id: "Id",
       name: "taskName",
-      startDate: "StartTime",
-      endDate: "EndTime",
+      startDate: "startTime",
+      endDate: "endTime",
       duration: "Duration",
       progress: "Progress",
       datam: "ChuteName",
@@ -300,8 +161,8 @@ export class SchedulerganttComponent implements OnInit {
       Subject: new FormControl(),
       taskName: new FormControl(),
       taskID: new FormControl(),
-      StartTime: new FormControl(),
-      EndTime: new FormControl(),
+      startTime: new FormControl(),
+      endTime: new FormControl(),
       ChuteName: new FormControl(),
    });
 
@@ -313,16 +174,19 @@ export class SchedulerganttComponent implements OnInit {
       showDeleteConfirmDialog: true
   };
 
-  this.toolbar = ['Add', 'Edit', 'Update', 'Delete', 'Cancel'];
-  // this.toolbar = ['Add',  'Delete'];
+  // this.toolbar = ['Add', 'Edit', 'Update', 'Delete', 'Cancel'];
+  // this.toolbar = ['Add'];
+  this.toolbar = [
+    //  {text: 'Delete', prefixIcon: 'fas fa-check'},
+   { text: 'Agregar', tooltipText: 'Click', cssClass: 'e-flat', prefixIcon: 'fas fa-check-double', id: 'Click' }];
     
     this.columns = [
       { field: "Id", visible: false },
       { field: "ChuteName", headerText: "MU", width: "90" },
       { field: "Subject", headerText: "Vuelo", width: "100" },
       { field: "IATA", headerText: "IATA", width: "90" },
-      { field: "StartTime", headerText: "STD", width: "155", format: { format: 'dd-MM-yyyy hh:mm a', type: 'date'} },
-      { field: "EndTime", headerText: "ETD", width: "155", format: { format: 'dd-MM-yyyy hh:mm a', type: 'date'} },
+      { field: "startTime", headerText: "STD", width: "155", format: { format: 'dd-MM-yyyy hh:mm a', type: 'date'} },
+      { field: "endTime", headerText: "ETD", width: "155", format: { format: 'dd-MM-yyyy hh:mm a', type: 'date'} },
       { field: "taskName", headerText: "Aerolinea", width: "120" },
       { field: "taskID", headerText: "taskID", width: "120" },
     ];
@@ -348,11 +212,11 @@ export class SchedulerganttComponent implements OnInit {
       timelineUnitSize: 70,
       topTier: {
         unit: "Day",
-        format: "MMM, dd, yyyy, hh, mm",
+        format: "MMM, dd, yyyy, HH, mm",
       },
       bottomTier: {
         unit: "Hour",
-        format: "hh:mm a",
+        format: "HH:mm a",
       },
     //   bottomTier: {
     //     unit: 'Minutes',
@@ -364,61 +228,55 @@ export class SchedulerganttComponent implements OnInit {
   }
   
 
+  public date(StartDates: Date, EndDate: Date){
+      
+    
+    const fechaFormateada = this.miDatePipe.transform(StartDates, 'yyyy-MM-dd');
+    const fechaFormateadaeTD = this.miDatePipe.transform(EndDate, 'yyyy-MM-dd');
 
+    if (fechaFormateada == null && fechaFormateadaeTD == null) {
+  
+      this.toastrService.warning('', 'No pusiste la fecha.');
+
+    }else if (fechaFormateadaeTD < fechaFormateada ) {
+
+      this.toastrService.warning('', 'Pon las fechas correctas.');
+
+    } else if ( fechaFormateada > fechaFormateadaeTD) {
+
+      this.toastrService.warning('', 'La fecha no puede ser Mayor.');
+
+    } else {
+      this.http.get(this.api.apiUrlNode1 + '/resourceDataGantt?registerDateSTD='+ fechaFormateada + '&registerDateETD=' + fechaFormateadaeTD)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any)=>{
+    
+      if (res.length == 0){
+       
+        this.toastrService.danger('', 'No ha data.');
+        this.ganttData=res.length;
+        }else {
+        this.ganttData=res;
+        this.data[0] = res
+        // console.log('Data',this.data[0]);
+        this.ganttObj = res
+        // console.log('Data Gantt:', this.ganttObj );
+        }
+      
+      
+    });
+    }
+
+  }
 
   openWindowForm() {
     this.windowService.open(WindowFormComponent, { title: `` });
   }
 
-  // public openWindow(){
-  //   // debugger
-  //   this.dialog.opendevice1();
-  // }
-
-//   createFormGroup(data: gantt): FormGroup {
-//     return new FormGroup({
-//       // Id: new FormControl(data.Id, Validators.required),
-//       Subject: new FormControl(data.Subject, Validators.required),
-//       taskName: new FormControl(data.taskName, Validators.required)
-
-//     });
-// }
-
-  // loadUser(id?) {
-  //   // debugger
-  //     this.orderForm.setValue({
-  //       id: this.ganttSheduData[0].Id ? this.ganttSheduData[0].Id : '',
-  //       role: this.ganttSheduData[0].Subject ? this.ganttSheduData[0].Subject : '',
-  //       firstName: this.ganttSheduData[0].taskName ? this.ganttSheduData[0].taskName : '',
-  //     });
-    
-  //   }
-
-  // public fields: Object = { text: 'text', value: 'id' };
-  // public fields1: Object = { text: 'text', value: 'text' };
-
-  // ChangeAir() {
-  //   this.http.get(this.api.apiUrlNode1 + '/GetAirlineList')
-  //     .pipe(takeWhile(() => this.alive))
-  //     .subscribe((res: any)=>{
-  //       this.airlinesData=res;
-  //       // console.log('Airlines:', res  );
-  //     });
-  // }
-  
-  // changeCarr() {
-  //   this.http.get(this.api.apiUrlNode1 + '/GetMakeUpListNew')
-  //     .pipe(takeWhile(() => this.alive))
-  //     .subscribe((res: any)=>{
-  //       this.carrData=res;
-  //       // console.log('Carr:', res  );
-  //     });
-  // }
-
   public actionBegin(args) {
     if (args.requestType === "beforeOpenAddDialog" ) {
       args.cancel = true;
-      this.openWindowForm();
+  
     } else if (args.requestType === "beforeOpenEditDialog"){
       args.cancel = true;
       // console.log('---- ',args.rowData.taskData.taskID.substr('%MA%'));
@@ -427,7 +285,7 @@ export class SchedulerganttComponent implements OnInit {
     //  debugger
           // if (args.rowData.taskData.taskID.indexOf('MA') == args.rowData.taskData.taskID.substr('0,1')) {
             if (args.rowData.taskData.taskID.search('MA') == false) {
-            console.log('MA...');
+            // console.log('MA...');
             
             this.ganttPopup.openWindowForm( args.rowData.taskData.taskName , args.rowData.taskData,);
           } else {
@@ -437,29 +295,24 @@ export class SchedulerganttComponent implements OnInit {
     }
 };
   
-updateData(){
-  let formulario = this.airForm.value;
-  console.log('Data', formulario);
-  
-}
 
-actionComplete(args) {
-  args.cancel = true;
-  if (( args.requestType === 'save')) {
-    args.cancel = true;
-    console.log('Se guardo');
-  } else if (args.requestType === 'delete'){
+// actionComplete(args) {
+//   args.cancel = true;
+//   if (( args.requestType === 'save')) {
+//     args.cancel = true;
+//     console.log('Se guardo');
+//   } else if (args.requestType === 'delete'){
    
-    console.log('Delete');
-    args.cancel = true;
+//     console.log('Delete', args.requestType);
+//     args.cancel = true;
    
-  }
-}
+//   }
+// }
 
 
   public toolbarClick(args: ClickEventArgs): void {
     if (args.item.text === 'Click') {
-      console.log('Data');
+      // console.log('Data');
         }
         this.openWindowForm();
       };
@@ -475,74 +328,26 @@ actionComplete(args) {
         });
       }
 
-    public date(StartDates: Date, EndDate: Date){
-      
-    
-        const fechaFormateada = this.miDatePipe.transform(StartDates, 'yyyy-MM-dd');
-        const fechaFormateadaeTD = this.miDatePipe.transform(EndDate, 'yyyy-MM-dd');
-    
-        if (fechaFormateada == null && fechaFormateadaeTD == null) {
-      
-          this.toastrService.warning('', 'No pusiste la fecha.');
-    
-        }else if (fechaFormateadaeTD < fechaFormateada ) {
-    
-          this.toastrService.warning('', 'Pon las fechas correctas.');
-    
-        } else if ( fechaFormateada > fechaFormateadaeTD) {
-    
-          this.toastrService.warning('', 'La fecha no puede ser Mayor.');
-    
-        } else {
-          this.http.get(this.api.apiUrlNode1 + '/resourceDataGantt?registerDateSTD='+ fechaFormateada + '&registerDateETD=' + fechaFormateadaeTD)
-        .pipe(takeWhile(() => this.alive))
-        .subscribe((res: any)=>{
-        
-          if (res.length == 0){
-           
-            this.toastrService.danger('', 'No ha data.');
-            this.ganttData=res;
-            this.reset()
-            }else {
-            this.ganttData=res;
-            console.log('Data Gantt:', this.ganttData );
-            }
-          
-          
-        });
-        }
-    
-      }
+
+ 
 
 
-  public reset(){
-    
-    this.dataGantt!.IATA! = "";
-    this.dataGantt!.StartTime! = "";
-    this.dataGantt!.EndTime! = "";
-    this.dataGantt!.Subject = "";
-    this.dataGantt!.taskID = "";
-    this.dataGantt!.taskName = "";
-    this.dataGantt!.ChuteName = "";
-  }
+  // public ChargeSchedulerGantt() {
+  //   if (this.intervalSubscriptionScheduleGantt) {
+  //     this.intervalSubscriptionScheduleGantt.unsubscribe();
+  //   }
 
-
-  public ChargeSchedulerGantt() {
-    if (this.intervalSubscriptionScheduleGantt) {
-      this.intervalSubscriptionScheduleGantt.unsubscribe();
-    }
-
-    this.intervalSubscriptionScheduleGantt = interval(20000)
-      .pipe(
-        takeWhile(() => this.alive),
-        switchMap(() =>
-          this.http.get(this.api.apiUrlNode1 + "/resourceDataGantt")
-        )
-      )
-      .subscribe((res: any) => {
-        this.ganttData = res;
-      });
-  }
+  //   this.intervalSubscriptionScheduleGantt = interval(20000)
+  //     .pipe(
+  //       takeWhile(() => this.alive),
+  //       switchMap(() =>
+  //         this.http.get(this.api.apiUrlNode1 + "/resourceDataGantt")
+  //       )
+  //     )
+  //     .subscribe((res: any) => {
+  //       this.ganttData = res;
+  //     });
+  // }
 
 
   ngOnDestroy() {

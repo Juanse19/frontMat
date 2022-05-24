@@ -522,22 +522,22 @@ export class PagesMenu {
       // link: '/pages/analytics/analytics',
       children: [
         
-        {
-          title: 'Equipos',
-          link: '/pages/conveyor/team',
-        },
-        {
-          title: 'Funcionamiento del sistema',
-          link: '/pages/conveyor/functioning',
-        },
-        {
-          title: 'Induccion Mensajes AMS',
-          link: '/pages/sita/MessageAMS',
-        },
-        {
-          title: 'Induccion Mensajes BM',
-          link: '/pages/sita/MessageBM',
-        },
+        // {
+        //   title: 'Equipos',
+        //   link: '/pages/conveyor/team',
+        // },
+        // {
+        //   title: 'Funcionamiento del sistema',
+        //   link: '/pages/conveyor/functioning',
+        // },
+        // {
+        //   title: 'Induccion Mensajes AMS',
+        //   link: '/pages/sita/MessageAMS',
+        // },
+        // {
+        //   title: 'Induccion Mensajes BM',
+        //   link: '/pages/sita/MessageBM',
+        // },
       ],
     };
 
@@ -586,6 +586,10 @@ export class PagesMenu {
         {
           title: 'Estadisticas EDS',
           link: '/pages/reports/edsstatistics',
+        },
+        {
+          title: 'Funcionamiento del sistema',
+          link: '/pages/conveyor/functioning',
         },
         {
           title: 'Informe volumen',
@@ -644,17 +648,29 @@ export class PagesMenu {
           // link: '/pages/sita/SitaMessage',
           children: [
             {
-            title: 'Recepción Notificaciónes AMS',
+            title: 'Parametrización',
             link: '/pages/sita/ParametrizacionAMS',
+          },
+          {
+            title: 'Inducción Manual',
+            link: '/pages/sita/MessageAMS',
+          },
+          {
+            title: 'Mensajes Almacenados',
+            link: '/pages/sita/storeMessage',
           },
         ]},
         {
-          title: 'Integración SITA BagMessage',
+          title: 'Integración SITA BM',
           // link: '/pages/sita/SitaMessage',
           children: [
             {
-            title: 'Recepción Notificaciónes BM',
+            title: 'Parametrización',
             link: '/pages/sita/ParametrizacionBM',
+          },
+          {
+            title: 'Mensajes Almacenados',
+            link: '/pages/sita/MessageBM',
           },
         ]},
       ],
@@ -665,10 +681,10 @@ export class PagesMenu {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          return [...dashboardMenu, functionMenu, SchedulerMenu1, cosumeMenu, repocbisMenu, configurationMenu, alarmMenu];
+          return [...dashboardMenu, SchedulerMenu1, cosumeMenu, repocbisMenu, configurationMenu, alarmMenu];
         } else {
           // return [...dashboardMenu, ...menu];
-          return [...dashboardMenu, procesosMenu, alarmMenu];
+          return [...dashboardMenu,  alarmMenu];
         }
       }));
   }

@@ -1,0 +1,62 @@
+<nb-card>
+    <nb-card-header>
+        Mensajes AMS
+    </nb-card-header>
+  
+    <nb-card-body>
+
+    <div class="overlay">
+      <div class="spinner-border" *ngIf="loading"></div>
+      <b *ngIf="loading" style="margin-top: 4rem; margin-left: -3rem">Cargando...</b>
+    </div>
+    <br>
+
+    <ejs-grid #grid [dataSource]='amsData' [allowPaging]="true"
+    [pageSettings]="pageSettings"
+    [filterSettings]="filterOptions"
+    [toolbar]='toolbarOptions'
+    [showColumnChooser]= 'true'
+    [allowFiltering]="true"
+    allowSorting="true"
+    allowResizing= "true"
+    (dataBound)='dataBound()'>
+      <e-columns>
+          <e-column field='FlightIdFlightKind' headerText='FlightIdFlightKind' minWidth='120' maxWidth='300' width=130></e-column>
+          <e-column field='FlightIdAirlineDesignatorIATA' headerText='FlightIdAirlineDesignatorIATA' width=120></e-column>
+          <e-column field='FlightIdAirlineDesignatorICAO' headerText='FlightIdAirlineDesignatorICAO' width=100></e-column>
+          <e-column field='FlightIdFlightNumber' headerText='FlightIdFlightNumber' width=100></e-column>
+          <e-column field='FlightIdScheduledDate' headerText='FlightIdScheduledDate' width=100></e-column>
+          <e-column field='FlightIdAirportCodeIATA' headerText='FlightIdAirportCodeIATA' width=100></e-column>
+          <e-column field='FlightIdAirportCodeICAO' headerText='FlightIdAirportCodeICAO' width=100></e-column>
+          <e-column field='FlightStateScheduledTime' headerText='FlightStateScheduledTime' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightFlightIdFlightKind' headerText='FlightStateLinkedFlightFlightIdFlightKind' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightFlightIdFlightKindIATA' headerText='FlightStateLinkedFlightFlightIdFlightKindIATA' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightFlightIdFlightKindICAO' headerText='FlightStateLinkedFlightFlightIdFlightKindICAO' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightFlightIdFlightNumber' headerText='FlightStateLinkedFlightFlightIdFlightNumber' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightFlightIdScheduledDate' headerText='FlightStateLinkedFlightFlightIdScheduledDate' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightFlightIdAirportCodeIATA' headerText='FlightStateLinkedFlightFlightIdAirportCodeIATA' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightFlightIdAirportCodeICAO' headerText='FlightStateLinkedFlightFlightIdAirportCodeICAO' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightFlightUniqueID' headerText='FlightStateLinkedFlightFlightUniqueID' width=100></e-column>
+          <e-column field='FlightStateLinkedFlightScheduledTime' headerText='FlightStateLinkedFlightScheduledTime' width=100></e-column>
+          <e-column field='FlightStateAircraftTypeAircraftTypeIdAircraftTypeCodeIATA' headerText='FlightStateAircraftTypeAircraftTypeIdAircraftTypeCodeIATA' width=100></e-column>
+          <e-column field='FlightStateAircraftTypeAircraftTypeIdAircraftTypeCodeICAO' headerText='FlightStateAircraftTypeAircraftTypeIdAircraftTypeCodeICAO' width=100></e-column>
+          <e-column field='FlightStateAircraftTypeName' headerText='FlightStateAircraftTypeName' width=100></e-column>
+          <e-column field='FlightStateAircraftAircraftIdRegistration' headerText='FlightStateAircraftAircraftIdRegistration' width=100></e-column>
+          <e-column field='FlightStateAircraftIsRetired' headerText='FlightStateAircraftIsRetired' width=100></e-column>
+          <e-column field='FlightStateRouteattributescustomsType' headerText='FlightStateRouteattributescustomsType' width=100></e-column>
+          <e-column field='FlightStateRouteViaPointsRouteViaPointattributessequenceNumber' headerText='FlightStateRouteViaPointsRouteViaPointattributessequenceNumber' width=100></e-column>
+          <e-column field='FlightStateRouteViaPointsAirportCodeIATA' headerText='FlightStateRouteViaPointsAirportCodeIATA' width=100></e-column>
+          <e-column field='FlightStateRouteViaPointsAirportCodeICAO' headerText='FlightStateRouteViaPointsAirportCodeICAO' width=100></e-column>
+          <e-column field='FlightStateFlightUniqueID' headerText='FlightStateFlightUniqueID' width=100></e-column>
+          <e-column field='FlightStateChuteSlotsChuteSlotStartTime' headerText='FlightStateChuteSlotsChuteSlotStartTime' width=100></e-column>
+          <e-column field='FlightStateChuteSlotsChuteSlotEndTime' headerText='FlightStateChuteSlotsChuteSlotEndTime' width=100></e-column>
+          <e-column field='FlightStateChuteSlotsChuteSlotChuteName' headerText='FlightStateChuteSlotsChuteSlotChuteName' width=100></e-column>
+          <e-column field='FlightStateChuteSlotsChuteSlotChuteExternalName' headerText='FlightStateChuteSlotsChuteSlotChuteExternalName' width=100></e-column>
+          <e-column field='SITAAMSFlightsResultWebServiceResultApiResponseID' headerText='SITAAMSFlightsResultWebServiceResultApiResponseID' width=100></e-column>
+          <e-column field='CreatedDate' headerText='CreatedDate' width=100></e-column>
+          <e-column field='UpdatedDate' headerText='UpdatedDate' width=100></e-column>
+      </e-columns>
+  </ejs-grid>
+
+      </nb-card-body>
+    </nb-card>

@@ -34,13 +34,14 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { ProgressBarAllModule } from '@syncfusion/ej2-angular-progressbar';
 import { MessageBMComponent } from './message-bm/message-bm.component';
 import { SitaMessageBMComponent } from './sita-message-bm/sita-message-bm.component';
+import { StoreMessageComponent } from './store-message/store-message.component';
 
 
 
 
 @NgModule({
   declarations: [SitaComponent, SitaMessageComponent, MessageAMSComponent, MessageBMComponent, 
-    SitaMessageBMComponent ],
+    SitaMessageBMComponent, StoreMessageComponent ],
   imports: [
     CommonModule,
     SitaRoutingModule,

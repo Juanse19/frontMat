@@ -1,7 +1,7 @@
 
 <nb-card>
   <nb-card-header>
-      Recepción de Notificaciones AMS
+    Parametrización AMS
   </nb-card-header>
 
   <nb-card-body>
@@ -15,11 +15,11 @@
           <e-columns>
               
               <!-- <e-column field='Id' headerText='Id' [isPrimaryKey]='true' width=30></e-column> -->
-              <e-column field='Parameter' headerText='Mensaje Queue' textAlign='Left' width=70></e-column>
-              <e-column field='Value' headerText='Nombre Queue Local' textAlign='Left' width=90></e-column>
+              <e-column field='Parameter' headerText='Parámetros' textAlign='Left' width=70></e-column>
+              <e-column field='Value' headerText='Valores' textAlign='Left' width=90></e-column>
               <!-- <e-column field='CreateDate' headerText='Fecha ini' type="date" format="dd/MM/yyyy hh:mm:ss a" width=60></e-column>
               <e-column field='UpdateDate' headerText='Fecha fin' type="date" format="dd/MM/yyyy hh:mm:ss a" width=60></e-column> -->
-              <e-column headerText='Editar' width='30' textAlign='center' [commands]='commands'></e-column>
+              <e-column headerText='Acción' width='30' textAlign='center' [commands]='commands'></e-column>
           </e-columns>
 
       </ejs-grid>
@@ -40,14 +40,14 @@
                               <div class="e-float-input e-control-wrapper" >
                                   <input formControlName="Parameter"  id="Parameter" name="Parameter" class="field left" readonly type="text" >
                                   <span class="e-float-line"></span>
-                                  <label class="e-float-text e-label-top" for="Parameter" disabled="disabled" readonly="readonly" >Mensaje Queue</label>
+                                  <label class="e-float-text e-label-top" for="Parameter" disabled="disabled" readonly="readonly" >Parámetros</label>
                               </div>
                           </div>
                           <div class="form-group col-md-12">
                               <div class="e-float-input e-control-wrapper" >
                                   <input formControlName="Value"  id="Value" name="Value" type="text" >
                                   <span class="e-float-line"></span>
-                                  <label class="e-float-text e-label-top" for="Value">Nombre Queue Local</label>
+                                  <label class="e-float-text e-label-top" for="Value">Valores</label>
                               </div>
                           </div>
                           <div>

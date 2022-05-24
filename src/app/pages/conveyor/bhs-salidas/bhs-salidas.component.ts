@@ -377,11 +377,11 @@ export class BhsSalidasComponent implements OnInit {
         this.sFCData=res;
         console.log('SFC', this.sFCData);
         this.ejDialogSFC.show();
-        this.ejDialogSFC.position = { X: 90.3125, Y: 330.125 };
+        this.ejDialogSFC.position = { X: ('411.312%'), Y: ('183.125%') };
       } else {
       this.sFCData=res;
       this.ejDialogSFC.show();
-      this.ejDialogSFC.position = { X: 90.3125, Y: 330.125 };
+      this.ejDialogSFC.position = { X: '411.312', Y: '183.125' };
       // console.log('Zons:', res , 'states');
       }
       

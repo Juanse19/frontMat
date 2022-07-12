@@ -121,9 +121,9 @@ export class SchedulerComponent implements OnInit {
 //   ];
 
   public allowMultiple: Boolean = true;
-  public url = "10.120.18.8:1880"
+  public url = "xpl-matbag-app01:1880"
  private timelineResourceData: DataManager = new DataManager({
-    url: 'https://10.120.18.8:1880/timelineResourceData',
+    url: 'https://xpl-matbag-app01:1880/timelineResourceData',
     adaptor: new ODataV4Adaptor,
     crossDomain: true
  }); 
@@ -147,24 +147,24 @@ export class SchedulerComponent implements OnInit {
   }
   
   private resourceData: DataManager = new DataManager({
-    url: 'https://10.120.18.8:1880/resourceDataNew',
+    url: 'https://xpl-matbag-app01:1880/resourceDataNew',
     adaptor: new ODataV4Adaptor,
     crossDomain: true,
  });
 
   private resourceDatas: DataManager = new DataManager({
-    url: 'https://10.120.18.8:1880/resourceDataNew',
+    url: 'https://xpl-matbag-app01:1880/resourceDataNew',
     adaptor: new ODataV4Adaptor,
     crossDomain: false,
     offline: true,
  });   
 
  
-public urls: string = 'https://10.120.18.8:1880';
+public urls: string = 'https://xpl-matbag-app01:1880';
 
  private dataManagers: DataManager = new DataManager({
   url: `${this.urls}/resourceDataNew`, // 'controller/actions'
-  crudUrl: 'https://10.120.18.8:1880/ResourceDataUpdateNew',
+  crudUrl: 'https://xpl-matbag-app01:1880/ResourceDataUpdateNew',
   adaptor: new UrlAdaptor,
   crossDomain: false,
   // offline: true

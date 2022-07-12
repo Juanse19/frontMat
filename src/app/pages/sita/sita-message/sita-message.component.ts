@@ -209,7 +209,7 @@ debugger
       Parameter: this.dataConf.Parameter,
       Value: this.dataConf.Value 
   };
-  console.log('Datas update', respon);
+  // console.log('Datas update', respon);
   
   this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/api/updateConf', respon)
     .pipe(takeWhile(() => this.alive))
@@ -283,7 +283,7 @@ debugger
     .subscribe((res: any) => {
       //REPORTOCUPATION=res;
       this.dataConfigu = res;
-      console.log("dataRefe:", this.dataConfigu);
+      // console.log("dataRefe:", this.dataConfigu);
       REFERE = res;
       this.dataRefe = REFERE;
       // console.log("Configuration:", this.dataConfigu);

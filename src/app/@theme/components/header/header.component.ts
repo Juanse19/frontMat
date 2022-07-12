@@ -10,7 +10,7 @@ import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeServ
 
 import { LayoutService } from '../../../@core/utils';
 import { catchError, map, takeUntil, takeWhile } from 'rxjs/operators';
-import { Subject, Subscription, throwError } from 'rxjs';
+import { Subject, Subscription, throwError, interval } from 'rxjs';
 import { UserStore } from '../../../@core/stores/user.store';
 import { SettingsData } from '../../../@core/interfaces/common/settings';
 import { User, UserData } from '../../../@core/interfaces/common/users';
@@ -25,6 +25,9 @@ import { NbAccessChecker } from '@nebular/security';
 import { NbMenuItem, NbToastrService } from '@nebular/theme';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { MessageService } from '../../../pages/dashboard/services/MessageService';
+import { environment } from '../../../../environments/environment';
+export const WS_ENDPOINT = environment.urlWebSocket;
+
 
 @Component({
   selector: 'ngx-header',
@@ -192,7 +195,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
 
-  myWebSocket: WebSocketSubject<any> = webSocket('ws://10.120.18.15:1880/wc/alarms');
+  // myWebSocket: WebSocketSubject<any> = webSocket('ws://10.120.18.15:1880/wc/alarms');
+  myWebSocket: WebSocketSubject<any> = webSocket(WS_ENDPOINT);
 
   count(){
     this.contAlarm = localStorage.getItem('Alarmas');
@@ -201,8 +205,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   wSocket(){
    
-    const subcription1  = this.myWebSocket.subscribe(msg => {
+    const contador = interval(5000)
 
+    const subcription1  = this.myWebSocket.subscribe(msg => {
+      console.log('Conectado');
+      
       this.index += 1;
       localStorage.setItem('Alarmas', JSON.stringify(this.index));
       console.log('Acumulador',this.index);
@@ -222,19 +229,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.toastrService.warning(msg.topic, msg.message, {duration});
       }
       
-    },err => this.toastrService.danger(err.type, 'Error de conexión del WebSocket', {duration: 30000})) 
+    },err => 
+    this.toastrService.danger(err.type, 'Error de conexión del WebSocket', {duration: 30000}))
+    if (this.myWebSocket.complete) {
+      contador.subscribe((n) => {
+        this.myWebSocket
+        console.log('Reconectador');
+        
+      })
+    }
+    
 
     //console.log('message subscribe:', subcription1.add);
     
 
-    this.myWebSocket.subscribe(    
+    //this.myWebSocket.subscribe(    
       //msg => console.log('message received: ', msg), 
       // Called whenever there is a message from the server    
       //err => console.log(err), 
       // Called if WebSocket API signals some kind of error    
       //() => console.log('complete') 
       // Called when connection is closed (for whatever reason)  
-   );
+   //);
    
   }
 

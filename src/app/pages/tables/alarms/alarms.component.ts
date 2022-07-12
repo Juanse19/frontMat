@@ -405,7 +405,7 @@ Delete(event): void {
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
       this.Alarm = res;
-      console.log('Alarmas', this.Alarm);
+      // console.log('Alarmas', this.Alarm);
       
     });
   }
@@ -432,7 +432,7 @@ Delete(event): void {
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
       this.historyAlarmData = res;
-      console.log('History', this.historyAlarmData);
+      // console.log('History', this.historyAlarmData);
       
     });
     const contador = interval(40000)
@@ -447,13 +447,13 @@ Delete(event): void {
 
   GetAlarmLevel(name: string) {
 
-    console.log('Envio Level', name);
+    // console.log('Envio Level', name);
 
     this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms?Level=' + name)
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
       this.Alarm = res;
-      console.log('Alarmas', this.Alarm);
+      // console.log('Alarmas', this.Alarm);
       
     });
   }

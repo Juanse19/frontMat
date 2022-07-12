@@ -121,7 +121,7 @@ export class EditReportComponent implements OnInit {
         reportCategory = res;
         this.CategoryData = reportCategory;
         this.dataCategory = res;
-        console.log('Category', this.CategoryData);
+        // console.log('Category', this.CategoryData);
         
     });
   }

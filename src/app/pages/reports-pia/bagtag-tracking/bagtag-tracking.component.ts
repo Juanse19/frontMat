@@ -85,8 +85,8 @@ export class BagtagTrackingComponent implements OnDestroy {
    { text: 'Exportar Pdf', tooltipText: 'Click', prefixIcon: 'far fa-file-pdf', id: 'Click' },
    { text: 'Exportar Excel', tooltipText: 'Clicks', prefixIcon: 'far fa-file-excel', id: 'Clicks' }];
 
-   this.reportServiceUrl1 = 'http://10.120.18.8:56997/reporting/reportservice/api/Viewer';
-    this.reportServerUrl1 = 'http://10.120.18.8:56997/reporting/api/site/site1';
+   this.reportServiceUrl1 = 'http://xpl-matbag-app01:56997/reporting/reportservice/api/Viewer';
+    this.reportServerUrl1 = 'http://xpl-matbag-app01:56997/reporting/api/site/site1';
     this.serviceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1sYWRtaW5AbWF0ZWMuY29tLmNvIiwibmFtZWlkIjoiMSIsInVuaXF1ZV9uYW1lIjoiNzMxODczYjUtMDllNy00ODU4LWE0NGMtOWY0NGQ2NzJhMmFkIiwiSVAiOiIxMC4xMjAuMTguOCIsImlzc3VlZF9kYXRlIjoiMTY0NDk1NTYzOCIsIm5iZiI6MTY0NDk1NTYzOCwiZXhwIjoxNjQ1NTYwNDM4LCJpYXQiOjE2NDQ5NTU2MzgsImlzcyI6Imh0dHA6Ly8xMC4xMjAuMTguODo1Njk5Ny9yZXBvcnRpbmcvc2l0ZS9zaXRlMSIsImF1ZCI6Imh0dHA6Ly8xMC4xMjAuMTguODo1Njk5Ny9yZXBvcnRpbmcvc2l0ZS9zaXRlMSJ9.aQa4-wnzVV-1MStnQiPUS5Imwp7yPsRzwcHYEWeID7s';
     this.reportPath14 = '/Reports Pia/Informe diario por volumen de equipaje'
 

@@ -123,7 +123,7 @@ export class MessageBMComponent implements OnInit {
         // console.log('acoData: ', res);
         this.loading = false;
         this.bagMessageData = res;
-        console.log('acoData: ', this.bagMessageData);
+        // console.log('acoData: ', this.bagMessageData);
         this.bandaBmCharge();
       });
       // const contador = interval(60000)

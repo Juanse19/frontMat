@@ -1,14 +1,31 @@
 <nb-card>
-  <nb-card-body>
-    <!-- <h1>Scheduler Sita</h1> -->
-    
-    <!-- <div class="control-section">
-        <ejs-gantt id="ganttDefault" #gantt [dataSource]="ganttData" [taskFields]="taskSettings" [dayWorkingTime]="dayWorkingTime"
-            [timelineSettings]="timelineSettings"  timezone="UTC" durationUnit="Hour" dateFormat="hh:mm a"
-            height="450px" [includeWeekend]="true" [columns]="columns" [allowSelection]="true" [allowFiltering]="true" [allowSorting]="true" [allowResizing]="true" 
-            showColumnMenu=true [toolbar]="toolbar">
-        </ejs-gantt>
-</div> -->
-
+  <nb-card-header>
+    <nav >
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" >Reporte</li>
+        <li class="breadcrumb-item" >{{Category</li>
+        <li class="breadcrumb-item active" aria-current="page">Parameter</li>
+      </ol>
+    </nav>
+  </nb-card-header>
+  <nb-card-body >
+    <div class="col-sm-12">
+      <div class="row" >
+      <div class="col-md-3" *ngFor="let menu of car">
+      <nb-card >
+        <nb-card-header>{{ menu.title }}</nb-card-header>
+        <nb-card-body>
+          
+          <p>{{ menu.link }}</p>
+            <!-- <pre><b>Link:</b>  {{ menu.link }}</pre> -->
+         <b>{{ menu.hidden }}</b>
+          <div *ngIf="menu.hidden === true">
+            <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="getReport()">Ver reporte</button>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    </div>
+    </div>
   </nb-card-body>
 </nb-card>

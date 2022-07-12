@@ -41,6 +41,9 @@ import {
 } from '@nebular/theme';
 import { LicenseComponent } from './license/license.component';
 import { EditLicenComponent } from './edit-licen/edit-licen.component';
+import { ReportParametrizableComponent } from './report-parametrizable/report-parametrizable.component';
+import { EditReportComponent } from './edit-report/edit-report.component';
+import { CreateReportComponent } from './create-report/create-report.component';
 
 const  NB_MODULES = [
   NbActionsModule,
@@ -78,6 +81,9 @@ const  NB_MODULES = [
     UserComponent,
     LicenseComponent,
     EditLicenComponent,
+    ReportParametrizableComponent,
+    EditReportComponent,
+    CreateReportComponent,
   ],
   entryComponents: [
   ],

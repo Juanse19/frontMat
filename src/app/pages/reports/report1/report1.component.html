@@ -8,5 +8,42 @@ id='report-frame' width='100%' height='720px' allowfullscreen frameborder='0'></
 <!-- <iframe src='http://10.100.22.109:64332/reporting/site/site1/reports/e4a1bc02-4e21-4962-a1bc-acce706e21f8/Reports%20Pia/Seguimiento%20de%20maletas%201?isembed=true&report_comments=true&views=true' 
 id='report-frame' width='100%' height='720px' allowfullscreen frameborder='0'></iframe> -->
 
-<iframe src='http://10.120.18.8:63863/reporting/site/site1/reports/e4a1bc02-4e21-4962-a1bc-acce706e21f8/Reports%20Pia/Seguimiento%20de%20maletas%201?isembed=true&views=true' 
-id='report-frame' width='100%' height='720px' allowfullscreen frameborder='0'></iframe>
+ <!-- <iframe src='http://10.120.18.8:63863/reporting/site/site1/reports/e4a1bc02-4e21-4962-a1bc-acce706e21f8/Reports%20Pia/Seguimiento%20de%20maletas%201?isembed=true' 
+  id='report-frame' width='100%' height='720px' allowfullscreen frameborder='0'></iframe> -->
+
+<nb-card>
+  <nb-card-header> 
+    <!-- <nav class="navigation">
+      <a
+        href="#"
+        (click)="back()"
+        class="link back-link"
+        aria-label="Back"
+      >
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a>
+      
+    </nav> -->
+
+    <nav >
+      <ol class="bread">
+        <li class="breadcrumb-item" (click)="goTo()">Reporte</li>
+        <li class="breadcrumb-item" (click)="backTo()">{{reportCategoryData.Category}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{reportCategoryData.Parameter}}</li>
+      </ol>
+    </nav>
+
+    <!-- <h5 class="h">Vuelos</h5> -->
+  </nb-card-header>
+<nb-card-body>
+  <div >
+    <ng-container>
+      <iframe [src]="trustedDashboardUrl" 
+      id='report-frame' width='100%' height='720px' allow="autoplay; encrypted-media" allowfullscreen frameborder='0'  loading="lazy"></iframe>
+     
+    </ng-container>
+  </div>
+</nb-card-body>
+
+
+</nb-card>

@@ -1,0 +1,52 @@
+
+<div class="control-section">
+    <div class="col-lg-12">
+            <h4 class="form-title"></h4>
+        <div class="control_wrapper" id="control_wrapper" style="margin: 25px auto;">
+          <form id="reactive" [formGroup]="reportsForm"> 
+              <div class="form-group template">
+                      <div class="e-float-input">
+                          <input type="text" formControlName="Parameter" id="Parameter" name="Parameter" data-cy="flight-field" class="required" required>
+                          <span class="e-float-line"></span>
+                          <label class="e-float-text" for="Parameter">Nombre</label>
+                      </div>   
+                </div>
+
+
+                <div class="form-group template">
+                    <div class="e-float-input">
+                        <textarea class="form-control" formControlName="Description" id="Description" rows="3" class="required" required></textarea>
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" for="Description">Descripción</label>
+                    </div>   
+              </div>
+
+                <div class="form-group template" >
+                    <div class="e-float-input" >
+                        <ejs-dropdownlist formControlName="Category" name="Category" value='value' data-cy="category-field" [fields]='fields' [dataSource]='CategoryData' placeholder="Categoria" [allowFiltering]='true' floatLabelType='Auto' required>
+                        </ejs-dropdownlist>
+                    </div>   
+                                   
+                </div>
+
+                <div class="form-group template">
+                    <div class="e-float-input">
+                        <textarea class="form-control" formControlName="Value" id="Value" rows="4" class="required" required></textarea>
+                      
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" for="Value">Ruta</label>
+                    </div>   
+              </div>
+                         
+            <div class="form-group template">
+                <div class="submitBtn">
+                    <button nbButton status="primary" style="margin-left: 28%;" class="btn btn-primary" data-cy="edit-submit-field" id="submit-btn" (click)="editData()">Editar</button>
+                    <!-- <button nbButton status="danger" style="margin-left: 5%;" data-cy="delete-submit-field" (click)="delete()" hero>Eliminar</button> -->
+                    <div class="desc"><pre><span>                                                            </span></pre></div>      
+                  </div>
+            </div>                                       
+        </form> 
+              
+      </div>
+    </div> 
+</div>

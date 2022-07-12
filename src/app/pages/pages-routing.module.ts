@@ -81,6 +81,11 @@ const routes: Routes = [{
         .then(m => m.ReportsPiaModule),
     },
     {
+      path: 'energy-team',
+      loadChildren: () => import('./energy-team/energy-team.module')
+        .then(m => m.EnergyTeamModule),
+    },
+    {
       path: 'sita',
       loadChildren: () => import('./sita/sita.module')
         .then((m) => m.SitaModule)

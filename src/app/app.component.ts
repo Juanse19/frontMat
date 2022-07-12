@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   initUser() {
     this.initUserService.initCurrentUser()
-      .pipe(
+      .pipe( 
         takeUntil(this.destroy$),
       )
       .subscribe();

@@ -4,16 +4,20 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
-import { NbMenuItem } from '@nebular/theme';
+import { NbMenuItem, NbMenuService } from '@nebular/theme';
 import { NbAccessChecker } from '@nebular/security';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, takeWhile } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+
 
 @Injectable()
 export class PagesMenu {
 
-  constructor(private accessChecker: NbAccessChecker) {}
+  alive: boolean = true;
+
+  constructor(private accessChecker: NbAccessChecker,) {
+              }
 
   getMenu(): Observable<NbMenuItem[]> {
     // const dashboardMenu = [
@@ -24,6 +28,8 @@ export class PagesMenu {
     //     children: undefined,
     //   },
     // ];
+    // console.log('rutasUrl ',ruta);
+    
 
     const menu: NbMenuItem[] = [
       {
@@ -544,13 +550,13 @@ export class PagesMenu {
     const SchedulerMenu1: NbMenuItem = {
       title: 'Asignación de aerolineas',
       icon: 'calendar-outline',
-      // link: '/pages/analytics/analytics',
-      children: [
-        {
-          title: 'Asignación de Salidas',
-          link: '/pages/gantt/ganttScheduler',
-        }
-      ],
+      link: '/pages/gantt/ganttScheduler',
+      // children: [
+      //   {
+      //     title: 'Asignación de Salidas',
+      //     link: '/pages/gantt/ganttScheduler',
+      //   }
+      // ],
     };
 
     const cosumeMenu: NbMenuItem = {
@@ -558,17 +564,17 @@ export class PagesMenu {
       icon: 'activity-outline',
       // link: '/pages/analytics/analytics',
       children: [
-        {
-          title: 'Consumo generales',
-          link: '/pages/conveyor/energy',
-        },
+        // {
+        //   title: 'Consumo generales',
+        //   link: '/pages/conveyor/energy',
+        // },
         {
           title: 'Consumo por zonas',
           link: '/pages/conveyor/energyZone',
         },
         // {
-        //   title: 'GanttSheduler',
-        //   link: '/pages/sic-syncro',
+        //   title: 'Consumo por zonas V2.0',
+        //   link: '/pages/energy-team',
         // },
       ],
     };
@@ -594,10 +600,6 @@ export class PagesMenu {
           title: 'Informe volumen',
           link: '/pages/reports/report1',
         },
-        // {
-        //   title: 'Informe diario volumen equipaje',
-        //   link: '/pages/reports-pia/report2',
-        // },
         {
           title: 'Informe ejecutivo BHS - SSI',
           link: '/pages/reports/report3',
@@ -610,14 +612,6 @@ export class PagesMenu {
           title: 'Informe seguimiento de PEC',
           link: '/pages/reports/report5',
         },
-        // {
-        //   title: 'Informe equipaje CBRA',
-        //   link: '/pages/reports-pia/report6',
-        // },
-        // {
-        //   title: 'Informe de rendimiento por hora BHS ( Througput)',
-        //   link: '/pages/reports-pia/report7',
-        // },
         {
           title: 'Informe resumen diario por hora',
           link: '/pages/reports/report8',
@@ -626,7 +620,159 @@ export class PagesMenu {
           title: 'Informe mensual',
           link: '/pages/reports/report10',
         },
+        //-------------------//----------------------------------------------------
+        {
+          title: 'ReportSita',
+          group: true,
+        },
+        {
+          title: 'Reporte de Cronograma de Vuelo - Lista de Vuelos Activos',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Reporte de Cronograma de Vuelo - Lista de Vuelos Activos sin Asignacion de Carrusel',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Reporte de Cronograma de Vuelo - Plantilla de Cronograma de Vuelo',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Resumen de Clasificacion - Total ',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Resumen de Clasificacion por Vuelo Individual',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Resumen de BSM Tag',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Resumen por Aerolinea',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Problema con BSM',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Tiempo de Transito de Maleta',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Procesamiento del Sistema',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Reporte de Fin de Dia',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Resumen operacion por Equipo',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Estadisticas de Mantenimiento',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Reporte de Malfuncionamiento',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Reporte Resumen de Malfuncionamiento',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'ATR',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'ATR Reporte de Acitividad',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Reporte del Encoder',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Fallo de Clasificacion',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Estado de Network',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'EDS - Performance de Nivel 1 y Nivel 2',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'EDS - Performance de Nivel 3',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'HBS Performance',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'HBS Resumen de Screening',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Performance del Tiempo de Minimo de Conexion',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Reporte de Performance del Sistema por Sector',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'KPI - Salidas Diarias',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Performance por Aerolinea',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Tiempo en Sistema',
+          link: '/pages/reports/report9',
+        },
+        {
+          title: 'Ocurrencias por Carrusel	',
+          link: '/pages/reports/report9',
+        },
       ],
+    };
+
+    const reportsMenu: NbMenuItem = {
+      title: 'Reportes',
+      icon: 'pie-chart-outline',
+      // link: '/pages/analytics/analytics',
+      children: [
+        {
+          title: 'Vuelos',
+          link: '/pages/reports/flightReport',
+        },
+        {
+          title: 'Operacion',
+          link: '/pages/conveyor/team',
+        },
+        {
+          title: 'Mantenimiento',
+          link: '/pages/conveyor/schedulerSita',
+        },
+      ],
+    };
+
+    const reportMenu: NbMenuItem = {
+      title: 'Reportes',
+      icon: 'pie-chart-outline',
+      link: '/pages/reports/reports',
+      
     };
 
     const configurationMenu: NbMenuItem = {
@@ -641,6 +787,10 @@ export class PagesMenu {
         {
           title: 'Licencia',
           link: '/pages/users/licenses',
+        },
+        {
+          title: 'Reportes parametrizable',
+          link: '/pages/users/reportParametrizable',
         },
         {
           title: 'Integración SITA AMS',
@@ -675,16 +825,20 @@ export class PagesMenu {
       ],
     };
 
+     
+
     return this.accessChecker.isGranted('view', 'fullMenu')
       .pipe(map(hasAccess => {
         if (hasAccess) {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
-          return [...dashboardMenu, SchedulerMenu1, cosumeMenu, repocbisMenu, configurationMenu, alarmMenu];
+          return [...dashboardMenu, SchedulerMenu1, cosumeMenu, reportMenu, configurationMenu, alarmMenu];
         } else {
           // return [...dashboardMenu, ...menu];
           return [...dashboardMenu,  alarmMenu];
         }
       }));
+
   }
+  
 }

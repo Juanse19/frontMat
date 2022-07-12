@@ -16,6 +16,8 @@ import { Dialog, Tooltip } from '@syncfusion/ej2-popups';
 import { Browser } from '@syncfusion/ej2-base';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import Swal from 'sweetalert2'; 
+import { MessageService } from '../../dashboard/services/MessageService';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface Alarmas {
   Id: number;
@@ -34,6 +36,14 @@ let ALARMAS: Alarmas[] = [
 
 ];
 
+interface alarmLevel{ 
+  Id: number;
+  Level: string;
+  nombre: string;
+}
+
+let GANTTD: alarmLevel;
+
 @Component({
   selector: 'ngx-alarms',
   templateUrl: './alarms.component.html',
@@ -46,7 +56,16 @@ export class AlarmsComponent implements OnDestroy {
   private alive = true;
   mostrar: Boolean;
   public pageSettings: PageSettingsModel;
+  public index: number = 0;
+  lavelForm: FormGroup;
+
+  get Level() {
+    return this.lavelForm.get("Level");
+  }
   
+  get nombre() {
+    return this.lavelForm.get("nombre");
+  }
 
   public editSettings: Object;
     // public toolbar: string[];
@@ -59,56 +78,11 @@ export class AlarmsComponent implements OnDestroy {
 
   alarmas = ALARMAS;
 
-  settings = {
-    // actions: false,
-    actions: {
-      add: false,
-      edit: false,
-      
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-checkmark-circle"></i>',
-      confirmDelete: true,
-    },
-    
-    columns: {
-      Id: {
-        title: 'ID',
-        type: 'number',
-        filter: false,
-        hide: true,
-
-      },
-      Message: {
-        title: 'Mensaje',
-        type: 'string',
-        filter: true,
-      },
-      Level: {
-        title: 'Nivel',
-        type: 'string',
-        filter: false,
-      },
-      // exception: {
-      //   title: 'excepción',
-      //   type: 'string',
-      //   filter: false,
-      // },
-      UserId: {
-        title: 'Usuario',
-        type: 'string',
-        filter: false,
-      },
-      TimeStamp: {
-        title: 'Fecha',
-        type: 'string',
-        filter: false,
-      },
-    },
-  };
 
   source: LocalDataSource = new LocalDataSource();
   public Alarm: Alarmas[]=[];
+  public dataCategory: alarmLevel[];
+  public value: string = '';
 
   constructor(
     public accessChecker: NbAccessChecker,
@@ -117,12 +91,15 @@ export class AlarmsComponent implements OnDestroy {
     private api: HttpService,
     private http: HttpClient,
     private userStore: UserStore,
+    private fb: FormBuilder,
+    private messageService: MessageService,
   ) {
-    
+    this.index = 0;
     this.alive;
     this.accessChecker.isGranted('edit', 'ordertable')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
+      this.messageService.sendMessage("PackageUpdate");
       if(res){ 
         this.select = false;
         this.mostrar = false;
@@ -131,10 +108,41 @@ export class AlarmsComponent implements OnDestroy {
         this.mostrar=true;
       }
     });
-    
+    this.value = '';
   }
 
+  public fields: Object = { text: "Level", value: "nombre" };
+
   ngOnInit(): void {
+
+    this.dataCategory = [
+      {
+        Id: 1,
+        nombre: '',
+        Level: 'Todos'
+      },
+      {
+        Id: 2,
+        nombre: 'Process',
+        Level: 'Process',
+      },
+      {
+        Id: 3,
+        nombre: 'Info',
+        Level: 'Info',
+      },
+      {
+        Id: 4,
+        nombre: 'Error',
+        Level: 'Error',
+      },
+      {
+        Id: 5,
+        nombre: 'Alarm',
+        Level: 'Alarm',
+      },
+    ]
+
     this.editSettings = {
       allowEditing: true,
       allowAdding: true,
@@ -148,8 +156,17 @@ export class AlarmsComponent implements OnDestroy {
       type: 'Menu',
    };
   
-  this.Chargealarms();
-  this.ChargeHistoryData(); 
+   this.ChargeHistoryData(); 
+
+   this.initForm();
+   //this.loadDataForm();
+
+   this.GetAlarmLevel('');
+
+   //this.ChangeAlarmLevel();
+
+  //this.Chargealarms();
+  
 
    this.toolbar = [
       //  {text: 'Delete', prefixIcon: 'fas fa-check'},
@@ -163,6 +180,30 @@ export class AlarmsComponent implements OnDestroy {
   
   }
  
+
+  initForm() {
+    this.lavelForm = this.fb.group({
+      Id: this.fb.control(-1),
+      Level: this.fb.control("", [
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.required,
+      ]),
+      nombre: this.fb.control("", [
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.required,
+      ])
+    });
+  }
+
+  loadDataForm() {
+    this.lavelForm.setValue({
+      Id: GANTTD.Id,
+      Level: GANTTD.Level,
+      nombre: GANTTD.nombre
+    });
+  }
 
 //   commandClick(args: CommandClickEventArgs): void {
 //     debugger
@@ -359,16 +400,21 @@ Delete(event): void {
       });
   }
 
+  ChangeAlarmLevel() {
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms?Level=' + '')
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      this.Alarm = res;
+      console.log('Alarmas', this.Alarm);
+      
+    });
+  }
 
   Chargealarms() {
-    // debugger
     this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
       this.Alarm = res;
-      // console.log('test alarm: ', this.Alarm)
-      this.source.load(res);
-      this.source.refresh();
     });
     const contador = interval(30000)
     contador.subscribe((n) => {
@@ -376,8 +422,6 @@ Delete(event): void {
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         this.Alarm = res;
-        this.source.load(res);
-        this.source.refresh();
       });
     });
 
@@ -387,9 +431,9 @@ Delete(event): void {
     this.http.get(this.api.apiUrlNode1 + '/historyalarm')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
-      // tslint:disable-next-line: no-console
-      // console.log('HistoryAlarmData: ', res);
       this.historyAlarmData = res;
+      console.log('History', this.historyAlarmData);
+      
     });
     const contador = interval(40000)
     contador.subscribe((n) => {
@@ -398,6 +442,19 @@ Delete(event): void {
       .subscribe((res: any) => {
         this.historyAlarmData = res;
       });
+    });
+  }
+
+  GetAlarmLevel(name: string) {
+
+    console.log('Envio Level', name);
+
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms?Level=' + name)
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((res: any) => {
+      this.Alarm = res;
+      console.log('Alarmas', this.Alarm);
+      
     });
   }
 

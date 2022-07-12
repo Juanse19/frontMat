@@ -10,7 +10,7 @@ import { UserStore } from "../../../@core/stores/user.store";
 import Swal from "sweetalert2";
 import { DatePipe } from "@angular/common";
 import { MessageService } from "../../dashboard/services/MessageService";
-
+ 
 interface airLine {
   AirlineId: string;
   AirlineCode: string;

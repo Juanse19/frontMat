@@ -16,7 +16,7 @@ import { SignalRService } from '../../services/signal-r.service';
 import { MessageService } from '../../services/MessageService';
 import { IdMaquinas, IdWip,MachineColor, WipColor, OrderProcess, State, Ordenes, WipName, showStatusMachinesAlarms, RouteCTS } from '../../_interfaces/MatBox.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { truncateSync } from 'node:fs';
+// import { truncateSync } from 'node:fs';
 
 @Component({
   providers: [

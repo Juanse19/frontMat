@@ -12,6 +12,7 @@ import { Report8Component } from './report8/report8.component';
 import { Report9Component } from './report9/report9.component';
 import { Report10Component } from './report10/report10.component';
 import { EdsstatisticsComponent } from './edsstatistics/edsstatistics.component';
+import { FlightReportComponent } from './flight-report/flight-report.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
     component: ReportsComponent,
     children: [
       {
-        path: 'report1',  
+        path: 'report',  
         component: Report1Component, 
       },
       {
@@ -52,7 +53,7 @@ const routes: Routes = [
         component: Report8Component, 
       },
       {
-        path: 'report9',  
+        path: 'reports',  
         component: Report9Component, 
       },
       {
@@ -62,6 +63,10 @@ const routes: Routes = [
       { 
         path: 'edsstatistics',  
         component: EdsstatisticsComponent, 
+      },
+      { 
+        path: 'flightReport',  
+        component: FlightReportComponent, 
       },
     ],
   },

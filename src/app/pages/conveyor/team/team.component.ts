@@ -15,13 +15,9 @@ import {
 } from "@syncfusion/ej2-angular-grids";
 
 export interface Team {
-  desc: string;
-  ZoneName: string;
-  State: string;
-  power: number;
-  current: number;
-  Voltage: string;
-  failure: string;
+  title: string;
+  link: string;
+  hidden: boolean;
 }
 
 export interface teams {
@@ -77,26 +73,14 @@ export class TeamComponent implements OnInit {
 
   chargeData() {
     this.http
-      .get(this.api.apiUrlNode1 + "/api/team")
+      .get(this.api.apiUrlNode1 + "/api/menuReports")
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         // tslint:disable-next-line: no-console
         // console.log('teamsData: ', res);
         this.loading = false;
         this.teamsData = res;
-        this.bandaTeamCharge();
       });
-    // const contador = interval(60000);
-    // contador.subscribe((n) => {
-    //   this.http
-    //     .get(this.api.apiUrlNode1 + "/api/team")
-    //     .pipe(takeWhile(() => this.alive))
-    //     .subscribe((res: any) => {
-    //       this.loading = false;
-    //       this.teamsData = res;
-    //       console.log('teamsData: ', this.teamsData);
-    //     });
-    // });
   }
 
   public bandaTeamCharge(){

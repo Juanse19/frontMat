@@ -34,7 +34,7 @@ interface dataLicens {
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class NgxLoginComponent implements OnInit {
@@ -88,7 +88,7 @@ export class NgxLoginComponent implements OnInit {
 
     const passwordValidators = [
       Validators.minLength(this.minLength),
-      Validators.maxLength(this.maxLength),
+      Validators.maxLength(this.maxLength), 
     ];
     this.isPasswordRequired && passwordValidators.push(Validators.required);
 

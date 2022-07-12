@@ -1,0 +1,70 @@
+
+
+<!-- <nb-card>
+  <nb-card-header>
+    Vuelos
+  </nb-card-header>
+  <nb-card-body >
+    
+    <div class="col-sm-12">
+      <div class="row" >
+      <div class="col-md-3" *ngFor="let menu of rutaMenu">
+      <nb-card >
+        <nb-card-header>{{ menu.Parameter }}</nb-card-header>
+        <nb-card-body>
+          
+          <p>{{ menu.Description }}</p>
+          <div *ngIf="menu.State === 1">
+            <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="getReport()">Ver reporte</button>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    </div>
+    </div>
+  </nb-card-body>
+</nb-card> -->
+
+<!-- <p>{{reportCategoryData | json}}</p> -->
+
+<nb-card>
+  <nb-card-header>
+    <nav >
+      <div class="d-flex">
+        <div class="p-2 flex-grow-1">
+
+          <ol class="bread">
+            <li class="breadcrumb-item" (click)="goTo()">Reporte</li>
+            <li class="breadcrumb-item" >{{reportCategoryData[0].Category}}</li>
+          </ol>
+          
+        </div>
+        <!-- <div class="p-2">Flex item</div> -->
+        <div class="p-2">
+          <!-- <input type="text" formControlName="search" class="form-control" placeholder="Buscar reporte" aria-label="Buscar reporte" aria-describedby="basic-addon1"> -->
+         <ngx-search (search)="handleSearch($event)"></ngx-search>
+        </div>
+      </div>
+      
+    </nav>
+  </nb-card-header>
+  <nb-card-body >
+    <div class="col-sm-12">
+      <div class="row row show-grid" >
+      <div class="col-md-3" *ngFor="let menu of reportCategoryData | search:filtro_valor">
+      <nb-card class="card h-100" >
+        <nb-card-header>{{ menu.Parameter }}</nb-card-header>
+        <nb-card-body >
+          <p class="card-text">{{ menu.Description }}</p>
+          <div>
+            <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="getReport(menu.Id)">Ver reporte</button>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+

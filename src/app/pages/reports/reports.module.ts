@@ -1,6 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import {
+  NbActionsModule,
+  NbButtonModule,
+  NbCardModule,
+  NbInputModule,
+  NbTabsetModule,
+  NbUserModule,
+  NbRadioModule,
+  NbSelectModule,
+  NbListModule,
+  NbIconModule,
+  NbSpinnerModule,
+  NbDatepickerModule,
+  NbCheckboxModule,
+} from "@nebular/theme";
+
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
 import { Report1Component } from './report1/report1.component';
@@ -14,6 +30,10 @@ import { Report8Component } from './report8/report8.component';
 import { Report9Component } from './report9/report9.component';
 import { Report10Component } from './report10/report10.component';
 import { EdsstatisticsComponent } from './edsstatistics/edsstatistics.component';
+import { FlightReportComponent } from './flight-report/flight-report.component';
+import { SearchComponent } from './search/search.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchPipe } from './pipes/search.pipe';
 
 
 @NgModule({
@@ -30,10 +50,28 @@ import { EdsstatisticsComponent } from './edsstatistics/edsstatistics.component'
     Report9Component,
     Report10Component,
     EdsstatisticsComponent,
+    FlightReportComponent,
+    SearchComponent,
+    SearchPipe,
   ],
   imports: [
     CommonModule,
-    ReportsRoutingModule
+    NbActionsModule,
+    NbButtonModule,
+    NbCardModule,
+    NbInputModule,
+    NbTabsetModule,
+    NbUserModule,
+    NbRadioModule,
+    NbSelectModule,
+    NbListModule,
+    NbIconModule,
+    NbSpinnerModule,
+    NbDatepickerModule,
+    NbCheckboxModule,
+    ReportsRoutingModule,
+    FormsModule, 
+    ReactiveFormsModule
   ]
 })
 export class ReportsModule { }

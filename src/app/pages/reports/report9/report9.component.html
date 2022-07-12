@@ -1,0 +1,29 @@
+<nb-card>
+    <nb-card-header>
+      <nav >
+        <ol class="bread">
+          <li class="breadcrumb-item" >Reportes</li>
+        </ol>
+      </nav>
+    </nb-card-header>
+    <nb-card-body >
+      <div class="col-sm-12">
+        <div class="row" >
+        <div class="col-md-3" *ngFor="let item of dataCategory">
+        <nb-card >
+          <nb-card-header>{{item.nombre}}</nb-card-header>
+          <nb-card-body >
+            
+            <p>{{item.descripcion}}</p>
+            
+            <div >
+              <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="goTo(item.nombre)">Ver</button>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  

@@ -139,7 +139,7 @@ export class WindowComponent2  implements OnInit {
       };
 
     }
-   
+    
     
     this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/GetStatus?Type=Package').subscribe((res: any) => {
       this.apiGetComp.GetJson(this.api.apiUrlMatbox + '/Orders/ObtenerOrders').subscribe((resOrder: any) => {

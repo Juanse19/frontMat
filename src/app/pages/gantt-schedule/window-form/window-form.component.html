@@ -66,10 +66,10 @@
     <div class="col-lg-12">
 			<h4 class="form-title"></h4>
         <div class="control_wrapper" id="control_wrapper" style="margin: 25px auto;">
-          <form id="reactive" [formGroup]="airForm">
+          <form id="reactive" [formGroup]="airForm"> 
               <div class="form-group template">
                       <div class="e-float-input">
-                          <input type="text" id="firstname" name="firstname" class="required" formControlName="Subject" required>
+                          <input type="text" id="firstname" name="firstname" data-cy="flight-field" class="required" formControlName="Subject" required>
                           <span class="e-float-line"></span>
                           <label class="e-float-text" for="firstname">Vuelo</label>
                       </div>   
@@ -78,21 +78,21 @@
 
                   <div class="form-group template" >
                     <div class="e-float-input" >
-                        <ejs-dropdownlist formControlName="ProjectId" name="ProjectId" value='value' [fields]='fields1' [dataSource]='carrData' placeholder="Make up" [allowFiltering]='true' floatLabelType='Auto' required>
+                        <ejs-dropdownlist formControlName="ProjectId" name="ProjectId" value='value' data-cy="makeUp-field" [fields]='fields1' [dataSource]='carrData' placeholder="Make up" [allowFiltering]='true' floatLabelType='Auto' required>
                         </ejs-dropdownlist>
                     </div>   
                                 
                 </div>
                 <div class="form-group template" >
                     <div class="e-float-input" >
-                        <ejs-dropdownlist formControlName="TaskId" name="TaskId" value='value' [fields]='fields' [dataSource]='airlinesData' placeholder="Airline" [allowFiltering]='true' floatLabelType='Auto' required>
+                        <ejs-dropdownlist formControlName="TaskId" name="TaskId" value='value' data-cy="airline-field" [fields]='fields' [dataSource]='airlinesData' placeholder="Airline" [allowFiltering]='true' floatLabelType='Auto' required>
                         </ejs-dropdownlist>
                     </div>   
                                    
                 </div>
                 <div class="form-group template" >
                     <div class="e-float-input" >
-                        <ejs-datetimepicker formControlName="StartTime" id="StartTime" class="e-field" data-name="StartTime" format="MM/dd/yyyy HH:mm:ss" [value]="dateParser" placeholder='Hora de inicio' floatLabelType='Always' required>
+                        <ejs-datetimepicker formControlName="StartTime" id="StartTime" class="e-field" data-cy="std-field" data-name="StartTime" format="MM/dd/yyyy HH:mm:ss" [value]="dateParser" placeholder='Hora de inicio' floatLabelType='Always' required>
                         </ejs-datetimepicker>
                       
                     </div>   
@@ -100,14 +100,14 @@
 
                   <div class="form-group template" >
                           <div class="e-float-input" >
-                              <ejs-datetimepicker formControlName="EndTime" id="EndTime" class="e-field" data-name="EndTime" format="MM/dd/yyyy HH:mm:ss" name="datetime" placeholder='Hora de finalización' floatLabelType='Always' required>
+                              <ejs-datetimepicker formControlName="EndTime" id="EndTime" class="e-field" data-cy="etd-field" data-name="EndTime" format="MM/dd/yyyy HH:mm:ss" name="datetime" placeholder='Hora de finalización' floatLabelType='Always' required>
                             </ejs-datetimepicker>
                           </div>
                   </div>
                          
                       <div class="form-group template">
                         <div class="submitBtn">
-                          <button nbButton status="primary" style="margin-left: 40%;" class="btn btn-primary"  id="submit-btn" (click)="saveData()">Guardar</button>
+                          <button nbButton status="primary" style="margin-left: 40%;" class="btn btn-primary" data-cy="save-submit-field"  id="submit-btn" (click)="saveData()">Guardar</button>
                           <!-- <div class="desc"><pre><span>*This button is not a submit type and the form submit handled from externally.</span></pre></div>                      -->
                           <div class="desc"><pre><span>                                                            </span></pre></div>      
                         </div>

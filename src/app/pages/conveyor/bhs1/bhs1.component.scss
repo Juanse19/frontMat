@@ -66,17 +66,20 @@ img {
 }
 
 .st4 {
-    stroke: #000000;
-    stroke-linecap: butt;
-    stroke-width: 0.35;
-    fill: #f0f0f0;
-    font-size: 0.26664em
+    // stroke: #000000;
+    // stroke-linecap: butt;
+    // stroke-width: 0.35;
+    // fill: #f0f0f0;
+    // font-size: 0.26664em
+
+    font-size: 0.254em;
+    font-family: "Siemens Sans";
 }
 
-.st4:hover {
-    fill: none;
-    stroke: blue
-}
+// .st4:hover {
+//     fill: none;
+//     stroke: blue
+// }
 
 .st5 {
     fill: #000000;

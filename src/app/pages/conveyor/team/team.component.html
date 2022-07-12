@@ -1,23 +1,8 @@
-<nb-card>
+<!-- <nb-card>
   <nb-card-header> Estado por equipo </nb-card-header>
 
   <nb-card-body>
-    <!-- <ng2-smart-table
-      class="dash-smart-table"
-      [settings]="settings"
-      [source]="teamData"
-      (deleteConfirm)="onDeleteConfirm($event)">
-    </ng2-smart-table>
-  -->
-
-  <!-- <div class="text-center" *ngIf="loading">
-    <div class="spinner-border"  role="status">
-      <span class="sr-only">Loading...</span>
-      
-    </div>
-    <b  style="margin-top: 4rem; margin-left: -3rem">Cargando...</b>
-  </div> -->
-
+    
   
   <div class="overlay">
     <div class="spinner-border" *ngIf="loading"></div>
@@ -44,8 +29,26 @@
         <e-column field="power" headerText="Potencia" width="100"></e-column>
         <e-column field="current" headerText="Corriente" width="100"></e-column>
         <e-column field="Voltage" headerText="Voltaje" width="100"></e-column>
-        <!-- <e-column field='Mensaje' headerText='Log' width=100></e-column> -->
       </e-columns>
     </ejs-grid>
   </nb-card-body>
-</nb-card>
+</nb-card> -->
+
+<div class="col-sm-12">
+  <div class="row" >
+  <div class="col-md-3" *ngFor="let menu of teamsData">
+  <nb-card >
+    <nb-card-header>{{ menu.title }}</nb-card-header>
+    <nb-card-body>
+      
+      <p>{{ menu.link }}</p>
+        <!-- <pre><b>Link:</b>  {{ menu.link }}</pre> -->
+     <b>{{ menu.hidden }}</b>
+      <div *ngIf="menu.hidden === true">
+        <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px;" (click)="getReport()">Ver reporte</button>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
+</div>
+</div>

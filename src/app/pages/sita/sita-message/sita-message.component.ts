@@ -47,7 +47,7 @@ interface confi {
 export class SitaMessageComponent implements OnInit {
 
   public dataRefe = REFERE;
-
+ 
   public pageSettings: PageSettingsModel;
   public editSettings: Object;
   public toolbar: ToolbarItems[] | object;
@@ -283,10 +283,11 @@ debugger
     .subscribe((res: any) => {
       //REPORTOCUPATION=res;
       this.dataConfigu = res;
+      console.log("dataRefe:", this.dataConfigu);
       REFERE = res;
       this.dataRefe = REFERE;
       // console.log("Configuration:", this.dataConfigu);
-      // console.log("dataRefe:", this.dataRefe);
+      
     });
 
   }

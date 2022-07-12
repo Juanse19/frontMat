@@ -1,0 +1,17 @@
+<div class="card" style="width: 18rem;  margin-top: -15%;">
+    <div class="card-body">
+      <h5 class="card-title">Carrusel por defecto</h5>
+      <div class="container">
+        <form [formGroup]="carruselFrom">
+            <div class="form-group">
+                <!-- Asignacion de Licencia de acceso -->
+                <label for="Value"></label>
+                <input nbInput  formControlName="Value" disabled="mostrar"  class="form-control" placeholder="Carrusel por default">
+               
+            </div>
+        </form>
+    </div>
+    
+      <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px; margin-left: 47%;" (click)="editMake()" >Modificar</button>
+    </div>
+  </div>

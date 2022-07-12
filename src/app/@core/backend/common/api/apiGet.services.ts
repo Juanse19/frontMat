@@ -24,7 +24,7 @@ export class ApiGetService {
 
     GetJson(url: string) {
         return this.http.get(url).pipe(
-          retry(3),
+          // retry(3),
           catchError((error) => {
             console.log();
             return throwError(error);

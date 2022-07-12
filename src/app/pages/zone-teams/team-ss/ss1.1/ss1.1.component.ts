@@ -30,6 +30,8 @@ export class Ss1_1Component implements OnInit {
 
   public TeamSS1_1: DeviceXpl;
 
+  public corrientePlaca: number;
+
   public velocidadSS1_1: any = 0;
   intervalSubscriptionItems?: Subscription;
 
@@ -70,17 +72,22 @@ public germanyAnnotation: Object[] = [{
  public ranges: Object = [{
   start: 0, end: 40,
   startWidth: 15, endWidth: 15,
-  color: '#30B32D'
+  color: '#FFDD00' 
 }, 
 {
   start: 40, end: 70,
   startWidth: 15, endWidth: 15,
-  color: '#FFDD00'
+  color: '#30B32D'
 }, 
 {
   start: 70, end: 100,
   startWidth: 15, endWidth: 15,
   color: '#F03E3E'
+},
+{
+  start: 100, end: 150,
+  startWidth: 15, endWidth: 15,
+  color: '#F03E3R'
 }
 ];
 
@@ -104,7 +111,9 @@ public tooltipInterval1: number;
     private api: HttpService,
     private apiGetComp: ApiGetService,
     private decimalPipe: DecimalPipe,
-    ) { }
+    ) { 
+      this.changeRange()
+    }
 
   ngOnInit(): void {
     this.changeSS1_1();
@@ -194,6 +203,12 @@ public tooltipInterval1: number;
 }
 
 
+changeRange() {
+  this.corrientePlaca = 45;
+  console.log('Corrinte', this.corrientePlaca);
+  
+}
+
   changeSS1_1() {
     this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/v1/device?device=' + 'SS1_1')
     .pipe(takeWhile(() => this.alive))
@@ -207,7 +222,7 @@ public tooltipInterval1: number;
       } else {
       this.TeamSS1_1 = res[0]
       // this.dataSF1_1 = TeamSF1_1
-      this.velocidadSS1_1 = this.TeamSS1_1?.VelocidadActualMotor ?? 0;
+      this.velocidadSS1_1 = this.TeamSS1_1?.CorrienteActualMotor ?? 0;
     }
     });
   }

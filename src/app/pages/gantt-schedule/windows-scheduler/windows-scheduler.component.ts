@@ -80,7 +80,7 @@ let win: NbWindowRef;
 @Component({
   selector: "ngx-windows-scheduler",
   templateUrl: "./windows-scheduler.component.html",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ["./windows-scheduler.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
@@ -375,7 +375,7 @@ export class WindowsSchedulerComponent implements OnInit {
           text: "¡Se Eiliminó Exitosamente!",
         });
         this.messageService.sendMessage("PackageUpdate");
-        this.back();
+        // this.back();
       }
     });
   }

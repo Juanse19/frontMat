@@ -1,0 +1,54 @@
+// .contenedor {
+//     position: relative;
+//     display: inline-block;
+//     text-align: center;
+//   }
+
+//   .centrado {
+//     position: absolute;
+//     font-size: 10px;
+//     font-family: cursive;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//   }
+
+//   .h {
+//     margin: -1.8rem 0.19rem 0rem 2.7rem;
+//   }
+
+//   :host {
+//     display: block;
+//     max-height: 25rem;
+//     overflow-x: hidden;
+//     overflow-y: auto;
+//   }
+  
+//   .card-row {
+//     display: flex;
+//     margin: 0 -0.5rem;
+//   }
+  
+//   .card-col {
+//     flex: 1 0 calc(50% - 1rem);
+//     margin: 0 0.5rem;
+//   }
+
+.bread {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.1rem;
+  list-style: none;
+  /* background-color: #e9ecef; */
+  border-radius: 0.25rem;
+}
+
+.bread[_ngcontent-cmi-c527] {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: -0.1rem;
+  list-style: none;
+  border-radius: 0.25rem;
+}

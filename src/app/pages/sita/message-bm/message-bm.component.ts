@@ -14,6 +14,30 @@ import {
   CommandModel,
 } from "@syncfusion/ej2-angular-grids";
 
+interface dataBM {
+  Id: number,
+  RegisterTime: string,
+  V: string,
+  F: string,
+  I: string,
+  O: string,
+  N: string,
+  D: string,
+  S: string,
+  H: string,
+  W: string,
+  P: string,
+  G: string,
+  Y: string,
+  C: string,
+  L: string,
+  T: string,
+  K: string,
+  R: string,
+  X: string,
+  CSI: string
+}
+
 interface bagMessage {
   Id?: number;
   Standard_Message_Identifier?: string;
@@ -49,7 +73,7 @@ export class MessageBMComponent implements OnInit {
   @ViewChild('grid') 
   public grid: GridComponent;
 
-  public bagMessageData: bagMessage[] = [];
+  public bagMessageData: dataBM[] = [];
 
   public pageSettings: PageSettingsModel;
 
@@ -99,6 +123,7 @@ export class MessageBMComponent implements OnInit {
         // console.log('acoData: ', res);
         this.loading = false;
         this.bagMessageData = res;
+        console.log('acoData: ', this.bagMessageData);
         this.bandaBmCharge();
       });
       // const contador = interval(60000)
@@ -118,7 +143,7 @@ export class MessageBMComponent implements OnInit {
         this.intervalSubscriptionBm.unsubscribe();
       }
       
-      this.intervalSubscriptionBm = interval(16000)
+      this.intervalSubscriptionBm = interval(26000)
       .pipe(
         takeWhile(() => this.alive),
         switchMap(() => this.http.get(this.api.apiUrlNode1 + '/api/notificationBM')),
@@ -131,10 +156,8 @@ export class MessageBMComponent implements OnInit {
 
     dataBound() {
       this.grid.autoFitColumns(
-        ['Standard_Message_Identifier','Change_Status_Indicator', 'Version_Supplementary_Data', 'Outbound_Flight_Information',
-         'Inbound_Flight_Information', 'Onward_Flight_Information', 'Baggage_Tag_Details', 'Check_in_Location_Information', 
-         'Reconciliation_Data', 'Handling_Location','Pieces_Weight_Dimensions_Type_Data',
-          'Passenger_Name', 'Ground_Transport', ]);
+        ['V','F', 'O', 'N',
+         'S', 'P', 'L', 'R', 'CSI', 'RegisterTime' ]);
   }
 
     ngOnDestroy() {

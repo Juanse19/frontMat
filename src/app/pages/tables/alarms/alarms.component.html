@@ -10,8 +10,14 @@
                 <nb-card-body> -->
                 <!-- <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
                     </ng2-smart-table> 
-                (toolbarClick)='clickHandler($event)' [toolbar]='toolbar' (actionComplete)="actionComplete($event)" allowTextWrap='true'-->
+                (toolbarClick)='clickHandler($event)' padding-top: 40px; [toolbar]='toolbar' (actionComplete)="actionComplete($event)" allowTextWrap='true'
+            [(ngModel)]="dataCategory[0].Level" -->
  
+                <div style="margin: 10px auto; width:250px; margin-left: 10px;" [formGroup]="lavelForm">
+                    <ejs-dropdownlist formControlName="Level" name="Level" value='value' [fields]='fields' [dataSource]='dataCategory' placeholder="Niveles" [allowFiltering]='true' floatLabelType='Auto' required (change)="GetAlarmLevel(($event.value))">
+                    </ejs-dropdownlist>
+                </div>  
+
                 <ejs-grid [dataSource]='Alarm' [editSettings]='editSettings' (toolbarClick)='clickHandler($event)' [toolbar]='toolbar'  (actionBegin)="actionBegin($event)"  [allowPaging]="true"
                 [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
                 [allowFiltering]="true" height='350'>

@@ -68,6 +68,8 @@ import { SplitterModule } from '@syncfusion/ej2-angular-layouts';
 import { GanttAllModule } from '@syncfusion/ej2-angular-gantt';
 // import { FilterService,ToolbarService } from '@syncfusion/ej2-angular-gantt';
 import { ReaderefficiencyComponent } from './readerefficiency/readerefficiency.component';
+import { DefaultCarouselComponent } from './default-carousel/default-carousel.component';
+import { EditDefaulCarruselComponent } from './edit-defaul-carrusel/edit-defaul-carrusel.component';
 
 
 @NgModule({
@@ -103,6 +105,8 @@ import { ReaderefficiencyComponent } from './readerefficiency/readerefficiency.c
     BhsSalidasComponent,
     SchedulerSitaComponent,
     ReaderefficiencyComponent,
+    DefaultCarouselComponent,
+    EditDefaulCarruselComponent,
   ],
   imports: [
     CommonModule,

@@ -66,17 +66,28 @@ img {
 }
 
 .st4 {
-    stroke: #000000;
-    stroke-linecap: butt;
-    stroke-width: 0.35;
-    fill: #f0f0f0;
-    font-size: 0.26664em
+    // stroke: #000000;
+    // stroke-linecap: butt;
+    // stroke-width: 0.35;
+    // fill: #f0f0f0;
+    // font-size: 0.26664em
+
+    font-size: 0.254em;
+    font-family: "Siemens Sans";
+
+    // fill: rgb(0, 0, 0);
+    // // text-anchor: middle;
+    // font-family: "Siemens Sans";
+    // font-size: 0.18em;
+    // font-style: normal;
+    // font-weight: 400;
+    // text-decoration: none;
 }
 
-.st4:hover {
-    fill: none;
-    stroke: blue
-}
+// .st4:hover {
+//     fill: none;
+//     stroke: blue
+// }
 
 .st5 {
     fill: #000000;

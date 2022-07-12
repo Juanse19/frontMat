@@ -4,10 +4,10 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, ViewChild } from '@angular/core';
 import { switchMap, takeWhile } from 'rxjs/operators';
 import { NbTokenService } from '@nebular/auth';
-import { NbMenuItem } from '@nebular/theme';
+import { NbMenuItem, NbToastrService } from '@nebular/theme';
 import { PagesMenu } from './pages-menu';
 import { InitUserService } from '../@theme/services/init-user.service';
 import { interval, Subscription } from 'rxjs';
@@ -17,6 +17,9 @@ import { Router } from '@angular/router';
 import { UserStore } from '../@core/stores/user.store';
 import Swal from 'sweetalert2';
 import { ApiGetService } from '../@core/backend/common/api/apiGet.services';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+//import ip from "ip"
+
 
 interface dataLicens {
   Id: number;
@@ -33,14 +36,20 @@ interface dataLicens {
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
+    
+   
   `,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagesComponent implements OnDestroy {
 
   menu: NbMenuItem[];
   alive: boolean = true;
+  rutaMenu: NbMenuItem[];
   public validData: dataLicens[] = [];
   intervalSubscriptionStatusSesion: Subscription;
+
+  private index: number = 0;
 
   constructor(private pagesMenu: PagesMenu,
     private tokenService: NbTokenService,
@@ -50,24 +59,38 @@ export class PagesComponent implements OnDestroy {
     private api: HttpService,
     private apiGetComp: ApiGetService,
     private userStore: UserStore,
+    private toastrService: NbToastrService,
   ) {
-    this.initMenu();
-
+    // this.initMenu();
+   
     this.tokenService.tokenChange()
       .pipe(takeWhile(() => this.alive))
       .subscribe(() => {
         this.initMenu();
       });
+      this.TetsIp();
+      
 
   }
 
   initMenu() {
+ 
     this.pagesMenu.getMenu()
       .pipe(takeWhile(() => this.alive))
       .subscribe(menu => {
         this.menu = menu;
       });
       this.AutoLogoutCharge();
+     // this.test();
+     
+  }
+
+  TetsIp() {
+
+    //console.log('Ip', ip.address);
+    
+    //console.log ( ip.address() );
+  
   }
 
   public AutoLogoutCharge() {
@@ -150,20 +173,78 @@ export class PagesComponent implements OnDestroy {
   }
   }
 
-  ngOnDestroy(): void {
-    this.alive = false;
+
+// @HostListener('window:beforeunload', ['$event'])
+
+//   beforeunloadHandler(event) {
+//     this.tokenService.clear()
+//     this.router.navigate(['/auth/logout']);
+//     localStorage.clear();
+// }
+
+
+
+  // Prueba de websocket
+  // myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:8000');
+  // myWebSocket: WebSocketSubject<any> = webSocket('ws://127.0.0.1:1880/ws/simple');
+  // myWebSocket: WebSocketSubject<any> = webSocket( WS_ENDPOINT);
+
+  // myWebSocket: WebSocketSubject<any> = webSocket('ws://10.120.18.15:1880/wc/alarms');
+
+  enviar(){
+    
+    var respons = 
+          {
+            Email: this.userStore.getUser().email
+          };
+
+    //this.myWebSocket.next(respons);
   }
 
-//   ngDoCheck(){
-//     this.AutoLogoutCharge();
-//     console.log('ngDoCheck');
-//     console.log('DoCheck: ', this.AutoLogoutCharge);
-    
-// }
+  // test(){
+   
+  //   const subcription1  = this.myWebSocket.subscribe(msg => {
+  //     //console.log('Mensaje recibido', msg.message);
+  //     //this.validData[0] = msg[0];
 
-// ngOnChanges(){
-//     console.log('ngOnChanges');
-//     this.AutoLogoutCharge();
-// }
+  //     this.index += 1;
+
+  //     console.log('Acumulador',this.index);
+      
+
+  //     if (msg.payload === 0 || msg.payload === 1 || msg.payload === 2 || msg.payload === 6 || msg.payload === 21) {
+  //       let duration = 6000
+  //       this.toastrService.success(msg.topic,  msg.message, {duration});
+  //     } 
+  //     else if(msg.payload === 3 || msg.payload === 9) {
+  //       let duration = 6000
+  //       this.toastrService.danger(msg.topic, msg.message, {duration});
+  //     }
+  //     else if(msg.payload === 4 || msg.payload === 4 || msg.payload === 7 || msg.payload === 8 || msg.payload === 20 ) {
+  //       let duration = 6000
+  //       this.toastrService.warning(msg.topic, msg.message, {duration});
+  //     }
+      
+  //   })
+
+  //   console.log('message subscribe:', subcription1.add);
+    
+
+  //   this.myWebSocket.subscribe(    
+  //     //msg => console.log('message received: ', msg), 
+  //     // Called whenever there is a message from the server    
+  //     err => console.log(err), 
+  //     // Called if WebSocket API signals some kind of error    
+  //     () => console.log('complete') 
+  //     // Called when connection is closed (for whatever reason)  
+  //  );
+   
+  // }
   
+
+  ngOnDestroy(): void {
+    this.alive = false;
+    // this.myWebSocket.complete();
+  }
+
 }

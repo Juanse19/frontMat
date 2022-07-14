@@ -17,18 +17,19 @@ export const environment = {
 
   // apiUrl: 'http://172.27.45.12:3001/api',
   // apiUrlMat: 'http://172.27.45.12:5001/api',
-  // apiUrlMatSignalR: 'http://172.27.45.12:5001',
+  //apiUrlMatSignalR: 'http://172.27.45.12:5001',
   // apiUrlNode: 'http://172.27.45.12:1880',
 
-  apiUrl: 'http://10.121.10.1:3001/api',
-  apiUrlNode1: 'http://10.121.10.1:1880',
+  // apiUrl: 'http://10.121.10.1:3001/api',
+  // apiUrlNode1: 'http://10.121.10.1:1880',
 
-  // apiUrl: 'http://xpl-matbag-app01:3001/api',
+  apiUrl: 'http://xpl-matbag-app01:3001/api',
   apiUrlMat: 'http://10.100.22.48:5001/api',
   apiUrlMatSignalR: 'http://10.100.22.48:5001',
-  apiUrlNode: 'http://10.100.22.48:1880',
-  // apiUrlNode1: 'http://xpl-matbag-app01:1880',
-  urlWebSocket: 'ws://10.121.10.1:1880/wc/alarms',
+  apiUrlNode: 'http://xpl-matbag-app01:1880',
+  apiUrlNode1: 'http://xpl-matbag-app01:1880',
+  // urlWebSocket: 'ws://10.121.10.1:1880/wc/alarms',
+  urlWebSocket: 'ws://xpl-matbag-app01:1880/wc/alarms',
 
   testUser: {
     // tslint:disable

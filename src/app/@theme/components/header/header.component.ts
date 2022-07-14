@@ -253,7 +253,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const subcription1 = this.myWebSocket
     .pipe(
       // concatMap((item) => of (item).pipe(delay(1000))) 
-      retryWhen(errors => errors.pipe(delay(1000), take(10)))
+      retryWhen(errors => errors.pipe(delay(1000), take(10))),
+      
+
     )
     .subscribe(
       (msg) => {

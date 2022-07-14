@@ -251,7 +251,7 @@ actionBegin(args) {
        
        if (res) {
         this.toastrService.success('', '¡Alarma solucionada!'); 
-        this.Chargealarms();
+        // this.Chargealarms();
         this.source.refresh();
       } else {
         this.toastrService.danger('', 'Algo salio mal.');
@@ -383,7 +383,7 @@ Delete(event): void {
        .pipe(takeWhile(() => this.alive))
        .subscribe((res: any) => {
         this.source.refresh();
-        this.Chargealarms();
+        // this.Chargealarms();
        });
     
           Swal.fire('¡Se Reconocieron Exitosamente', 'success');
@@ -410,22 +410,22 @@ Delete(event): void {
     });
   }
 
-  Chargealarms() {
-    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-      this.Alarm = res;
-    });
-    const contador = interval(30000)
-    contador.subscribe((n) => {
-      this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        this.Alarm = res;
-      });
-    });
+  // Chargealarms() {
+  //   this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms')
+  //   .pipe(takeWhile(() => this.alive))
+  //   .subscribe((res: any) => {
+  //     this.Alarm = res;
+  //   });
+  //   const contador = interval(30000)
+  //   contador.subscribe((n) => {
+  //     this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/GetAlarms')
+  //     .pipe(takeWhile(() => this.alive))
+  //     .subscribe((res: any) => {
+  //       this.Alarm = res;
+  //     });
+  //   });
 
-  }
+  // }
 
   ChargeHistoryData() {
     this.http.get(this.api.apiUrlNode1 + '/historyalarm')
@@ -435,14 +435,14 @@ Delete(event): void {
       // console.log('History', this.historyAlarmData);
       
     });
-    const contador = interval(40000)
-    contador.subscribe((n) => {
-      this.http.get(this.api.apiUrlNode1 + '/historyalarm')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        this.historyAlarmData = res;
-      });
-    });
+    // const contador = interval(40000)
+    // contador.subscribe((n) => {
+    //   this.http.get(this.api.apiUrlNode1 + '/historyalarm')
+    //   .pipe(takeWhile(() => this.alive))
+    //   .subscribe((res: any) => {
+    //     this.historyAlarmData = res;
+    //   });
+    // });
   }
 
   GetAlarmLevel(name: string) {

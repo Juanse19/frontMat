@@ -261,7 +261,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
          this.index += 1;
          localStorage.setItem("Alarmas", JSON.stringify(this.index));
-        console.log("Acumulador", this.index);
+       // console.log("Acumulador", this.index);
 
          this.count();
 

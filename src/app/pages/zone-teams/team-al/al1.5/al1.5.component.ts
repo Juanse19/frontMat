@@ -162,7 +162,7 @@ public tooltipInterval1: number;
 
 
 changeAL1_1() {
-    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/v1/device?device=' + 'AL1_5')
+    this.apiGetComp.GetJson(this.api.urlapixplmatbagapp02 + '/api/v1/device?device=' + 'AL1_5')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any)=>{
       if(res == timeout(100)){
@@ -191,7 +191,7 @@ changeAL1_1() {
     this.intervalSubscriptionItems = interval(23000)
     .pipe(
       takeWhile(() => this.alive),
-      switchMap( () => this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/v1/device?device=' + 'AL1_5'))
+      switchMap( () => this.apiGetComp.GetJson(this.api.urlapixplmatbagapp02 + '/api/v1/device?device=' + 'AL1_5'))
     )
     .subscribe((res: any) => {
       if (JSON.stringify(res)=='{}') {

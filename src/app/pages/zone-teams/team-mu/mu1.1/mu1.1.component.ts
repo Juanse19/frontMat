@@ -197,7 +197,7 @@ public tooltipInterval1: number;
 
 
   changeMU1_1M02() {
-    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/v1/device?device=' + 'MU1_1')
+    this.apiGetComp.GetJson(this.api.urlapixplmatbagapp02 + '/api/v1/device?device=' + 'MU1_1')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any)=>{
       if(res == timeout(100)){
@@ -226,7 +226,7 @@ public tooltipInterval1: number;
     this.intervalSubscriptionItems = interval(23000)
     .pipe(
       takeWhile(() => this.alive),
-      switchMap( () => this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/v1/device?device=' + 'MU1_1'))
+      switchMap( () => this.apiGetComp.GetJson(this.api.urlapixplmatbagapp02 + '/api/v1/device?device=' + 'MU1_1'))
     )
     .subscribe((res: any) => {
       if (JSON.stringify(res)=='{}') {

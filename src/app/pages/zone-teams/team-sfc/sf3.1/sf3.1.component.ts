@@ -196,7 +196,7 @@ public tooltipInterval3: number;
 }
 
 changeSF3_1(): void {
-  this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/v1/device?device=' + 'SF3_1')
+  this.apiGetComp.GetJson(this.api.urlapixplmatbagapp02 + '/api/v1/device?device=' + 'SF3_1')
   .pipe(takeWhile(() => this.alive))
   .subscribe((data: any)=>{
     if (JSON.stringify(data)=='{}') {
@@ -223,7 +223,7 @@ dataSF3(){
   this.intervalSubscriptionItems3 = interval(23000)
   .pipe(
     takeWhile(() => this.alive),
-    switchMap( () => this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/v1/device?device=' + 'SF3_1'))
+    switchMap( () => this.apiGetComp.GetJson(this.api.urlapixplmatbagapp02 + '/api/v1/device?device=' + 'SF3_1'))
   )
   .subscribe((data: any) => {
     if (JSON.stringify(data)=='{}') {

@@ -10,26 +10,14 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://10.100.22.92:3001/api',
-  // apiUrlMat: 'http://10.100.22.92:5001/api',
-  // apiUrlMatSignalR: 'http://10.100.22.92:5001',
-  // apiUrlNode: 'http://10.100.22.92:1880',
-
-  // apiUrl: 'http://172.27.45.12:3001/api',
-  // apiUrlMat: 'http://172.27.45.12:5001/api',
-  //apiUrlMatSignalR: 'http://172.27.45.12:5001',
-  // apiUrlNode: 'http://172.27.45.12:1880',
-
-  // apiUrl: 'http://10.121.10.1:3001/api',
-  // apiUrlNode1: 'http://10.121.10.1:1880',
 
   apiUrl: 'http://xpl-matbag-app01:3001/api',
   apiUrlMat: 'http://10.100.22.48:5001/api',
   apiUrlMatSignalR: 'http://10.100.22.48:5001',
   apiUrlNode: 'http://xpl-matbag-app01:1880',
   apiUrlNode1: 'http://xpl-matbag-app01:1880',
-  // urlWebSocket: 'ws://10.121.10.1:1880/wc/alarms',
   urlWebSocket: 'ws://xpl-matbag-app01:1880/wc/alarms',
+  urlapixplmatbagapp02 : 'http://xpl-matbag-app02:1880',
 
   testUser: {
     // tslint:disable

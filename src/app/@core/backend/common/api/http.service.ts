@@ -36,6 +36,10 @@ export class HttpService {
     return environment.apiUrl;
   }
 
+  get urlapixplmatbagapp02(): string {
+    return environment.urlapixplmatbagapp02;
+  }
+
   constructor(private http: HttpClient) {}
 
   getServerDataSource(uri: string): DataSource {

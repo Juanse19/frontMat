@@ -71,17 +71,17 @@ export class NgxResetPasswordComponent implements OnInit {
     this.user = this.resetPasswordForm.value;
 this.user.password += ';' + this.userId; 
 
-const currentUserId = this.userStore.getUser().firstName;
-  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-  let respons = {
-    user: currentUserId,
-    message: 'Cambio la contraseña', 
-};
-this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
-.pipe(takeWhile(() => this.alive))
-.subscribe((res: any) => {
-    //  console.log("Envió: ", res);
-  });
+// const currentUserId = this.userStore.getUser().firstName;
+//   // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+//   let respons = {
+//     user: currentUserId,
+//     message: 'Cambio la contraseña', 
+// };
+// this.apiGetComp.PostJson(this.api.apiUrlMatbox + '/Alarms/postSaveAlarmUser', respons)
+// .pipe(takeWhile(() => this.alive))
+// .subscribe((res: any) => {
+//     //  console.log("Envió: ", res);
+//   });
 
     this.service.resetPassword(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;

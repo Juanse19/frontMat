@@ -30,13 +30,27 @@ export interface states {
 
 // Band information by zone
 export interface teams{
-    DeviceId?: string,
-    Name?: string,
+    DeviceID?: string,
+    DeviceName?: string,
     Estado?: string,
-    TiempoOn?: string,
-    TiempoOff?: string
     Consumo?: string,
+    HorasOperacion?: string,
+    ContadorMaletas?: string,
+    VelocidadActual: number,
+    VelocidadCalculada: number,
+    Color: string
 }
+
+// export interface teams{
+//     DeviceId?: string,
+//     DeviceName?: string,
+//     Estado?: string,
+//     TiempoOn?: string,
+//     TiempoOff?: string
+//     Consumo?: string,
+//     HorasOperacion?: string,
+//     ContadorMaletas?: string,
+// }
 
 export interface Consumezone {
 ZoneId?: number;

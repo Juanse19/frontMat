@@ -1,0 +1,44 @@
+
+<nb-card>
+    <nb-card-body>
+        <div class="page-content" (ngSubmit)="accionRole()">
+           
+            <div class="card user-info">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        {{title}}
+                    </h3>
+                </div>
+                <form action="" [formGroup]="roleForm" >
+                <div class="input-div">
+                    <label for="roleName">Nombre del role:</label>
+                    <input formControlName="roleName" type="text" class="form-control" placeholder="Nombre">
+                </div>
+            </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Lista de permisos
+                    </h3>
+                </div>
+                <div class="card-body role-list">
+                   
+                    <span class="role-item" *ngFor="let option of accessDa; let i=index" >
+                        <label>
+                            <input type="checkbox" [(ngModel)]="option.selected" (change)="onChange()" >  {{option?.AccestypeName}}
+                        </label>
+                    </span>
+
+                    
+                </div>
+            </div>
+        
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="primary"  hero (click)="accionRole()" style="text-transform: none;">{{title}}</button>
+        <button nbButton status="info" routerLink="/pages/roles/list" style="text-transform: none;" hero>Atras</button>
+    </nb-card-footer>
+</nb-card>

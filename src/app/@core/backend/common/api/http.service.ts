@@ -66,6 +66,10 @@ export class HttpService {
     );
   }
 
+  getUserRole(endpoint: string, options?): Observable<any> {
+    return this.http.get(`${this.apiUrlNode}/${endpoint}`, options);
+  }
+
   post(endpoint: string, data, options?): Observable<any> {
     return this.http.post(`${this.apiUrl}/${endpoint}`, data, options);
   }

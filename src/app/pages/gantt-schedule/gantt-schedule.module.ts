@@ -33,10 +33,14 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { WindowFormComponent } from './window-form/window-form.component'
+import { WindowFormComponent } from './window-form/window-form.component';
+import { SearchShedulerComponent } from './search-sheduler/search-sheduler.component'
+import { GridModule, ResizeService  } from '@syncfusion/ej2-angular-grids';
+// import { PageService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { TabAllModule } from '@syncfusion/ej2-angular-navigations';
 
 @NgModule({
-  declarations: [GanttScheduleComponent, SchedulerganttComponent,  WindowsSchedulerComponent, WindowFormComponent],
+  declarations: [GanttScheduleComponent, SchedulerganttComponent,  WindowsSchedulerComponent, WindowFormComponent, SearchShedulerComponent],
   imports: [
     CommonModule,
     NbCardModule,
@@ -65,8 +69,10 @@ import { WindowFormComponent } from './window-form/window-form.component'
     DropDownListAllModule,
     ReactiveFormsModule,
     FormsModule,
+    GridModule,
+    TabAllModule
   ],
-  providers: [ EditService , FilterService, SortService, SelectionService,ToolbarService,DayMarkersService ],
+  providers: [ EditService , FilterService, SortService, SelectionService, ToolbarService, DayMarkersService, ],
   bootstrap: [GanttScheduleModule],
 })
 export class GanttScheduleModule { }

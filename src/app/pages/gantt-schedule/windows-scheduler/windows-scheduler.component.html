@@ -1,50 +1,4 @@
 <!-- 
-
-            
-            <div id='content' class='box-form'>
-
-                <form [formGroup]="airForm">
-            
-                    <div class="form-group" style="padding-top:10px;">
-                        <div class="e-float-input">
-                            <input type="text" name="Subject" class="required" formControlName="Subject" required>
-                            <span class="e-float-line"></span>
-                            <label class="e-float-text" for="Subject">Nombre:</label>
-                        </div>
-                       
-                    </div>
-                <div>
-                    <div class="form-group">
-                        <ejs-dropdownlist formControlName="ProjectId" name="ProjectId" value='value' [fields]='fields1' [dataSource]='carrData' placeholder="Make up" [allowFiltering]='true' floatLabelType='Auto' required>
-                        </ejs-dropdownlist>
-                    </div>
-            
-                    <div class="form-group">
-                        <ejs-dropdownlist formControlName="TaskId" name="TaskId" value='value' [fields]='fields' [dataSource]='airlinesData' placeholder="Airline" [allowFiltering]='true' floatLabelType='Auto' required>
-                        </ejs-dropdownlist>
-                    </div>
-                </div>
-                    <div class="form-group">
-                        <ejs-datetimepicker formControlName="StartTime" id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a" [value]="dateParser" placeholder='Hora de inicio' floatLabelType='Always' required>
-                        </ejs-datetimepicker>
-                    </div>
-            
-                    <div class="form-group">
-                        <ejs-datetimepicker formControlName="EndTime" id="EndTime" class="e-field" data-name="EndTime" format="yyyy-MM-dd h:mm a" name="datetime" placeholder='Hora de finalización' floatLabelType='Always' required>
-                        </ejs-datetimepicker>
-                    </div>
-            
-                   
-                  <nb-card-footer>
-                    <button nbButton hero fullWidth shape="semi-round" status="primary" size="large" (click)="save()">GUARDAR</button>
-                </nb-card-footer>
-                </form>
-            
-            </div>
-            
-
-     -->
-
      <div class="control-section">
         <div class="col-lg-12">
                 <h4 class="form-title"></h4>
@@ -104,4 +58,69 @@
           </div>
         </div> 
     </div>
-   
+    -->
+
+    <ejs-dialog id='formAir' #formAir allowDragging='true' [header]='' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
+        <ng-template #content>
+           
+    
+                <div class="modal-body">
+                   
+                
+                    <form [formGroup]="airForm">
+                       
+                        <div class="form-outline mb-4">
+                          <label class="form-label title" for="form6Example3"> Vuelo </label>
+                          <input type="text" formControlName="Subject" id="form6Example3" class="form-control" />
+                        </div>
+    
+                        <!-- <div class="form-outline mb-4">
+                            <label class="form-label title" for="form6Example3">Descripción</label>
+                            <input type="text" formControlName="Description" id="form6Example3" class="form-control" />
+                          </div> -->
+    
+                          <div class="form-group" [formGroup]="airForm" >
+                            <label class="form-label title" for="form6Example3">Make up </label>
+                            <br />
+                            <nb-select style="width: 190%; border: 1px ; max-width: 100%;" formControlName="ChuteName" id="Make up" placeholder="Make up" class="form">
+                                <nb-option *ngFor="let itemCard of changeMake" [value]="itemCard.text">
+                                    {{ itemCard.text }}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+    
+                        <div class="form-group" [formGroup]="airForm" >
+                            <label class="form-label title" for="form6Example3">Aerolineas </label>
+                            <br />
+                            <nb-select style="width: 190%; border: 1px ; max-width: 100%;" formControlName="taskName" name="taskName" id="taskName" placeholder="Aerolineas" class="form">
+                                <nb-option *ngFor="let itemAir of changeAir" [value]="itemAir.text">
+                                    {{ itemAir.text }}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+    
+                          <div class="form-outline mb-4">
+                            <!-- <label class="form-label title" for="form6Example3">Url Reporte</label> -->
+                            <ejs-datetimepicker formControlName="StartTime" id="StartTime" class="e-field" data-cy="std-field" data-name="StartTime" format="MM/dd/yyyy HH:mm:ss" [value]="dateParser" placeholder='Hora de inicio' floatLabelType='Always' required>
+                            </ejs-datetimepicker>
+                          </div>
+    
+                          <div class="form-outline mb-4">
+                            <!-- <label class="form-label title" for="form6Example3">Url Grafica</label> -->
+                            <ejs-datetimepicker formControlName="EndTime" id="EndTime" class="e-field" data-cy="etd-field" data-name="EndTime" format="MM/dd/yyyy HH:mm:ss" name="datetime" placeholder='Hora de finalización' floatLabelType='Always' required>
+                            </ejs-datetimepicker>
+                          </div>
+                    
+                      </form>
+                
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Cerrar</button>
+                    <button type="button" class="btn btn-primary"  (click)="editData()">Editar</button>
+                    <button type="button" class="btn btn-danger"  (click)="delete()">Eliminar</button>
+                  </div>
+                
+        </ng-template>
+    </ejs-dialog>
+
+    

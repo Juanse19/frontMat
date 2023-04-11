@@ -1,7 +1,7 @@
-img {
-    width: 29%;
-    height: auto;
-}
+// img {
+//     width: 29%;
+//     height: auto;
+// }
 
 // p {
 //     text-align: right;
@@ -73,7 +73,7 @@ img {
     // font-size: 0.46664em
 
     font-size: 0.454em;
-    font-family: "Siemens Sans";
+    font-family: sans-serif;
 }
 
 // .st4:hover {
@@ -161,13 +161,9 @@ nb-card-body {
 svg {
     width: 100%;
     height: auto;
-    cursor: move;
+    cursor: pointer;
 }
 
-.popover-card {
-    margin: 0;
-    max-width: 18rem;
-}
 
 // #positi {
 //     max-height: 495px; 
@@ -199,6 +195,49 @@ svg {
 //     width: 30%;
 // }
 
+#control-container {
+    padding: 0px !important;
+}
+
+#resizeDialog {
+    height: 105px;
+}
+
+.e-btn-hide {
+    display: none;
+}
+
+.dlgbtn {
+    margin-right: 10px;
+}
+
+.control-section.drag {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 350px;
+}
+
 .pre {
     margin-top: -1rem;
+}
+
+element.style {
+    max-height: 681px;
+    z-index: 1040;
+    width: 350px;
+    left: 305.328px;
+    top: 180.125px;
+}
+
+.title {
+    font-family: sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.titleCard {
+    // font-family: sans-serif;
+    font-weight: 600;
+    // font-size: 0.8375rem;
 }

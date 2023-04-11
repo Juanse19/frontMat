@@ -15,6 +15,8 @@ import {
   NbSpinnerModule,
   NbDatepickerModule,
   NbCheckboxModule,
+  NbToggleModule,
+  NbTooltipModule,
 } from "@nebular/theme";
  
 import { ThemeModule } from '../../@theme/theme.module'; 
@@ -35,13 +37,16 @@ import { ProgressBarAllModule } from '@syncfusion/ej2-angular-progressbar';
 import { MessageBMComponent } from './message-bm/message-bm.component';
 import { SitaMessageBMComponent } from './sita-message-bm/sita-message-bm.component';
 import { StoreMessageComponent } from './store-message/store-message.component';
+import { AirlineComponent } from './airlinePia/airline/airline.component';
+import { AirlineEditComponent } from './airlinePia/airline-edit/airline-edit.component';
+import { AirlineCreateComponent } from './airlinePia/airline-create/airline-create.component';
 
 
 
 
 @NgModule({
   declarations: [SitaComponent, SitaMessageComponent, MessageAMSComponent, MessageBMComponent, 
-    SitaMessageBMComponent, StoreMessageComponent ],
+    SitaMessageBMComponent, StoreMessageComponent, AirlineComponent, AirlineEditComponent, AirlineCreateComponent ],
   imports: [
     CommonModule,
     SitaRoutingModule,
@@ -57,8 +62,9 @@ import { StoreMessageComponent } from './store-message/store-message.component';
     // NbIconModule,
     // NbSpinnerModule,
     NbDatepickerModule,
-    // NbCheckboxModule,
+    NbCheckboxModule,
     // ThemeModule,
+    NbToggleModule,
     GridModule,
     DropDownListAllModule,
     ToolbarModule,
@@ -69,6 +75,7 @@ import { StoreMessageComponent } from './store-message/store-message.component';
     FormsModule,
     ReactiveFormsModule,
     ProgressBarAllModule,
+    NbTooltipModule,
   ],
   providers: [
     PageService,

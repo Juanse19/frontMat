@@ -70,7 +70,12 @@ import { GanttAllModule } from '@syncfusion/ej2-angular-gantt';
 import { ReaderefficiencyComponent } from './readerefficiency/readerefficiency.component';
 import { DefaultCarouselComponent } from './default-carousel/default-carousel.component';
 import { EditDefaulCarruselComponent } from './edit-defaul-carrusel/edit-defaul-carrusel.component';
-
+import { TargetATRComponent } from './target-atr/target-atr.component';
+import { EdittargetATRComponent } from './edittarget-atr/edittarget-atr.component';
+import { ToastsComponent } from './bhs1/toast/toast.component';
+import { ToastModule } from '@syncfusion/ej2-angular-notifications';
+import { CustomToastsComponent } from './bhs-salidas/custom-toast.component'
+import { ProcessStatusComponent } from './process-status/process-status.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +112,11 @@ import { EditDefaulCarruselComponent } from './edit-defaul-carrusel/edit-defaul-
     ReaderefficiencyComponent,
     DefaultCarouselComponent,
     EditDefaulCarruselComponent,
+    TargetATRComponent,
+    EdittargetATRComponent,
+    ToastsComponent,
+    CustomToastsComponent,
+    ProcessStatusComponent
   ],
   imports: [
     CommonModule,
@@ -149,6 +159,7 @@ import { EditDefaulCarruselComponent } from './edit-defaul-carrusel/edit-defaul-
     TimePickerAllModule,
     DateTimePickerAllModule,
     SplitterModule,
+    ToastModule
     // GanttModule,
     // GanttAllModule
     // NumericTextBoxAllModule,

@@ -8,6 +8,7 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import {
+  ButtonPropsModel,
   DialogComponent,
   ResizeDirections,
 } from "@syncfusion/ej2-angular-popups";
@@ -75,14 +76,14 @@ let MAKEData: makeData;
 {
 }
 
-let win: NbWindowRef;
+// let win: NbWindowRef;
 
 @Component({
   selector: "ngx-windows-scheduler",
   templateUrl: "./windows-scheduler.component.html",
   // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ["./windows-scheduler.component.scss"],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
 })
 @Injectable({
   providedIn: "root",
@@ -99,7 +100,7 @@ export class WindowsSchedulerComponent implements OnInit {
   changeMake = MakeChange;
   public date: Object = new Date();
   public format: string = "Mm/dd/yyy HH:mm:ss";
-  public close = true;
+  // public close = true;
   public taskI: string;
 
   get Subject() {
@@ -129,17 +130,16 @@ export class WindowsSchedulerComponent implements OnInit {
   }
 
   public showCloseIcon: Boolean = true;
-
-  @ViewChild("device1") device1: DialogComponent;
-
   // Create element reference for dialog target element.
-  @ViewChild("container", { read: ElementRef, static: true })
-  container: ElementRef;
+  @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
   // The Dialog shows within the target element.
   public targetElement: HTMLElement;
-
   public visible: Boolean = true;
   public hidden: Boolean = false;
+  public title: string;
+  public header: string;
+
+  @ViewChild('formAir') formAir: DialogComponent;
 
   constructor(
     private http: HttpClient,
@@ -163,9 +163,33 @@ export class WindowsSchedulerComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.loadDataForm();
-    
+    // this.loadDataForm();
+
   }
+
+  public initilaizeTarget: EmitType<object> = () => {
+    this.targetElement = this.container.nativeElement.parentElement;
+  }
+  // Hide the Dialog when click the footer button.
+  public hideDialog: EmitType<object> = () => {
+  }
+  // Enables the footer buttons
+  public buttons: Object = [
+
+  ];
+  public dlgBtnClick = (): void => {
+    this.formAir.hide();
+    this.alive = false;
+  }
+
+  public dlgButtons: ButtonPropsModel[] = [{
+    click: this.dlgBtnClick.bind(this), buttonModel: { content: 'Aceptar', isPrimary: true }
+  },
+  { click: this.dlgBtnClick.bind(this), buttonModel: { content: 'Cancel', cssClass: 'e-flat' } }
+
+  ];
+
+  public isModal: boolean = true;
 
   loadDataForm() {
     this.airForm.setValue({
@@ -209,11 +233,27 @@ export class WindowsSchedulerComponent implements OnInit {
 
   openWindowForm(nombreWindow: string, ganttDATA: gantt) {
     GANTTD = ganttDATA;
-    // console.log('ganttDATA', ganttDATA);
+
+    // console.log(GANTTD);
     
-    win = this.windowService.open(WindowsSchedulerComponent, {
-      title: nombreWindow,
-    });
+
+    if (GANTTD) {
+      this.airForm.setValue({
+        Id: GANTTD.Id,
+        Subject: GANTTD.Subject,
+        taskName: GANTTD.taskName,
+        taskID: GANTTD.taskID,
+        ChuteName: GANTTD.ChuteName,
+        StartTime: GANTTD.startTime,
+        EndTime: GANTTD.endTime,
+      });
+    }
+
+    this.formAir.show();
+
+    // win = this.windowService.open(WindowsSchedulerComponent, {
+    //   title: nombreWindow,
+    // });
   }
 
   ChangeAir() {
@@ -242,8 +282,7 @@ export class WindowsSchedulerComponent implements OnInit {
 
   handleSuccessResponse() {
     this.toasterService.success("", "¡Se edito con exito!");
-    this.closes();
-    this.back();
+    this.close();
   }
 
   handleWrongResponse() {
@@ -259,34 +298,43 @@ export class WindowsSchedulerComponent implements OnInit {
 
     // debugger
 
-    if (
-      formulario.EndTime == "" &&
-      formulario.ProjectId == "" &&
-      formulario.StartTime == "" &&
-      formulario.Subject == "" &&
-      formulario.TaskId == ""
-    ) {
-      this.toasterService.danger("", "No dejes ningun dato vacio");
-    } else if (
-      formulario.ProjectId == "" ||
-      formulario.Subject == "" ||
-      formulario.TaskId == ""
-    ) {
-      this.toasterService.danger("", "Error No dejes ningun campo vacio.");
-    } else if (
-      formulario.StartTime == "" ||
-      formulario.StartTime == null ||
-      formulario.StartTime == undefined
-    ) {
-      this.toasterService.danger("", "Ingresa las fechas ");
-    } else if (
-      formulario.EndTime == "" ||
-      formulario.EndTime == null ||
-      formulario.EndTime == undefined
-    ) {
-      this.toasterService.danger("", "Ingresa las fechas ");
-    } else {
+    // if (
+    //   formulario.EndTime == "" &&
+    //   formulario.ProjectId == "" &&
+    //   formulario.StartTime == "" &&
+    //   formulario.Subject == "" &&
+    //   formulario.TaskId == ""
+    // ) {
+    //   this.toasterService.danger("", "No dejes ningun dato vacio");
+    // } else if (
+    //   formulario.ProjectId == "" ||
+    //   formulario.Subject == "" ||
+    //   formulario.TaskId == ""
+    // ) {
+    //   this.toasterService.danger("", "Error No dejes ningun campo vacio.");
+    // } else if (
+    //   formulario.StartTime == "" ||
+    //   formulario.StartTime == null ||
+    //   formulario.StartTime == undefined
+    // ) {
+    //   this.toasterService.danger("", "Ingresa las fechas ");
+    // } else if (
+    //   formulario.EndTime == "" ||
+    //   formulario.EndTime == null ||
+    //   formulario.EndTime == undefined
+    // ) {
+    //   this.toasterService.danger("", "Ingresa las fechas ");
+    // } 
+   
+    
+
+    
+
       if (formulario.Subject) {
+
+        const fromDateObj = new Date(formulario.StartTime);
+        const toDateObj = new Date(formulario.EndTime);
+
         const fechaSTD = this.miDatePipe.transform(
           this.airForm.controls.StartTime.value,
           "yyyy-MM-dd HH:mm:ss"
@@ -309,10 +357,15 @@ export class WindowsSchedulerComponent implements OnInit {
 
         // console.log("fechas ini", fechaSTD[1]);
         // console.log("fechas fin", fechaETD[11]);
-
-        if (fechaSTD[9] !== fechaETD[9]) {
+        if (fromDateObj > toDateObj) {
+          // console.log('From date cannot be later than To date');
           this.toasterService.warning("", "La fecha no puede ser diferente.");
-        } 
+          return;
+        }
+
+        // if (fechaSTD[9] !== fechaETD[9]) {
+        //   this.toasterService.warning("", "La fecha no puede ser diferente.");
+        // }
         // else if (fechaETD[11] < fechaSTD[11]) {
         //   this.toasterService.warning("", "la hora no puede ser menor.");
         // } 
@@ -323,7 +376,7 @@ export class WindowsSchedulerComponent implements OnInit {
           if (MAKEData == undefined) {
             this.handleWrongResponse();
           } else {
-            console.log("MAKEData", MAKEData);
+            // console.log("MAKEData", MAKEData);
             this.apiGetComp
               .PostJson(this.api.apiUrlNode1 + "/api/updateflight", MAKEData)
               .subscribe((res: any) => {
@@ -333,14 +386,14 @@ export class WindowsSchedulerComponent implements OnInit {
           }
         }
       }
-    }
+    
   }
 
   delete() {
 
     const currentUserId = this.userStore.getUser().id;
 
-    
+
 
     var respons = {
       Id: GANTTD.Id,
@@ -357,16 +410,16 @@ export class WindowsSchedulerComponent implements OnInit {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "¡Sí, Eliminar!",
+      cancelButtonText: "No, Eliminar",
     }).then((result) => {
       // debugger
       if (result.value) {
         this.apiGetComp
-          .GetJson(this.api.apiUrlNode1 + "/api/deleteFlight?id=" + GANTTD.Id + "&taskId=" + this.taskI + "&idUser=" +  currentUserId  + "&subject=" +  formulario.Subject)
+          .GetJson(this.api.apiUrlNode1 + "/api/deleteFlight?id=" + GANTTD.Id + "&taskId=" + this.taskI + "&idUser=" + currentUserId + "&subject=" + formulario.Subject)
           .pipe(takeWhile(() => this.alive))
           .subscribe((res: any) => {
-            console.log("Se envió", res);
+            // console.log("Se envió", res);
             this.messageService.sendMessage("PackageUpdate");
-            this.back();
           });
         // Swal.fire('¡Se Eiliminó Exitosamente', 'success');
         Swal.fire({
@@ -374,20 +427,22 @@ export class WindowsSchedulerComponent implements OnInit {
           timer: 2000,
           text: "¡Se Eiliminó Exitosamente!",
         });
+        this.close();
         this.messageService.sendMessage("PackageUpdate");
         // this.back();
       }
     });
   }
 
-  back() {
-    win.close();
+
+  close() {
+    // this.windowRef.close();
+    this.resetForm();
+    this.formAir.hide();
   }
 
-  closes() {
-    win.close;
-    close: this.close;
-    this.close = false;
+  resetForm() {
+    this.airForm.reset();
   }
 
   ngOnDestroy() {

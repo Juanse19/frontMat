@@ -12,6 +12,7 @@ import {UserStore} from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
 import { takeWhile } from 'rxjs/operators';
+import { WebSocketService } from '../../../@core/backend/common/services/web-socket.service';
 
 @Component({
   selector: 'ngx-logout',
@@ -27,6 +28,7 @@ export class NgxLogoutComponent implements OnInit {
   constructor(protected service: NbAuthService,
               private userStore: UserStore,
               private apiGetComp: ApiGetService,
+              private socketService: WebSocketService, 
               private api: HttpService,
               @Inject(NB_AUTH_OPTIONS) protected options = {},
               protected router: Router) { }
@@ -36,26 +38,20 @@ export class NgxLogoutComponent implements OnInit {
   }
 
   logout(strategy: string): void {
-    // debugger
-    const currentUserId = this.userStore.getUser().id;
-  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-      let respons = {
-            user: currentUserId,
-            sesion: 0, 
-            
-    };
-      this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/updateSesion', respons)
-        .pipe(takeWhile(() => this.alive))
-        .subscribe((res: any) => {
-        //  console.log("Envió: ", res);
-          });
-
+   
+    const currentUseremail = this.userStore.getUser().email;
+    console.log('email', { route:"logoutUser", email: currentUseremail });
+    
+    this.socketService.sendMessage({ route:"logoutUser", email: currentUseremail})
+    localStorage.removeItem('socket');
+    localStorage.clear();
+    this.socketService.close();
     this.service.logout(strategy).subscribe((result: NbAuthResult) => {
       const redirect = result.getRedirect();
       if (redirect) {
         setTimeout(() => {
           return this.router.navigateByUrl(redirect);
-        }, this.redirectDelay, this.time);
+        }, this.redirectDelay,this.time);
       }
     });
   }

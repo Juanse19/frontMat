@@ -37,7 +37,7 @@
             <!-- <button nbButton status="primary" >Actualizar</button> -->
         </nb-action>
         <!-- <button nbButton status="primary" >Acualizar</button> -->
-        <nb-action class="user-action" *nbIsGranted="['view', 'current-user']">
+        <nb-action class="user-action">
             <nb-user [nbContextMenu]="userMenu" [onlyPicture]="userPictureOnly" [name]="user?.name" [picture]="user?.picture | ngxAuthToken | async">
             </nb-user>
         </nb-action>

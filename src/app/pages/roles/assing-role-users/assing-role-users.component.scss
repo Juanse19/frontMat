@@ -1,0 +1,25 @@
+.page-content {
+    display: flex;
+
+    gap: 5rem;
+}
+
+.user-info {
+    width: 40%;
+}
+
+.role-list {
+    height: 20rem;
+    overflow-y: scroll;
+}
+
+.role-item {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem 0rem;
+    border-bottom: 1px solid rgb(210, 210, 210);
+}
+
+button[nbButton] {
+    margin: 0.25rem;
+  }

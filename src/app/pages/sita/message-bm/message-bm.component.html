@@ -1,37 +1,34 @@
 <nb-card>
-    <nb-card-header>
-        Mensajes BagMessage
-    </nb-card-header>
-  
-    <nb-card-body>
+  <nb-card-header>
+    Mensajes BagMessage
+  </nb-card-header>
+
+  <nb-card-body>
 
     <div class="overlay">
       <div class="spinner-border" *ngIf="loading"></div>
       <b *ngIf="loading" style="margin-top: 4rem; margin-left: -3rem">Cargando...</b>
     </div>
     <br>
-
-    <ejs-grid #grid [dataSource]='bagMessageData' [allowPaging]="true"
-    [pageSettings]="pageSettings"
-    [filterSettings]="filterOptions"
-    [allowFiltering]="true" 
-    allowSorting="true"
-    allowResizing= "true"
-    (dataBound)='dataBound()'>
+ 
+    <ejs-grid #grid [dataSource]='bagMessageData'
+      [filterSettings]="filterOptions" [allowFiltering]="true" allowSorting="true" allowResizing="true"
+      (dataBound)='dataBound()' height='430' width='100%' (rowSelected)='rowSelected($event)'>
       <e-columns>
-          <e-column field='V' headerText='Aeropuerto' minWidth='120' maxWidth='300' width=130></e-column>
-          <e-column field='F' headerText='F' minWidth='120' maxWidth='300' width=100></e-column>
-          <e-column field='O' headerText='O' minWidth='120' maxWidth='300' width=100></e-column>
-          <e-column field='N' headerText='BaggageTagNumber' width=100></e-column>
-          <e-column field='S' headerText='S' width=100></e-column>
-          <e-column field='P' headerText='Pasajero' width=100></e-column>
-          <e-column field='L' headerText='L' width=100></e-column>
-          <e-column field='R' headerText='R' width=100></e-column>
-          <e-column field='CSI' headerText='CSI' width=100></e-column>
-          <e-column field='RegisterTime' headerText='Fecha' type='date' format="dd/MM/yyyy hh:mm:ss a" minWidth='120' maxWidth='300' width=120></e-column>
-         
-      </e-columns>
-  </ejs-grid>
+        <e-column field='V' headerText='Aeropuerto' minWidth='120' maxWidth='300' width=130></e-column>
+        <e-column field='F' headerText='F' minWidth='120' maxWidth='300' width=100></e-column>
+        <e-column field='O' headerText='O' minWidth='120' maxWidth='300' width=100></e-column>
+        <e-column field='N' headerText='BaggageTagNumber' width=100></e-column>
+        <e-column field='S' headerText='S' width=100></e-column>
+        <e-column field='P' headerText='Pasajero' width=100></e-column>
+        <e-column field='L' headerText='L' width=100></e-column>
+        <e-column field='R' headerText='R' width=100></e-column>
+        <e-column field='CSI' headerText='CSI' width=100></e-column>
+        <e-column field='RegisterTime' headerText='Fecha' type='date' format="dd/MM/yyyy hh:mm:ss a" minWidth='120'
+          maxWidth='300' width=120></e-column>
 
-      </nb-card-body>
-    </nb-card>
+      </e-columns>
+    </ejs-grid>
+
+  </nb-card-body>
+</nb-card>

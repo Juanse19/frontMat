@@ -1,55 +1,57 @@
-  <div id='content' class='box-form' style="margin: -2.0rem -1.9rem -0.2rem 2.0rem; width: 200px; padding: -10px;">
-    </div>
+
     
-    <div class="control-section">
-        <div class="col-lg-12">
-                <h4 class="form-title"></h4>
-            <div class="control_wrapper" id="control_wrapper" style="margin: 25px auto;">
-              <form id="reactive" [formGroup]="reportForm"> 
-                  <div class="form-group template">
-                          <div class="e-float-input">
-                              <input type="text" formControlName="Parameter" id="firstname" name="firstname" data-cy="flight-field" class="required" required>
-                              <span class="e-float-line"></span>
-                              <label class="e-float-text" for="firstname">Nombre</label>
-                          </div>   
+    
+
+<ejs-dialog id='formReport' #formReport allowDragging='true' [header]='' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]=''>
+    <ng-template #content>
+       
+
+            <div class="modal-body">
+               
+            
+                <form [formGroup]="reportForm">
+                   
+                    <div class="form-outline mb-4">
+                      <label class="form-label title" for="form6Example3"> Nombre Reporte </label>
+                      <input type="text" formControlName="Parameter" id="form6Example3" class="form-control" />
                     </div>
 
-                    <div class="form-group template">
-                        <div class="e-float-input">
-                            <!-- <input type="text" formControlName="Description" id="firstname" name="firstname" data-cy="flight-field" class="required" required> -->
-                            <textarea class="form-control" formControlName="Description" id="Description" rows="3" class="required" required></textarea>
-                            <span class="e-float-line"></span>
-                            <label class="e-float-text" for="Description">Descripción</label>
-                        </div>   
-                  </div>
-    
-                    <div class="form-group template" >
-                        <div class="e-float-input" >
-                            <ejs-dropdownlist formControlName="Category" name="Category" value='value' data-cy="category-field" [fields]='fields' [dataSource]='dataCategory' placeholder="Categoria" [allowFiltering]='true' floatLabelType='Auto' required>
-                            </ejs-dropdownlist>
-                        </div>   
-                                       
+                    <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">Descripción</label>
+                        <input type="text" formControlName="Description" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-group" [formGroup]="reportForm" >
+                        <label class="form-label title" for="form6Example3">Categoria </label>
+                        <br />
+                        <nb-select style="width: 190%; border: 1px ; max-width: 100%;" id="Category" placeholder="Categoria" formControlName="Category" class="form">
+                            <nb-option *ngFor="let itemUser of dataCategory" [value]="itemUser.nombre">
+                                {{ itemUser.nombre }}
+                            </nb-option>
+                        </nb-select>
                     </div>
 
-                    <div class="form-group template">
-                        <div class="e-float-input">
-                            <!-- <input type="text" formControlName="Value" id="firstname" name="firstname" data-cy="flight-field" class="required" required> -->
-                            <textarea class="form-control" formControlName="Value" id="Value" rows="4" class="required" required></textarea>
-                            <span class="e-float-line"></span>
-                            <label class="e-float-text" for="Value">Ruta</label>
-                        </div>   
-                  </div>
-                             
-                <div class="form-group template">
-                <div class="submitBtn">
-                    <button nbButton status="primary" [disabled]="reportForm.valid" style="margin-left: 40%;" class="btn btn-primary" data-cy="save-submit-field"  id="submit-btn" (click)="save()">Guardar</button>
-                    <!-- <div class="desc"><pre><span>*This button is not a submit type and the form submit handled from externally.</span></pre></div>                      -->
-                    <div class="desc"><pre><span>                                                            </span></pre></div>      
-                </div>
-                </div>                                       
-            </form> 
-                  
-          </div>
-        </div> 
-    </div>
-    
+                      <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">Url Reporte</label>
+                        <input type="text" formControlName="Value" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">Url Grafica</label>
+                        <input type="text" formControlName="Value01" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                            <nb-toggle formControlName="State" [(ngModel)]="stateCheck" status="info" labelPosition="start" class="form-label title">Estado Reporte</nb-toggle>
+                      </div>
+                
+                  </form>
+            
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()" style="text-transform: none;">Cerrar</button>
+                <button type="button" class="btn btn-primary"  (click)="save()" style="text-transform: none;">Agregar reporte</button>
+              </div>
+            
+    </ng-template>
+</ejs-dialog>

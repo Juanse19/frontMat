@@ -1,0 +1,20 @@
+<div class="card card-defauld">
+    <div class="card-body">
+      <h5 class="card-title title" [nbTooltip]="message" nbTooltipPlacement="right">Eficiencia de los ATR</h5>
+      <div class="container">
+        <form [formGroup]="targetFrom">
+            <div class="form-group">
+                <!-- Asignacion de Licencia de acceso -->
+                <label for="Value"></label>
+                <input nbInput  formControlName="Value" disabled="mostrar"  class="form-control" placeholder="Carrusel por default" style="margin-top: -12%;">
+               
+            </div>
+        </form>
+    </div>
+    
+      <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px; margin-left: 47%; text-transform: none;" (click)="editMake()" >Modificar</button>
+    </div>
+  </div>
+  <div class='root-container'>
+    <ngx-edittarget-atr></ngx-edittarget-atr>
+  </div>

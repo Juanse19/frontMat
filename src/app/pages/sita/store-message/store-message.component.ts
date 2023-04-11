@@ -7,7 +7,7 @@ import { switchMap, takeWhile } from 'rxjs/operators';
 import { NbAccessChecker } from '@nebular/security';
 import { interval, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, CommandModel } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, PageSettingsModel, FilterSettingsModel, ToolbarItems, CommandModel, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
 import { ResizeService } from '@syncfusion/ej2-angular-grids';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
@@ -99,68 +99,25 @@ export class StoreMessageComponent implements OnInit {
 
   ngOnInit(): void {
     this.chargeDataAMS();
-    this.toolbarOptions = ['ColumnChooser'];
     this.pageSettings = { pageSize: 10 };
       this.filterOptions = {
       type: 'Menu',
    }
   }
 
+  rowSelected(args: RowSelectEventArgs) {
+    const rowHeight: number = this.grid.getRows()[this.grid.getSelectedRowIndexes()[0]].scrollHeight;
+    this.grid.getContent().children[0].scrollTop = rowHeight * this.grid.getSelectedRowIndexes()[0];
+  }
+
   chargeDataAMS() {
     this.http.get(this.api.apiUrlNode1 + '/api/notificationAMS')
     .pipe(takeWhile(() => this.alive))
     .subscribe((res: any) => {
-    //   if (res.length === 0) {
-    //     res = [{
-    //       Id: 0,
-    //       Flight_Notification_Type:0,
-    //       Flight_Notification_RegisterTime:0,
-    //       Flight_FlightId_FlightKind:0,
-    //       Flight_FlightId_AirlineDesignator_IATA:0,
-    //       Flight_FlightId_FlightNumber:0,
-    //       Flight_FlightId_ScheduledDate:0,
-    //       Flight_FlightState_ScheduledTime:0,
-    //       Flight_FlightState_AircraftType_AircraftTypeId_AircraftTypeCode_IATA:0,
-    //       Flight_FlightState_AircraftType_AircraftTypeId_AircraftTypeCode_ICAO:0,
-    //       Flight_FlightState_Aircraft_AircraftId_Registration:0,
-    //       Flight_FlightState_Route_ViaPoints_RouteViaPoint_sequenceNumber:0,
-    //       Flight_FlightState_Route_ViaPoints_RouteViaPoint_AirportCode_IATA:0,
-    //       Flight_FlightState_Route_ViaPoints_RouteViaPoint_AirportCode_ICAO:0,
-    //       Flight_FlightState_propertyName_FlightUniqueID:0,
-    //       Flight_FlightState_ChuteSlots_ChuteSlot_propertyName_StartTime:0,
-    //       Flight_FlightState_ChuteSlots_ChuteSlot_propertyName_EndTime:0,
-    //       Flight_FlightState_ChuteSlots_ChuteSlot_propertyName_Category:0,
-    //       Flight_FlightState_ChuteSlots_ChuteSlot_Chute_propertyName_Name:0,
-    //       Flight_FlightChanges_Change_propertyName_Chutes_OldValue:0,
-    //       Flight_FlightChanges_Change_propertyName_Chutes_NewValue:0,
-    //       Flight_FlightChanges_Change_ChuteSlotsChange_OldValue_ChuteSlot_StartTime:0,
-    //       Flight_FlightChanges_Change_ChuteSlotsChange_OldValue_ChuteSlot_EndTime:0,
-    //       Flight_FlightChanges_Change_ChuteSlotsChange_NewValue_ChuteSlot_StartTime:0,
-    //       Flight_FlightChanges_Change_ChuteSlotsChange_NewValue_ChuteSlot_EndTime:0,
-    // }]
-    
-      
-    //   this.amsData = res;
-    //   console.log('amsData: ', this.amsData);
-    //   this.loading = false;
-    //   } else {
-    //   console.log('testData: ', res);
-    //   this.loading = false;
-    //   this.amsData = res;
-    //   }
     this.amsData = res;
     this.loading = false;
-    this.bandaAMSCharge();
+    // this.bandaAMSCharge();
     });
-    // const contador = interval(40000)
-    // contador.subscribe((n) => {
-    //   this.http.get(this.api.apiUrlNode1 + '/api/notificationAMS')
-    //   .pipe(takeWhile(() => this.alive))
-    //   .subscribe((res: any) => {
-    //     this.amsData = res;
-    //     this.loading = false;
-    //   });
-    // });
   }
 
   public bandaAMSCharge(){
@@ -176,7 +133,6 @@ export class StoreMessageComponent implements OnInit {
     )
     .subscribe((res: any) => {
       this.amsData = res;
-        // console.log('Equipos:', this.amsData);
     });
   }
 

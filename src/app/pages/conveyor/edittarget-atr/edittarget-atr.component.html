@@ -1,0 +1,55 @@
+<!-- <div class="control-section">
+    <div class="col-lg-14">
+            <h4 class="form-title"></h4>
+        <div class="control_wrapper" id="control_wrapper" >
+            
+            <h2>Target</h2>
+
+          <form id="reactive" [formGroup]="editTargetFrom">
+             
+                  <div class="form-group template" >
+                    <div class="e-float-input" >
+                        <input nbInput type="number" formControlName="Value"  class="form-control" placeholder="Carrusel por default">
+                    </div>   
+                                
+                </div>
+
+                      <div class="form-group template">
+                        <div class="submitBtn">
+                          <button nbButton status="primary" style="margin-left: 42%;" class="btn btn-primary" data-cy="edit-submit-field" id="submit-btn" (click)="editData()">Modificar</button>
+                         
+                          <div class="desc"><pre><span>                                                            </span></pre></div>      
+                        </div>
+                      </div>   
+                                                          
+              </form> 
+             
+      </div>
+    </div> 
+</div> -->
+
+<ejs-dialog id='formAtr' #formAtr allowDragging='true' [header]='header' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
+  <ng-template #content>
+     
+
+          <div class="modal-body">
+             
+          
+              <form [formGroup]="editTargetFrom">
+                 
+                <div class="form-outline mb-4">
+                  <label class="form-label title" for="form6Example3"> Valor de la eficiencia en porcentaje </label>
+                  <input type="number" formControlName="Value" id="form6Example3" class="form-control" maxlength="99" />
+                  <br>
+                  <span *ngIf="checkGate()" style="color: red;">La eficiencia  debe ser menor o igual 100%</span>
+                </div>
+              
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary"  (click)="close()">Cerrar</button>
+              <button type="button" class="btn btn-primary"  (click)="editData()" [disabled]="disabledFormButton()">Modificar</button>
+            </div>
+          
+  </ng-template>
+</ejs-dialog>

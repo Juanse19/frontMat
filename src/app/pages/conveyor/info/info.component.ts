@@ -28,7 +28,7 @@ export class InfoComponent implements OnInit {
 
   public consumezoneData: Consumezones [] = [];
 
-  public zoneData: Consumezones[] = [];
+  public zoneData: any[] = [];
 
   public zoData: Consumezones [] = [];
 
@@ -39,6 +39,8 @@ export class InfoComponent implements OnInit {
   public showCloseIcon: Boolean = true ;
 
   public animationSettings: AnimationSettingsModel = { effect: 'None' };
+
+  public header: string;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -122,25 +124,31 @@ export class InfoComponent implements OnInit {
     this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevice)
     .pipe()
     .subscribe((res: any [])=>{
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "IB01",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
-          }]
-          this.consumezoneData=res;
-          this.ejDialog.show();
-          this.ejDialog.position = { X: 165.438, Y: 257.813 };
-      } else {
-      this.consumezoneData=res;
+
+      this.zoneData=res;
+      this.header = this.zoneData[0]?.ZoneName;
       this.ejDialog.show();
-      // console.log('Zons1:', res , 'states');
-      this.ejDialog.position = { X: 165.438, Y: 257.813 };
-      }
+      this.ejDialog.position = { X: 158.317, Y: 20.1333 };
+
+      // if (res.length === 0) {
+      //   res = [{
+      //     // ZoneId: 0,
+      //     ZoneName: "IB01",
+      //     Estado: "0",
+      //     Consumo: "0",
+      //     ContadorMaletas: "0",
+      //     TiempoOn: 0,
+      //     TiempoOff: 0,
+      //     }]
+      //     this.zoneData=res;
+      //     this.ejDialog.show();
+      //     this.ejDialog.position = { X: 165.438, Y: 257.813 };
+      // } else {
+      // this.zoneData=res;
+      // this.ejDialog.show();
+      // // console.log('Zons1:', res , 'states');
+      // this.ejDialog.position = { X: 165.438, Y: 257.813 };
+      // }
       
     });
   }
@@ -212,19 +220,19 @@ export class InfoComponent implements OnInit {
   }
 
   ClicIB01() : void{
-    this.openIB01(7);
+    this.changeIB01(7);
     }
   
     ClicIB02() : void{
-    this.openIB02(8);
+    this.changeIB01(8);
     }
   
     ClicIB03(): void {
-    this.openIB03(9);
+    this.changeIB01(9);
     }
 
   ib1() {
-    this.router.navigate(['/pages/conveyor/ib1'],{skipLocationChange: true});
+    this.router.navigate(['/pages/conveyor/ib1']);
    }
 
    ib2() {

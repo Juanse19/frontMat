@@ -6,12 +6,12 @@
 
   <nb-card-body>
       <!-- <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="ReportOrdens">
-      </ng2-smart-table> (actionBegin)="actionComplete($event)" -->
+      </ng2-smart-table> (actionBegin)="actionComplete($event)" [allowPaging]="true"
+      [pageSettings]="pageSettings"-->
 
-      <ejs-grid [dataSource]='dataConfigu' [editSettings]='editSettings' [toolbar]='toolbar'
-       (actionBegin)='actionBegin($event)'  [allowPaging]="true"
-      [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
-      [allowFiltering]="true">
+      <ejs-grid #grid [dataSource]='dataConfigu' [editSettings]='editSettings' [toolbar]='toolbar'
+       (actionBegin)='actionBegin($event)'   allowSorting='true'  allowTextWrap="true"
+       height='430' width='100%' (rowSelected)='rowSelected($event)'>
           <e-columns>
               
               <!-- <e-column field='Id' headerText='Id' [isPrimaryKey]='true' width=30></e-column> -->
@@ -19,7 +19,7 @@
               <e-column field='Value' headerText='Valores' textAlign='Left' width=90></e-column>
               <!-- <e-column field='CreateDate' headerText='Fecha ini' type="date" format="dd/MM/yyyy hh:mm:ss a" width=60></e-column>
               <e-column field='UpdateDate' headerText='Fecha fin' type="date" format="dd/MM/yyyy hh:mm:ss a" width=60></e-column> -->
-              <e-column headerText='Acción' width='30' textAlign='center' [commands]='commands'></e-column>
+              <e-column headerText='Acciones' width='30' textAlign='center' [commands]='commands'></e-column>
           </e-columns>
 
       </ejs-grid>
@@ -50,9 +50,11 @@
                                   <label class="e-float-text e-label-top" for="Value">Valores</label>
                               </div>
                           </div>
-                          <div>
-                              <button nbButton status="info" (click)="updateData()" hero>Actualizar</button>
-                              <button nbButton status="danger" (click)="close()" hero>Cancelar</button>
+                          <div class="modal-footer">
+                              <!-- <button nbButton status="info" (click)="updateData()" hero>Actualizar</button>
+                              <button nbButton status="danger" (click)="close()" hero>Cancelar</button> -->
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()" style="text-transform: none;">Cerrar</button>
+                              <button type="button" class="btn btn-primary"  (click)="updateData()" style="text-transform: none;">Editar</button>
                           </div>
                       </div> 
                   </div>

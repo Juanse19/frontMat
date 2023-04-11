@@ -38,12 +38,14 @@ import {
   NbSpinnerModule,
   NbDatepickerModule,
   NbCheckboxModule,
+  NbToggleModule
 } from '@nebular/theme';
 import { LicenseComponent } from './license/license.component';
 import { EditLicenComponent } from './edit-licen/edit-licen.component';
 import { ReportParametrizableComponent } from './report-parametrizable/report-parametrizable.component';
 import { EditReportComponent } from './edit-report/edit-report.component';
 import { CreateReportComponent } from './create-report/create-report.component';
+import { DialogModule } from '@syncfusion/ej2-angular-popups';
 
 const  NB_MODULES = [
   NbActionsModule,
@@ -60,6 +62,8 @@ const  NB_MODULES = [
   NbDatepickerModule,
   NbInputModule,
   NbCheckboxModule,
+  NbToggleModule,
+  DialogModule
 ];
 
 @NgModule({

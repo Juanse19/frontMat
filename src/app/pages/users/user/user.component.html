@@ -119,90 +119,117 @@
 
 
 
-      <nb-card>
-        <nb-card-header>
-            <nav class="navigation">
-                <a  (click)="back()" class="link back-link" aria-label="Back">
-                    <nb-icon icon="arrow-back"></nb-icon>
-                </a>
-                <h5 class="h">{{mode}} usuario</h5>
-            </nav>
-        </nb-card-header>
-        
-        <nb-card-body [formGroup]="userForm">
-            <div class="row show-grid">
-                <div class="col-6 col-sm-4">
-                </div>
-
-
-                <div class="col-6 col-sm-4">                
-            <div class="row">
-                <div class="col-lg-8">
-            <div class="form-group">
-                <label for="firstName">Primer nombre</label>
-                <input nbInput id="firstName" formControlName="firstName"  [status]="(firstName?.hasError('minlength') || firstName?.hasError('maxlength')) ? 'danger' : 'primary'" class="form-control" placeholder="Primer nombre">
-                <ngx-validation-message label="First Name" [showMinLength]="firstName?.hasError('minlength')" [showMaxLength]="firstName?.hasError('maxlength')" minLength=3 maxLength=20></ngx-validation-message>
-            </div>
-            
-            <div class="form-group">
-                <label for="lastName">Apellido</label>
-                <input nbInput id="lastName" formControlName="lastName" [status]="(lastName?.hasError('minlength') || lastName?.hasError('maxlength')) ? 'danger' : 'primary'" class="form-control" placeholder="Apellido">
-                <ngx-validation-message label="Last Name" [showMinLength]="lastName?.hasError('minlength')" [showMaxLength]="lastName?.hasError('maxlength')" minLength=3 maxLength=20></ngx-validation-message>
-            </div>
-
-            <div class="form-group">
-                <label for="inputLogin">Usuario</label>
-                <input nbInput id="inputLogin" formControlName="login" [status]="(login?.errors?.required || login?.hasError('minlength') || login?.hasError('maxlength')) && login.touched ? 'danger' : 'primary'" class="form-control" placeholder="Acceso">
-                <ngx-validation-message label="Login" [showMinLength]="login?.hasError('minlength')" [showMaxLength]="login?.hasError('maxlength')" [showRequired]="login?.errors?.required && login.touched" minLength=6 maxLength=20></ngx-validation-message>
-            </div> 
-            
-            <div class="form-group">
-                <label for="inputEmail">Email</label>
-                <input nbInput id="inputEmail" formControlName="email" [disabled]="isDisabled"  [status]="(email?.errors?.required || email?.hasError('pattern')) && email.touched ? 'danger' : 'primary'" class="form-control" placeholder="Email">
-                <ngx-validation-message label="Email" [showPattern]="email?.hasError('pattern') && email.touched" [showRequired]="email?.errors?.required && email.touched" min=1 max=120></ngx-validation-message>
-            </div> 
-
-            <div class="form-group" [formGroup]="userForm" *ngIf="!ocultar">
-                <label for="licens">Asignación de Licencia</label>
-                <br />
-                <nb-select style="width: 190%; border: 1px solid #ccc;" id="licens" placeholder="Licencia" formControlName="licens" [disabled]="selectLicen" [status]="(licens.hasError('minlength') || licens.hasError('maxlength')) ? 'danger' : 'primary'" [(selected)]="selectedLis">
-                    <nb-option *ngFor="let itemUser of listaLicens" [value]="itemUser.states">
-                        {{ itemUser.Name }}
-                    </nb-option>
-                </nb-select>
-            </div>
-
-            <div class="form-group" [formGroup]="userForm" *ngIf="!ocultar">
-                <label for="role">Role: </label>
-                <br />
-                <nb-select style="width: 190%; border: 1px solid #ccc;" id="role" placeholder="Role" formControlName="role" [disabled]="select" [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'" [(selected)]="selectedRole">
-                    <nb-option *ngFor="let itemRole of listaRoles" [value]="itemRole.name">
-                        {{ itemRole.name }}
-                    </nb-option>
-                </nb-select> 
-            </div>
-            
-            <div class="form-group" [formGroup]="userForm" *ngIf="!ocultar">
-                <label for="state">Activación Usuarios </label>
-                <br />
-                <nb-select style="width: 190%; border: 1px solid #ccc;" id="state" placeholder="state" formControlName="state" [disabled]="select" [status]="(state?.hasError('minlength') || state?.hasError('maxlength')) ? 'danger' : 'primary'" [(selected)]="selectedState">
-                    <nb-option *ngFor="let itemUser of listaUsers" [value]="itemUser.states">
-                        {{ itemUser.Name }}
-                    </nb-option>
-                </nb-select>
-            </div>
-        </div>
-        </div>
-    </div>
+<nb-card>
+    <nb-card-header>{{mode}} usuario</nb-card-header>
     
-    <div class="col-6 col-sm-4">
+    <nb-card-body [formGroup]="userForm">
+        <div class="row show-grid">
+            <div class="col-6 col-sm-4">
+            </div>
+
+
+            <div class="col-6 col-sm-4">                
+        <div class="row">
+            <div class="col-lg-8">
+        <div class="form-group">
+            <label for="firstName">Nombre</label>
+            <input nbInput id="firstName" formControlName="firstName"  [status]="(firstName?.hasError('minlength') || firstName?.hasError('maxlength')) ? 'danger' : 'primary'" class="form-control" placeholder="Primer nombre">
+            <ngx-validation-message label="First Name" [showMinLength]="firstName?.hasError('minlength')" [showMaxLength]="firstName?.hasError('maxlength')" minLength=3 maxLength=20></ngx-validation-message>
+        </div>
+        
+        <div class="form-group">
+            <label for="lastName">Apellido</label>
+            <input nbInput id="lastName" formControlName="lastName" [status]="(lastName?.hasError('minlength') || lastName?.hasError('maxlength')) ? 'danger' : 'primary'" class="form-control" placeholder="Apellido">
+            <ngx-validation-message label="Last Name" [showMinLength]="lastName?.hasError('minlength')" [showMaxLength]="lastName?.hasError('maxlength')" minLength=3 maxLength=20></ngx-validation-message>
+        </div>
+
+        <div class="form-group">
+            <label for="inputLogin">Usuario</label>
+            <input nbInput id="inputLogin" formControlName="login" [status]="(login?.errors?.required || login?.hasError('minlength') || login?.hasError('maxlength')) && login.touched ? 'danger' : 'primary'" class="form-control" placeholder="Acceso">
+            <ngx-validation-message label="Login" [showMinLength]="login?.hasError('minlength')" [showMaxLength]="login?.hasError('maxlength')" [showRequired]="login?.errors?.required && login.touched" minLength=6 maxLength=20></ngx-validation-message>
+        </div> 
+        
+        <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <input nbInput id="inputEmail" formControlName="email"  [attr.disabled]="isDisabled"  [status]="(email?.errors?.required || email?.hasError('pattern')) && email.touched ? 'danger' : 'primary'" class="form-control" placeholder="Email">
+            <ngx-validation-message label="Email" [showPattern]="email?.hasError('pattern') && email.touched" [showRequired]="email?.errors?.required && email.touched" min=1 max=120></ngx-validation-message>
+        </div> 
+
+        <div class="form-group">
+
+            <div *ngIf="ocultar">
+                <label for="inputLogin">Contraseña</label>
+                <input nbInput id="input-password" formControlName="password" type="password"
+                [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
+                    class="form-control" placeholder="Contraseña">
+                    <ngx-validation-message label="Contraseña" [showMinLength]="password?.hasError('minlength') && password.touched"
+                    [showMaxLength]="password?.hasError('maxlength') && password.touched"
+                    [showRequired]="password?.errors?.Requerido && password.touched"
+                    [minLength]="minLength"
+                    [maxLength]="maxLength"></ngx-validation-message>
+            </div>
+
+            <div style="margin-top: 1rem;" *ngIf="ocultar">
+                <label for="inputEmail">Confirmar contraseña</label>
+                <input nbInput id="input-re-password" formControlName="confirmPassword" type="password" 
+                [status]="confirmPassword.dirty ? (confirmPassword.invalid || password.value != confirmPassword.value  ? 'danger' : 'success') : ''"
+                    class="form-control" placeholder="Confirmar Contraseña">
+                    <ngx-validation-message label="Confirmar Contraseña "
+                    [showMinLength]="confirmPassword?.hasError('minlength') && confirmPassword.touched"
+                    [showMaxLength]="confirmPassword?.hasError('maxlength') && confirmPassword.touched"
+                    [showRequired]="confirmPassword?.errors?.Requerido && confirmPassword.touched"
+                    [minLength]="minLength"
+                    [maxLength]="maxLength"></ngx-validation-message>
+                  <p class="caption status-danger" *ngIf="password.value != confirmPassword.value">
+                   ¡La contraseña y la contraseña de confirmación no coinciden!
+                  </p>
+            </div>
+        </div>
+
+        <div class="form-group" [formGroup]="userForm" *ngIf="!ocultar" >
+            <label for="licens">Asignación de licencia</label>
+            <br />
+            <nb-select style="width: 190%; border: 1px solid #ccc;" id="licens" placeholder="Licencia" formControlName="licens"  [status]="(licens.hasError('minlength') || licens.hasError('maxlength')) ? 'danger' : 'primary'" [(selected)]="selectedLis">
+                <nb-option *ngFor="let itemUser of listaLicens" [value]="itemUser.states">
+                    {{ itemUser.Name }}
+                </nb-option>
+            </nb-select>
+        </div>
+
+        <!-- <div class="form-group" [formGroup]="userForm" *ngIf="!ocultar">
+            <label for="role">Role: </label>
+            <br />
+            <nb-select id="role" placeholder="Role" formControlName="role" [disabled]="select"
+                [status]="(role?.hasError('minlength') || role?.hasError('maxlength')) ? 'danger' : 'primary'"
+                [(selected)]="selectedRole">
+                <nb-option *ngFor="let itemRole of listaRoles" [value]="itemRole.Name">
+                    {{ itemRole.Name }}
+                </nb-option>
+            </nb-select>
+
+        </div> -->
+        
+        <div class="form-group" [formGroup]="userForm" *ngIf="!ocultar">
+            <label for="state">Activación usuarios </label>
+            <br />
+            <nb-select style="width: 190%; border: 1px solid #ccc;" id="state" placeholder="Activar usuario" formControlName="state" [attr.disabled]="select" [status]="(state?.hasError('minlength') || state?.hasError('maxlength')) ? 'danger' : 'primary'" [(selected)]="selectedState">
+                <nb-option *ngFor="let itemUser of listaUsers" [value]="itemUser.states">
+                    {{ itemUser.Name }}
+                </nb-option>
+            </nb-select>
+        </div>
     </div>
-  </div>
-        </nb-card-body>
-        <nb-card-footer *ngIf="!mostrar">
-            <button nbButton status="primary" *ngIf="!mostrar" [disabled]="!userForm.valid" (click)="save()" hero>Guardar</button>
-            <button nbButton status="info" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero>Atras</button>
-            <button nbButton status="success" style="background-color: blue-200;" *ngIf="!ocultar" [disabled]="select"  (click)="changepass()" hero>Cambiar contraseña</button>
-        </nb-card-footer>
-      </nb-card>
-   
+    </div>
+</div>
+
+<div class="col-6 col-sm-4">
+</div>
+</div>
+    </nb-card-body>
+    <nb-card-footer *ngIf="!mostrar">
+        <button nbButton status="primary" style="text-transform: none;" *ngIf="!mostrar" [disabled]="!userForm.valid || password.value != confirmPassword.value || isPasswordRequired.value" (click)="save()"
+            hero>Guardar</button>
+        <button nbButton status="info" style="text-transform: none;" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero>Atras</button>
+        <button nbButton status="success"  style="background-color: blue-200; text-transform: none;" *ngIf="!ocultar" [disabled]="select"  (click)="changepass()" hero>Cambiar contraseña</button>
+    </nb-card-footer>
+  </nb-card>

@@ -37,11 +37,26 @@ id='report-frame' width='100%' height='720px' allowfullscreen frameborder='0'></
   </nb-card-header>
 <nb-card-body>
   <div >
-    <ng-container>
-      <iframe [src]="trustedDashboardUrl" 
-      id='report-frame' width='100%' height='720px' allow="autoplay; encrypted-media" allowfullscreen frameborder='0'  loading="lazy"></iframe>
-     
-    </ng-container>
+
+    <nb-tabset >
+      <nb-tab tabTitle="Reporte">
+        <ng-container>
+          <iframe [src]="trustedDashboardUrl" 
+          id='report-frame' width='100%' height='720px' allow="autoplay; encrypted-media" allowfullscreen frameborder='0'  loading="lazy"></iframe>
+        </ng-container>
+      </nb-tab>
+      <nb-tab tabTitle="Grafica"  [disabled]="select" *ngIf="!select"> 
+        <ng-container>
+          <iframe [src]="trustedDashboardUrl01" 
+          id='report-frame' width='100%' height='720px' allow="autoplay; encrypted-media" allowfullscreen frameborder='0'  loading="lazy"></iframe>
+        </ng-container>
+      </nb-tab>
+      <!-- <nb-tab tabTitle="Transactions" disabled>
+        <p>List of <strong>transactions</strong>.</p>
+      </nb-tab> -->
+    </nb-tabset>
+
+    
   </div>
 </nb-card-body>
 

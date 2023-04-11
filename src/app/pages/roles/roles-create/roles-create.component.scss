@@ -1,0 +1,133 @@
+// .page-content {
+//     display: flex;
+//     justify-content: space-around;
+
+//     form {
+
+//         width: 30%;
+//         border-radius: 10px;
+//         border: 1px solid #f9f9f9;
+
+//         .formHead {
+
+//             width: 100%;
+//             // background-color: rgba($color: rgba(0, 0, 91, 0.769), $alpha: 1.0);
+//             background-color: rgba($color: #222b45, $alpha: 1.0);
+            
+//             padding: .4rem;
+
+//             h6 {
+//                 font-weight: 600;
+//                 width: 100%;
+//                 color: white;
+//                 margin-bottom: 0 !important;
+//             }
+
+//         }
+
+//         .formBody {
+//             padding: 1rem;
+//             display: flex;
+//             flex-direction: column;
+//             gap: 20px;
+
+
+//             .input-div {
+//                 display: flex;
+
+//                 label {
+//                     font-weight: 600;
+//                     margin-right: 10px;
+//                 }
+
+//                 input[type=text] {
+//                     border-radius: 5px;
+//                 }
+//             }
+
+
+//             button:disabled {}
+
+//             button {
+//                 background-color: rgba($color: rgba(0, 0, 91, 0.769), $alpha: 1.0);
+//                 color: white;
+//                 padding: .5rem 1.5rem;
+//                 border: 0px transparent;
+//             }
+//         }
+
+
+//     }
+
+//     .permisos-table {
+//         width: 40%;
+
+//         .tableHead {
+
+//             width: 100%;
+//             background-color: rgba($color: #222b45, $alpha: 1.0);
+//             padding: .4rem;
+
+//             h6 {
+//                 font-weight: 600;
+//                 width: 100%;
+//                 color: white;
+//                 margin-bottom: 0 !important;
+//             }
+
+//         }
+
+//         .tableBody {
+
+//             display: flex;
+//             flex-direction: column;
+//             max-height: 50vh;
+//             overflow-y: scroll;
+
+//             .tablePermiso {
+//                 width: 100%;
+//                 padding: 1rem;
+
+//                 input[type=checkbox] {
+//                     margin-right: 1rem;
+//                 }
+//             }
+
+//             span:nth-child(even) {
+//                 background-color: rgb(229, 248, 255);
+//             }
+//         }
+//     }
+
+
+// }
+
+// button[nbButton] {
+//     margin: 0.25rem;
+//   }
+
+.page-content {
+    display: flex;
+
+    gap: 5rem;
+}
+
+.user-info {
+    width: 40%;
+}
+
+.role-list {
+    height: 20rem;
+    overflow-y: scroll;
+}
+
+.role-item {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem 0rem;
+    border-bottom: 1px solid rgb(210, 210, 210);
+}
+
+button[nbButton] {
+    margin: 0.25rem;
+  }

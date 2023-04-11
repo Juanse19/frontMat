@@ -6,7 +6,7 @@ import { MessageAMSComponent } from './message-ams/message-ams.component';
 import { MessageBMComponent } from './message-bm/message-bm.component';
 import { SitaMessageBMComponent } from './sita-message-bm/sita-message-bm.component';
 import { StoreMessageComponent } from './store-message/store-message.component';
-
+import { AirlineComponent } from './airlinePia/airline/airline.component';
 
 const routes: Routes = [{
   path: '',
@@ -31,6 +31,10 @@ const routes: Routes = [{
     {
       path: 'storeMessage',
       component: StoreMessageComponent,
+    },
+    {
+      path: 'airline',
+      component: AirlineComponent,
     },
   ],
 }];

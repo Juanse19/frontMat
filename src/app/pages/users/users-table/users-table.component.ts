@@ -4,7 +4,7 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 
 import { takeWhile } from 'rxjs/operators';
 import { UserData } from '../../../@core/interfaces/common/users';
@@ -17,8 +17,8 @@ import {
 import { UserStore } from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
-import Swal from 'sweetalert2'; 
-import { EditService, ToolbarService, PageService, NewRowPosition, FilterSettingsModel, ToolbarItems, EditEventArgs, CommandModel, CommandColumnService } from '@syncfusion/ej2-angular-grids';
+import Swal from 'sweetalert2';
+import { EditService, ToolbarService, PageService, NewRowPosition, FilterSettingsModel, ToolbarItems, EditEventArgs, CommandModel, CommandColumnService, GridComponent, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
 import { ChangeEventArgs, DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
 import { LocalDataSource } from 'ng2-smart-table';
 import { UsersService } from '../../../@core/backend/common/services/users.service'
@@ -47,69 +47,15 @@ export class UsersTableComponent implements OnDestroy {
 
   public editSettings: Object;
   public toolbar: ToolbarItems[] | object;
-    public editparams: Object;
-    public pageSettings: Object;
-    public filterOptions: FilterSettingsModel;
-    public commands: CommandModel[];
-    public userData: User[];
-    public usersChange: UserChange[]
+  public editparams: Object;
+  // public pageSettings: Object;
+  public filterOptions: FilterSettingsModel;
+  public commands: CommandModel[];
+  public userData: User[];
+  public usersChange: UserChange[]
 
-  settings = {
-    mode: 'external',
-    actions: {
-      add: false,
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-    },
-    columns: {
-      firstName: {
-        title: 'Primer nombre',
-        type: 'string',
-      },
-      lastName: {
-        title: 'Apellido',
-        type: 'string',
-      },
-      login: {
-        title: 'Usuario',
-        type: 'string',
-      },
-      email: {
-        title: 'Email',
-        type: 'string',
-      },
-      // states: {
-      //   title: 'Estado',
-      //   type: 'string',
-      // },
-      // licens_id: {
-      //   title: 'Estado',
-      //   type: 'string',
-      // },
-      // street: {
-      //   title: 'Street',
-      //   type: 'string',
-      //   valuePrepareFunction: (cell, element) =>
-      //     this.customDisplay(element.address, element.address.street),
-      // },
-      // city: {
-      //   title: 'City',
-      //   type: 'string',
-      //   valuePrepareFunction: (cell, element) =>
-      //     this.customDisplay(element.address, element.address.city),
-      // },
-      // zipcode: {
-      //   title: 'Zip Code',
-      //   type: 'number',
-      //   valuePrepareFunction: (cell, element) =>
-      //     this.customDisplay(element.address, element.address.zipCode),
-      // },
-    },
-  };
+  @ViewChild('grid')
+  public grid: GridComponent;
 
   public source: DataSource;
 
@@ -121,8 +67,8 @@ export class UsersTableComponent implements OnDestroy {
     private userStore: UserStore,
     private api: HttpService,
     private apiGetComp: ApiGetService
-    ) {
-    this.loadData(); 
+  ) {
+    this.loadData();
   }
 
   ngOnInit(): void {
@@ -136,52 +82,57 @@ export class UsersTableComponent implements OnDestroy {
       mode: 'Normal',
       allowEditOnDblClick: false
     };
-    this.pageSettings = { 
-      pageSizes: true, 
-      pageSize: 10 };
+    // this.pageSettings = { 
+    //   pageSizes: true, 
+    //   pageSize: 10 };
     this.filterOptions = {
       type: 'Menu',
-   };
-  //  this.editSettings = { allowEditing: true, allowAdding: false, allowDeleting: true , newRowPosition: 'Top' };
-  //  this.toolbar = [{text: 'Edit'},{text: 'Delete'}];
-  //  this.users();
+    };
+    //  this.editSettings = { allowEditing: true, allowAdding: false, allowDeleting: true , newRowPosition: 'Top' };
+    //  this.toolbar = [{text: 'Edit'},{text: 'Delete'}];
+    //  this.users();
 
-   this.commands = [
-    {
-      type: 'Edit',
-      buttonOption: { iconCss: ' e-icons e-edit', cssClass: 'e-flat' }
-    },
-    {
-      type: 'Delete',
-      buttonOption: { iconCss: 'e-icons e-delete', cssClass: 'e-flat' }
-    }
-  ];
+    this.commands = [
+      {
+        type: 'Edit',
+        buttonOption: { iconCss: ' e-icons e-edit', cssClass: 'e-flat' }
+      },
+      {
+        type: 'Delete',
+        buttonOption: { iconCss: 'e-icons e-delete', cssClass: 'e-flat' }
+      }
+    ];
 
   }
 
-  public get value() : string {
-    return 
+  public get value(): string {
+    return
   }
 
   loadData() {
     this.source = this.usersService.gridDataSource;
-    
+
   }
 
-  changeUser(){
-    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/users')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-      this.usersChange = res
-      // console.log("Users change: ", this.usersChange);
-    });
+  rowSelected(args: RowSelectEventArgs) {
+    const rowHeight: number = this.grid.getRows()[this.grid.getSelectedRowIndexes()[0]].scrollHeight;
+    this.grid.getContent().children[0].scrollTop = rowHeight * this.grid.getSelectedRowIndexes()[0];
   }
 
-  users(){
+  changeUser() {
     this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/users')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-         
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.usersChange = res
+        // console.log("Users change: ", this.usersChange);
+      });
+  }
+
+  users() {
+    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/users')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+
         this.userData = res
         console.log("Users: ", this.userData);
       });
@@ -202,7 +153,7 @@ export class UsersTableComponent implements OnDestroy {
       this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
       args.cancel = true;
     }
-    if (( args.requestType === 'delete')) {
+    if ((args.requestType === 'delete')) {
       const Id = 'Id';
       // console.log('Type Delete: ', args.data[0].id);
       Swal.fire({
@@ -212,87 +163,88 @@ export class UsersTableComponent implements OnDestroy {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: '¡Sí, Eliminar!'
+        confirmButtonText: '¡Sí, Eliminar!',
+        cancelButtonText: "No, Eliminar",
       }).then(result => {
         // debugger
         if (result.value) {
           this.usersService
-                  .delete(args.data[0].id)
-                  .pipe(takeWhile(() => this.alive))
-                  .subscribe((res) => {
-          const currentUserId = this.userStore.getUser().id;
-                const currentUser = this.userStore.getUser().firstName;
-        // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-        var respons = 
-        {
-          user: currentUser,
-          message:"Elimino un usuario",
-          users: currentUserId,   
-      };
-        this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
-          .pipe(takeWhile(() => this.alive))
-          .subscribe((res: any) => {
-              //  console.log("Envió: ", res);
-              this.users();
-              
-              args.cancel = false;
+            .delete(args.data[0].id)
+            .pipe(takeWhile(() => this.alive))
+            .subscribe((res) => {
+              const currentUserId = this.userStore.getUser().id;
+              const currentUser = this.userStore.getUser().firstName;
+              // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+              var respons =
+              {
+                user: currentUser,
+                message: "Elimino un usuario",
+                users: currentUserId,
+              };
+              this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
+                .pipe(takeWhile(() => this.alive))
+                .subscribe((res: any) => {
+                  //  console.log("Envió: ", res);
+                  this.users();
+
+                  args.cancel = false;
+                });
+
+              Swal.fire('Se eliminó exitosamente');
+
             });
-      
-            Swal.fire('¡Se Eliminó Exitosamente', 'success');
-            
-        });
         }
-      
-          
-       });
+
+
+      });
       args.cancel = true;
     }
-  
-}
+
+  }
 
   onDelete(args) {
 
-  Swal.fire({
-  title: '¿Estás seguro que quieres eliminar el Usuario?',
-  text: `¡Se eliminará el usuario!`,
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: '¡Sí, Eliminar!'
-}).then(result => {
-  // debugger
-  if (result.value) {
-    this.usersService
-            .delete(args.data[0].Id)
-            .pipe(takeWhile(() => this.alive))
-            .subscribe((res) => {
-    const currentUserId = this.userStore.getUser().id;
-          const currentUser = this.userStore.getUser().firstName;
-  // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-  var respons = 
-  {
-    user: currentUser,
-    message:"Elimino un usuario",
-    users: currentUserId,   
-};
-  this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-        //  console.log("Envió: ", res);
-      });
+    Swal.fire({
+      title: '¿Estás seguro que quieres eliminar el Usuario?',
+      text: `¡Se eliminará el usuario!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, Eliminar!'
+    }).then(result => {
+      // debugger
+      if (result.value) {
+        this.usersService
+          .delete(args.data[0].Id)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((res) => {
+            const currentUserId = this.userStore.getUser().id;
+            const currentUser = this.userStore.getUser().firstName;
+            // console.log("este es el usuario: ",this.userStore.getUser().firstName);
+            var respons =
+            {
+              user: currentUser,
+              message: "Elimino un usuario",
+              users: currentUserId,
+            };
+            this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
+              .pipe(takeWhile(() => this.alive))
+              .subscribe((res: any) => {
+                //  console.log("Envió: ", res);
+              });
 
-      Swal.fire('¡Se Eliminó Exitosamente', 'success');
-      this.source.refresh();
-  });
+            Swal.fire('¡Se Eliminó Exitosamente', 'success');
+            this.source.refresh();
+          });
+      }
+
+
+    });
+
   }
 
-    
- });
-
-  }
-
-  add(){
+  add() {
     // return this.router.navigateByUrl('/auth/register');
     this.router.navigate(['/pages/users/add/']);
   }

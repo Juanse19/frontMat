@@ -14,21 +14,43 @@
         </ng2-smart-table>
     </nb-card-body> -->
     <nb-card-body>
-        <ejs-grid [dataSource]='usersChange' [editSettings]='editSettings' (actionBegin)="actionBegin($event)"  [allowPaging]="true"
-        [pageSettings]="pageSettings" allowSorting='true' [filterSettings]="filterOptions" allowTextWrap="true"
-        [allowFiltering]="true" >
+        
+        <div>
+            <button nbButton status="primary" type="submit" (click)="add()" class="btn btn-primary" style="text-transform: none;">Agregar usuario </button>
+            </div>
+            <br>
+
+        <!--[allowPaging]="true" [pageSettings]="pageSettings" allowSorting='true' -->
+        
+        <!-- <div style='height:350px;'> -->
+        <ejs-grid #grid [dataSource]='usersChange' [editSettings]='editSettings' enableStickyHeader='true' (actionBegin)="actionBegin($event)" [filterSettings]="filterOptions" 
+        allowTextWrap="true" [allowFiltering]="true" height='430' width='100%' (rowSelected)='rowSelected($event)'>
                 <e-columns>
-                        <e-column field='firstName' headerText='Primer nombre' width=100 textAlign='left' isPrimaryKey='true'></e-column>
+                        <e-column field='firstName' headerText='Nombre' width=100 textAlign='left' isPrimaryKey='true'></e-column>
                         <e-column field='lastName' headerText='Apellido' width=90 textAlign='left'></e-column>
                         <e-column field='login' headerText='Usuario' width=90 textAlign='left'></e-column>
                         <e-column field='email' headerText='Email' width=140  textAlign='center'></e-column>
-                        <e-column headerText='Administrar usuarios' width='100' textAlign='center' [commands]='commands'></e-column>
+                        <e-column field='states' headerText='Estado' width='70'>
+                            <ng-template #template let-data>                       
+                                <div *ngIf="data.states === 1;else login" class="statustemp e-activecolor">                                          
+                                        <span class="statustxt e-activecolor">Activo</span>           
+                                </div>
+                                <ng-template #login>
+                                    <div class="statustemp e-inactivecolor">
+                                        <span class="statustxt e-inactivecolor">Inactivo</span>
+                                    </div>
+                                    </ng-template>
+                            </ng-template>               
+                        </e-column>
+
+                        <e-column headerText='Acciones' width='100' [commands]='commands'></e-column>
+                        <!-- <e-column headerText='Administrar usuarios' width='100' textAlign='center' [commands]='commands'></e-column> -->
                     </e-columns>
                 </ejs-grid>
-
+        <!-- </div> -->
     </nb-card-body>
     <nb-card-footer>
         <!-- <button nbButton type="submit" (click)="createUser()" class="btn btn-primary">Agregar usuario</button> -->
-        <button nbButton status="primary" type="submit" (click)="add()" class="btn btn-primary">Agregar usuario </button>
+        <!-- <button nbButton status="primary" type="submit" (click)="add()" class="btn btn-primary">Agregar usuario </button> -->
     </nb-card-footer> 
 </nb-card>

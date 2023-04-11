@@ -1,0 +1,46 @@
+
+
+<ejs-dialog id='formAirline' #formAirline allowDragging='true' [header]='' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
+    <ng-template #content>
+       
+
+            <div class="modal-body">
+               
+            
+                <form [formGroup]="airlineForm">
+                   
+                    <div class="form-outline mb-4">
+                      <label class="form-label title" for="form6Example3">Nombre Aerolínea</label>
+                      <input type="text" formControlName="airline_name" id="form6Example3" class="form-control" />
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">IATA</label>
+                        <input type="text" formControlName="iata_designator" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">Código de tres digitos IATA</label>
+                        <input type="text" formControlName="tree_digit_code" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">ICAO</label>
+                        <input type="text" formControlName="icao_designator" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <nb-toggle formControlName="airline_state" [(ngModel)]="stateCheck" status="info" labelPosition="start" class="form-label title">
+                            Estado Aerolínea</nb-toggle>
+                      </div>
+                
+                  </form>
+            
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()" style="text-transform: none;">Cerrar</button>
+                <button type="button" class="btn btn-primary"  (click)="save()">Agregar aerolinea</button>
+              </div>
+            
+    </ng-template>
+</ejs-dialog>

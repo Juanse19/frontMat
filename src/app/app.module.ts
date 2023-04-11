@@ -24,6 +24,9 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 
+import { ToastrModule } from 'ngx-toastr';
+import {MatDialogModule} from '@angular/material/dialog';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -40,11 +43,13 @@ import {
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+    ToastrModule.forRoot(),
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    MatDialogModule
   ],
   bootstrap: [AppComponent],
   providers: [],

@@ -1,0 +1,61 @@
+<nb-card>
+    <nb-card-header>
+        <h3>Asignar roles a usuarios</h3>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="page-content">
+            <div class="card user-info">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Informacion del usuario
+                    </h3>
+                </div>
+                <div *ngIf="userInfo" class="card-body">
+                    <p class="card-text">Nombre: {{userInfo.Usuario}}</p>
+                    <p class="card-text">Roles: {{userInfo.Role}}</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Lista de roles
+                    </h3>
+                </div>
+                <form #rolesForm="ngForm">
+                    <div class="card-body role-list">
+
+                        <div *ngIf="userRoles; else loading">
+                            <span class=" role-item" *ngFor="let role of rolesList">
+                                <label *ngIf="userRoles.includes(role); else noIncluded">
+                                    <input [ngModel]="true" [name]="role" type="checkbox" [id]="role" [value]="role"
+                                        [checked]="true">
+                                    {{role}}
+                                </label>
+
+                                <ng-template #noIncluded>
+                                    <label>
+                                        <input ngModel [name]="role" type="checkbox" id="role" [value]="role">
+                                        {{role}}
+                                    </label>
+                                </ng-template>
+                            </span>
+                        </div>
+
+                        <ng-template #loading>
+                            <h6>Cargando roles</h6>
+                        </ng-template>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="primary" hero (click)="assingRolesToUsers()"
+            [disabled]="isAvailable(rolesForm)" style="text-transform: none;">Guardar</button>
+        <button nbButton status="info" routerLink="/pages/roles/user-roles" hero style="text-transform: none;">Atras</button>
+    </nb-card-footer>
+</nb-card>
+
+<!-- [disabled]="isAvailable(rolesForm)" -->

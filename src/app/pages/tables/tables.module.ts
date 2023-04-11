@@ -25,6 +25,7 @@ import { AlarmsComponent } from './alarms/alarms.component'
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
+import { TabAllModule } from '@syncfusion/ej2-angular-navigations';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
     NbTabsetModule,
     GridModule,
     DropDownListAllModule,
+    TabAllModule
   ],
   declarations: [
     ...routedComponents,

@@ -1,56 +1,51 @@
-import { Component, OnInit, ViewChild, TemplateRef, ElementRef, Injectable, ViewEncapsulation  } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef, Injectable, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbPopoverDirective, NbWindowService } from '@nebular/theme';
-import { LocalDataSource } from 'ng2-smart-table';
-import { delay, map, takeUntil, takeWhile, timeout,switchMap } from 'rxjs/operators';
-import { Observable, Subject, of, BehaviorSubject, interval,Subscription } from 'rxjs';
+import { NbPopoverDirective, NbToastrService, NbWindowService } from '@nebular/theme';
+import { delay, map, takeUntil, takeWhile, timeout, switchMap } from 'rxjs/operators';
+import { Observable, Subject, of, BehaviorSubject, interval, Subscription } from 'rxjs';
 import { Zones, syste, teams, Consumezone, departures, Zonass } from '../../conveyor/_interfaces/MatBag.model';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
 import { GridComponent, PageSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
-import { WindowComponent } from '../../conveyor/window/window.component';
 import { DialogComponent, ResizeDirections } from '@syncfusion/ej2-angular-popups';
-import { EmitType } from '@syncfusion/ej2-base';
-import { ButtonComponent } from '@syncfusion/ej2-angular-buttons';
+import { Browser, EmitType } from '@syncfusion/ej2-base';
+import { CustomToastsComponent } from './custom-toast.component';
+import { WindowComponent } from '../window/window.component';
 
 @Component({
   selector: 'ngx-bhs-salidas',
   templateUrl: './bhs-salidas.component.html',
-  styleUrls: ['./bhs-salidas.component.scss']
+  styleUrls: ['./bhs-salidas.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class BhsSalidasComponent implements OnInit {
 
+  // ------------------------------------
   public zone: Zones[] = [];
 
   public deparData: departures[];
 
-  private alive=true;
+  private alive = true;
 
-   mostarTX: boolean;
-   mostarSF: boolean;
-   mostarSFC: boolean;
-   mostarSS: boolean;
-   mostarMU: boolean;
-   mostarAL: boolean;
-   mostarOSR: boolean;
-   mostarCL: boolean;
-   mostarME: boolean;
-   mostarXO: boolean;
+  message: string;
+
+  mostarTX: boolean;
+  mostarSF: boolean;
+  mostarSFC: boolean;
+  mostarSS: boolean;
+  mostarMU: boolean;
+  mostarAL: boolean;
+  mostarOSR: boolean;
+  mostarCL: boolean;
+  mostarME: boolean;
+  mostarXO: boolean;
+
+  public header: string;
 
   /** ---------------------------------------- */
-  public tXData: Consumezone [] 
-  
-  // = {
-  //   ZoneId: 0,
-  //   ZoneName: "TX",
-  //   Estado: "",
-  //   Consumo: "",
-  //   ContadorMaletas: "0",
-  //   TiempoOn: 0,
-  //   TiempoOff: 0,
-  // }
+  public tXData: Consumezone[]
 
-  public sFData: Consumezone[] = [];
+  public sFData: any[] = [];
 
   public sSData: Consumezone[] = [];
 
@@ -70,528 +65,505 @@ export class BhsSalidasComponent implements OnInit {
   /** ---------------------------------------- */
   team: teams[] = [];
 
-  @ViewChild(NbPopoverDirective) popover: NbPopoverDirective;
-
   public pageSettings: PageSettingsModel;
 
   public filterOptions: FilterSettingsModel;
 
   public showCloseIcon: Boolean = true;
 
-  intervalSubscriptionStatusAlarm:Subscription;
+  intervalSubscriptionStatusAlarm: Subscription;
 
-  @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
-  @ViewChild('disabledEsc', { read: TemplateRef, static: false }) disabledEscTemplate: TemplateRef<HTMLElement>;
-  @ViewChild('resizeDialog' , {static: true}) specialistObj: DialogComponent;
+  @ViewChild('toast') toast?: CustomToastsComponent;
+
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private api: HttpService,
-    private windowService: NbWindowService,
-    private comp5: WindowComponent,
-    private comp6: WindowComponent,
-    ) { }
+    private toastrService: NbToastrService
+  ) { }
 
-    //----------------- Dialogs -------------------
-    @ViewChild('ejDialogTX') ejDialogTX: DialogComponent;
-    @ViewChild('ejDialogSF') ejDialogSF: DialogComponent;
-    @ViewChild('ejDialogSS') ejDialogSS: DialogComponent;
-    @ViewChild('ejDialogMU') ejDialogMU: DialogComponent;
-    @ViewChild('ejDialogAL') ejDialogAL: DialogComponent;
-    @ViewChild('ejDialogSFC') ejDialogSFC: DialogComponent;
-    @ViewChild('ejDialogOSR') ejDialogOSR: DialogComponent;
-    @ViewChild('ejDialogCL') ejDialogCL: DialogComponent;
-    @ViewChild('ejDialogME') ejDialogME: DialogComponent;
-    @ViewChild('ejDialogXO') ejDialogXO: DialogComponent;
-    // Create element reference for dialog target element.
-    // @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
-    // The Dialog shows within the target element.
-    public targetElement: HTMLElement;
-    // This will resize the dialog in all the directions.
-    // public resizeHandleDirection: ResizeDirections[] = ['All'];
-    public visible: Boolean = true;
-    public hidden: Boolean = false;
-    public position: object={ X: 'left', Y: 'top' };
-    public initialPage: Object;
+  //----------------- Dialogs -------------------
+  @ViewChild('ejDialogTX') ejDialogTX: DialogComponent;
+  @ViewChild('ejDialogSF') ejDialogSF: DialogComponent;
+  @ViewChild('ejDialogSS') ejDialogSS: DialogComponent;
+  @ViewChild('ejDialogMU') ejDialogMU: DialogComponent;
+  @ViewChild('ejDialogAL') ejDialogAL: DialogComponent;
+  @ViewChild('ejDialogSFC') ejDialogSFC: DialogComponent;
+  @ViewChild('ejDialogOSR') ejDialogOSR: DialogComponent;
+  @ViewChild('ejDialogCL') ejDialogCL: DialogComponent;
+  @ViewChild('ejDialogME') ejDialogME: DialogComponent;
+  @ViewChild('ejDialogXO') ejDialogXO: DialogComponent;
 
-    ngOnInit(): void {
-      this.GetSystem();
-      this.initilaizeTarget();
-      this.pageSettings = { pageSize: 5 };
-      this.filterOptions = {
-        type: 'Menu',
-     };
-     this.initialPage = { pageSizes: true, pageSize: 5 };
-    }
+  @ViewChild(WindowComponent, { static: true }) public dialog: WindowComponent;
 
-    close(){
-      setTimeout(() => {
-        // console.log('Cerrar Dialog', this.ejDialogTX.hide());
-        this.ejDialogTX.hide();
-      }, 20000);
-    }
+  public targetElement: HTMLElement;
 
-      // Initialize the Dialog component's target element.
-      public initilaizeTarget: EmitType<object> = () => {
-        // this.targetElement = this.container.nativeElement.parentElement;
-        // this.resizeHandleDirection = ['All'];
-          }
+  public visible: Boolean = true;
+  public hidden: Boolean = false;
+  public position: object = { X: 'left', Y: 'top' };
+  public initialPage: Object;
 
-          public hideDialog: EmitType<object> = () =>  {
-            this.ejDialogTX.hide();
-        }
-        // public hideDialog1: EmitType<object> = () => {
-        //   this.ejDialog1.hide();
-        // }
-        // public hideDialog2: EmitType<object> = () =>  {
-        //     this.ejDialog2.hide();
-        // }
-          // Hide the Dialog when click the footer button.
-          // public hideDialog: EmitType<object> = () => {
-          //   // this.ejDialog.hide();
-          //   this.ejDialog1.hide();
-          //   this.ejDialog2.hide();
-          // }
-          // Enables the footer buttons
-          public buttons: Object = [
-          {
-              'click': this.hideDialog.bind(this),
-              // Accessing button component properties by buttonModel property
-                buttonModel: {
-                content: 'OK',
-                isPrimary: true
-              }
-          }
-          // ,
-          // {
-          //     'click': this.hideDialog.bind(this),
-          //     buttonModel: {
-          //       content: 'Cancel'
-          //     }
-          // }
-          ];
-          // Sample level code to handle the button click action
-        //   public onOpenDialog = function(event: any): void {
-        // // Call the show method to open the Dialog
-        // // this.ejDialog.show();
-        //   };
+  ngOnInit(): void {
 
-      //   public dialogClose = (): void => {
-      //     (document.querySelectorAll('.dlgbtn')[0] as HTMLElement).classList.remove('e-btn-hide');
-      //     (document.querySelectorAll('.dlgbtn')[1] as HTMLElement).classList.remove('e-btn-hide');
-      //     (document.querySelectorAll('.dlgbtn')[2] as HTMLElement).classList.remove('e-btn-hide');
-      // }
+    this.message = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).';
 
-  private GetSystem(){    
-    this.http.get(this.api.apiUrlNode1 + '/apifront')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res:Zones[])=>{
-      this.zone=res;
-      // console.log('zonas: ', this.zone);
-    });
+    this.GetSystem();
+    this.initilaizeTarget();
+    this.pageSettings = { pageSize: 5 };
+    this.filterOptions = {
+      type: 'Menu',
+    };
+    this.initialPage = { pageSizes: true, pageSize: 5 };
   }
 
-  public changeId(tea: any){
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ tea)
-    .pipe()
-    .subscribe((res: any)=>{
-      this.tXData=res;
-      // console.log('Zons:', res , 'states');
-    });
+  close() {
+    setTimeout(() => {
+      this.ejDialogTX.hide();
+    }, 20000);
   }
 
-  public changeIdMakeUp(mak: any){
- 
-    this.http.get(this.api.apiUrlNode1 + '/api/departuresInfo?Id='+ mak)
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{
-      this.deparData=res;
-    });
+  // Initialize the Dialog component's target element.
+  public initilaizeTarget: EmitType<object> = () => {
   }
 
-  
-  changestest(idDevice?: number){
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevice)
-    .pipe()
-    .subscribe((res: any)=>{
-      if (res.length === 0) {
-      
-        res = [{
-        // ZoneId: 0,
-        ZoneName: "TX",
-        Estado: "0",
-        Consumo: "0",
-        ContadorMaletas: "0",
-        TiempoOn: 0,
-        TiempoOff: 0,
-        }]
-        this.tXData=res;
-        this.ejDialogTX.show();
-        this.ejDialogTX.position = { X: 90.3125, Y: 330.125 };
-      } else {
-        this.tXData=res;
-        this.ejDialogTX.show();
-        this.ejDialogTX.position = { X: 90.3125, Y: 330.125 };
-      // console.log('Zons:', res , 'states');
+  public hideDialog: EmitType<object> = () => {
+    this.ejDialogTX.hide();
+  }
+  // Enables the footer buttons
+  public buttons: Object = [
+    {
+      'click': this.hideDialog.bind(this),
+      // Accessing button component properties by buttonModel property
+      buttonModel: {
+        content: 'OK',
+        isPrimary: true
       }
-      
-    });
+    }
+  ];
+
+  private GetSystem() {
+    this.http.get(this.api.apiUrlNode1 + '/apifront')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: Zones[]) => {
+        this.zone = res;
+        // console.log('zonas: ', this.zone);
+      });
   }
 
-  opentest(idDevice?: number){
+  public changeId(tea: any) {
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + tea)
+      .pipe()
+      .subscribe((res: any) => {
+        this.tXData = res;
+        // console.log('Zons:', res , 'states');
+      });
+  }
+
+  public changeIdMakeUp(mak: any) {
+
+    this.http.get(this.api.apiUrlNode1 + '/api/departuresInfo?Id=' + mak)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.deparData = res;
+      });
+  }
+
+
+  changestest(idDevice?: number) {
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevice)
+      .pipe()
+      .subscribe((res: any) => {
+        if (res.length === 0) {
+
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "TX",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
+          }]
+          this.tXData = res;
+          this.ejDialogTX.show();
+          this.ejDialogTX.position = { X: 90.3125, Y: 330.125 };
+        } else {
+          this.tXData = res;
+          this.ejDialogTX.show();
+          this.ejDialogTX.position = { X: 90.3125, Y: 330.125 };
+          // console.log('Zons:', res , 'states');
+        }
+
+      });
+  }
+
+  opentest(idDevice?: number) {
     this.changestest(idDevice)
   }
 
-  opentest1(idDevices?: number){
+  opentest1(idDevices?: number) {
     // this.changestest1(idDevices)
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevices)
-    .pipe()
-    .subscribe((res: any)=>{
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "SF",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
-          }]
-          this.sFData=res;
-          this.ejDialogSF.show();
-          this.ejDialogSF.position = { X: 570.312, Y: 153.125 };
-      } else {
-        this.sFData=res;
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevices)
+      .pipe()
+      .subscribe((res: any) => {
+        this.sFData = res;
+        this.header = this.sFData[0]?.ZoneName;
         this.ejDialogSF.show();
-        this.ejDialogSF.position = { X: 570.312, Y: 153.125 };
-      // console.log('Zons:', res , 'states');
-      }
-      
-    });
+        this.ejDialogSF.position = { X: 955.317, Y: 121.133 };
+
+      });
   }
 
-  changestest2(idDevic?: number){
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevic)
-    .pipe()
-    .subscribe((res: any)=>{
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "SS",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
+  changestest2(idDevic?: number) {
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevic)
+      .pipe()
+      .subscribe((res: any) => {
+        if (res.length === 0) {
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "SS",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
           }]
-          this.sSData=res;
-        this.ejDialogSS.show();
-      this.ejDialogSS.position = { X: 716.312, Y: 137.125 };
-      } else {
-        this.sSData=res;
-      this.ejDialogSS.show();
-      this.ejDialogSS.position = { X: 716.312, Y: 137.125 };
-      // console.log('Zons:', res , 'states');
-      }
-      
-    });
+          this.sSData = res;
+          this.ejDialogSS.show();
+          this.ejDialogSS.position = { X: 716.312, Y: 137.125 };
+        } else {
+          this.sSData = res;
+          this.ejDialogSS.show();
+          this.ejDialogSS.position = { X: 716.312, Y: 137.125 };
+          // console.log('Zons:', res , 'states');
+        }
+
+      });
   }
 
-  opentest2(idDevic?: number){
+  opentest2(idDevic?: number) {
     this.changestest2(idDevic)
   }
 
-  opentest3(idDevices?: number){
+  opentest3(idDevices?: number) {
     // this.changestest1(idDevices)
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevices)
-    .pipe()
-    .subscribe((res: any)=>{
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "MU",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevices)
+      .pipe()
+      .subscribe((res: any) => {
+        if (res.length === 0) {
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "MU",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
           }]
-          this.mUData=res;
-        this.ejDialogMU.show();
-        this.ejDialogMU.position = { X: 670.312, Y: 334.125 };
-      } else {
-        this.mUData=res;
-      this.ejDialogMU.show();
-      this.ejDialogMU.position = { X: 670.312, Y: 334.125 };
-      // console.log('Zons:', res , 'states');
-      }
-      
-    });
+          this.mUData = res;
+          this.ejDialogMU.show();
+          this.ejDialogMU.position = { X: 670.312, Y: 334.125 };
+        } else {
+          this.mUData = res;
+          this.ejDialogMU.show();
+          this.ejDialogMU.position = { X: 670.312, Y: 334.125 };
+          // console.log('Zons:', res , 'states');
+        }
+
+      });
   }
 
-  opentest4(idDevices?: number){
+  opentest4(idDevices?: number) {
     // this.changestest1(idDevices)
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevices)
-    .pipe()
-    .subscribe((res: any)=>{
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "AL",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevices)
+      .pipe()
+      .subscribe((res: any) => {
+        if (res.length === 0) {
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "AL",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
           }]
-          this.aLData=res;
-        this.ejDialogAL.show();
-        this.ejDialogAL.position = { X: 186.479, Y: 465.25 };
-      }else{
-        this.aLData=res;
-        this.ejDialogAL.show();
-        this.ejDialogAL.position = { X: 186.479, Y: 465.25 };
-      }
-      
-      // console.log('Zons:', res , 'states');
-    });
+          this.aLData = res;
+          this.ejDialogAL.show();
+          this.ejDialogAL.position = { X: 186.479, Y: 465.25 };
+        } else {
+          this.aLData = res;
+          this.ejDialogAL.show();
+          this.ejDialogAL.position = { X: 186.479, Y: 465.25 };
+        }
+
+        // console.log('Zons:', res , 'states');
+      });
   }
 
-  opentest5(idDevices?: number){
+  opentest5(idDevices?: number) {
     // this.changestest1(idDevices)
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevices)
-    .pipe()
-    .subscribe((res: any [])=>{
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevices)
+      .pipe()
+      .subscribe((res: any[]) => {
 
-      if (res.length === 0) {
-        res = [{
-        // ZoneId: 0,
-        ZoneName: "SFC",
-        Estado: "0",
-        Consumo: "0",
-        ContadorMaletas: "0",
-        TiempoOn: 0,
-        TiempoOff: 0,
-        }]
-        this.sFCData=res;
-        console.log('SFC', this.sFCData);
-        this.ejDialogSFC.show();
-        this.ejDialogSFC.position = { X: ('411.312%'), Y: ('183.125%') };
-      } else {
-      this.sFCData=res;
-      this.ejDialogSFC.show();
-      this.ejDialogSFC.position = { X: '411.312', Y: '183.125' };
-      // console.log('Zons:', res , 'states');
-      }
-      
-    });
-  }
-
-  opentest6(idDevices?: number){
-    // this.changestest1(idDevices)
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevices)
-    .pipe()
-    .subscribe((res: any [])=>{
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "OSR",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
+        if (res.length === 0) {
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "SFC",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
           }]
-          this.oSRData=res;
-        this.ejDialogOSR.show();
-      this.ejDialogOSR.position = { X: 968, Y: 260.292 };
-      } else {
-        this.oSRData=res;
-        this.mostarOSR === true;
-        this.ejDialogOSR.show();
-        this.ejDialogOSR.position = { X: 968, Y: 260.292 };
-      // console.log('Zons:', res , 'states');
-      }
-      
-    });
+          this.sFCData = res;
+          console.log('SFC', this.sFCData);
+          this.ejDialogSFC.show();
+          this.ejDialogSFC.position = { X: ('411.312%'), Y: ('183.125%') };
+        } else {
+          this.sFCData = res;
+          this.ejDialogSFC.show();
+          this.ejDialogSFC.position = { X: '411.312', Y: '183.125' };
+          // console.log('Zons:', res , 'states');
+        }
+
+      });
   }
 
-  opentest7(idDevices?: number){
+  opentest6(idDevices?: number) {
     // this.changestest1(idDevices)
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevices)
-    .pipe()
-    .subscribe((res: any)=>{
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "CL",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevices)
+      .pipe()
+      .subscribe((res: any[]) => {
+        if (res.length === 0) {
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "OSR",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
           }]
-          this.cLData=res;
-        this.ejDialogCL.show();
-      this.ejDialogCL.position = { X: 715.313, Y: 547 };
-      } else {
-        this.cLData=res;
-        this.ejDialogCL.show();
-        this.ejDialogCL.position = { X: 715.313, Y: 547 };
-      // console.log('Zons:', res , 'states');
-      }
-      
-    });
+          this.oSRData = res;
+          this.ejDialogOSR.show();
+          this.ejDialogOSR.position = { X: 968, Y: 260.292 };
+        } else {
+          this.oSRData = res;
+          this.mostarOSR === true;
+          this.ejDialogOSR.show();
+          this.ejDialogOSR.position = { X: 968, Y: 260.292 };
+          // console.log('Zons:', res , 'states');
+        }
+
+      });
   }
 
-  opentest8(idDevices?: number){
+  opentest7(idDevices?: number) {
     // this.changestest1(idDevices)
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevices)
-    .pipe()
-    .subscribe((res: any[])=>{
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "ME",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevices)
+      .pipe()
+      .subscribe((res: any) => {
+        if (res.length === 0) {
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "CL",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
           }]
-          this.mEData=res;
-        this.ejDialogME.show();
-      this.ejDialogME.position = { X: 455.292, Y: 535.125 };
-      } else {
-        this.mEData=res;
-        this.ejDialogME.show();
-        this.ejDialogME.position = { X: 455.292, Y: 535.125 };
-      // console.log('Zons:', res , 'states');
-      }
-      
-    });
+          this.cLData = res;
+          this.ejDialogCL.show();
+          this.ejDialogCL.position = { X: 715.313, Y: 547 };
+        } else {
+          this.cLData = res;
+          this.ejDialogCL.show();
+          this.ejDialogCL.position = { X: 715.313, Y: 547 };
+          // console.log('Zons:', res , 'states');
+        }
+
+      });
   }
 
-  opentest9(idDevices?: number){
+  opentest8(idDevices?: number) {
+    // this.changestest1(idDevices)
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevices)
+      .pipe()
+      .subscribe((res: any[]) => {
+        if (res.length === 0) {
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "ME",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
+          }]
+          this.mEData = res;
+          this.ejDialogME.show();
+          this.ejDialogME.position = { X: 455.292, Y: 535.125 };
+        } else {
+          this.mEData = res;
+          this.ejDialogME.show();
+          this.ejDialogME.position = { X: 455.292, Y: 535.125 };
+          // console.log('Zons:', res , 'states');
+        }
+
+      });
+  }
+
+  opentest9(idDevices?: number) {
     // this.changestest1(idDevices)
     // debugger
-    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone='+ idDevices)
-    .pipe()
-    .subscribe((res: any)=>{
- 
-      if (res.length === 0) {
-        res = [{
-          // ZoneId: 0,
-          ZoneName: "XO",
-          Estado: "0",
-          Consumo: "0",
-          ContadorMaletas: "0",
-          TiempoOn: 0,
-          TiempoOff: 0,
-          }]
-          this.xOData=res;
-        this.ejDialogXO.show();
-        this.ejDialogXO.position = { X: 345.312, Y: 57.125 };
-      } else {
-        this.xOData=res;
-      this.ejDialogXO.show();
-      this.ejDialogXO.position = { X: 345.312, Y: 57.125 };
-      // console.log('Zons:', res );
-      }
+    this.http.get(this.api.apiUrlNode1 + '/apiZoneFrontConsume?zone=' + idDevices)
+      .pipe()
+      .subscribe((res: any) => {
 
-      
-    });
+        if (res.length === 0) {
+          res = [{
+            // ZoneId: 0,
+            ZoneName: "XO",
+            Estado: "0",
+            Consumo: "0",
+            ContadorMaletas: "0",
+            TiempoOn: 0,
+            TiempoOff: 0,
+          }]
+          this.xOData = res;
+          this.ejDialogXO.show();
+          this.ejDialogXO.position = { X: 345.312, Y: 57.125 };
+        } else {
+          this.xOData = res;
+          this.ejDialogXO.show();
+          this.ejDialogXO.position = { X: 345.312, Y: 57.125 };
+          // console.log('Zons:', res );
+        }
+
+
+      });
   }
- 
-  //Abrir ventana de cada zona
 
   ClicTX() {
-    this.opentest(13);
+    this.opentest1(13);
     // this.close();
   }
 
-  ClicSF() {
-  // this.comp3.openWindowForms(1);
-  this.opentest1(1);
+  ClicSF1() {
+    // this.comp3.openWindowForms(1);
+    this.opentest1(1);
   }
 
-  ClicSS() {
-  // this.comp3.openWindowForms(2);
-  this.opentest2(2);
+  ClicSF2() {
+    // this.comp3.openWindowForms(1);
+    this.opentest1(16);
   }
 
-  ClicMU() {
-  this.opentest3(6);
+  ClicSS1() {
+    // this.comp3.openWindowForms(2);
+    this.opentest1(2);
   }
 
-  ClicAL() {
-  this.opentest4(5);
+  ClicSS2() {
+    // this.comp3.openWindowForms(2);
+    this.opentest1(17);
   }
 
-  ClicSFC() {
-  this.opentest5(12);
+  ClicMU1() {
+    this.opentest1(6);
   }
 
-  ClicOSR() {
-  this.opentest6(3);
+  ClicMU2() {
+    this.opentest1(21);
   }
 
-  ClicCL() {
-  this.opentest7(4);
+  ClicAL1() {
+    this.opentest1(5);
+  }
+
+  ClicAL2() {
+    this.opentest1(20);
+  }
+
+  ClicSFC1() {
+    this.opentest1(12);
+  }
+
+  ClicSFC2() {
+    this.opentest1(24);
+  }
+
+  ClicOSR1() {
+    this.opentest1(3);
+  }
+
+  ClicOSR2() {
+    this.opentest1(18);
+  }
+
+  ClicCL1() {
+    this.opentest1(4);
+  }
+
+  ClicCL2() {
+    this.opentest1(19);
   }
 
   ClicME(): void {
-  this.opentest8(11);
+    this.opentest1(11);
   }
 
   ClicXO(): void {
-    this.opentest9(10);
-    }
+    this.opentest1(10);
+  }
 
-// Navegacion a zonas
+  // Navegacion a zonas
 
   bhs1() {
     this.router.navigate(['/pages/conveyor/bhs1']);
-   }
+  }
 
-   bhs2() {
+  bhs2() {
     this.router.navigate(['/pages/conveyor/bhs2']);
-   }
+  }
 
-   bhs3() {
+  bhs3() {
     this.router.navigate(['/pages/conveyor/bhs3']);
-   }
+  }
 
-   bhs4() {
+  bhs4() {
     this.router.navigate(['/pages/conveyor/bhs4']);
-   }
+  }
 
-   bhs5() {
+  bhs5() {
     this.router.navigate(['/pages/conveyor/bhs5']);
-   }
+  }
 
-   bhs6() {
+  bhs6() {
     this.router.navigate(['/pages/conveyor/bhs6']);
-   }
+  }
 
-   bhs7() {
+  bhs7() {
     this.router.navigate(['/pages/conveyor/bhs7']);
-   } 
+  }
 
-   bhs8() {
+  bhs8() {
     this.router.navigate(['/pages/conveyor/bhs8']);
-   }
+  }
 
-   bhs9() {
+  bhs9() {
     this.router.navigate(['/pages/conveyor/bhs9']);
-   }
+  }
 
-   bhs10() {
+  bhs10() {
     this.router.navigate(['/pages/conveyor/bhs10']);
-   }
+  }
 
-   closed(){
+  closed() {
     setTimeout(() => {
       // console.log('Cerrar Dialogs');
       this.ejDialogTX.hide();
@@ -607,21 +579,21 @@ export class BhsSalidasComponent implements OnInit {
     }, 10000);
   }
 
-   openDialogs(){
-    this.ClicTX();
-    this.ClicSF();
-    this.ClicSS();
-    this.ClicMU();
-    this.ClicAL();
-    this.ClicSFC();
-    this.ClicOSR();
-    this.ClicCL();
-    this.ClicME();
-    this.ClicXO();
+  openDialogs() {
+    // this.ClicTX();
+    // this.ClicSF();
+    // this.ClicSS();
+    // this.ClicMU();
+    // this.ClicAL();
+    // // this.ClicSFC();
+    // this.ClicOSR();
+    // this.ClicCL();
+    // this.ClicME();
+    // this.ClicXO();
     this.closed();
-   }
+  }
 
-   ngOnDestroy() {
+  ngOnDestroy() {
     this.alive = false;
   }
 

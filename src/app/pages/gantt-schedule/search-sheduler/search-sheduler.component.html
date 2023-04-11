@@ -1,0 +1,56 @@
+<nb-card-body>
+    <form [formGroup]="airForm" class="form-inline" novalidate id="formId" >
+        <div class="form-group mx-sm-4 mb-3">
+            <div>
+                <ejs-datepicker formControlName="StartDates" id="StartDates" data-cy="date-std-field"
+                    [(ngModel)]="StartDates" format="MM/dd/yyyy" class="e-field" data-name="StartDates"
+                    placeholder='Fecha Inicio' floatLabelType='Always' required>
+                </ejs-datepicker>
+
+            </div>
+        </div>
+        <br>
+        <div class="form-group mx-sm-4 mb-3">
+            <div>
+                <ejs-datepicker formControlName="EndDate" id="EndDate" data-cy="date-etd-field"
+                    [(ngModel)]="EndDate" format="MM/dd/yyyy" class="e-field" data-name="EndDate"
+                    placeholder='Fecha de Fin' floatLabelType='Always' required>
+                </ejs-datepicker>
+
+            </div>
+        </div>
+
+        <button nbButton status="primary" class="btn btn-primary" data-cy="consulta-submit-button"
+            (click)="date(airForm.controls.StartDates.value, airForm.controls.EndDate.value)" style="text-transform: none;">Consultar</button>
+
+           
+            <br><br>
+        <br>
+        <br>
+    </form>
+
+    <div>
+        <button type="submit" nbButton status="primary" style="text-transform: none;" (click)="openWindowForm()">Agregar</button>
+    </div>
+    <br>
+
+    <ejs-grid [dataSource]='ganttData' [editSettings]='editSettings' allowSorting='true'  allowTextWrap="true"
+    height='280' width='100%' (rowSelected)='rowSelected($event)'>
+       <e-columns>
+           
+           <!-- <e-column field='Id' headerText='Id' [isPrimaryKey]='true' width=30></e-column> -->
+           <e-column field='ChuteName' headerText='MU' textAlign='center' width=40></e-column>
+           <e-column field='Subject' headerText='Vuelo' textAlign='center' width=60></e-column>
+           <e-column field='IATA' headerText='IATA' textAlign='center' width=60></e-column>
+           <e-column field='startTime' headerText='STD' type="date" format="dd/MM/yyyy HH:mm" width=60></e-column>
+           <e-column field='endTime' headerText='ETD' type="date" format="dd/MM/yyyy HH:mm" width=60></e-column>
+           <e-column field='taskName' headerText='Aerolinea' textAlign='center' width=120></e-column>
+       </e-columns>
+
+   </ejs-grid>
+
+</nb-card-body>
+
+<div class='root-container'>
+    <ngx-window-form></ngx-window-form>
+</div>

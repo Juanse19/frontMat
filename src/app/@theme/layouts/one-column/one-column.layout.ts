@@ -23,8 +23,8 @@ import { Component } from '@angular/core';
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 
-      <nb-layout-footer fixed>
-        <ngx-footer></ngx-footer>
+      <nb-layout-footer fixed class="foot">
+        <ngx-footer ></ngx-footer>
       </nb-layout-footer>
     </nb-layout>
   `,

@@ -1,0 +1,36 @@
+<nb-card>
+  <nb-card-header>
+    <div class="title">
+      Parametrización de aerolíneas
+    </div>
+    
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <button type="submit" nbButton status="primary" (click)="openFormCreate()" style="text-transform: none;">Agregar aerolínea</button>
+    <br><br>
+    <ejs-grid #grid [dataSource]='dataAirline' [editSettings]='editSettings' [toolbar]='toolbar' allowSorting='true'
+      [filterSettings]="filterOptions" allowTextWrap="true" [allowFiltering]="true" (actionBegin)="actionBegin($event)"
+      height='430' width='100%' (rowSelected)='rowSelected($event)'>
+      <!--  -->
+      <e-columns>
+
+        <e-column field='airline_name' headerText='Nombre Aerolínea' textAlign='Left' width=170></e-column>
+        <e-column field='iata_designator' headerText='IATA' textAlign='center' width=60></e-column>
+        <e-column field='tree_digit_code' headerText='Código IATA' width=60 textAlign='center'></e-column>
+        <e-column field='icao_designator' headerText='ICAO' width=55 textAlign='center'></e-column>
+        <e-column field='state' headerText='Estado' width=75 textAlign='center'></e-column>
+        <e-column headerText='Acciones' width='50' textAlign='center' [commands]='commands'></e-column>
+      </e-columns>
+
+    </ejs-grid>
+
+  </nb-card-body>
+
+  <div class='root-container'>
+    <ngx-airline-create></ngx-airline-create>
+    <ngx-airline-edit></ngx-airline-edit>
+  </div>
+
+</nb-card>

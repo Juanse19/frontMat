@@ -1,0 +1,119 @@
+<!-- <ejs-dialog id='formAirline' #formAirline allowDragging='true' [header]='' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
+    <ng-template #content>
+
+<div class="control-section">
+    <div class="col-lg-12">
+        <h4 class="form-title"></h4>
+        <div class="control_wrapper" id="control_wrapper" style="margin: 25px auto;">
+            <form id="reactive" [formGroup]="airlineForm">
+                <div class="form-group template">
+                    <div class="e-float-input">
+                        <input type="text" formControlName="airline_name" id="firstname" name="firstname"
+                            data-cy="flight-field" class="required" required>
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" for="firstname">Nombre Aerolínea</label>
+                    </div>
+                </div>
+
+                <div class="form-group template">
+                    <div class="e-float-input">
+                        <input type="text" formControlName="iata_designator" id="iata_designator" name="iata_designator"
+                            data-cy="flight-field" class="required" required>
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" for="iata_designator">Iata</label>
+                    </div>
+                </div>
+
+                <div class="form-group template">
+                    <div class="e-float-input">
+                        <input type="text" class="input"
+                            [class.is-danger]="airlineForm.get('tree_digit_code').dirty && airlineForm.get('tree_digit_code').invalid"
+                            formControlName="tree_digit_code" id="tree_digit_code" name="tree_digit_code"
+                            data-cy="flight-field" class="required" required>
+
+                        <span class="e-float-line"></span>
+                        
+                        <label class="e-float-text" for="tree_digit_code">Código</label>
+                    </div>
+                    <span>{{ airlineForm.get("tree_digit_code").errors | json }}</span>
+                </div>
+
+                <div class="form-group template">
+                    <div class="e-float-input">
+                        <input type="text" formControlName="icao_designator" id="icao_designator" name="icao_designator"
+                            data-cy="flight-field" class="required" required>
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" for="icao_designator">Icao</label>
+                    </div>
+                </div>
+
+                <nb-toggle formControlName="airline_state" status="info" labelPosition="start">
+                    Estado Aerolínea</nb-toggle>
+                
+                <div class="form-group template">
+                    <div class="submitBtn">
+                        <button nbButton status="primary" [disabled]="airlineForm.invalid" style="margin-left: 40%;"
+                            class="btn btn-primary"  data-cy="save-submit-field" id="submit-btn"
+                            (click)="editData()">Editar</button>
+                       
+                        <div class="desc">
+                            <pre><span>                                                            </span></pre>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</ng-template>
+</ejs-dialog> -->
+
+
+
+
+
+<ejs-dialog id='formAirline' #formAirline allowDragging='true' [header]='' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
+    <ng-template #content>
+       
+
+            <div class="modal-body">
+               
+            
+                <form [formGroup]="airlineForm">
+                   
+                    <div class="form-outline mb-4">
+                      <label class="form-label title" for="form6Example3">Nombre Aerolínea</label>
+                      <input type="text" formControlName="airline_name" id="form6Example3" class="form-control" />
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">IATA</label>
+                        <input type="text" formControlName="iata_designator" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">Código de tres digitos IATA</label>
+                        <input type="text" formControlName="tree_digit_code" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">ICAO</label>
+                        <input type="text" formControlName="icao_designator" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <nb-toggle formControlName="airline_state" [(ngModel)]="stateCheck" status="info" labelPosition="start" class="form-label title">
+                            Estado Aerolínea</nb-toggle>
+                      </div>
+                
+                  </form>
+            
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Cerrar</button>
+                <button type="button" class="btn btn-primary"  (click)="editData()">Editar aerolinea</button>
+              </div>
+            
+    </ng-template>
+</ejs-dialog>

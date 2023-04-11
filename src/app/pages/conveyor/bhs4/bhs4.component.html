@@ -1,4 +1,4 @@
-<nb-card>
+<!-- <nb-card>
 
     <nb-card-header>
         <nav class="navigation">
@@ -11,7 +11,6 @@
 
     <nb-card-body>
         <div class="room-layout">
-            <!-- <img src="./assets/bhs/BHS4.png" alt="" /> -->
 
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="85 150 302.63 130.06">
                 
@@ -178,7 +177,7 @@
                       drop-shadow(-5px -5px 5px ' + states[1]?.Color   + ')'}"
                     />
 
-                    <!-- <text x="343.93" y="211.89" class="st4"  (click)="changeId(1)"  [nbPopover]="card" nbPopoverTrigger="click">{{dataBanda4.b1}}</text> -->
+                    
                     <text x="343.93" y="211.89" class="st4" (click)="ClicAL1_1()">{{zone[7]?.Name}}</text>
                     <text x="335.193" y="216.89" class="st4"  (click)="ClicAL1_2()" counterclockwise="click" >{{zone[9]?.Name}}</text>
                     <text x="319.193" y="226.89" class="st4"  (click)="ClicAL1_3()" >{{zone[0]?.Name}}</text>
@@ -190,19 +189,18 @@
                     <text x="132.93" y="194.89" class="st4" (click)="ClicAL1_9()"  >{{zone[10]?.Name}}</text>
                     <text x="117.193" y="190.89" class="st4" (click)="ClicAL1_10()" >{{zone[8]?.Name}}</text>
                     <text x="97.193" y="173.89" class="st4" (click)="ClicAL1_11()" >{{zone[6]?.Name}}</text>
-                    <!-- <text x="96.193" y="172.89" class="st4" [nbPopover]="card">{{dataBanda4.b12}}</text> -->
+                    
                     <text x="375.93" y="207.89" class="st4" (click)="ClicAL2_1()" >{{zone[12]?.Name}}</text>
                     <text x="369.93" y="224.89" class="st4" (click)="ClicAL2_2()" >{{zone[11]?.Name}}</text>
                     <text x="356.93" y="233.89" class="st4" (click)="ClicAL2_3()" >{{zone[13]?.Name}}</text>
                     <text x="335.93" y="231.89" class="st4" (click)="ClicAL2_4()" >{{zone[14]?.Name}}</text>
                 
-            </svg>
+            </svg> -->
 
-            <ng-template #card>
+            <!-- <ng-template #card>
                 <nb-card class="popover-card">
                     <nb-card-body>
                         <div class="media" *ngFor="let option of divice; let i = index">
-                            <!-- {{i}} -->
                             <img class="align-self-start mr-3" id="im" src="./assets/img/teams.png" alt="Card " />
                             <div class="media-body">
                                 <h6>Id equipo: {{option.DeviceId}}</h6>
@@ -227,16 +225,21 @@
         </div>
 
     </nb-card-body>
-</nb-card>
+</nb-card> -->
 
-<!-- <nb-card>
+<nb-card>
 
     <nb-card-header>
         <nav class="navigation">
             <a href="#" (click)="back()" class="link back-link" aria-label="Back">
                 <nb-icon icon="arrow-back"></nb-icon>
             </a>
-            <h5 class="h">ALARM LINE</h5>
+            <!-- <h5 class="h">ALARM LINE</h5> -->
+
+            <div class="title h">
+              Alarm line
+          </div>
+
         </nav>
     </nb-card-header>
 
@@ -2578,12 +2581,11 @@
       7LjuPXjweWpkKQXmr82mx+NSrKsrL/iLX/yeyvO7xRUrfppTW/tre27ufOropDjz14tPL9CHkbEf
       /vCK1esdlMrLm1NATkXmr/UWHRxM5y0Wu2C3z72JBc1T2xfb/r8AAwDNwvDexmwFgQAAAABJRU5E
       rkJggg==" transform="matrix(0.24 0 0 0.24 114.835 135.7458)"
-      [ngStyle]="{'filter': 'drop-shadow(5px 5px 5px ' + states[1]?.Color  + ')
-                        drop-shadow(-5px -5px 5px ' + states[1]?.Color   + ')'}"
+     
       >
         </image>
 
-        <image style="overflow:visible;" width="35" height="30" id="Layer_0_xA0_Imagen_80_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAhCAYAAAC1ONkWAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="35" height="30" id="AL2_1" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAhCAYAAAC1ONkWAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACCFJREFUeNrsmNtvFNcdx89c9j5r
     7832Goy3vmEDaxOMHe4huEBCEhdBq6opjdpG6kOk9A9o3/qWhz5FjYR4cGiq4pqKKOCIAqFBGAPB
     F8ABr03wlTX2Xmcv3tmd3Zmd6Xeo3dpxAEOcqA8d6WhGs2fOfs73/H7f85sh5P/H/8ChKsqj9m0O
@@ -2624,7 +2626,7 @@
     ZDQ+9pXuXwIMAJQxxHzbdRhVAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 377.5617 189.7567)">
       </image>
       
-        <image style="overflow:visible;" width="36" height="29" id="Layer_0_xA0_Imagen_82_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="36" height="29" id="AL1_1" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACEpJREFUeNrsmP1PG/cdx793PvsO
     P2BsbAKGZCQgkSYFMvJAUUtSomRk1YiSKFm3RKm2/bQfJk2a9sv2N+xPmKb1h1VTq4TQJmnSBIia
     LhkkpjzFBLCBHMTGNsZP57N9D769j5CURpCajnbTtJO+/uLjHl73+bw/7+/nTMj/t63dqK26kDw1
@@ -2666,7 +2668,7 @@
     kkoAAAAASUVORK5CYII=" transform="matrix(0.24 0 0 0.24 349.3775 194.8067)">
       </image>
       
-        <image style="overflow:visible;" width="36" height="29" id="Layer_0_xA0_Imagen_83_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="36" height="29" id="AL1_2" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACF1JREFUeNrsmNtTG9cdx8+u9iJp
     dUcGcROmNjIJEIMxyI2dcZ2YcdyqycTNQ5123Dad6Uunr31o+x+k0/qtmemMseN6DMFNGofU9oxL
     zNg44MHYQhAbxDUIBLpLu9LuSnvpbwl4cGJs2UPadKZn5sw5LDqHz/5+398FIfQ/MrCtvExeWDAW
@@ -2708,7 +2710,7 @@
     gX8EZfT/8V8a/xZgAHUlBbX56K5dAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 344.4469 197.4419)">
       </image>
       
-        <image style="overflow:visible;" width="36" height="30" id="Layer_0_xA0_Imagen_84_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="36" height="30" id="AL2_3" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACRpJREFUeNrsmNtzE9cdx8/etKu7
     ZMvYWDE2svAFu8bCwyVcB+wBlykOOJOhZdoMz52203T60unfkPapM8lLO2mmTTuQQJ0CzgQcaAyJ
     awewgy0bybIdoaslW7f1alfa3f6OWFEn2KVpTclDNXPmHJ092vPZ7/n+fuesEPr/Z2M/xEbfMH/v
@@ -2753,7 +2755,7 @@
     kmRWZLkAShtD4fAeWVZyrc3Nf7daLdln8c/LPwQYAI7Dm2ee5LQ6AAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 345.9758 206.7925)">
       </image>
       
-        <image style="overflow:visible;" width="125" height="79" id="Layer_0_xA0_Imagen_81_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIEAAABTCAYAAAC4VmR0AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="125" height="79" id="AL2_2" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIEAAABTCAYAAAC4VmR0AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAGwlJREFUeNrsXftXVNe93/NghpmB
     YRgegqjgiwSNxqjxgaCYQBJs1MQmtknaWGPUuNb9A7r6Q1ezVn9pe7va3tXb6jXNbXqTPpL4QOWl
     UeKDGp8YX8jAICIoMrwZhnnP/XwPe5PjZFASlQies9Ze5zFnDsx8vo/P/u7P3sOYsimbsimbsimb
@@ -2879,7 +2881,7 @@
     9v8CDABBiVYWJFuP7AAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 350.7342 192.96)">
       </image>
       
-        <image style="overflow:visible;" width="156" height="99" id="Layer_0_xA0_Imagen_86_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJ4AAABkCAYAAAB3jIkEAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="156" height="99" id="AL1_3" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJ4AAABkCAYAAAB3jIkEAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAIyVJREFUeNrsfWlsVHeW763d5aW8
     b9gGszhA2DcnJN1gY2ODMYYkndBJj/qNNHojvS/94Wm6pZmR+sv70B9mNNJsikbvKWTokBB1OiGs
     YV8CNhCCMQFvVS5vVa7yWt7tcm3v/C7nb66LsiEdQrB9r/TXXereKlz146y/c44kqZu6fY8t2NeX
@@ -3041,7 +3043,7 @@
     YPuxzIx0NXSibs9nGxoatngnJkzqNzG/t/8vwADZb3pV9MQhrwAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 310.56 200.29)">
       </image>
       
-        <image style="overflow:visible;" width="35" height="30" id="Layer_0_xA0_Imagen_85_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="35" height="30" id="AL2_4" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACJVJREFUeNrsmPlvVNcVx+/b5817
     s4/xgo3NeAECLjaLWwwBB5SAUWUTJFCCKvXn/hJF6i9RpaZSpSZq/gEUKVWkVooSqY1Mq4IJi9ns
     gDE22LWxHY+X8TIz9mxv1vfmbT3XmMpQYg8JKZXaK13N+Pm+ez/3nO+595xB6P/tf7QRL3IyNZ2m
@@ -3084,7 +3086,7 @@
     wdEbXOnfu/1TgAEAJaQyPZ73P70AAAAASUVORK5CYII=" transform="matrix(0.24 0 0 0.24 340.9775 203.875)">
       </image>
       
-        <image style="overflow:visible;" width="155" height="98" id="Layer_0_xA0_Imagen_87_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKMAAABoCAYAAACdQ0D3AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="155" height="98" id="AL1_4" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKMAAABoCAYAAACdQ0D3AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAI4pJREFUeNrsXVlQW1eavtqFdjYh
     GzCbsQ02IMBgB3ccA16yOKmet1mqpqrfuuZtHvq1X7q6q7umMm8zDzM1093V6W47ceKxnTjeTdJe
     YhuvLGITEmiXQEgI7dv8/+UcfC0kL4kdG7in6tSVriSw0Vf/+p3vZxh+8Ytf/OIXv/j1A1fW7S7O
@@ -3248,7 +3250,7 @@
     X/ziF7/4xS9+vbnr/wUYAKjHLwaqTeg8AAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 276.9912 219.7462)">
       </image>
       
-        <image style="overflow:visible;" width="60" height="42" id="Layer_0_xA0_Imagen_94_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAAuCAYAAACf1cHhAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="60" height="42" id="AL1_11" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAAuCAYAAACf1cHhAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAADeVJREFUeNrsWWtzE9cZPiutVndZ
     smzrgm35IkOhkBISQhNCCAklEAi0XNJ2+qF/oNPpf2g708m0M+VL07QzzeeGUppCaaDEg7GB2g4h
     GOz4Kku2McZGV+su7W6f1zlLFcUBt4SEpN2ZM2f36Kx0nvM+z3s5Yuz/1//mJXyZFqvm8wZlft7H
@@ -3315,7 +3317,7 @@
     S4ABAB5nwTp63PgXAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 104.4938 151.7112)">
       </image>
       
-      <image style="overflow:visible;" width="192" height="119" id="Layer_0_xA0_Imagen_89_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAB9CAYAAADnXyxYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+      <image style="overflow:visible;" width="192" height="119" id="AL1_6" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAB9CAYAAADnXyxYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAALqFJREFUeNrsfVlTHFmW5vXYIQKI
 jX0LdiGQkFi1oEQILaSUWUvbzNPM9MP8gLFps3mol7GxqYep57K2funX6jYrG6saa2tlpoQ2FgEC
 tKEUCEksEiAggggIiIXY3ecc517khAJlVlVGppS6x8zTPTwWlMT9OOe79zvfJYQHDx48ePD4a0JI
@@ -3529,7 +3531,7 @@ ZmSsr9bUDHVevnwPeMaG9q/07OUA4fGzCXSDjLndVikWMxG9PqCyWLz63ZkwHjx48ODBgwcPHh9O
 /H8BBgCNVeL6N7pfuQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 189.9377 195.7367)">
 	</image>
 	
-		<image style="overflow:visible;" width="165" height="86" id="Layer_0_xA0_Imagen_90_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKsAAABYCAYAAACK7geuAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+		<image style="overflow:visible;" width="165" height="86" id="AL1_5" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKsAAABYCAYAAACK7geuAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAJCpJREFUeNrsfWlwFOmZZmadWVWq
 u0oHIAkQEkiIBoEahASI5uw23dizvW57HOF1eByxuzExv3f+zI/9uTEz+2N/TEzMxIZjwzHumbE9
 djd0Y5u2mqORBJKQkIQsdKEDo7tUOrPuzH3frPer/lRdAtzuA0F+wReZVVlKdDz11vO8pyh8AUuN
@@ -3696,7 +3698,7 @@ irE1FGMPH5ZHior+MHDkyAfHL1x4PxAIzH9uGqL/evX1ZSxtZNPMjFNNJktEiyVsLSx8rP9W9PXS
 rP8vwABx+jwSLnTvvQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 232.5287 220.2487)">
 	</image>
       
-        <image style="overflow:visible;" width="36" height="29" id="Layer_0_xA0_Imagen_95_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="36" height="29" id="AL1_10" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAhCAYAAACvBDmYAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACDtJREFUeNrsWNtPG1cePjMe3/Gd
     AIYQHKBcEgiBNCTbVFU2WdJQViral0iJtCuttG/7sn/FPuZhn7ZSVfUheWik1W6Vbso2JckmaXOB
     OoQADhsM2BgYiMH22J7xeC77He+YOhXNrVklDx3ppzm3Oec73/n9vt+xCfn5+fl5sx/mVUyiSxJL
@@ -3737,7 +3739,7 @@ rP8vwABx+jwSLnTvvQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 232.5287 2
     jwnPW/JTUyFxcvKQxPPVm15vwjo0dBd+uGS1Wos/Ze7/CjAAFLE52hkcV/8AAAAASUVORK5CYII=" transform="matrix(0.24 0 0 0.24 108.4131 157.0908)">
       </image>
       
-        <image style="overflow:visible;" width="137" height="54" id="Layer_0_xA0_Imagen_93_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI4AAAA6CAYAAABmpmFrAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="137" height="54" id="AL1_8" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI4AAAA6CAYAAABmpmFrAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAGAlJREFUeNrsXGlsXNd5vW/mzXD2
     4XATKYnWRouiKEqyNNQuy7YkN4bkNIXT2gUaZ0HQAP3ToEB+FGiBogiMJgiCAAncNk5a1Ang1E1t
     I7aseElcW7ZWiqsobqI2iovERSRnOPu81/M9fnd8OSG1OJYTSfOAi/u2ufP47pnznW+5FKKwFbbC
@@ -3849,7 +3851,7 @@ rP8vwABx+jwSLnTvvQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 232.5287 2
     1mS/zUUCBeDcj9ooFnOgC0DzpOyF/zBf2ApbYbvrtv8XYAAUHKR7/pszEQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 113.2331 159.5708)">
       </image>
       
-        <image style="overflow:visible;" width="36" height="28" id="Layer_0_xA0_Imagen_92_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAdCAYAAADGgB7AAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="36" height="28" id="AL1_8" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAdCAYAAADGgB7AAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAB3VJREFUeNrMWFtMHNcZPrOzN9gL
     u8vaxoB3HcR9LcB2jAs4OKZuMU2LTGJeLTlq3/rmVz/kOepDnIdEUau4laUoElKLcWJDginGqMZc
     lsQm3LKUNcvCwl5Y9jYze5t+ZzuDsB3cRrXjrvTrXObMOd/5/+//zpkl5P/0x7yISSI9PR3s5qZe
@@ -3887,7 +3889,7 @@ rP8vwABx+jwSLnTvvQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 232.5287 2
     WOTHzvkvAQYAIc3an3UYOmIAAAAASUVORK5CYII=" transform="matrix(0.24 0 0 0.24 142.0544 168.3862)">
       </image>
       
-        <image style="overflow:visible;" width="192" height="119" id="Layer_0_xA0_Imagen_91_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAAB5CAYAAABm8o7AAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="192" height="119" id="AL1_7" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAAB5CAYAAABm8o7AAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAK15JREFUeNrsfQl4VNeV5n21aRdI
     YjFiX8RqIIAEaAs2mySDkMB2HNvpnu6xs8yk3RN323F/6W/S0z3pmXjsxEncdto2Jo5tQGIzQsjk
     i8wigljsYMweQGYTixYklapKtUi1zPmfzpUfRZVwHGGDfc/3Pb+lXlXJ1P3fOf89/z1HCGXKlPWY
@@ -4121,7 +4123,7 @@ rP8vwABx+jwSLnTvvQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 232.5287 2
     BBgAj8KT566ZdKgAAAAASUVORK5CYII=" transform="matrix(0.24 0 0 0.24 114.9604 155.7513)">
       </image>
       
-        <image style="overflow:visible;" width="57" height="41" id="Layer_0_xA0_Imagen_88_" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAAuCAYAAAB5/AqlAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+        <image style="overflow:visible;" width="57" height="41" id="AL1_5" #AL xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAAuCAYAAAB5/AqlAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
     GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAADS1JREFUeNrsWutPW+cdPhfb2GAD
     BlLumHCxCUkGxhAgIRdISVaaqdpUbdK+TJP6aZq0f2FStS/71kr7mi+b2k5a1SZdUi4BQhKaECAQ
     SIGYBnPz3cb36/E5Z8/rHDOHpldBmlY90sv7nuNj+33O8/yuhqJ+Pr7bISaTMgz6Zd3fvmzMMzWl
@@ -4187,6 +4189,51 @@ rP8vwABx+jwSLnTvvQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 232.5287 2
     </g>
 
     <!-- <text x="343.93" y="211.89" class="st4"  (click)="changeId(1)"  [nbPopover]="card" nbPopoverTrigger="click">{{dataBanda4.b1}}</text> -->
+ <!-- <text x="343.93" y="211.89" class="st4"   [nbPopover]="card" (click)="changeId(zone[7]?.idEquipo)" nbPopoverTrigger="click">{{zone[7]?.Name}}</text>
+    <text x="335.193" y="216.89" class="st4"  [nbPopover]="card" (click)="changeId(zone[9]?.idEquipo)" counterclockwise="click" >{{zone[9]?.Name}}</text>
+    <text x="319.193" y="226.89" class="st4"  [nbPopover]="card" (click)="changeId(zone[0]?.idEquipo)" nbPopoverTrigger="click">{{zone[0]?.Name}}</text>
+    <text x="296.93" y="254.89" class="st4"  [nbPopover]="card" (click)="changeId(zone[4]?.idEquipo)" nbPopoverAdjustment="counterclockwise">{{zone[4]?.Name}}</text>
+    <text x="262.93" y="264.89" class="st4"  [nbPopover]="card" (click)="changeId(zone[3]?.idEquipo)" >{{zone[3]?.Name}}</text>
+    <text x="240.193" y="254.89" class="st4" [nbPopover]="card" (click)="changeId(zone[1]?.idEquipo)" >{{zone[1]?.Name}}</text>
+    <text x="201.193" y="234.89" class="st4" [nbPopover]="card" (click)="changeId(zone[2]?.idEquipo)" >{{zone[2]?.Name}}</text>
+    <text x="160.93" y="211.89" class="st4" [nbPopover]="card" (click)="changeId(zone[5]?.idEquipo)" >{{zone[5]?.Name}}</text>
+    <text x="132.93" y="194.89" class="st4" [nbPopover]="card"  >{{zone[10]?.Name}}</text>
+    <text x="117.193" y="190.89" class="st4" [nbPopover]="card" (click)="changeId(zone[8]?.idEquipo)" >{{zone[8]?.Name}}</text>
+    <text x="97.193" y="173.89" class="st4" [nbPopover]="card" (click)="changeId(zone[6]?.idEquipo)" >{{zone[6]?.Name}}</text>  -->
+<!-- <text x="96.193" y="172.89" class="st4" [nbPopover]="card">{{dataBanda4.b12}}</text> -->
+ <!-- <text x="375.93" y="207.89" class="st4" [nbPopover]="card" (click)="changeId(zone[12]?.idEquipo)" >{{zone[12]?.Name}}</text>
+    <text x="369.93" y="224.89" class="st4" [nbPopover]="card" (click)="changeId(zone[11]?.idEquipo)" >{{zone[11]?.Name}}</text>
+    <text x="356.93" y="233.89" class="st4" [nbPopover]="card" (click)="changeId(zone[13]?.idEquipo)" >{{zone[13]?.Name}}</text>
+    <text x="335.93" y="231.89" class="st4" [nbPopover]="card" (click)="changeId(zone[14]?.idEquipo)" >{{zone[14]?.Name}}</text> -->
+
+
+    <text x="343.93" y="194.89" class="st4" (click)="ClicAL1_1()">{{zone[7]?.Name}}</text>
+    <text x="335.193" y="198.89" class="st4"  (click)="ClicAL1_2()" counterclockwise="click" >{{zone[9]?.Name}}</text>
+    <text x="319.193" y="208.89" class="st4"  (click)="ClicAL1_3()" >{{zone[0]?.Name}}</text>
+    <text x="284.93" y="227.89" class="st4"  (click)="ClicAL1_4()">{{zone[4]?.Name}}</text>
+    <text x="253.93" y="241.89" class="st4"  (click)="ClicAL1_5()" >{{zone[3]?.Name}}</text>
+    <text x="204.193" y="216.89" class="st4" (click)="ClicAL1_6()" >{{zone[1]?.Name}}</text>
+    <text x="156.193" y="190.89" class="st4" (click)="ClicAL1_7()" >{{zone[2]?.Name}}</text>
+    <text x="127.93" y="174.89" class="st4" (click)="ClicAL1_8()" >{{zone[5]?.Name}}</text>
+    <text x="110.93" y="170.89" class="st4"   >{{zone[10]?.Name}}</text>
+    <text x="97.193" y="164.89" class="st4" (click)="ClicAL1_10()" >{{zone[8]?.Name}}</text>
+    <text x="98.193" y="152.89" class="st4" (click)="ClicAL1_11()" >{{zone[6]?.Name}}</text>
+    <text x="117.193" y="143.89" class="st4" >AL1-12</text>  
+    <!-- <text x="96.193" y="172.89" class="st4" [nbPopover]="card">{{dataBanda4.b12}}</text> -->
+    <text x="369.93" y="191.89" class="st4" (click)="ClicAL2_1()" >{{zone[12]?.Name}}</text>
+    <text x="369.93" y="206.89" class="st4" (click)="ClicAL2_2()" >{{zone[11]?.Name}}</text>
+    <text x="344.93" y="216.89" class="st4" (click)="ClicAL2_3()" >{{zone[13]?.Name}}</text>
+    <text x="336.93" y="212.89" class="st4" (click)="ClicAL2_4()" >{{zone[14]?.Name}}</text>
+
+  </svg>
+
+  <div class='root-container'>
+    <ngx-window></ngx-window>
+</div>
+
+</nb-card-body>
+</nb-card> 
+    <!-- <text x="343.93" y="211.89" class="st4"  (click)="changeId(1)"  [nbPopover]="card" nbPopoverTrigger="click">{{dataBanda4.b1}}</text> -->
 <!-- <text x="343.93" y="211.89" class="st4"   [nbPopover]="card" (click)="changeId(zone[7]?.idEquipo)" nbPopoverTrigger="click">{{zone[7]?.Name}}</text>
     <text x="335.193" y="216.89" class="st4"  [nbPopover]="card" (click)="changeId(zone[9]?.idEquipo)" counterclockwise="click" >{{zone[9]?.Name}}</text>
     <text x="319.193" y="226.89" class="st4"  [nbPopover]="card" (click)="changeId(zone[0]?.idEquipo)" nbPopoverTrigger="click">{{zone[0]?.Name}}</text>
@@ -4204,9 +4251,9 @@ rP8vwABx+jwSLnTvvQAAAABJRU5ErkJggg==" transform="matrix(0.24 0 0 0.24 232.5287 2
     <text x="356.93" y="233.89" class="st4" [nbPopover]="card" (click)="changeId(zone[13]?.idEquipo)" >{{zone[13]?.Name}}</text>
     <text x="335.93" y="231.89" class="st4" [nbPopover]="card" (click)="changeId(zone[14]?.idEquipo)" >{{zone[14]?.Name}}</text>
 
-</svg> -->
+</svg>
 
-<!-- <ng-template #card>
+ <ng-template #card>
             <nb-card class="popover-card">
                 <nb-card-body>
                     <div class="media" *ngFor="let option of divice; let i = index"> -->

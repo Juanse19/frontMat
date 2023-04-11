@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { interval } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SmartTableData } from '../../../@core/interfaces/common/smart-table';
@@ -10,7 +10,8 @@ import { NbAccessChecker } from '@nebular/security';
 import { HttpClient } from '@angular/common/http';
 import { GridComponent, PageSettingsModel, FilterSettingsModel, CommandClickEventArgs, 
   EditService, CommandColumnService, CommandModel, ToolbarService, PageService,
-   ToolbarItems } from '@syncfusion/ej2-angular-grids';
+   ToolbarItems, 
+   RowSelectEventArgs} from '@syncfusion/ej2-angular-grids';
 import { UserStore } from '../../../@core/stores/user.store';
 import { Dialog, Tooltip } from '@syncfusion/ej2-popups';
 import { Browser } from '@syncfusion/ej2-base';
@@ -83,6 +84,9 @@ export class AlarmsComponent implements OnDestroy {
   public Alarm: Alarmas[]=[];
   public dataCategory: alarmLevel[];
   public value: string = '';
+
+  @ViewChild('grid') 
+  public grid: GridComponent;
 
   constructor(
     public accessChecker: NbAccessChecker,
@@ -174,12 +178,19 @@ export class AlarmsComponent implements OnDestroy {
 
      this.commands = [
       // { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-      { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
-      { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
-      { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
+      { type: 'Delete',  buttonOption: { cssClass: 'e-flat', iconCss: 'fas fa-check' } },
+      // { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
+      // { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }
+    ];
   
   }
  
+  rowSelected(args: RowSelectEventArgs) {
+    // const rowHeight: number = this.grid.getRows()[this.grid.getSelectedRowIndexes()[0]].scrollHeight;
+    // this.grid.getContent().children[0].scrollTop = rowHeight * this.grid.getSelectedRowIndexes()[0];
+  }
+
+  public headerText: Object = [{ text: 'Eventos' }, { text: 'Historico de eventos' }];
 
   initForm() {
     this.lavelForm = this.fb.group({
@@ -358,10 +369,7 @@ Delete(event): void {
   }
 
   reconocer() {
-    this.accessChecker.isGranted('edit', 'ordertable')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-      if(res){ 
+   
       Swal.fire({
       title: 'Desea reconocer alarmas?',
       text: `¡Reconocerá todas las alarmas!`,
@@ -369,7 +377,8 @@ Delete(event): void {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, Reconocer!'
+      confirmButtonText: '¡Sí, Reconocer!',
+      cancelButtonText: "No, Reconocer",
     }).then(result => {
       // debugger 
       if (result.value) {
@@ -390,14 +399,7 @@ Delete(event): void {
           this.source.refresh();
       }
     });
-          this.source.refresh();   
-          this.select = false;
-          this.mostrar = false;
-        }else {
-          this.select=true;
-          this.mostrar=true;
-        }
-      });
+        
   }
 
   ChangeAlarmLevel() {

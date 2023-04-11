@@ -1,11 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { switchMap, takeWhile } from 'rxjs/operators';
+import { delay, retryWhen, switchMap, take, takeWhile } from 'rxjs/operators';
 import { Banda2, states, teams, zons } from '../_interfaces/MatBag.model';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
 import { interval, Subscription } from 'rxjs';
 import { WindowComponent } from '../window/window.component';
+import { webSocket, WebSocketSubject } from "rxjs/webSocket";
+import { NbToastrService } from '@nebular/theme';
+import { environment } from '../../../../environments/environment';
+export const WS_DEVICE = environment.urlDevicesSocket;
 
 
  @Component({
@@ -29,18 +33,26 @@ export class Bhs2Component implements OnInit {
 
   @ViewChild(WindowComponent, { static: true }) public dialog: WindowComponent;
 
+  @ViewChildren("SF") public devicesDom: QueryList<ElementRef>;
+
   constructor(
     private router: Router,
     private http: HttpClient,
     private api: HttpService,
-    public dial: WindowComponent) { }
+    public dial: WindowComponent,
+    private toastrService: NbToastrService,
+    private render2: Renderer2) { }
 
   ngOnInit(): void {
+
+    this.sendMessage();
+    
     // this.banda2NameCharge();
     this.bandaNameCharge();
     // this.bandaNameXOCharge();
     // this.bandaStateCharge();
-    this.bandaStatesCharge();
+    this.wSocketZone2();
+    // this.bandaStatesCharge();
   }
 
   back() {
@@ -65,7 +77,7 @@ export class Bhs2Component implements OnInit {
     .pipe(takeWhile(() => this.alive))
     .subscribe((res:zons[]=[])=>{
       this.zone=res;
-      // console.log('Zons2:', res , 'band with zones', this.zone[1].Name);
+      // console.log('Zons2:', res);
       
     });
   }
@@ -98,7 +110,7 @@ export class Bhs2Component implements OnInit {
     .subscribe((res:any)=>{
       this.states  = res;
       this.bandaStateCharge();
-      // console.log('static:', this.states);
+      console.log('static:', this.states);
     });
   }
 
@@ -119,147 +131,323 @@ export class Bhs2Component implements OnInit {
     });
   }
 
-  // ClicSS1_1() {
-  //   debugger 
-  //   this.dialog.opentest();
+  myWebSocket: WebSocketSubject<any> = webSocket(WS_DEVICE);
+
+  sendMessage() {
+
+    let dataSend = {
+      "Zone": "zona1"
+    }
+    
+    this.myWebSocket.next(dataSend);
+  }
+
+  wSocketZone2() {
+    const subcription1 = this.myWebSocket
+    .pipe(
+      retryWhen(errors => errors.pipe(delay(1000), take(10))),
+
+    )
+    .subscribe(
+      (msg) => {
+        
+        this.devicesDom.forEach(elemento => {
+          if (msg.Estado === 'Bloqueado') {
+            // console.log('Dispositivo Bloqueado');
+            if(msg.DeviceName === elemento.nativeElement.id){
+              // filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px);
+              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(white -5px -5px 5px); animation: blinkingAlarm 2s infinite`);
+            }
+          } else if (msg.Estado === 'Motor con paro de emergencia activo') {
+            if(msg.DeviceName === elemento.nativeElement.id){
+              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px); animation: blinkingAlarmEmergencia 2s infinite`);
+            }
+          } else {
+            if(msg.DeviceName === elemento.nativeElement.id){
+              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px)`);
+            }
+          }
+        })
+
+      },
+      (err) => {
+        this.toastrService.danger(err.type, "Error de conexión del WebSocket", {
+          duration: 30000,
+        });
+      },
+      () => {
+        console.log("complete");
+      }
+    );
+  }
+
+  // ClicSF1_4() {
+  //   // debugger
+  //   this.dialog.opendevice1(137);
+  //   }
+  // ClicSF1_5() {
+  //   this.dialog.opendevice2(130);
+  //   }
+  // ClicSF1_6() {
+  //   this.dialog.opendevice3(139);
+  //     }
+  // ClicSF1_7() {
+  //   this.dialog.opendevice4(133);
+  //     }
+
+  // ClicSF1_8() {
+  //   this.dialog.opendevice5(141);
+  //     }
+
+  // ClicSF1_9() {
+  //   this.dialog.opendevice6(142);
+  //     }   
+  
+  // ClicSF1_10() {
+  //   this.dialog.opendevice7(132);
+  //     }
+
+  // ClicSF1_11() {
+  //   this.dialog.opendevice8(127);
+  //     }
+
+  // ClicSF1_12() {
+  //  this.dialog.opendevice9(135);
+  //   }
+
+  // // SF2
+
+  // ClicSF2_4() {
+  //   this.dialog.opendevice10(120);
+  //     }
+
+  // ClicSF2_5() {
+  //   this.dialog.opendevice11(114);
+  //    }
+
+  // ClicSF2_6() {
+  //   this.dialog.opendevice12(110);
+  //   }
+
+  // ClicSF2_7() {
+  //   this.dialog.opendevice13(122);
+  //   }
+
+  // ClicSF2_8() {
+  //   this.dialog.opendevice14(111);
+  //   }
+
+  // ClicSF2_9() {
+  //   this.dialog.opendevice15(117);
+  //   }
+
+  // ClicSF2_10() {
+  //   this.dialog.opendevice16(119);
+  //   }
+
+  // ClicSF2_11() {
+  //   this.dialog.opendevice17(113);
+  //   }
+
+  // ClicSF2_12() {
+  //  this.dialog.opendevice18(116);
+  //   }
+
+  //   // SF3
+
+  // ClicSF3_4() {
+  //   this.dialog.opendevice19(138);
+  //   }
+
+  // ClicSF3_5() {
+  //  this.dialog.opendevice20(131);
   //  }
 
-  // SF1
+  // ClicSF3_6() {
+  //  this.dialog.opendevice21(134);
+  //  }
+
+  // ClicSF3_7() {
+  //  this.dialog.opendevice22(140);
+  //   }
+
+  // ClicSF3_8() {
+  // this.dialog.opendevice23(129);
+  //   }
+
+  // ClicSF3_9() {
+  // this.dialog.opendevice24(136);
+  //  }
+
+  // ClicSF3_10() {
+  //  this.dialog.opendevice25(143);
+  //   }
+
+  // ClicSF3_11() {
+  //  this.dialog.opendevice26(128);
+  //   }
+
+  //   // SF4
+
+  // ClicSF4_4() {
+  // this.dialog.opendevice27(121);
+  //   }
+
+  // ClicSF4_5() {
+  //  this.dialog.opendevice28(115);
+  //   }
+
+  // ClicSF4_6() {
+  //   this.dialog.opendevice29(123);
+  //   }
+
+  // ClicSF4_7() {
+  //   this.dialog.opendevice30(112);
+  //   }
+
+  // ClicSF4_8() {
+  //  this.dialog.opendevice31(118);
+  //   }
+
+  // ClicSF4_9() {
+  //   this.dialog.opendevice32(124);
+  // }
 
   ClicSF1_4() {
     // debugger
     this.dialog.opendevice1(137);
     }
   ClicSF1_5() {
-    this.dialog.opendevice2(130);
+    this.dialog.opendevice1(130);
     }
   ClicSF1_6() {
-    this.dialog.opendevice3(139);
+    this.dialog.opendevice1(139);
       }
   ClicSF1_7() {
-    this.dialog.opendevice4(133);
+    this.dialog.opendevice1(133);
       }
 
   ClicSF1_8() {
-    this.dialog.opendevice5(141);
+    this.dialog.opendevice1(141);
       }
 
   ClicSF1_9() {
-    this.dialog.opendevice6(142);
+    this.dialog.opendevice1(142);
       }   
   
   ClicSF1_10() {
-    this.dialog.opendevice7(132);
+    this.dialog.opendevice1(132);
       }
 
   ClicSF1_11() {
-    this.dialog.opendevice8(127);
+    this.dialog.opendevice1(127);
       }
 
   ClicSF1_12() {
-   this.dialog.opendevice9(135);
+   this.dialog.opendevice1(135);
     }
 
   // SF2
 
   ClicSF2_4() {
-    this.dialog.opendevice10(120);
+    this.dialog.opendevice1(120);
       }
 
   ClicSF2_5() {
-    this.dialog.opendevice11(114);
+    this.dialog.opendevice1(114);
      }
 
   ClicSF2_6() {
-    this.dialog.opendevice12(110);
+    this.dialog.opendevice1(110);
     }
 
   ClicSF2_7() {
-    this.dialog.opendevice13(122);
+    this.dialog.opendevice1(122);
     }
 
   ClicSF2_8() {
-    this.dialog.opendevice14(111);
+    this.dialog.opendevice1(111);
     }
 
   ClicSF2_9() {
-    this.dialog.opendevice15(117);
+    this.dialog.opendevice1(117);
     }
 
   ClicSF2_10() {
-    this.dialog.opendevice16(119);
+    this.dialog.opendevice1(119);
     }
 
   ClicSF2_11() {
-    this.dialog.opendevice17(113);
+    this.dialog.opendevice1(113);
     }
 
   ClicSF2_12() {
-   this.dialog.opendevice18(116);
+   this.dialog.opendevice1(116);
     }
 
     // SF3
 
   ClicSF3_4() {
-    this.dialog.opendevice19(138);
+    this.dialog.opendevice1(138);
     }
 
   ClicSF3_5() {
-   this.dialog.opendevice20(131);
+   this.dialog.opendevice1(131);
    }
 
   ClicSF3_6() {
-   this.dialog.opendevice21(134);
+   this.dialog.opendevice1(134);
    }
 
   ClicSF3_7() {
-   this.dialog.opendevice22(140);
+   this.dialog.opendevice1(140);
     }
 
   ClicSF3_8() {
-  this.dialog.opendevice23(129);
+  this.dialog.opendevice1(129);
     }
 
   ClicSF3_9() {
-  this.dialog.opendevice24(136);
+  this.dialog.opendevice1(136);
    }
 
   ClicSF3_10() {
-   this.dialog.opendevice25(143);
+   this.dialog.opendevice1(143);
     }
 
   ClicSF3_11() {
-   this.dialog.opendevice26(128);
+   this.dialog.opendevice1(128);
     }
 
     // SF4
 
   ClicSF4_4() {
-  this.dialog.opendevice27(121);
+  this.dialog.opendevice1(121);
     }
 
   ClicSF4_5() {
-   this.dialog.opendevice28(115);
+   this.dialog.opendevice1(115);
     }
 
   ClicSF4_6() {
-    this.dialog.opendevice29(123);
+    this.dialog.opendevice1(123);
     }
 
   ClicSF4_7() {
-    this.dialog.opendevice30(112);
+    this.dialog.opendevice1(112);
     }
 
   ClicSF4_8() {
-   this.dialog.opendevice31(118);
+   this.dialog.opendevice1(118);
     }
 
   ClicSF4_9() {
-    this.dialog.opendevice32(124);
+    this.dialog.opendevice1(124);
   }
 
   ngOnDestroy() {
     this.alive = false;
+    this.myWebSocket.complete();
   }
 
 }

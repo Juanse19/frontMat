@@ -1,17 +1,21 @@
-<div class="card" style="width: 18rem;  margin-top: -15%;">
-    <div class="card-body">
-      <h5 class="card-title">Carrusel por defecto</h5>
+<div class="card card-defauld">
+    <div class="card-body card-body">
+      <h5 class="card-title title" [nbTooltip]="message" nbTooltipPlacement="right">Clasificación por defecto</h5>
       <div class="container">
         <form [formGroup]="carruselFrom">
             <div class="form-group">
                 <!-- Asignacion de Licencia de acceso -->
                 <label for="Value"></label>
-                <input nbInput  formControlName="Value" disabled="mostrar"  class="form-control" placeholder="Carrusel por default">
+                <input nbInput  formControlName="Value" disabled="mostrar"  class="form-control" placeholder="Carrusel por default" style="margin-top: -12%;" >
                
             </div>
         </form>
     </div>
     
-      <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px; margin-left: 47%;" (click)="editMake()" >Modificar</button>
+      <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px; margin-left: 47%; text-transform: none;" (click)="editMake()" >Modificar</button>
     </div>
+  </div>
+
+  <div class='root-container'>
+    <ngx-edit-defaul-carrusel></ngx-edit-defaul-carrusel>
   </div>

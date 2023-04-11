@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
+import { Component, ChangeDetectionStrategy, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { NbWindowRef } from "@nebular/theme";
 import { HttpService } from "../..//../@core/backend/common/api/http.service";
 import { ApiGetService } from "../../../@auth/components/register/apiGet.services";
@@ -10,7 +10,9 @@ import { UserStore } from "../../../@core/stores/user.store";
 import Swal from "sweetalert2";
 import { DatePipe } from "@angular/common";
 import { MessageService } from "../../dashboard/services/MessageService";
- 
+import { DialogComponent } from "@syncfusion/ej2-angular-popups";
+import { EmitType } from "@syncfusion/ej2-base";
+
 interface airLine {
   AirlineId: string;
   AirlineCode: string;
@@ -41,12 +43,12 @@ let MAKEData: makeData;
 {
 }
 
-let win: NbWindowRef;
+// let win: NbWindowRef;
 
 @Component({
   selector: "ngx-window-form",
   templateUrl: "./window-form.component.html",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ["./window-form.component.scss"],
 })
 export class WindowFormComponent implements OnInit {
@@ -58,6 +60,8 @@ export class WindowFormComponent implements OnInit {
   private alive = true;
   public date: Object = new Date();
   public format: string = "Mm/dd/yyy HH:mm:ss";
+
+  @ViewChild('formAir') formAir: DialogComponent;
 
   get Subject() {
     return this.airForm.get("Subject");
@@ -80,8 +84,17 @@ export class WindowFormComponent implements OnInit {
     return new Date(data);
   }
 
+  public showCloseIcon: Boolean = true;
+  // Create element reference for dialog target element.
+  @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
+  // The Dialog shows within the target element.
+  public targetElement: HTMLElement;
+  public visible: Boolean = true;
+  public hidden: Boolean = false;
+  public title: string;
+  public header: string;
+
   constructor(
-    public windowRef: NbWindowRef,
     private http: HttpClient,
     private api: HttpService,
     private apiGetComp: ApiGetService,
@@ -91,7 +104,7 @@ export class WindowFormComponent implements OnInit {
     private messageService: MessageService,
     private miDatePipe: DatePipe,
     protected dateService: NbDateService<Date>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -101,6 +114,15 @@ export class WindowFormComponent implements OnInit {
 
   public fields: Object = { text: "text", value: "id" };
   public fields1: Object = { text: "text", value: "text" };
+
+  public initilaizeTarget: EmitType<object> = () => {
+    this.targetElement = this.container.nativeElement.parentElement;
+  }
+  public hideDialog: EmitType<object> = () => {
+  }
+  public buttons: Object = [
+
+  ];
 
   initForm() {
     this.airForm = this.fb.group({
@@ -125,6 +147,10 @@ export class WindowFormComponent implements OnInit {
       // cutLengthForm: this.fb.control(0, [Validators.minLength(3), Validators.maxLength(20)]),
       // cutCountForm: this.fb.control(2, [Validators.minLength(3), Validators.maxLength(20)]),
     });
+  }
+
+  openDialog() {
+    this.formAir.show();
   }
 
   ChangeAir() {
@@ -189,7 +215,7 @@ export class WindowFormComponent implements OnInit {
     ) {
       this.toasterService.danger("", "Ingresa las fechas ");
     } else {
-      
+
       if (formulario.ProjectId) {
         const fechaSTD = this.miDatePipe.transform(
           this.airForm.controls.StartTime.value,
@@ -212,24 +238,24 @@ export class WindowFormComponent implements OnInit {
           endTime: fechaETD,
         };
 
-        console.log("fechas ini", fechaSTD);
-        console.log("fechas fin", fechaETD);
+        // console.log("fechas ini", fechaSTD);
+        // console.log("fechas fin", fechaETD);
 
         if (fechaSTD[9] == fechaETD[10]) {
           this.toasterService.warning("", "La fecha no puede ser diferente.");
-        } 
+        }
         // else if (fechaETD[11] < fechaSTD[11]) {
         //   this.toasterService.warning("", "la hora no puede ser menor.");
         // } 
         // else if (fechaETD[11] > fechaSTD[11]) {
         //   this.toasterService.warning("", "la hora no puede ser menor.");
         // }
-         else {
+        else {
           if (MAKEData == undefined) {
             this.handleWrongResponse();
           } else {
             // console.log(MAKEData);
-            
+
             this.apiGetComp
               .PostJson(this.api.apiUrlNode1 + "/api/createflight", MAKEData)
               .subscribe((res: any) => {
@@ -242,8 +268,15 @@ export class WindowFormComponent implements OnInit {
     }
   }
 
+
   close() {
-    this.windowRef.close();
+    // this.windowRef.close();
+    this.resetForm();
+    this.formAir.hide();
+  }
+
+  resetForm() {
+    this.airForm.reset();
   }
 
   ngOnDestroy() {

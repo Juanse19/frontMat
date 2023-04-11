@@ -19,7 +19,6 @@ import { of, Subject, Subscription, throwError, interval } from "rxjs";
 import { UserStore } from "../../../@core/stores/user.store";
 import { SettingsData } from "../../../@core/interfaces/common/settings";
 import { User, UserData } from "../../../@core/interfaces/common/users";
-import { WindowComponentAlarm } from "../../../pages/dashboard/alarmPopup/alarmPopup.component";
 import { SignalRService } from "../../../pages/dashboard/services/signal-r.service";
 import { HttpService } from "../../../@core/backend/common/api/http.service";
 import { HttpClient } from "@angular/common/http";
@@ -87,7 +86,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private settingsService: SettingsData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
-    private comp3: WindowComponentAlarm,
     private router: Router,
     private http: HttpClient,
     private apiGetComp: ApiGetService,
@@ -199,8 +197,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   myWebSocket: WebSocketSubject<any> = webSocket(WS_ENDPOINT);
 
   count() {
-    this.contAlarm = localStorage.getItem("Alarmas");
-    console.log("AcumuAlarm", this.contAlarm);
+    //this.contAlarm = localStorage.getItem("Alarmas");
+    //console.log("AcumuAlarm", this.contAlarm);
   }
 
 

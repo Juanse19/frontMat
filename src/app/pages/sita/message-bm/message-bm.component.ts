@@ -12,6 +12,7 @@ import {
   FilterSettingsModel,
   ToolbarItems,
   CommandModel,
+  RowSelectEventArgs,
 } from "@syncfusion/ej2-angular-grids";
 
 interface dataBM {
@@ -98,7 +99,7 @@ export class MessageBMComponent implements OnInit {
   public header: string;
 
   intervalSubscriptionBm: Subscription;
-
+  
   constructor(
     public apiGetComp: ApiGetService,
     private http: HttpClient,
@@ -106,7 +107,7 @@ export class MessageBMComponent implements OnInit {
     ) {
       this.loading = true;
     }
-
+ 
     ngOnInit(): void {
       this.chargeDataBM()
       this.pageSettings = { pageSize: 10 };
@@ -115,26 +116,19 @@ export class MessageBMComponent implements OnInit {
      }
     }
 
+    rowSelected(args: RowSelectEventArgs) {
+      const rowHeight: number = this.grid.getRows()[this.grid.getSelectedRowIndexes()[0]].scrollHeight;
+      this.grid.getContent().children[0].scrollTop = rowHeight * this.grid.getSelectedRowIndexes()[0];
+    }
+
     chargeDataBM() {
       this.http.get(this.api.apiUrlNode1 + '/api/notificationBM')
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
-        // tslint:disable-next-line: no-console
-        // console.log('acoData: ', res);
         this.loading = false;
         this.bagMessageData = res;
-        // console.log('acoData: ', this.bagMessageData);
-        this.bandaBmCharge();
+        // this.bandaBmCharge();
       });
-      // const contador = interval(60000)
-      // contador.subscribe((n) => {
-      //   this.http.get(this.api.apiUrlNode1 + '/api/notificationBM')
-      //   .pipe(takeWhile(() => this.alive))
-      //   .subscribe((res: any) => {
-      //     this.bagMessageData = res;
-      //     this.loading = false;
-      //   });
-      // });
     }
 
     public bandaBmCharge(){

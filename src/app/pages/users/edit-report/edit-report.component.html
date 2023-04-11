@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="control-section">
     <div class="col-lg-12">
             <h4 class="form-title"></h4>
@@ -15,7 +15,7 @@
 
                 <div class="form-group template">
                     <div class="e-float-input">
-                        <textarea class="form-control" formControlName="Description" id="Description" rows="3" class="required" required></textarea>
+                        <textarea class="form-control" formControlName="Description" id="Description" rows="2" class="required" required></textarea>
                         <span class="e-float-line"></span>
                         <label class="e-float-text" for="Description">Descripción</label>
                     </div>   
@@ -31,17 +31,28 @@
 
                 <div class="form-group template">
                     <div class="e-float-input">
-                        <textarea class="form-control" formControlName="Value" id="Value" rows="4" class="required" required></textarea>
+                        <textarea class="form-control" formControlName="Value" id="Value" rows="2" class="required" required></textarea>
                       
                         <span class="e-float-line"></span>
-                        <label class="e-float-text" for="Value">Ruta</label>
+                        <label class="e-float-text" for="Value">Url Reporte</label>
                     </div>   
               </div>
+
+              <div class="form-group template">
+                <div class="e-float-input">
+                    <textarea class="form-control" formControlName="Value01" id="Value" rows="2" class="required" required></textarea>
+                  
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="Value">Url Grafica</label>
+                </div>   
+          </div>
+
+          <nb-toggle formControlName="State" status="info" labelPosition="start">Estado</nb-toggle>
                          
             <div class="form-group template">
                 <div class="submitBtn">
                     <button nbButton status="primary" style="margin-left: 28%;" class="btn btn-primary" data-cy="edit-submit-field" id="submit-btn" (click)="editData()">Editar</button>
-                    <!-- <button nbButton status="danger" style="margin-left: 5%;" data-cy="delete-submit-field" (click)="delete()" hero>Eliminar</button> -->
+                  
                     <div class="desc"><pre><span>                                                            </span></pre></div>      
                   </div>
             </div>                                       
@@ -49,4 +60,69 @@
               
       </div>
     </div> 
-</div>
+</div> -->
+
+
+
+    
+    
+
+<ejs-dialog id='formReport' #formReport allowDragging='true' [header]='' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
+    <ng-template #content>
+       
+
+            <div class="modal-body">
+               
+            
+                <form [formGroup]="reportsForm">
+                   
+                    <div class="form-outline mb-4">
+                      <label class="form-label title" for="form6Example3">Nombre Reporte</label>
+                      <input type="text" formControlName="Parameter" id="form6Example3" class="form-control" />
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">Descripción</label>
+                        <input type="text" formControlName="Description" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <!-- <div class="form-outline mb-4">
+                        <label class="form-label" for="form6Example3">Categoria</label>
+                        <ejs-dropdownlist formControlName="Category" name="Category" value='value' data-cy="category-field" [fields]='fields' [dataSource]='dataCategory' placeholder="Categoria" [allowFiltering]='true' floatLabelType='Auto' required>
+                        </ejs-dropdownlist>
+                      </div> -->
+
+                      <div class="form-group" [formGroup]="reportsForm" >
+                        <label class="form-label title" for="form6Example3">Categoria </label>
+                        <br />
+                        <nb-select style="width: 190%; border: 1px ; max-width: 100%;" id="Category" placeholder="Categoria" formControlName="Category" class="form">
+                            <nb-option *ngFor="let itemUser of dataCategory" [value]="itemUser.nombre">
+                                {{ itemUser.nombre }}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+
+                      <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">Url Reporte</label>
+                        <input type="text" formControlName="Value" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <label class="form-label title" for="form6Example3">Url Grafica</label>
+                        <input type="text" formControlName="Value01" id="form6Example3" class="form-control" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                            <nb-toggle formControlName="State" [(ngModel)]="stateCheck" status="info" labelPosition="start" class="form-label title">Estado Reporte</nb-toggle>
+                      </div>
+                
+                  </form>
+            
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()" style="text-transform: none;">Cerrar</button>
+                <button type="button" class="btn btn-primary"  (click)="editData()" style="text-transform: none;">Editar reporte</button>
+              </div>
+            
+    </ng-template>
+</ejs-dialog>

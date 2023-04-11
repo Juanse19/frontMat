@@ -116,6 +116,8 @@ export class MessageAMSComponent implements OnInit {
   public editSettings: Object;  
 
   public header: string;
+
+  message: string;
   
   intervalSubscriptionAms: Subscription;
   intervalSubscriptionLogsAms: Subscription;
@@ -132,13 +134,15 @@ export class MessageAMSComponent implements OnInit {
     private http: HttpClient,
     private api: HttpService,
     private miDatePipe: DatePipe,
-    private toastrService: NbToastrService,
+    private toasterService: NbToastrService,
     ) {
       this.loading = true;
     }
 
   ngOnInit(): void {
     // this.chargeDataAMS()
+    this.message = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).';
+    
     this.changeLogsAms();
     this.toolbarOptions = ['ColumnChooser'];
     this.pageSettings = { pageSize: 10 };
@@ -161,40 +165,62 @@ export class MessageAMSComponent implements OnInit {
     const fechaFormateada = this.miDatePipe.transform(StartTime, 'yyyy-MM-dd h:mm:ss a z');
     const fechaFormateadaeTD = this.miDatePipe.transform(EndTime, 'yyyy-MM-dd h:mm:ss a zzzz');
 
-    console.log('fechaSTD: ', fechaFormateada);
-    console.log('fechaETD: ', fechaFormateadaeTD);
+    // console.log('fechaSTD: ', fechaFormateada);
+    // console.log('fechaETD: ', fechaFormateadaeTD);
 
-    // console.log('test: ', StartTime);
+    // // console.log('test: ', StartTime);
 
-    if (fechaFormateada == null && fechaFormateadaeTD == null) {
+    // if (fechaFormateada == null && fechaFormateadaeTD == null) {
       
-      this.toastrService.warning('', 'Para consultar la información debe ingresar la fecha iniciar y fecha final');
+    //   this.toasterService.warning('', 'Para consultar la información debe ingresar la fecha iniciar y fecha final');
 
-    }else if (fechaFormateadaeTD < fechaFormateada ) {
+    // }else if (fechaFormateadaeTD < fechaFormateada ) {
 
-      this.toastrService.warning('', 'Para no puede ser menor');
+    //   this.toasterService.warning('', 'Para no puede ser menor');
 
-    } 
-    else if ( fechaFormateada > fechaFormateadaeTD) {
+    // } 
+    // else if ( fechaFormateada > fechaFormateadaeTD) {
      
-      this.toastrService.warning('', 'La fecha no puede ser mayor.');
+    //   this.toasterService.warning('', 'La fecha no puede ser mayor.');
 
-    } else if(fechaFormateada == null){
+    // } else if(fechaFormateada == null){
      
-      this.toastrService.warning('', 'debes ingresar la fecha inicail');
-      StartTime = '';
-      EndTime= '';
+    //   this.toasterService.warning('', 'debes ingresar la fecha inicail');
+    //   StartTime = '';
+    //   EndTime= '';
       
-      this.ress();
-    } else if(fechaFormateadaeTD == null){
+    //   this.ress();
+    // } else if(fechaFormateadaeTD == null){
 
-      this.toastrService.warning('', 'debes ingresar la fecha final');
-      StartTime = '';
-      EndTime= '';
-      this.ress();
+    //   this.toasterService.warning('', 'debes ingresar la fecha final');
+    //   StartTime = '';
+    //   EndTime= '';
+    //   this.ress();
+    // }
+
+    const today = new Date();
+    const maxDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 10);
+    const fromDateObj = new Date(fechaFormateada);
+    const toDateObj = new Date(fechaFormateadaeTD);
+
+    // if (fromDateObj < maxDate) {
+    //   // alert('From date must be within the last 10 days');
+    //   this.toasterService.warning("", "La fecha debe estar dentro de los últimos 10 días");
+    //   return;
+    // }
+
+    if (toDateObj < maxDate) {
+      // alert('To date must be within the last 10 days');
+      this.toasterService.warning("", "La fecha debe estar dentro de los últimos 10 de consulta");
+      return;
     }
-    else {
 
+    if (toDateObj < fromDateObj) {
+      // alert('To date cannot be earlier than From date');
+      this.toasterService.warning("", "La fecha no puede ser menor");
+      return;
+    }
+    
       this.http.get(this.api.apiUrlNode1 + '/api/date?from='+ fechaFormateada + '&to=' + fechaFormateadaeTD)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any)=>{
@@ -212,51 +238,6 @@ export class MessageAMSComponent implements OnInit {
             })
         
       });
-
-    //   Swal.fire({
-    //     title: 'Consulta exitosa?',
-    //     text: `¡Consulta de las aerolineas exitosa!`,
-    //     icon: 'success',
-    //     // timer: 2500,
-    //     showCancelButton: false,
-    //     confirmButtonColor: '#3085d6',
-    //     // cancelButtonColor: '#d33',
-    //     cancelButtonText: 'Cerrar!',
-    //     // confirmButtonText: '¡Desea continuar!'
-    //   }).then(result => {
-    //     if (result.value) {
-         
-          
-    //       // this.intervalSubscriptionStatusSesion.unsubscribe();
-          
-    //       // console.log("Continua navegando: ", res);
-    //       // this.AutoLogoutCharge();
-    // // Swal.fire('¡Se sincronizo Exitosamente', 'success');
-
-
-
-    //     } else {
-    //       // console.log('Se cierra por tiempo');
-          
-    //       // this.router.navigate(['/auth/logout']);
-    //     }
-    //   });
-
-   
-
-    // let respons =
-    //     {
-    //       form: fechaFormateada,
-    //       to: fechaFormateadaeTD
-    //     }
-  
-    //     this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/api/dates', respons)
-    //       .pipe(takeWhile(() => this.alive))
-    //       .subscribe((res: any) => {
-    //         // this.toastrService.success('', '¡Se edito licencia con exito!'); 
-    //         }); 
-
-    }
 
   }
 

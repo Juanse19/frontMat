@@ -22,12 +22,12 @@ const routes: Routes = [{
   children: [
     {
       path: 'list',
-      canActivate: [AdminGuard],
+      // canActivate: [AdminGuard],
       component: UsersTableComponent,
     },
     {
       path: 'edit/:id',
-      canActivate: [AdminGuard],
+      // canActivate: [AdminGuard],
       component: UserComponent,
     },
     { 
@@ -36,22 +36,22 @@ const routes: Routes = [{
     },
     {
       path: 'add',
-      canActivate: [AdminGuard],
+      // canActivate: [AdminGuard],
       component: UserComponent,
     },
     {
       path: 'licenses',
-      canActivate: [AdminGuard],
+      // canActivate: [AdminGuard],
       component: LicenseComponent,
     },
     {
       path: 'editlicen',
-      canActivate: [AdminGuard],
+      // canActivate: [AdminGuard],
       component: EditLicenComponent,
     },
     {
       path: 'reportParametrizable',
-      canActivate: [AdminGuard],
+      // canActivate: [AdminGuard],
       component: ReportParametrizableComponent,
     },
   ],

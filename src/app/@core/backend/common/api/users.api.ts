@@ -34,11 +34,11 @@ export class UsersApi {
   }
 
   getCurrent(): Observable<any> {
-    return this.api.get(`${this.apiController}/current`)
-      .pipe(map(data => {
-        const picture = `${this.api.apiUrl}/${this.apiController}/${data.id}/photo`;
-        return { ...data, picture };
-      }));
+    return this.api.get(`current`)
+      // .pipe(map(data => {
+      //   const picture = `${this.api.apiUrl}/${this.apiController}/${data.id}/photo`;
+      //   return { ...data, picture };
+      // }));
   }
 
   get(id: number): Observable<any> {
@@ -58,7 +58,7 @@ export class UsersApi {
   }
 
   updateCurrent(item: any): Observable<any> {
-    return this.api.put(`${this.apiController}/current`, item);
+    return this.api.put(`current`, item);
   }
 
   update(item: any): Observable<any> {

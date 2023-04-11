@@ -1,4 +1,4 @@
-<div class="control-section">
+<!-- <div class="control-section">
     <div class="col-lg-12">
             <h4 class="form-title"></h4>
         <div class="control_wrapper" id="control_wrapper" style="margin: 25px auto;">
@@ -27,4 +27,30 @@
              
       </div>
     </div> 
-</div>
+</div> -->
+
+<ejs-dialog id='formMakeup' #formMakeup allowDragging='true' [header]='header' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
+  <ng-template #content>
+     
+
+          <div class="modal-body">
+             
+          
+              <form [formGroup]="editMakeForm">
+                 
+                  <div class="form-outline mb-4">
+                    <ejs-dropdownlist formControlName="Value" name="Value" value='value' [fields]='fieldsMake' [dataSource]='carrData' placeholder="Destino" [allowFiltering]='true' floatLabelType='Auto' required>
+                    </ejs-dropdownlist>
+                  </div>
+              
+                </form>
+          
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary"  (click)="close()">Cerrar</button>
+              <button type="button" class="btn btn-primary"  (click)="editData()">Modificar</button>
+            </div>
+          
+  </ng-template>
+</ejs-dialog>
+

@@ -1,11 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { switchMap, takeWhile } from 'rxjs/operators';
+import { delay, retryWhen, switchMap, take, takeWhile } from 'rxjs/operators';
 import { Banda6, states, teams, zons } from '../_interfaces/MatBag.model';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
 import { interval, Subscription } from 'rxjs';
 import { WindowComponent } from './../window/window.component';
+import { webSocket, WebSocketSubject } from "rxjs/webSocket";
+import { NbToastrService } from '@nebular/theme';
+import { environment } from '../../../../environments/environment';
+export const WS_DEVICE = environment.urlDevicesSocket;
 
 @Component({
   selector: 'ngx-bhs6',
@@ -26,55 +30,22 @@ export class Bhs6Component implements OnInit {
 
   @ViewChild(WindowComponent, { static: true }) public dialog: WindowComponent;
 
-  // public dataBanda6: Banda6 = {
-  //   b1: "",
-  //   b2: "",
-  //   b3: "",
-  //   b4: "",
-  //   b5: "",
-  //   b6: "",
-  //   b7: "",
-  //   b8: "",
-  //   b9: "",
-  //   b10: "",
-  //   b11: "",
-  //   b12: "",
-  //   b13: "",
-  //   b14: "",
-  //   b15: "",
-  //   b16: "",
-  //   b17: "",
-  //   b18: "",
-  //   b19: "",
-  //   b20: "",
-  //   b21: "",
-  //   b22: "",
-  //   b23: "",
-  //   b24: "",
-  //   b25: "",
-  //   b26: "",
-  //   b27: "",
-  //   b28: "",
-  //   b29: "",
-  //   b30: "",
-  //   b31: "",
-  //   b32: "",
-  //   b33: "",
-  //   b34: "",
-  //   b35: "",
-  //   b36: "",
-  //   }
+  @ViewChildren("CL") public devicesDom: QueryList<ElementRef>;
 
   constructor(
     private router: Router,
     private http: HttpClient,
-    private api: HttpService) { }
+    private api: HttpService,
+    private toastrService: NbToastrService,
+    private render2: Renderer2) { }
 
   ngOnInit(): void {
+    this.sendMessage();
     // this.banda6NameCharge();
     this.bandaNameCharge();
     // this.bandaStateCharge();
-    this.bandaStatesCharge();
+    this.wSocketZone6();
+    // this.bandaStatesCharge();
   }
 
   back() {
@@ -100,7 +71,7 @@ export class Bhs6Component implements OnInit {
     .pipe(takeWhile(() => this.alive))
     .subscribe((res:zons[]=[])=>{
       this.zone=res;
-      // console.log('Zons3:', res , 'band with zones', this.zone[1].Name);
+      // console.log('Zons6:', res);
       
     });
 
@@ -141,160 +112,355 @@ export class Bhs6Component implements OnInit {
     )
     .subscribe((res: any) => {
         this.states  = res;
-        // console.log('status:', res);
+        //  console.log('status:', res);
     });
   }
 
-  //CL1
+  myWebSocket: WebSocketSubject<any> = webSocket(WS_DEVICE);
+
+  sendMessage() {
+
+    let dataSend = {
+      "Zone": "zona4"
+    }
+    
+    this.myWebSocket.next(dataSend);
+  }
+
+  wSocketZone6() {
+    const subcription1 = this.myWebSocket
+    .pipe(
+      retryWhen(errors => errors.pipe(delay(1000), take(10))),
+
+    )
+    .subscribe(
+      (msg) => {
+        
+        this.devicesDom.forEach(elemento => {
+          if (msg.Estado === 'Bloqueado') {
+            // console.log('Dispositivo Bloqueado');
+            if(msg.DeviceName === elemento.nativeElement.id){
+              // filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px);
+              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(white -5px -5px 5px); animation: blinkingAlarm 2s infinite`);
+            }
+          } else if (msg.Estado === 'Motor con paro de emergencia activo') {
+            if(msg.DeviceName === elemento.nativeElement.id){
+              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px); animation: blinkingAlarmEmergencia 2s infinite`);
+            }
+          } else {
+            if(msg.DeviceName === elemento.nativeElement.id){
+              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px)`);
+            }
+          }
+        })
+        
+      },
+      (err) => {
+        this.toastrService.danger(err.type, "Error de conexión del WebSocket", {
+          duration: 30000,
+        });
+      },
+      () => {
+        console.log("complete");
+      }
+    );
+  }
+
+  // ClicCL1_1() {
+  //   this.dialog.opendevice1(30);
+  //   }
+
+  // ClicCL1_2() {
+  //   this.dialog.opendevice2(22);
+  //   }
+
+  // ClicCL1_3() {
+  //   this.dialog.opendevice3(19);
+  //   }
+
+  // ClicCL1_4() {
+  //   this.dialog.opendevice4(25);
+  //   }
+
+  // ClicCL1_5() {
+  //   this.dialog.opendevice5(24);
+  //   }
+
+  // ClicCL1_6() {
+  //   this.dialog.opendevice6(29);
+  //   }
+
+  // ClicCL1_7() {
+  //   this.dialog.opendevice7(23);
+  //   }
+
+  // ClicCL1_8() {
+  //   this.dialog.opendevice8(26);
+  //   }
+
+  // ClicCL1_9() {
+  //   this.dialog.opendevice9(18);
+  //   }
+
+  // ClicCL1_10() {
+  //   this.dialog.opendevice10(20);
+  //  }
+
+  // ClicCL1_11() {
+  //   this.dialog.opendevice11(27);
+  // }
+
+  // ClicCL1_12() {
+  //   this.dialog.opendevice12(33);
+  //   }
+
+  // ClicCL1_13() {
+  //   this.dialog.opendevice13(28);
+  //   }
+
+  // ClicCL1_14() {
+  //   this.dialog.opendevice14(16);
+  //   }
+
+  // ClicCL1_15() {
+  //   this.dialog.opendevice15(17);
+  //   }
+
+  // ClicCL1_16() {
+  //   this.dialog.opendevice16(21);
+  //   }
+
+  // ClicCL1_17() {
+  //   this.dialog.opendevice17(31);
+  //   }
+
+  // ClicCL1_18() {
+  //   this.dialog.opendevice18(32);
+  //   }
+
+  // // CL2
+
+  // ClicCL2_1() {
+  //   this.dialog.opendevice19(34);
+  //   }
+
+  // ClicCL2_2() {
+  //   this.dialog.opendevice20(48);
+  //   }
+
+  // ClicCL2_3() {
+  //   this.dialog.opendevice21(37);
+  //   }
+
+  // ClicCL2_4() {
+  //   this.dialog.opendevice22(49);
+  //   }
+
+  // ClicCL2_5() {
+  //   this.dialog.opendevice23(38);
+  //   }
+
+  // ClicCL2_6() {
+  //   this.dialog.opendevice24(39);
+  //   }
+
+  // ClicCL2_7() {
+  //   this.dialog.opendevice25(51);
+  //   }
+
+  // ClicCL2_8() {
+  //   this.dialog.opendevice26(40);
+  //   }
+
+  // ClicCL2_9() {
+  //   this.dialog.opendevice27(50);
+  //   }
+
+  // ClicCL2_10() {
+  //   this.dialog.opendevice28(46);
+  //  }
+
+  // ClicCL2_11() {
+  //   this.dialog.opendevice29(41);
+  // }
+
+  // ClicCL2_12() {
+  //   this.dialog.opendevice30(52);
+  //   }
+
+  // ClicCL2_13() {
+  //   this.dialog.opendevice31(43);
+  //   }
+
+  // ClicCL2_14() {
+  //   this.dialog.opendevice32(35);
+  //   }
+
+  // ClicCL2_15() {
+  //   this.dialog.opendevice33(36);
+  //   }
+
+  // ClicCL2_16() {
+  //   this.dialog.opendevice34(47);
+  //   }
+
+  // ClicCL2_17() {
+  //   this.dialog.opendevice35(44);
+  //   }
+
+  // ClicCL2_18() {
+  //   this.dialog.opendevice36(32);
+  //   }
 
   ClicCL1_1() {
     this.dialog.opendevice1(30);
     }
 
   ClicCL1_2() {
-    this.dialog.opendevice2(22);
+    this.dialog.opendevice1(22);
     }
 
   ClicCL1_3() {
-    this.dialog.opendevice3(19);
+    this.dialog.opendevice1(19);
     }
 
   ClicCL1_4() {
-    this.dialog.opendevice4(25);
+    this.dialog.opendevice1(25);
     }
 
   ClicCL1_5() {
-    this.dialog.opendevice5(24);
+    this.dialog.opendevice1(24);
     }
 
   ClicCL1_6() {
-    this.dialog.opendevice6(29);
+    this.dialog.opendevice1(29);
     }
 
   ClicCL1_7() {
-    this.dialog.opendevice7(23);
+    this.dialog.opendevice1(23);
     }
 
   ClicCL1_8() {
-    this.dialog.opendevice8(26);
+    this.dialog.opendevice1(26);
     }
 
   ClicCL1_9() {
-    this.dialog.opendevice9(18);
+    this.dialog.opendevice1(18);
     }
 
   ClicCL1_10() {
-    this.dialog.opendevice10(20);
+    this.dialog.opendevice1(20);
    }
 
   ClicCL1_11() {
-    this.dialog.opendevice11(27);
+    this.dialog.opendevice1(27);
   }
 
   ClicCL1_12() {
-    this.dialog.opendevice12(33);
+    this.dialog.opendevice2(33);
     }
 
   ClicCL1_13() {
-    this.dialog.opendevice13(28);
+    this.dialog.opendevice1(28);
     }
 
   ClicCL1_14() {
-    this.dialog.opendevice14(16);
+    this.dialog.opendevice1(16);
     }
 
   ClicCL1_15() {
-    this.dialog.opendevice15(17);
+    this.dialog.opendevice1(17);
     }
 
   ClicCL1_16() {
-    this.dialog.opendevice16(21);
+    this.dialog.opendevice1(21);
     }
 
   ClicCL1_17() {
-    this.dialog.opendevice17(31);
+    this.dialog.opendevice1(31);
     }
 
   ClicCL1_18() {
-    this.dialog.opendevice18(32);
+    this.dialog.opendevice1(32);
     }
 
   // CL2
 
   ClicCL2_1() {
-    this.dialog.opendevice19(34);
+    this.dialog.opendevice1(34);
     }
 
   ClicCL2_2() {
-    this.dialog.opendevice20(48);
+    this.dialog.opendevice1(48);
     }
 
   ClicCL2_3() {
-    this.dialog.opendevice21(37);
+    this.dialog.opendevice1(37);
     }
 
   ClicCL2_4() {
-    this.dialog.opendevice22(49);
+    this.dialog.opendevice1(49);
     }
 
   ClicCL2_5() {
-    this.dialog.opendevice23(38);
+    this.dialog.opendevice1(38);
     }
 
   ClicCL2_6() {
-    this.dialog.opendevice24(39);
+    this.dialog.opendevice1(39);
     }
 
   ClicCL2_7() {
-    this.dialog.opendevice25(51);
+    this.dialog.opendevice1(51);
     }
 
   ClicCL2_8() {
-    this.dialog.opendevice26(40);
+    this.dialog.opendevice1(40);
     }
 
   ClicCL2_9() {
-    this.dialog.opendevice27(50);
+    this.dialog.opendevice1(50);
     }
 
   ClicCL2_10() {
-    this.dialog.opendevice28(46);
+    this.dialog.opendevice1(46);
    }
 
   ClicCL2_11() {
-    this.dialog.opendevice29(41);
+    this.dialog.opendevice1(41);
   }
 
   ClicCL2_12() {
-    this.dialog.opendevice30(52);
+    this.dialog.opendevice2(52);
     }
 
   ClicCL2_13() {
-    this.dialog.opendevice31(43);
+    this.dialog.opendevice1(43);
     }
 
   ClicCL2_14() {
-    this.dialog.opendevice32(35);
+    this.dialog.opendevice1(35);
     }
 
   ClicCL2_15() {
-    this.dialog.opendevice33(36);
+    this.dialog.opendevice1(36);
     }
 
   ClicCL2_16() {
-    this.dialog.opendevice34(47);
+    this.dialog.opendevice1(47);
     }
 
   ClicCL2_17() {
-    this.dialog.opendevice35(44);
+    this.dialog.opendevice1(44);
     }
 
   ClicCL2_18() {
-    this.dialog.opendevice36(32);
+    this.dialog.opendevice1(32);
     }
 
   ngOnDestroy() {
     this.alive = false;
+    this.myWebSocket.complete();
   }
   
 }

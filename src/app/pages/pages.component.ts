@@ -5,7 +5,7 @@
  */
 
 import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, ViewChild } from '@angular/core';
-import { switchMap, takeWhile } from 'rxjs/operators';
+import { delay, retry, retryWhen, switchMap, take, takeWhile } from 'rxjs/operators';
 import { NbTokenService } from '@nebular/auth';
 import { NbMenuItem, NbToastrService } from '@nebular/theme';
 import { PagesMenu } from './pages-menu';
@@ -18,6 +18,7 @@ import { UserStore } from '../@core/stores/user.store';
 import Swal from 'sweetalert2';
 import { ApiGetService } from '../@core/backend/common/api/apiGet.services';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { WebSocketService } from '../@core/backend/common/services/web-socket.service';
 //import ip from "ip"
 
 
@@ -60,127 +61,191 @@ export class PagesComponent implements OnDestroy {
     private apiGetComp: ApiGetService,
     private userStore: UserStore,
     private toastrService: NbToastrService,
+    private socketService: WebSocketService,
   ) {
     // this.initMenu();
-   
+
     this.tokenService.tokenChange()
       .pipe(takeWhile(() => this.alive))
-      .subscribe(() => {
+      .subscribe((res: any) => {
         this.initMenu();
+        this.reload()
+        // console.log(res.accessTokenPayload.user.access);
+        // console.log(res.accessTokenPayload.user.email);
       });
-      this.TetsIp();
-      
 
   }
 
   initMenu() {
- 
+
     this.pagesMenu.getMenu()
       .pipe(takeWhile(() => this.alive))
       .subscribe(menu => {
         this.menu = menu;
       });
-      this.AutoLogoutCharge();
-     // this.test();
-     
+    // this.AutoLogoutCharge();
+    // this.test();
+
   }
 
-  TetsIp() {
+  reload() {
 
-    //console.log('Ip', ip.address);
-    
-    //console.log ( ip.address() );
-  
-  }
-
-  public AutoLogoutCharge() {
-    try {
-    if (this.intervalSubscriptionStatusSesion) {
-      this.intervalSubscriptionStatusSesion.unsubscribe();
+    // Crear una nueva conexión WebSocket si no se ha guardado una antes
+    if (!localStorage.getItem('socket')) {
+      // this.socketService.connect();
+      console.log('TestV1');
+    } else {
+      this.socketService.restoreSocket();
+      console.log('TestV2');
+      this.newConnection();
+      this.socketService.sendMessage({ route: "updateIDSocket", email: this.userStore.getUser().email });
     }
-    // debugger
-    this.intervalSubscriptionStatusSesion = interval(1000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode1 + '/api/getlEmailuser?Email=' + this.userStore.getUser().email)),
+
+
+    // Guardar la conexión antes de recargar la página
+    window.addEventListener('beforeunload', () => {
+      this.socketService.saveSocket();
+    });
+
+  }
+
+  newConnection() {
+    this.socketService.connect();
+    this.socketService.getSocket().pipe(
+      retry(3),
+      retryWhen(errors => errors.pipe(delay(5000), take(10))),
+
     )
-    .subscribe((res: any) => {
-        // this.states  = res;
-        // console.log('status:', res);
+      .subscribe(
+        (msg) => {
+          // console.log(msg);
+          if (msg.isActive === true && msg.message === 'intentando cambiar sesion') {
+            // console.log(msg.message);
 
-        if (res == undefined) {
-          console.log('no hay data');
-          this.AutoLogoutCharge();
-        } else {
-          // console.log('Si hay');
-          
-        
-        this.validData = res;
-        // debugger
-        // console.log('Email ValidData: ', this.validData[0].Id)
-        if ( this.validData[0].Lat === 0 && this.validData[0].Licens_id === '1') {
-          // debugger
-          this.intervalSubscriptionStatusSesion.unsubscribe();
-          Swal.fire({
-            title: 'Se cerrará la sesión?',
-            text: `¡Desea continuar con la sesión activa!`,
-            icon: 'warning',
-            timer: 3500,
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            // cancelButtonColor: '#d33',
-            cancelButtonText: 'Cerrar!',
-            confirmButtonText: '¡Desea continuar!',
-          }).then(result => {
-            if (result.value) {
-             
-              let respon = {
-                user: this.validData[0].Id,
-                sesion: 1,
-              };
-              this.apiGetComp
-                .PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
-                .pipe(takeWhile(() => this.alive))
-                .subscribe((res: any) => {
-                  //  console.log("Envió: ", res);
-                });
-              // this.intervalSubscriptionStatusSesion.unsubscribe();
-              
-              // console.log("Continua navegando: ", res);
-              this.AutoLogoutCharge();
-        // Swal.fire('¡Se sincronizo Exitosamente', 'success');
-            } else {
-              // console.log('Se cierra por tiempo');
-              
-              this.router.navigate(['/auth/logout']);
-            }
-          });
+            Swal.fire({
+              title: `${msg.message}, Sesión encontrada`,
+              text: "Desea cerrar la sesión",
+              // timer: 10000,
+              icon: "success",
+              showCancelButton: true,
+              confirmButtonColor: "#d33",
+              cancelButtonColor: "#3085d6",
+              confirmButtonText: "NO",
+              cancelButtonText: "SI",
+            }).then((result) => {
 
-          // this.router.navigate(['/auth/logout']);
-          // console.log('Se cerro la sesion');
+              if (result.value) {
+                console.log('Si!');
+                this.socketService.sendMessage({ route: "changeSession", changeSession: false, email: this.userStore.getUser().email });
+              } else {
+                console.log('Se cierra por tiempo');
 
-        } else {
-         
-          //  console.log('Continue con la sesion');
 
-        }
-    }
-  },
-    );
-  } catch (error) {
-        console.log('No fount data.');
-        
-  }
+                this.socketService.sendMessage({ route: "changeSession", changeSession: true, email: this.userStore.getUser().email });
+                this.router.navigate(['/auth/logout']);
+                localStorage.removeItem('socket');
+                localStorage.clear();
+                // this.socketService.sendMessage({ email: this.loginForm.value.email });
+                this.socketService.sendMessage({ route: "logoutUser", email: this.userStore.getUser().email })
+
+              }
+            });
+
+          }
+
+        });
+
+    this.socketService.sendMessage({ route: "updateIDSocket", email: this.userStore.getUser().email });
   }
 
+  // public AutoLogoutCharge() {
+  //   try {
+  //   if (this.intervalSubscriptionStatusSesion) {
+  //     this.intervalSubscriptionStatusSesion.unsubscribe();
+  //   }
+  //   // debugger
+  //   this.intervalSubscriptionStatusSesion = interval(1000)
+  //   .pipe(
+  //     takeWhile(() => this.alive),
+  //     switchMap(() => this.http.get(this.api.apiUrlNode1 + '/api/getlEmailuser?Email=' + this.userStore.getUser().email)),
+  //   )
+  //   .subscribe((res: any) => {
+  //       // this.states  = res;
+  //       // console.log('status:', res);
 
-// @HostListener('window:beforeunload', ['$event'])
+  //       if (res == undefined) {
+  //         console.log('no hay data');
+  //         this.AutoLogoutCharge();
+  //       } else {
+  //         // console.log('Si hay');
 
-//   beforeunloadHandler(event) {
-//     this.tokenService.clear()
-//     this.router.navigate(['/auth/logout']);
-//     localStorage.clear();
-// }
+
+  //       this.validData = res;
+  //       // debugger
+  //       // console.log('Email ValidData: ', this.validData[0].Id)
+  //       if ( this.validData[0].Lat === 0 && this.validData[0].Licens_id === '1') {
+  //         // debugger
+  //         this.intervalSubscriptionStatusSesion.unsubscribe();
+  //         Swal.fire({
+  //           title: 'Se cerrará la sesión?',
+  //           text: `¡Desea continuar con la sesión activa!`,
+  //           icon: 'warning',
+  //           timer: 3500,
+  //           showCancelButton: false,
+  //           confirmButtonColor: '#3085d6',
+  //           // cancelButtonColor: '#d33',
+  //           cancelButtonText: 'Cerrar!',
+  //           confirmButtonText: '¡Desea continuar!',
+  //         }).then(result => {
+  //           if (result.value) {
+
+  //             let respon = {
+  //               user: this.validData[0].Id,
+  //               sesion: 1,
+  //             };
+  //             this.apiGetComp
+  //               .PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
+  //               .pipe(takeWhile(() => this.alive))
+  //               .subscribe((res: any) => {
+  //                 //  console.log("Envió: ", res);
+  //               });
+  //             // this.intervalSubscriptionStatusSesion.unsubscribe();
+
+  //             // console.log("Continua navegando: ", res);
+  //             this.AutoLogoutCharge();
+  //       // Swal.fire('¡Se sincronizo Exitosamente', 'success');
+  //           } else {
+  //             // console.log('Se cierra por tiempo');
+
+  //             this.router.navigate(['/auth/logout']);
+  //           }
+  //         });
+
+  //         // this.router.navigate(['/auth/logout']);
+  //         // console.log('Se cerro la sesion');
+
+  //       } else {
+
+  //         //  console.log('Continue con la sesion');
+
+  //       }
+  //   }
+  // },
+  //   );
+  // } catch (error) {
+  //       console.log('No fount data.');
+
+  // }
+  // }
+
+
+  // @HostListener('window:beforeunload', ['$event'])
+
+  //   beforeunloadHandler(event) {
+  //     this.tokenService.clear()
+  //     this.router.navigate(['/auth/logout']);
+  //     localStorage.clear();
+  // }
 
 
 
@@ -191,18 +256,10 @@ export class PagesComponent implements OnDestroy {
 
   // myWebSocket: WebSocketSubject<any> = webSocket('ws://10.120.18.15:1880/wc/alarms');
 
-  enviar(){
-    
-    var respons = 
-          {
-            Email: this.userStore.getUser().email
-          };
 
-    //this.myWebSocket.next(respons);
-  }
 
   // test(){
-   
+
   //   const subcription1  = this.myWebSocket.subscribe(msg => {
   //     //console.log('Mensaje recibido', msg.message);
   //     //this.validData[0] = msg[0];
@@ -210,7 +267,7 @@ export class PagesComponent implements OnDestroy {
   //     this.index += 1;
 
   //     console.log('Acumulador',this.index);
-      
+
 
   //     if (msg.payload === 0 || msg.payload === 1 || msg.payload === 2 || msg.payload === 6 || msg.payload === 21) {
   //       let duration = 6000
@@ -224,11 +281,11 @@ export class PagesComponent implements OnDestroy {
   //       let duration = 6000
   //       this.toastrService.warning(msg.topic, msg.message, {duration});
   //     }
-      
+
   //   })
 
   //   console.log('message subscribe:', subcription1.add);
-    
+
 
   //   this.myWebSocket.subscribe(    
   //     //msg => console.log('message received: ', msg), 
@@ -238,9 +295,9 @@ export class PagesComponent implements OnDestroy {
   //     () => console.log('complete') 
   //     // Called when connection is closed (for whatever reason)  
   //  );
-   
+
   // }
-  
+
 
   ngOnDestroy(): void {
     this.alive = false;

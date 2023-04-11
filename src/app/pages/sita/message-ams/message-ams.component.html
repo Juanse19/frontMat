@@ -1,6 +1,9 @@
 <nb-card>
 <nb-card-header>
-  Inducción Manual SITA
+  <div class="title" [nbTooltip]="message" nbTooltipPlacement="right">
+    Inducción manual SITA
+  </div>
+  
 </nb-card-header>
 <nb-card-body>
   <form [formGroup]="airForm" class="form-inline" novalidate id="formId">
@@ -25,14 +28,14 @@
 
 <br>
 
-<button nbButton status="primary " class="btn btn-primary" data-cy="Consult-submit-button" style="margin-top: 26px;" (click)="date(airForm.controls.StartTime.value, airForm.controls.EndTime.value)">Cosultar</button>
+<button nbButton status="primary " class="btn btn-primary" data-cy="Consult-submit-button" style="margin-top: 26px; text-transform: none;"  (click)="date(airForm.controls.StartTime.value, airForm.controls.EndTime.value)">Consultar</button>
 
 <br>
 <br>
 
 </form>
 
-  <pre>    Consulta de la api AMS de forma manual</pre>
+  <pre title>    Consulta de la api AMS de forma manual</pre>
 
 </nb-card-body>
 </nb-card>

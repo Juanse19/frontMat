@@ -15,8 +15,9 @@ export const environment = {
   apiUrlMatSignalR: 'http://10.100.22.48:5001',
   apiUrlNode: 'http://10.100.22.48:1880',
   apiUrlNode1: 'http://xpl-matbag-app01:1880',
-  urlWebSocket: 'ws://xpl-matbag-app01:1880/wc/alarms',
-
+  urlWebSocket: 'ws://xpl-matbag-app02:1880/wc/alarms',
+  urlapixplmatbagapp02 : 'http://xpl-matbag-app02:1880',
+  urlWebSocket02: 'ws://xpl-matbag-app01:1880/router',
   // apiUrl: 'http://10.100.22.92:3001/api',
   // apiUrlMat: 'http://10.100.22.92:5001/api',
   // apiUrlMatSignalR: 'http://10.100.22.92:5001',

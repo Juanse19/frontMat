@@ -3,7 +3,7 @@ import { interval, Subscription } from 'rxjs';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ApiGetService } from '../../../@core/backend/common/api/apiGet.services';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, ToolbarItems, CommandModel, ToolbarService, EditService, PageService, CommandColumnService, DialogEditEventArgs, SaveEventArgs } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, SortService, PageSettingsModel, FilterSettingsModel, ToolbarItems, CommandModel, ToolbarService, EditService, PageService, CommandColumnService, DialogEditEventArgs, SaveEventArgs, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { switchMap, takeWhile } from 'rxjs/operators';
 import { NbAccessChecker } from '@nebular/security';
@@ -77,6 +77,8 @@ export class SitaMessageComponent implements OnInit {
 
   intervalSubscriptionM: Subscription;
 
+  @ViewChild('grid') public grid: GridComponent;
+
   constructor(
     private api: HttpService,
     private http: HttpClient,
@@ -121,6 +123,11 @@ export class SitaMessageComponent implements OnInit {
 
   }
 
+  rowSelected(args: RowSelectEventArgs) {
+    // const rowHeight: number = this.grid.getRows()[this.grid.getSelectedRowIndexes()[0]].scrollHeight;
+    // this.grid.getContent().children[0].scrollTop = rowHeight * this.grid.getSelectedRowIndexes()[0];
+  }
+  
 // Initialize the Dialog component's target element.
 public initilaizeTarget: EmitType<object> = () => {
   this.targetElement = this.container.nativeElement.parentElement;
@@ -162,11 +169,9 @@ debugger
 
   actionBegin(args) {
     if (args.requestType === 'beginEdit') {
-      this.submitClicked = true;
-      this.accessChecker.isGranted('edit', 'ordertable')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        if(res){
+      // this.submitClicked = true;
+      
+        
           console.log('test', args.rowData.Id);
           args.cancel = true;
           this.ejDialogTX.show();
@@ -183,15 +188,10 @@ debugger
         // this.dataConf = args.rowData;
         // console.log('info', this.dataConf);
           
-          this.select = false;
-          this.mostrar = false;
-        }else {
-          this.select=true;
-          this.mostrar=true;
-          args.cancel = true;
+          // this.select = false;
+          // this.mostrar = false;
         }
-      });
-    }
+    
 
   }
 
@@ -237,7 +237,8 @@ debugger
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, Eliminar!'
+      confirmButtonText: '¡Sí, Eliminar!',
+      cancelButtonText: "No, Eliminar",
     }).then(result => {
       debugger 
       if (result.value) {

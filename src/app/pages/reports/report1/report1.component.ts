@@ -21,6 +21,7 @@ interface confi {
   Category: string,
   Description: string,
   Type: string,
+  Value01?: string,
  }
 
  let confiReport: confi;
@@ -39,7 +40,9 @@ export class Report1Component implements OnInit {
   private alive = true;
   public state: boolean;
   trustedDashboardUrl ;
+  trustedDashboardUrl01;
   public reportCategoryData = confiReport;
+  public select = false;
   
   constructor(private http: HttpClient,
               private api: HttpService,
@@ -56,15 +59,23 @@ export class Report1Component implements OnInit {
   getDataReport(reports: confi){
     confiReport = reports[0]
     this.reportCategoryData = confiReport;
+    console.log('DataReport',this.reportCategoryData);
+    
   }
 
   getRutaDinamic(){
     if (confiReport === undefined) {
-      console.log('undefined');
       this.router.navigate(["/pages/reports/reports"]);
     }
-    // console.log('IdData', this.reportCategoryData.Id);
+
+    if (this.reportCategoryData.Value01 === null) {
+       this.select = true;
+    }
+        
+
     this.trustedDashboardUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value);
+    this.trustedDashboardUrl01 = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value01);
+
     // this.http.get(this.api.apiUrlNode1 + '/api/reportsId?Id=' + this.reportCategoryData.Id)
     // .pipe(takeWhile(() => this.alive))
     // .subscribe((res: any)=>{

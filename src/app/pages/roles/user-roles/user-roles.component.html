@@ -8,7 +8,7 @@
     <nb-card-header>
         
         <div class="title h">
-            Lista de usuarios con sus roles
+            Asignar roles a usuarios
         </div>
     </nb-card-header>
 
@@ -21,7 +21,7 @@
          allowSorting='true' [filterSettings]="filterOptions"
             allowTextWrap="true"  [allowGrouping]='false' height='430' width='100%' (rowSelected)='rowSelected($event)'>
             <e-columns>
-                <e-column field='Name' headerText='Usuario' width=100 textAlign='Left' isPrimaryKey='true'></e-column>
+                <e-column field='Name' headerText='Usuarios' width=100 textAlign='Left' isPrimaryKey='true'></e-column>
                 <e-column field='Role' headerText='Roles' width=90></e-column>
                 <e-column headerText='Acciones' width='100' [commands]='commands'></e-column>
             </e-columns>

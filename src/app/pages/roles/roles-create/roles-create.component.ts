@@ -29,7 +29,7 @@ export class RolesCreateComponent implements OnInit {
   private alive = true;
   roleForm!: FormGroup;
   idRole!: string | null;
-  title = 'Crear Role';
+  title = 'Nuevo rol';
 
   protected ngUnsubscribe: Subject<void> = new Subject<void>();
   
@@ -82,7 +82,7 @@ export class RolesCreateComponent implements OnInit {
   editar() {
     if (this.idRole !== null && this.idRole !== undefined) {
 
-      this.title = 'Editar Role';
+      this.title = 'Editar rol';
       let accessData;
 
       this.roleService.getRolesAccessId(this.idRole)

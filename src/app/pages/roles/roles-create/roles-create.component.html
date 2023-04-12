@@ -11,7 +11,7 @@
                 </div>
                 <form action="" [formGroup]="roleForm" >
                 <div class="input-div">
-                    <label for="roleName">Nombre del role:</label>
+                    <label for="roleName">Nombre del rol:</label>
                     <input formControlName="roleName" type="text" class="form-control" placeholder="Nombre">
                 </div>
             </form>
@@ -38,7 +38,8 @@
         </div>
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton status="primary"  hero (click)="accionRole()" style="text-transform: none;">{{title}}</button>
         <button nbButton status="info" routerLink="/pages/roles/list" style="text-transform: none;" hero>Atras</button>
+        <button nbButton status="primary"  hero (click)="accionRole()" style="text-transform: none;">{{title}}</button>
+        
     </nb-card-footer>
 </nb-card>

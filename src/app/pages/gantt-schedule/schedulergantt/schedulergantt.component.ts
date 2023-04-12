@@ -16,8 +16,9 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { WindowsSchedulerComponent } from './../windows-scheduler/windows-scheduler.component';
 import { NbToastrService } from '@nebular/theme';
 import { DatePipe } from '@angular/common';
-import { DayMarkersService, EditService, FilterService, GanttComponent, SelectionService, SortService, ToolbarService } from '@syncfusion/ej2-angular-gantt';
+import { DayMarkersService, EditService, FilterService, GanttComponent, RowSelectEventArgs, SelectionService, SortService, ToolbarService } from '@syncfusion/ej2-angular-gantt';
 import { MessageService } from '../../dashboard/services/MessageService';
+import { NbAuthService } from '@nebular/auth';
 
 
 
@@ -55,7 +56,7 @@ let GANTTLIST: gantt;
   selector: 'ngx-schedulergantt',
   templateUrl: './schedulergantt.component.html',
   styleUrls: ['./schedulergantt.component.scss'],
-  providers: [EditService, FilterService, SortService, SelectionService, ToolbarService, DayMarkersService],
+  
   // encapsulation: ViewEncapsulation.None,
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -88,6 +89,7 @@ export class SchedulerganttComponent implements OnInit {
   public carrData?: carr[] = [];
   public dataGantt?= GANTTLIST;
   subscription: Subscription;
+  public access?: any;
 
 
   @ViewChild('gantt')
@@ -119,8 +121,15 @@ export class SchedulerganttComponent implements OnInit {
     private fb: FormBuilder,
     public apiGetComp: ApiGetService,
     private messageService: MessageService,
-    private ganttPopup: WindowsSchedulerComponent,) {
+    private ganttPopup: WindowsSchedulerComponent,
+    private toasterService: NbToastrService,
+    private authService: NbAuthService) {
     this.loadData();
+    this.authService.getToken()
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res:any) => {
+        this.access = res.accessTokenPayload.user.access;
+      });
   }
 
   loadData() {
@@ -229,8 +238,59 @@ export class SchedulerganttComponent implements OnInit {
     this.dayWorkingTime = [{ from: 0, to: 24 }];
   }
 
+  rowSelected(args: RowSelectEventArgs) {
+    // const rowHeight: number = this.grid.getRows()[this.grid.getSelectedRowIndexes()[0]].scrollHeight;
+    // this.grid.getContent().children[0].scrollTop = rowHeight * this.grid.getSelectedRowIndexes()[0];
+  }
+
   public headerText: Object = [{ text: 'Asignación de Aerolínea' }, { text: 'Historico de Aerolínea' }];
 
+
+  // public date(StartDates: Date, EndDate: Date) {
+
+
+  //   const fechaFormateada = this.miDatePipe.transform(StartDates, 'yyyy-MM-dd');
+  //   const fechaFormateadaeTD = this.miDatePipe.transform(EndDate, 'yyyy-MM-dd');
+
+  //   this.http.get(this.api.apiUrlNode1 + '/resourceDataGantt?registerDateSTD=' + fechaFormateada + '&registerDateETD=' + fechaFormateadaeTD)
+  //       .pipe(takeWhile(() => this.alive))
+  //       .subscribe((res: any) => {
+
+  //         this.ganttData = res;
+          
+  //         // if (res.length == 0) {
+
+  //         //   this.toastrService.danger('', 'No ha data.');
+  //         //   this.ganttData = res.length;
+  //         // } else {
+  //         //   this.ganttData = res;
+  //         //   this.data[0] = res
+  //         //   // console.log('Data',this.data[0]);
+  //         //   this.ganttObj = res
+  //         //   // console.log('Data Gantt:', this.ganttObj );
+  //         // }
+
+
+  //       });
+
+
+  //   // if (fechaFormateada == null && fechaFormateadaeTD == null) {
+
+  //   //   this.toastrService.warning('', 'No pusiste la fecha.');
+
+  //   // } else if (fechaFormateadaeTD < fechaFormateada) {
+
+  //   //   this.toastrService.warning('', 'Pon las fechas correctas.');
+
+  //   // } else if (fechaFormateada > fechaFormateadaeTD) {
+
+  //   //   this.toastrService.warning('', 'La fecha no puede ser Mayor.');
+
+  //   // } else {
+      
+  //   // }
+
+  // }
 
   public date(StartDates: Date, EndDate: Date) {
 
@@ -238,43 +298,45 @@ export class SchedulerganttComponent implements OnInit {
     const fechaFormateada = this.miDatePipe.transform(StartDates, 'yyyy-MM-dd');
     const fechaFormateadaeTD = this.miDatePipe.transform(EndDate, 'yyyy-MM-dd');
 
-    this.http.get(this.api.apiUrlNode1 + '/resourceDataGantt?registerDateSTD=' + fechaFormateada + '&registerDateETD=' + fechaFormateadaeTD)
+    const today = new Date();
+    const maxDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 10);
+    const fromDateObj = new Date(fechaFormateada);
+    const toDateObj = new Date(fechaFormateadaeTD);
+
+    if (fromDateObj < maxDate) {
+      // alert('From date must be within the last 10 days');
+      this.toasterService.warning("", "La fecha debe estar dentro de los últimos 10 días");
+      return;
+    }
+
+    if (toDateObj < maxDate) {
+      // alert('To date must be within the last 10 days');
+      this.toasterService.warning("", "La fecha debe estar dentro de los últimos 10 de consulta");
+      return;
+    }
+
+    if (toDateObj < fromDateObj) {
+      // alert('To date cannot be earlier than From date');
+      this.toasterService.warning("", "La fecha no puede ser diferente.");
+      return;
+    }
+
+    
+      this.http.get(this.api.apiUrlNode1 + '/resourceDataGantt?registerDateSTD=' + fechaFormateada + '&registerDateETD=' + fechaFormateadaeTD)
         .pipe(takeWhile(() => this.alive))
         .subscribe((res: any) => {
 
-          this.ganttData = res;
-          
-          // if (res.length == 0) {
+          if (res.length == 0) {
 
-          //   this.toastrService.danger('', 'No ha data.');
-          //   this.ganttData = res.length;
-          // } else {
-          //   this.ganttData = res;
-          //   this.data[0] = res
-          //   // console.log('Data',this.data[0]);
-          //   this.ganttObj = res
-          //   // console.log('Data Gantt:', this.ganttObj );
-          // }
+            this.toasterService.danger('', 'No ha data.');
+            this.ganttData = res.length;
+          } else {
+            this.ganttData = res;
+          }
 
 
         });
-
-
-    // if (fechaFormateada == null && fechaFormateadaeTD == null) {
-
-    //   this.toastrService.warning('', 'No pusiste la fecha.');
-
-    // } else if (fechaFormateadaeTD < fechaFormateada) {
-
-    //   this.toastrService.warning('', 'Pon las fechas correctas.');
-
-    // } else if (fechaFormateada > fechaFormateadaeTD) {
-
-    //   this.toastrService.warning('', 'La fecha no puede ser Mayor.');
-
-    // } else {
-      
-    // }
+    
 
   }
 
@@ -289,43 +351,37 @@ export class SchedulerganttComponent implements OnInit {
 
     } else if (args.requestType === "beforeOpenEditDialog") {
       args.cancel = true;
+      if (this.access?.includes('assignment.edit')) {
+        if (args.rowData.taskData.taskID.search('MA') == false) {
+          // console.log('MA...');
+  
+          // this.ganttPopup.openWindowForm(args.rowData.taskData.taskName, args.rowData.taskData);
+          this.dialogEdit.openWindowForm(args.rowData.taskData.taskName, args.rowData.taskData);
+        } else {
+          this.toastrService.warning('', 'Vuelo asignado por SITA, no se puede editar.');
+        }
+      }
       // console.log('---- ',args.rowData.taskData.taskID.substr('%MA%'));
       // console.log('---- ',args.rowData.taskData.taskID.search('MA') == -1);
 
       //  debugger
       // if (args.rowData.taskData.taskID.indexOf('MA') == args.rowData.taskData.taskID.substr('0,1')) {
-      if (args.rowData.taskData.taskID.search('MA') == false) {
-        // console.log('MA...');
+      // if (args.rowData.taskData.taskID.search('MA') == false) {
+      //   // console.log('MA...');
 
-        // this.ganttPopup.openWindowForm(args.rowData.taskData.taskName, args.rowData.taskData);
-        this.dialogEdit.openWindowForm(args.rowData.taskData.taskName, args.rowData.taskData);
-      } else {
-        this.toastrService.warning('', 'Vuelo asignado por SITA, no se puede editar.');
-      }
+      //   // this.ganttPopup.openWindowForm(args.rowData.taskData.taskName, args.rowData.taskData);
+      //   this.dialogEdit.openWindowForm(args.rowData.taskData.taskName, args.rowData.taskData);
+      // } else {
+      //   this.toastrService.warning('', 'Vuelo asignado por SITA, no se puede editar.');
+      // }
       // this.ganttPopup.openWindowForm( args.rowData.taskData.taskName , args.rowData.taskData,);
     }
   };
 
 
-  // actionComplete(args) {
-  //   args.cancel = true;
-  //   if (( args.requestType === 'save')) {
-  //     args.cancel = true;
-  //     console.log('Se guardo');
-  //   } else if (args.requestType === 'delete'){
-
-  //     console.log('Delete', args.requestType);
-  //     args.cancel = true;
-
-  //   }
-  // }
-
-
   public toolbarClick(args: ClickEventArgs): void {
     if (args.item.text === 'Click') {
-      // console.log('Data');
     }
-    // this.openWindowForm();
   };
 
 
@@ -338,27 +394,6 @@ export class SchedulerganttComponent implements OnInit {
       EndDate: ['', Validators.required],
     });
   }
-
-
-
-
-
-  // public ChargeSchedulerGantt() {
-  //   if (this.intervalSubscriptionScheduleGantt) {
-  //     this.intervalSubscriptionScheduleGantt.unsubscribe();
-  //   }
-
-  //   this.intervalSubscriptionScheduleGantt = interval(20000)
-  //     .pipe(
-  //       takeWhile(() => this.alive),
-  //       switchMap(() =>
-  //         this.http.get(this.api.apiUrlNode1 + "/resourceDataGantt")
-  //       )
-  //     )
-  //     .subscribe((res: any) => {
-  //       this.ganttData = res;
-  //     });
-  // }
 
 
   ngOnDestroy() {

@@ -17,6 +17,7 @@ export class PagesMenu {
 
   alive: boolean = true;
   public access?: any;
+  public superAdmin?: any;
 
   constructor(private accessChecker: NbAccessChecker,
     private authService: NbAuthService,) {
@@ -24,7 +25,11 @@ export class PagesMenu {
     this.authService.getToken()
     .pipe(takeWhile(() => this.alive))
     .subscribe((res:any) => {
-      // console.log(res.accessTokenPayload.user);
+      
+      let email = res.accessTokenPayload.user.email
+      console.log(email);
+      this.superAdmin = email == 'mladmin@matec.com.co' ?  true : false 
+      console.log('data', this.superAdmin);
       this.access = res.accessTokenPayload.user.access;
     });
 
@@ -52,7 +57,7 @@ export class PagesMenu {
                 link: '/pages/conveyor/BhsSalidas',
               },
               { 
-                title: 'SFC-Security feed check in line',
+                title: 'SFC-Security feed checkin line',
                 link: '/pages/conveyor/bhs5',
               },
               {
@@ -176,6 +181,7 @@ export class PagesMenu {
       title: 'Asignación de aerolíneas',
       icon: 'calendar-outline',
       link: '/pages/gantt/ganttScheduler',
+      hidden: !this.access.includes('assignment.index')
       // children: [
       //   {
       //     title: 'Asignación de Salidas',
@@ -397,7 +403,7 @@ export class PagesMenu {
       title: 'Reportes',
       icon: 'pie-chart-outline',
       link: '/pages/reports/reports',
-      
+      hidden: !this.access.includes('report.index'),
     };
 
     const configurationMenu: NbMenuItem = {
@@ -417,50 +423,60 @@ export class PagesMenu {
           hidden: !this.access.includes('role.index')
         },
         {
-          title: 'Asignar rol',
+          title: 'Asignar roles a usuarios',
           link: '/pages/roles/user-roles',
           hidden: !this.access.includes('userRole.index')
         },
         {
           title: 'Licencia',
           link: '/pages/users/licenses',
+          hidden: !this.superAdmin
         },
         {
           title: 'Reportes parametrizables',
           link: '/pages/users/reportParametrizable',
+          hidden: !this.superAdmin
         },
         {
           title: 'Parametrización de aerolíneas',
           link: '/pages/sita/airline',
+          hidden: !this.superAdmin
         },
         {
           title: 'Integración SITA AMS',
           // link: '/pages/sita/SitaMessage',
+          hidden: !this.superAdmin,
           children: [
             {
             title: 'Parametrización',
             link: '/pages/sita/ParametrizacionAMS',
+            hidden: !this.access.includes('parametersAMS.index')
           },
           {
             title: 'Inducción manual',
             link: '/pages/sita/MessageAMS',
+            hidden: !this.access.includes('manualinduction.index')
           },
           {
             title: 'Mensajes almacenados',
             link: '/pages/sita/storeMessage',
+            hidden: !this.access.includes('messageAMS.index')
           },
         ]},
         {
           title: 'Integración SITA BM',
           // link: '/pages/sita/SitaMessage',
+          hidden: !this.superAdmin,
           children: [
             {
             title: 'Parametrización',
             link: '/pages/sita/ParametrizacionBM',
+            hidden: !this.access.includes('parametersBM.index')
           },
           {
             title: 'Mensajes almacenados',
             link: '/pages/sita/MessageBM',
+            hidden: !this.access.includes('messageBM.index')
           },
         ]},
       ],
@@ -470,6 +486,7 @@ export class PagesMenu {
       title: 'Log eventos',
       icon: 'bell-outline',
       link: '/pages/tables/alarms',
+      hidden: !this.access.includes('alarms.index'),
       children: undefined,
     };
 
@@ -503,10 +520,10 @@ export class PagesMenu {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
           // return [...dashboardMenu, SchedulerMenu1, cosumeMenu, reportMenu, configurationMenu, alarmMenu];
-          return [...dashboardMenu, SchedulerMenu1, reportMenu, configurationMenu, alarmMenu];
+          return [...dashboardMenu, SchedulerMenu1, reportMenu, alarmMenu, configurationMenu];
         } else {
           // return [...dashboardMenu, ...menu];
-          return [...dashboardMenu, SchedulerMenu1, reportMenu, configurationMenu, alarmMenu];
+          return [...dashboardMenu, SchedulerMenu1, reportMenu, alarmMenu, configurationMenu];
         }
       }));
 

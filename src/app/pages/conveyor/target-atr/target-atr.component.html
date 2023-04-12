@@ -1,6 +1,6 @@
 <div class="card card-defauld">
     <div class="card-body">
-      <h5 class="card-title title" [nbTooltip]="message" nbTooltipPlacement="right">Eficiencia de los ATR</h5>
+      <h5 class="card-title title" [nbTooltip]="message" nbTooltipPlacement="right">Eficiencia para los ATR</h5>
       <div class="container">
         <form [formGroup]="targetFrom">
             <div class="form-group">
@@ -12,7 +12,7 @@
         </form>
     </div>
     
-      <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px; margin-left: 47%; text-transform: none;" (click)="editMake()" >Modificar</button>
+      <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px; margin-left: 47%; text-transform: none;" (click)="editMake()" *ngIf="access?.includes('efficiency.edit')">Modificar</button>
     </div>
   </div>
   <div class='root-container'>

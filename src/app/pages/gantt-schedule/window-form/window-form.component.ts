@@ -93,6 +93,7 @@ export class WindowFormComponent implements OnInit {
   public hidden: Boolean = false;
   public title: string;
   public header: string;
+  public cssClass: string = 'e-custom-style title ';
 
   constructor(
     private http: HttpClient,
@@ -150,6 +151,7 @@ export class WindowFormComponent implements OnInit {
   }
 
   openDialog() {
+    this.header = 'Nueva asgnación de vuelo'
     this.formAir.show();
   }
 

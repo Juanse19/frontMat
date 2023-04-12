@@ -107,8 +107,8 @@ export class SearchShedulerComponent implements OnInit {
   }
 
   rowSelected(args: RowSelectEventArgs) {
-    const rowHeight: number = this.grid.getRows()[this.grid.getSelectedRowIndexes()[0]].scrollHeight;
-    this.grid.getContent().children[0].scrollTop = rowHeight * this.grid.getSelectedRowIndexes()[0];
+    // const rowHeight: number = this.grid.getRows()[this.grid.getSelectedRowIndexes()[0]].scrollHeight;
+    // this.grid.getContent().children[0].scrollTop = rowHeight * this.grid.getSelectedRowIndexes()[0];
   }
 
   public date(StartDates: Date, EndDate: Date) {

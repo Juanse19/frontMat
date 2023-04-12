@@ -12,7 +12,7 @@
         </form>
     </div>
     
-      <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px; margin-left: 47%; text-transform: none;" (click)="editMake()" >Modificar</button>
+      <button nbButton status="primary" class="btn btn-primary" style="margin-top: 4px; margin-left: 47%; text-transform: none;" (click)="editMake()" *ngIf="access?.includes('defaultMakeUp.edit')">Modificar</button>
     </div>
   </div>
 

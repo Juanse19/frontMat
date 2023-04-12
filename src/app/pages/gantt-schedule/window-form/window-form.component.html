@@ -122,7 +122,7 @@
     
     
 
-<ejs-dialog id='formAir' #formAir allowDragging='true' [header]='' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
+<ejs-dialog id='formAir' #formAir allowDragging='true' [header]='header' [visible]='hidden' [target]='targetElement' width='30%' [showCloseIcon]='showCloseIcon'>
     <ng-template #content>
        
 
@@ -163,13 +163,13 @@
 
                       <div class="form-outline mb-4">
                         <!-- <label class="form-label title" for="form6Example3">Url Reporte</label> -->
-                        <ejs-datetimepicker formControlName="StartTime" id="StartTime" class="e-field" data-cy="std-field" data-name="StartTime" format="MM/dd/yyyy HH:mm:ss" [value]="dateParser" placeholder='Hora de inicio' floatLabelType='Always' required>
+                        <ejs-datetimepicker id="label_StartTime_input title" formControlName="StartTime" id="StartTime" cssClass='e-field e-float-text e-label-top' data-cy="std-field" data-name="StartTime" format="MM/dd/yyyy HH:mm:ss" [value]="dateParser" placeholder='Hora de inicio' floatLabelType='Always' required>
                         </ejs-datetimepicker>
                       </div>
 
                       <div class="form-outline mb-4">
                         <!-- <label class="form-label title" for="form6Example3">Url Grafica</label> -->
-                        <ejs-datetimepicker formControlName="EndTime" id="EndTime" class="e-field" data-cy="etd-field" data-name="EndTime" format="MM/dd/yyyy HH:mm:ss" name="datetime" placeholder='Hora de finalización' floatLabelType='Always' required>
+                        <ejs-datetimepicker id="label_EndTime_input title" formControlName="EndTime" id="EndTime" cssClass='e-field e-float-text e-label-top'  data-cy="etd-field" data-name="EndTime" format="MM/dd/yyyy HH:mm:ss" name="datetime" placeholder='Hora de finalización' floatLabelType='Always' required>
                         </ejs-datetimepicker>
                       </div>
                 

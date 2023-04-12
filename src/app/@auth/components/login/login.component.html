@@ -14,7 +14,7 @@
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
     <!-- <p class="alert-title"><b>¡Oh cielos!</b></p> -->
     <ul class="alert-message-list">
-        <li *ngFor="let error of errors" class="alert-message">La combinación de inicio de sesión / correo electrónico no es correcta, inténtelo de nuevo.</li>
+        <li *ngFor="let error of errors" class="alert-message">La combinación de inicio de sesión o correo electrónico no es correcta, inténtelo de nuevo.</li>
     </ul>
 </nb-alert>
 
@@ -28,9 +28,11 @@
 <form (ngSubmit)="login()" [formGroup]="loginForm" >
 
     <div class="form-control-group">
-        <label for="input-email">correo electrónico:</label>
-        <input nbInput fullWidth id="input-email" formControlName="email" [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : 'basic'" [attr.aria-invalid]="email.invalid && email.touched ? true : null" placeholder="Email address">
-        <ngx-validation-message label="Email address" [showPattern]="email?.hasError('pattern') && email.touched" [showRequired]="email?.errors?.required && email.touched"></ngx-validation-message>
+      <span class="label-with-link">
+        <label class="label" for="input-email">Correo electrónico:</label>
+      </span>
+        <input nbInput fullWidth id="input-email" formControlName="email" [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : 'basic'" [attr.aria-invalid]="email.invalid && email.touched ? true : null" placeholder="Correo electrónico">
+        <ngx-validation-message label="Correo electrónico" [showPattern]="email?.hasError('pattern') && email.touched" [showRequired]="email?.errors?.required && email.touched"></ngx-validation-message>
     </div>
 
     <div class="form-control-group">
@@ -38,8 +40,8 @@
       <label class="label" for="input-password">Contraseña:</label>
       
     </span>
-        <input nbInput fullWidth id="input-password" formControlName="password" type="password" [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : 'basic'" placeholder="Password">
-        <ngx-validation-message label="Password" [showMinLength]="password?.hasError('minlength') && password.touched" [showMaxLength]="password?.hasError('maxlength') && password.touched" [showRequired]="password?.errors?.required && password.touched" [minLength]="minLength"
+        <input nbInput fullWidth id="input-password" formControlName="password" type="password" [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : 'basic'" placeholder="Contraseña">
+        <ngx-validation-message label="Contraseña" [showMinLength]="password?.hasError('minlength') && password.touched" [showMaxLength]="password?.hasError('maxlength') && password.touched" [showRequired]="password?.errors?.required && password.touched" [minLength]="minLength"
             [maxLength]="maxLength"></ngx-validation-message>
     </div>
 
@@ -47,8 +49,8 @@
         <nb-checkbox formControlName="rememberMe" name="rememberMe" *ngIf="rememberMe">Recuérdame</nb-checkbox>
     </div>
 
-    <button nbButton fullWidth status="primary" size="large" >
-    INICIAR SESIÓN
+    <button nbButton fullWidth status="primary" size="large" style="text-transform: none;">
+    Iniciar sesión
   </button>
 </form>
 

@@ -5,6 +5,7 @@
         flex-direction: column;
         .text-label {
             margin-top: 1.5rem;
+            font-weight: 600;
         }
     }
     .buttons-container {
@@ -27,4 +28,18 @@
     font-size: 0.9375rem;
     font-weight: 600;
     line-height: 1.5rem;
+}
+
+
+
+#label_EndTime_input {
+    font-family: sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+#label_StartTime_input {
+    font-family: sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
 }

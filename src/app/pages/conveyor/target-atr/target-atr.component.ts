@@ -9,6 +9,7 @@ import { MessageService } from '../../dashboard/services/MessageService';
 import { takeWhile } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { EdittargetATRComponent } from '../edittarget-atr/edittarget-atr.component';
+import { NbAuthService } from '@nebular/auth';
 
 interface make {
   Value?: string;
@@ -45,6 +46,8 @@ export class TargetATRComponent implements OnInit {
 
   subscription: Subscription;
 
+  public access?: any;
+
   @ViewChild(EdittargetATRComponent) dialogEdit: EdittargetATRComponent;
 
   constructor(
@@ -53,8 +56,14 @@ export class TargetATRComponent implements OnInit {
     private api: HttpService,
     private apiGetComp: ApiGetService,
     private editTarget: EdittargetATRComponent,
-    private messageService: MessageService,) { 
+    private messageService: MessageService,
+    private authService: NbAuthService) {
       this.loadData()
+      this.authService.getToken()
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any) => {
+          this.access = res.accessTokenPayload.user.access;
+        });
     }
 
     loadData(){

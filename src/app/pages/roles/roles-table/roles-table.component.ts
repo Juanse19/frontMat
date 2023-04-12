@@ -42,7 +42,7 @@ export class RolesTableComponent implements OnInit {
       });
   }
 
-
+ 
   ngOnInit(): void {
 
     this.editSettings = {

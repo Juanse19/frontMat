@@ -44,6 +44,7 @@ interface dataLicens {
 })
 export class PagesComponent implements OnDestroy {
 
+  reconnect = false;
   menu: NbMenuItem[];
   alive: boolean = true;
   rutaMenu: NbMenuItem[];
@@ -98,7 +99,7 @@ export class PagesComponent implements OnDestroy {
       this.socketService.restoreSocket();
       console.log('TestV2');
       this.newConnection();
-      this.socketService.sendMessage({ route: "updateIDSocket", email: this.userStore.getUser().email });
+      // this.socketService.sendMessage({ route: "updateIDSocket", email: this.userStore.getUser().email });
     }
 
 
@@ -239,13 +240,33 @@ export class PagesComponent implements OnDestroy {
   // }
 
 
-  // @HostListener('window:beforeunload', ['$event'])
+  @HostListener('window:beforeunload', ['$event'])
 
-  //   beforeunloadHandler(event) {
-  //     this.tokenService.clear()
-  //     this.router.navigate(['/auth/logout']);
-  //     localStorage.clear();
-  // }
+    onfocus(event) {
+      console.log('event1', event);
+      
+      if (this.reconnect) {
+        this.reconnect = false;
+        console.log('this.reconnect', this.reconnect);
+        
+        // alert("Perform an auto-login here!");
+      }
+    } 
+
+    beforeunloadHandler(event) {
+      // this.tokenService.clear()
+      // this.router.navigate(['/auth/logout']);
+      // localStorage.clear();
+      console.log('event2', event);
+      var msg = "Are you sure you want to leave?";
+      this.reconnect = true;
+      console.log('reconnect', this.reconnect);
+      
+      return msg;
+  }
+  
+
+  
 
 
 
@@ -301,6 +322,10 @@ export class PagesComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.alive = false;
+    this.socketService.close();
+    //  this.tokenService.clear()
+    //   this.router.navigate(['/auth/logout']);
+    //   localStorage.clear();
     // this.myWebSocket.complete();
   }
 

@@ -19,7 +19,7 @@ import {NG_VALUE_ACCESSOR} from '@angular/forms';
           <span class="caption status-danger"
              *ngIf="showMaxLength"> la longitud máxima de {{ label }} es de {{ maxLength }} símbolos </span>
           <span class="caption status-danger" *ngIf="showPattern"> Incorrecta {{ label }} </span>
-          <span class="caption status-danger" *ngIf="showRequired"> Se requiere confirmar contraseña</span>
+          <span class="caption status-danger" *ngIf="showRequired"> Se requiere confirmar: {{ label }}</span>
           <span class="caption status-danger" *ngIf="showMin">Valor mínimo de {{ label }} is {{ min }}</span>
           <span class="caption status-danger" *ngIf="showMax">Valor máximo de {{ label }} is {{ max }}</span>
       </div>

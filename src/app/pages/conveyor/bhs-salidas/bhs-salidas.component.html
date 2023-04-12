@@ -947,21 +947,13 @@ xlink:href="#image"
                 <div class="media-body" *ngFor="let tx1 of sFData">
 
 
-
-                    <!-- <pre><b>Nombre:</b>           {{sf.ZoneName}}</pre>
-                    <pre class="pre"><b>Estado:</b>           {{sf.Estado}}</pre>
-                    <pre class="pre"><b>Consumo (KWH):</b>    {{sf.Consumo | number: '1.0-0'}} </pre>
-                    <pre class="pre"><b>Cantidad Maletas:</b> {{sf.ContadorMaletas}} </pre>
-                    <pre class="pre"><b>TiempoOn:</b>         {{sf.TiempoOn}} </pre>
-                    <pre class="pre"><b>TiempoOff:</b>        {{sf.TiempoOff}} </pre> -->
-
                     <br>
-                    <!-- <pre class="pre"><b class="titleCard">Estado:</b>           {{tx1.Estado}}</pre>    -->
-                    <pre class="pre"><b class="titleCard">Estado:</b>             <ngx-process-status [status]="tx1?.Estado"></ngx-process-status></pre>
-                    <pre class="pre"><b class="titleCard">Consumo (KWH):</b>        {{tx1?.Consumo | number: '1.0-0'}} </pre>
-                    <pre class="pre"><b class="titleCard">Contador de objetos:</b>  {{tx1?.ContadorMaletas}} </pre>
-                    <!-- <pre class="pre"><b >TiempoOn:</b>             {{tx1.TiempoOn}} </pre>
-                    <pre class="pre"><b >TiempoOff:</b>            {{tx1.TiempoOff}} </pre> -->
+                    <pre class="pre"><b class="titleCard" 
+                        [title]="deviceState">Estado:</b>             <ngx-process-status [status]="tx1?.Estado"></ngx-process-status></pre>
+                    <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                        [title]="deviceConsumption">Consumo (KWH):</b>        {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                        [title]="devicecounter">Contador de objetos:</b>  {{tx1?.ContadorMaletas}} </pre>
                         
                 </div>
             </div>

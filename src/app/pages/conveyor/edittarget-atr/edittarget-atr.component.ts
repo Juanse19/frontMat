@@ -133,7 +133,7 @@ editUp(makeup){
 }
 
 handleSuccessResponse() {
-  this.toasterService.success("", "¡Se edito con exito!");
+  this.toasterService.success("", "Se guardaron los cambios correctamente");
   this.close();
 }
 

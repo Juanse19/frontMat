@@ -183,8 +183,6 @@ export class Bhs1Component implements OnInit {
       .subscribe(
         (msg) => {
 
-          console.log(msg);
-
           this.devicesDom.forEach(elemento => {
             if (msg.Estado === 'Bloqueado') {
               // console.log('Dispositivo Bloqueado');

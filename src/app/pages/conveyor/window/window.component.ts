@@ -32,7 +32,7 @@ export class WindowComponent implements OnInit {
   public deviceRead: string;
   public deviceNoRead: string;
   public deviceEficiencia: string;
-
+ 
   // --------- DEVICES --------
   public divices1: teams[] = [];
   public header1: string;

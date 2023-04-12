@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card style="height: 100vh;">
 
     <div class="layoutbhs">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-100 0 570.8 259.2">
@@ -948,7 +948,7 @@ xlink:href="#image"
 
 
                     <br>
-                    <pre class="pre"><b class="titleCard" 
+                    <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
                         [title]="deviceState">Estado:</b>             <ngx-process-status [status]="tx1?.Estado"></ngx-process-status></pre>
                     <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
                         [title]="deviceConsumption">Consumo (KWH):</b>        {{tx1?.Consumo | number: '1.0-0'}} </pre>

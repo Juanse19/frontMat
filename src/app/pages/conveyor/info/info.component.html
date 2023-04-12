@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card style="height: 100vh;">
     
     <nb-card-body>
         <div class="room-layout">
@@ -313,9 +313,12 @@
                   <div class="media-body" *ngFor="let tx1 of zoneData">
   
                       <br>
-                      <pre class="pre"><b class="titleCard">Estado:</b>             <ngx-process-status [status]="tx1?.Estado"></ngx-process-status></pre>
-                      <pre class="pre"><b class="titleCard">Consumo (KWH):</b>        {{tx1?.Consumo | number: '1.0-0'}} </pre>
-                      <pre class="pre"><b class="titleCard">Contador de objetos:</b>  {{tx1?.ContadorMaletas}} </pre>
+                      <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                        [title]="deviceState">Estado:</b>             <ngx-process-status [status]="tx1?.Estado"></ngx-process-status></pre>
+                    <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                        [title]="deviceConsumption">Consumo (KWH):</b>        {{tx1?.Consumo | number: '1.0-0'}} </pre>
+                    <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                        [title]="devicecounter">Contador de objetos:</b>  {{tx1?.ContadorMaletas}} </pre>
                           
                   </div>
               </div>

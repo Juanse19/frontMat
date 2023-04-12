@@ -41,6 +41,10 @@ export class InfoComponent implements OnInit {
   public animationSettings: AnimationSettingsModel = { effect: 'None' };
 
   public header: string;
+  public deviceState: string;
+  public deviceSpeed: string;
+  public deviceConsumption: string;
+  public devicecounter: string;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -130,6 +134,22 @@ export class InfoComponent implements OnInit {
       this.ejDialog.show();
       this.ejDialog.position = { X: 158.317, Y: 20.1333 };
 
+      this.deviceState = `Estados:
+                          1. Apagado.
+                          2. Activo.
+                          3. Falla.
+                          4. Acumulacion.
+                          5. Atasque.
+                          6. Ahorro de energia.
+                          7. Bloqueado.
+                          8. Alarma Seccionardor Abierto.
+                          9. Motor con paro de emergencia activo.`;
+
+          this.deviceSpeed = `Velocidad parametrizada para este equipo.`;
+          this.deviceConsumption = `Media del cálculo de potencia del equipo en el rango de una hora  `;
+          this.devicecounter = `Número de objetos que han sido identificado en el trasnportador`;
+
+
       // if (res.length === 0) {
       //   res = [{
       //     // ZoneId: 0,
@@ -179,6 +199,7 @@ export class InfoComponent implements OnInit {
       this.ejDialog1.show();
       // console.log('Zons:', this.zoneData , 'states');
       this.ejDialog1.position = { X: 438.438, Y: 74.2083 };
+      
       }
       
     });

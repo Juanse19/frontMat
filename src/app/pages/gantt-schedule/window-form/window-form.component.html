@@ -144,18 +144,18 @@
                       <div class="form-group" [formGroup]="airForm" >
                         <label class="form-label title" for="form6Example3">Make up </label>
                         <br />
-                        <nb-select style="width: 190%; border: 1px ; max-width: 100%;" id="Make up" placeholder="Make up" formControlName="ProjectId" class="form">
-                            <nb-option *ngFor="let item of carrData" [value]="item.text">
+                        <nb-select  style="width: 190%; border: 1px ; max-width: 100%; background-color: white;" id="Make up" placeholder="Make up"  formControlName="ProjectId" class="form inputbutto" >
+                            <nb-option *ngFor="let item of carrData" [value]="item.text" id="input-select" class="inputbutto" >
                                 {{ item.text }}
                             </nb-option>
                         </nb-select>
                     </div>
 
                     <div class="form-group" [formGroup]="airForm" >
-                        <label class="form-label title" for="form6Example3">Aerolineas </label>
+                        <label class="form-label title" for="form6Example3">Aerolíneas </label>
                         <br />
-                        <nb-select style="width: 190%; border: 1px ; max-width: 100%;" id="Category" placeholder="Aerolineas" formControlName="TaskId" class="form">
-                            <nb-option *ngFor="let item of airlinesData" [value]="item.id">
+                        <nb-select id="input-select" style="width: 190%; border: 1px ; max-width: 100%; background-color: white; border-color: #fff;" id="Category" placeholder="Aerolíneas" formControlName="TaskId" class="form inputbutto">
+                            <nb-option *ngFor="let item of airlinesData" [value]="item.id" id="input-select" style="background-color: white; border-color: #fff;">
                                 {{ item.text }}
                             </nb-option>
                         </nb-select>

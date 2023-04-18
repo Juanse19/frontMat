@@ -27,6 +27,10 @@ import {
 import { ToastrModule } from 'ngx-toastr';
 import {MatDialogModule} from '@angular/material/dialog';
 
+import { BoldReportsModule } from '@boldreports/angular-reporting-components';
+// import '@boldreports/global/l10n/ej.localetexts.es-ES.min.js';
+// import '@boldreports/global/i18n/ej.culture.es-ES.min.js';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -49,7 +53,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
-    MatDialogModule
+    MatDialogModule,
+    // BoldReportsModule
   ],
   bootstrap: [AppComponent],
   providers: [],

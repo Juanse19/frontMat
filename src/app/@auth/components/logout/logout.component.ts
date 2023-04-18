@@ -13,6 +13,7 @@ import { HttpService } from '../../../@core/backend/common/api/http.service';
 import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
 import { takeWhile } from 'rxjs/operators';
 import { WebSocketService } from '../../../@core/backend/common/services/web-socket.service';
+import { WebSocketV2Service } from '../../../@core/backend/common/services/webSocketV2.service';
 
 @Component({
   selector: 'ngx-logout',
@@ -28,7 +29,7 @@ export class NgxLogoutComponent implements OnInit {
   constructor(protected service: NbAuthService,
               private userStore: UserStore,
               private apiGetComp: ApiGetService,
-              private socketService: WebSocketService, 
+              private socketV2Service: WebSocketV2Service, 
               private api: HttpService,
               @Inject(NB_AUTH_OPTIONS) protected options = {},
               protected router: Router) { }
@@ -42,10 +43,10 @@ export class NgxLogoutComponent implements OnInit {
     const currentUseremail = this.userStore.getUser().email;
     console.log('email', { route:"logoutUser", email: currentUseremail });
     
-    this.socketService.sendMessage({ route:"logoutUser", email: currentUseremail})
+    this.socketV2Service.sendMessage({ route:"logoutUser", email: currentUseremail})
     localStorage.removeItem('socket');
-    localStorage.clear();
-    this.socketService.close();
+    // localStorage.clear();
+    this.socketV2Service.close();
     this.service.logout(strategy).subscribe((result: NbAuthResult) => {
       const redirect = result.getRedirect();
       if (redirect) {

@@ -5,6 +5,15 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./"
   },
+  "typeRoots": [
+    "node_modules/@types",
+    "node_modules/@boldreports/types"
+  ],
+  "types": [
+    "jquery",
+    "reports.all"
+  ],
+
   "files": [
     "main.ts",
     "polyfills.ts"

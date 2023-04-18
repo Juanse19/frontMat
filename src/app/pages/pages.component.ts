@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { ApiGetService } from '../@core/backend/common/api/apiGet.services';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { WebSocketService } from '../@core/backend/common/services/web-socket.service';
+import { WebSocketV2Service } from '../@core/backend/common/services/webSocketV2.service';
 //import ip from "ip"
 
 
@@ -62,7 +63,7 @@ export class PagesComponent implements OnDestroy {
     private apiGetComp: ApiGetService,
     private userStore: UserStore,
     private toastrService: NbToastrService,
-    private socketService: WebSocketService,
+    private socketV2Service: WebSocketV2Service,
   ) {
     // this.initMenu();
 
@@ -71,8 +72,6 @@ export class PagesComponent implements OnDestroy {
       .subscribe((res: any) => {
         this.initMenu();
         this.reload()
-        // console.log(res.accessTokenPayload.user.access);
-        // console.log(res.accessTokenPayload.user.email);
       });
 
   }
@@ -90,13 +89,12 @@ export class PagesComponent implements OnDestroy {
   }
 
   reload() {
-
     // Crear una nueva conexión WebSocket si no se ha guardado una antes
     if (!localStorage.getItem('socket')) {
-      // this.socketService.connect();
+      this.newConnection();
       console.log('TestV1');
     } else {
-      this.socketService.restoreSocket();
+      this.socketV2Service.restoreSocket();
       console.log('TestV2');
       this.newConnection();
       // this.socketService.sendMessage({ route: "updateIDSocket", email: this.userStore.getUser().email });
@@ -105,14 +103,16 @@ export class PagesComponent implements OnDestroy {
 
     // Guardar la conexión antes de recargar la página
     window.addEventListener('beforeunload', () => {
-      this.socketService.saveSocket();
+      this.socketV2Service.connect();
+      // this.socketV2Service.saveSocket();
     });
 
   }
 
   newConnection() {
-    this.socketService.connect();
-    this.socketService.getSocket().pipe(
+    console.log('pagesNew');
+    this.socketV2Service.connect();
+    this.socketV2Service.getSocket().pipe(
       retry(3),
       retryWhen(errors => errors.pipe(delay(5000), take(10))),
 
@@ -126,28 +126,39 @@ export class PagesComponent implements OnDestroy {
             Swal.fire({
               title: `${msg.message}, Sesión encontrada`,
               text: "Desea cerrar la sesión",
-              // timer: 10000,
+              timer: 4000,
               icon: "success",
               showCancelButton: true,
               confirmButtonColor: "#d33",
               cancelButtonColor: "#3085d6",
               confirmButtonText: "NO",
               cancelButtonText: "SI",
+              // onOpen: () => {
+                
+              //   setTimeout(() => {
+              //     console.log("Sesión finalizada pague");
+              //     this.socketV2Service.sendMessage({ route: "changeSession", changeSession: true, email: this.userStore.getUser().email });
+              //   this.router.navigate(['/auth/logout']);
+              //   localStorage.removeItem('socket');
+              //   localStorage.clear();
+              //   this.socketV2Service.sendMessage({ route: "logoutUser", email: this.userStore.getUser().email })
+              //   Swal.close();
+              //   }, 4000);
+              // },
             }).then((result) => {
 
               if (result.value) {
                 console.log('Si!');
-                this.socketService.sendMessage({ route: "changeSession", changeSession: false, email: this.userStore.getUser().email });
+                this.socketV2Service.sendMessage({ route: "changeSession", changeSession: false, email: this.userStore.getUser().email });
               } else {
                 console.log('Se cierra por tiempo');
 
 
-                this.socketService.sendMessage({ route: "changeSession", changeSession: true, email: this.userStore.getUser().email });
+                this.socketV2Service.sendMessage({ route: "changeSession", changeSession: true, email: this.userStore.getUser().email });
                 this.router.navigate(['/auth/logout']);
                 localStorage.removeItem('socket');
                 localStorage.clear();
-                // this.socketService.sendMessage({ email: this.loginForm.value.email });
-                this.socketService.sendMessage({ route: "logoutUser", email: this.userStore.getUser().email })
+                this.socketV2Service.sendMessage({ route: "logoutUser", email: this.userStore.getUser().email })
 
               }
             });
@@ -156,173 +167,29 @@ export class PagesComponent implements OnDestroy {
 
         });
 
-    this.socketService.sendMessage({ route: "updateIDSocket", email: this.userStore.getUser().email });
+    this.socketV2Service.sendMessage({ route: "updateIDSocket", email: this.userStore.getUser().email });
   }
-
-  // public AutoLogoutCharge() {
-  //   try {
-  //   if (this.intervalSubscriptionStatusSesion) {
-  //     this.intervalSubscriptionStatusSesion.unsubscribe();
-  //   }
-  //   // debugger
-  //   this.intervalSubscriptionStatusSesion = interval(1000)
-  //   .pipe(
-  //     takeWhile(() => this.alive),
-  //     switchMap(() => this.http.get(this.api.apiUrlNode1 + '/api/getlEmailuser?Email=' + this.userStore.getUser().email)),
-  //   )
-  //   .subscribe((res: any) => {
-  //       // this.states  = res;
-  //       // console.log('status:', res);
-
-  //       if (res == undefined) {
-  //         console.log('no hay data');
-  //         this.AutoLogoutCharge();
-  //       } else {
-  //         // console.log('Si hay');
-
-
-  //       this.validData = res;
-  //       // debugger
-  //       // console.log('Email ValidData: ', this.validData[0].Id)
-  //       if ( this.validData[0].Lat === 0 && this.validData[0].Licens_id === '1') {
-  //         // debugger
-  //         this.intervalSubscriptionStatusSesion.unsubscribe();
-  //         Swal.fire({
-  //           title: 'Se cerrará la sesión?',
-  //           text: `¡Desea continuar con la sesión activa!`,
-  //           icon: 'warning',
-  //           timer: 3500,
-  //           showCancelButton: false,
-  //           confirmButtonColor: '#3085d6',
-  //           // cancelButtonColor: '#d33',
-  //           cancelButtonText: 'Cerrar!',
-  //           confirmButtonText: '¡Desea continuar!',
-  //         }).then(result => {
-  //           if (result.value) {
-
-  //             let respon = {
-  //               user: this.validData[0].Id,
-  //               sesion: 1,
-  //             };
-  //             this.apiGetComp
-  //               .PostJson(this.api.apiUrlNode1 + '/updateSesion', respon)
-  //               .pipe(takeWhile(() => this.alive))
-  //               .subscribe((res: any) => {
-  //                 //  console.log("Envió: ", res);
-  //               });
-  //             // this.intervalSubscriptionStatusSesion.unsubscribe();
-
-  //             // console.log("Continua navegando: ", res);
-  //             this.AutoLogoutCharge();
-  //       // Swal.fire('¡Se sincronizo Exitosamente', 'success');
-  //           } else {
-  //             // console.log('Se cierra por tiempo');
-
-  //             this.router.navigate(['/auth/logout']);
-  //           }
-  //         });
-
-  //         // this.router.navigate(['/auth/logout']);
-  //         // console.log('Se cerro la sesion');
-
-  //       } else {
-
-  //         //  console.log('Continue con la sesion');
-
-  //       }
-  //   }
-  // },
-  //   );
-  // } catch (error) {
-  //       console.log('No fount data.');
-
-  // }
-  // }
-
 
   @HostListener('window:beforeunload', ['$event'])
 
+  
     onfocus(event) {
       console.log('event1', event);
-      
-      if (this.reconnect) {
+      if (!this.reconnect) {
         this.reconnect = false;
         console.log('this.reconnect', this.reconnect);
-        
-        // alert("Perform an auto-login here!");
       }
     } 
 
     beforeunloadHandler(event) {
-      // this.tokenService.clear()
-      // this.router.navigate(['/auth/logout']);
-      // localStorage.clear();
       console.log('event2', event);
-      var msg = "Are you sure you want to leave?";
-      this.reconnect = true;
-      console.log('reconnect', this.reconnect);
-      
-      return msg;
+      this.socketV2Service.connect();
   }
-  
-
-  
-
-
-
-  // Prueba de websocket
-  // myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:8000');
-  // myWebSocket: WebSocketSubject<any> = webSocket('ws://127.0.0.1:1880/ws/simple');
-  // myWebSocket: WebSocketSubject<any> = webSocket( WS_ENDPOINT);
-
-  // myWebSocket: WebSocketSubject<any> = webSocket('ws://10.120.18.15:1880/wc/alarms');
-
-
-
-  // test(){
-
-  //   const subcription1  = this.myWebSocket.subscribe(msg => {
-  //     //console.log('Mensaje recibido', msg.message);
-  //     //this.validData[0] = msg[0];
-
-  //     this.index += 1;
-
-  //     console.log('Acumulador',this.index);
-
-
-  //     if (msg.payload === 0 || msg.payload === 1 || msg.payload === 2 || msg.payload === 6 || msg.payload === 21) {
-  //       let duration = 6000
-  //       this.toastrService.success(msg.topic,  msg.message, {duration});
-  //     } 
-  //     else if(msg.payload === 3 || msg.payload === 9) {
-  //       let duration = 6000
-  //       this.toastrService.danger(msg.topic, msg.message, {duration});
-  //     }
-  //     else if(msg.payload === 4 || msg.payload === 4 || msg.payload === 7 || msg.payload === 8 || msg.payload === 20 ) {
-  //       let duration = 6000
-  //       this.toastrService.warning(msg.topic, msg.message, {duration});
-  //     }
-
-  //   })
-
-  //   console.log('message subscribe:', subcription1.add);
-
-
-  //   this.myWebSocket.subscribe(    
-  //     //msg => console.log('message received: ', msg), 
-  //     // Called whenever there is a message from the server    
-  //     err => console.log(err), 
-  //     // Called if WebSocket API signals some kind of error    
-  //     () => console.log('complete') 
-  //     // Called when connection is closed (for whatever reason)  
-  //  );
-
-  // }
-
 
   ngOnDestroy(): void {
     this.alive = false;
-    this.socketService.close();
+    this.socketV2Service.connect();
+    // this.socketService.close();
     //  this.tokenService.clear()
     //   this.router.navigate(['/auth/logout']);
     //   localStorage.clear();

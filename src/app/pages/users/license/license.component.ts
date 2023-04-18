@@ -63,16 +63,16 @@ export class LicenseComponent implements OnInit {
 
     // });
     // console.log(crypto.SHA512("string a encriptar").toString()); 
-    this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
-      if(res){ 
-        this.select = false;
-        this.mostrar = false;
-      }else {
-        this.select=true;
-        this.mostrar=true;
-      }
+    // this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
+    //   if(res){ 
+    //     this.select = false;
+    //     this.mostrar = false;
+    //   }else {
+    //     this.select=true;
+    //     this.mostrar=true;
+    //   }
       
-    });
+    // });
   }
 
   ngOnInit(): void {

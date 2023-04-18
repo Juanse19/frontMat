@@ -27,9 +27,9 @@ export class PagesMenu {
     .subscribe((res:any) => {
       
       let email = res.accessTokenPayload.user.email
-      console.log(email);
+      // console.log(email);
       this.superAdmin = email == 'mladmin@matec.com.co' ?  true : false 
-      console.log('data', this.superAdmin);
+      // console.log('data', this.superAdmin);
       this.access = res.accessTokenPayload.user.access;
     });
 
@@ -380,23 +380,23 @@ export class PagesMenu {
     };
 
     const reportsMenu: NbMenuItem = {
-      title: 'Reportes',
+      title: 'ReportesV2',
       icon: 'pie-chart-outline',
-      // link: '/pages/analytics/analytics',
-      children: [
-        {
-          title: 'Vuelos',
-          link: '/pages/reports/flightReport',
-        },
-        {
-          title: 'Operacion',
-          link: '/pages/conveyor/team',
-        },
-        {
-          title: 'Mantenimiento',
-          link: '/pages/conveyor/schedulerSita',
-        },
-      ],
+      link: '/pages/reports-pia/report2',
+      // children: [
+      //   {
+      //     title: 'report',
+      //     link: '/pages/reports-pia/report2',
+      //   },
+      //   // {
+      //   //   title: 'Operacion',
+      //   //   link: '/pages/conveyor/team',
+      //   // },
+      //   // {
+      //   //   title: 'Mantenimiento',
+      //   //   link: '/pages/conveyor/schedulerSita',
+      //   // },
+      // ],
     };
 
     const reportMenu: NbMenuItem = {
@@ -520,7 +520,7 @@ export class PagesMenu {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
           // return [...dashboardMenu, SchedulerMenu1, cosumeMenu, reportMenu, configurationMenu, alarmMenu];
-          return [...dashboardMenu, SchedulerMenu1, reportMenu, alarmMenu, configurationMenu];
+          return [...dashboardMenu, SchedulerMenu1, reportMenu, alarmMenu,  configurationMenu];
         } else {
           // return [...dashboardMenu, ...menu];
           return [...dashboardMenu, SchedulerMenu1, reportMenu, alarmMenu, configurationMenu];

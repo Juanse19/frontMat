@@ -11,13 +11,15 @@
                 </div>
             </form>
         </div>
-
+        <div class="modal-footer footer-licens">
+            <button nbButton status="info" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero style="text-transform: none;">Atras</button>
+            <button nbButton status="primary" *ngIf="!select" (click)="modals()" hero data-toggle="modal" data-target="#exampleModalCenter" style="text-transform: none;">Editar</button>
+          </div>
     </nb-card-body>
-    <nb-card-footer>
+    <!-- <nb-card-footer>
         <button nbButton status="info" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero style="text-transform: none;">Atras</button>
-        <!-- <button nbButton status="primary" *ngIf="!select" (click)="edit()" hero data-toggle="modal" data-target="#exampleModalCenter">Editar</button> -->
         <button nbButton status="primary" *ngIf="!select" (click)="modals()" hero data-toggle="modal" data-target="#exampleModalCenter" style="text-transform: none;">Editar</button>
-    </nb-card-footer>
+    </nb-card-footer> -->
 
     <!-- <div class="row">
         <ngx-edit-licen></ngx-edit-licen>

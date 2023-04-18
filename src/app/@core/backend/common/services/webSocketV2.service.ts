@@ -10,12 +10,11 @@ export const WS_ENDPOINT =  environment.production == true ? environment.urlWebS
 @Injectable({
   providedIn: 'root'
 })
-export class WebSocketService {
+export class WebSocketV2Service {
 
   private socket$: WebSocketSubject<any>;
 
   connect() {
-    // this.socket$ = webSocket(WS_ENDPOINT);
     if (!this.socket$ || this.socket$.closed) {
       this.socket$ = webSocket(WS_ENDPOINT);
       
@@ -24,6 +23,8 @@ export class WebSocketService {
           error: error => console.log(error),
         }), catchError(_ => EMPTY));
 
+        console.log(messages);
+        
     }
   }
 

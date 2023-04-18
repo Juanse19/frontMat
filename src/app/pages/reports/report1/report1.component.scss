@@ -10,4 +10,11 @@
     list-style: none;
     /* background-color: #e9ecef; */
     border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+
+.es::after {
+  content: "es";
+  display: none;
 }

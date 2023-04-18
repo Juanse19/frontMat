@@ -226,7 +226,7 @@ export class BhsSalidasComponent implements OnInit {
 
           this.deviceSpeed = `Velocidad parametrizada para este equipo.`;
           this.deviceConsumption = `Media del cálculo de potencia del equipo en el rango de una hora  `;
-          this.devicecounter = `Número de objetos que han sido identificado en el trasnportador`;
+          this.devicecounter = `Contador de objetos promedio de los transportadores en la zona`;
 
       });
   }

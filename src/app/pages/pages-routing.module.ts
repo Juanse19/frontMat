@@ -49,6 +49,12 @@ const routes: Routes = [{
         .catch( err => console.log('Oh no!', err)),
     },
     {
+      path: 'reports-pia',
+      loadChildren: () => import('./reports-pia/reports-pia.module')
+        .then(m => m.ReportsPiaModule)
+        .catch( err => console.log('Oh no!', err)),
+    },
+    {
       path: 'sita',
       loadChildren: () => import('./sita/sita.module')
         .then((m) => m.SitaModule)

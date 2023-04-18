@@ -17,6 +17,16 @@ import {
   NbCheckboxModule,
 } from "@nebular/theme";
 
+// Report viewer
+import '@boldreports/javascript-reporting-controls/Scripts/bold.report-viewer.min';
+// Report Designer
+import '@boldreports/javascript-reporting-controls/Scripts/bold.report-designer.min';
+
+// data-visualization
+import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.bulletgraph.min';
+import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
+import { BoldReportsModule } from '@boldreports/angular-reporting-components';
+
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
 import { Report1Component } from './report1/report1.component';
@@ -34,8 +44,10 @@ import { FlightReportComponent } from './flight-report/flight-report.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
+import { TabAllModule } from '@syncfusion/ej2-angular-navigations';
 
-
+import '@boldreports/global/l10n/ej.localetexts.es-ES.min.js';
+import '@boldreports/global/i18n/ej.culture.es-ES.min.js';
 @NgModule({
   declarations: [
     ReportsComponent, 
@@ -71,7 +83,9 @@ import { SearchPipe } from './pipes/search.pipe';
     NbCheckboxModule,
     ReportsRoutingModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BoldReportsModule,
+    TabAllModule
   ]
 })
 export class ReportsModule { }

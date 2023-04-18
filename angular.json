@@ -44,6 +44,7 @@
               "src/app/@theme/styles/styles.scss",
               "src/styles.css",
               "src/bootstrap4.css",
+              "./node_modules/@boldreports/javascript-reporting-controls/Content/bootstrap4/bold.reports.all.min.css",
               {
                 "input": "./src/estilos.css"
               }
@@ -136,7 +137,8 @@
               "node_modules/socicon/css/socicon.css",
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
-              "src/app/@theme/styles/styles.scss"
+              "src/app/@theme/styles/styles.scss",
+              "./node_modules/@boldreports/javascript-reporting-controls/Content/bootstrap4/bold.reports.all.min.css"
             ],
             "assets": [
               "src/assets",

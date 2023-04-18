@@ -32,6 +32,7 @@ import '@boldreports/javascript-reporting-controls/Scripts/bold.report-designer.
 // data-visualization
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.bulletgraph.min';
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
+import { BoldReportsModule } from '@boldreports/angular-reporting-components';
 import { BoldReportComponent } from './bold-report/bold-report.component';
 import { BoldReportViewerModule } from '@boldreports/angular-reporting-components';
 import { SeguimientoComponent } from './seguimiento/seguimiento.component';
@@ -46,6 +47,8 @@ import { Report8Component } from './report8/report8.component';
 import { Report9Component } from './report9/report9.component';
 import { Report10Component } from './report10/report10.component';
 
+import '@boldreports/global/l10n/ej.localetexts.es-ES.min.js';
+import '@boldreports/global/i18n/ej.culture.es-ES.min.js';
 @NgModule({
   declarations: [ReportsPiaComponent, BaggagedataComponent, PhotoelectricComponent, BhsFaultsComponent, BhsEventsComponent, EdsstatisticsComponent, AtrperformanceComponent, BagtagTrackingComponent, CbisThroughputComponent, BoldComponent, BoldReportComponent, SeguimientoComponent, Report1Component, Report2Component, Report3Component, Report4Component, Report5Component, Report6Component, Report7Component, Report8Component, Report9Component, Report10Component,],
   imports: [
@@ -68,6 +71,7 @@ import { Report10Component } from './report10/report10.component';
     ReactiveFormsModule,
     // BoldReportDesignerModule,
     BoldReportViewerModule,
+    BoldReportsModule
   ],
   providers: [PageService,
     SortService,

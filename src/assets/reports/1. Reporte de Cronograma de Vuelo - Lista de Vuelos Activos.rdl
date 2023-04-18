@@ -1,0 +1,2275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition">
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>12.43516cm</Height>
+        <ReportItems>
+          <Line Name="Line1">
+            <Left>0.34355cm</Left>
+            <Top>2.27459cm</Top>
+            <Height>0cm</Height>
+            <Width>28.23063cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="TextBox4">
+            <Left>1.04484cm</Left>
+            <Top>0.83264cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.64583cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Fecha fin</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox5">
+            <Left>1.04484cm</Left>
+            <Top>1.4941cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.64583cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Sector</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox9">
+            <Left>3.69068cm</Left>
+            <Top>1.4941cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.64583cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Format(Parameters!Mercado.Value)</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox10">
+            <Left>3.69068cm</Left>
+            <Top>0.83264cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.64583cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Format(Parameters!from.Value,"MM/dd/yyyy")</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox15">
+            <Left>1.04484cm</Left>
+            <Top>0.17119cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.64583cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Fecha inicio</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value />
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value />
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox16">
+            <Left>3.69068cm</Left>
+            <Top>0.17119cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.64583cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Format(Parameters!to.Value,"MM/dd/yyyy")</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value />
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox13">
+            <Left>26.98626cm</Left>
+            <Top>0.16991cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.22209cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Format(TimeOfDay(),"HH:mm")</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox14">
+            <Left>25.08663cm</Left>
+            <Top>0.16991cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.64583cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Format(Today(),"MM/dd/yyyy")</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox12">
+            <Left>22.44659cm</Left>
+            <Top>0.16991cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.37cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Fecha actual</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Tablix Name="Tablix2">
+            <Left>0.44979cm</Left>
+            <Top>2.65cm</Top>
+            <Height>1.65365cm</Height>
+            <Width>28.20874cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <Visibility>
+              <Hidden>false</Hidden>
+            </Visibility>
+            <DataSetName>Report01</DataSetName>
+            <SortExpressions>
+              <SortExpression>
+                <Value>=Fields!FechaVuelo.Value</Value>
+                <Direction>Ascending</Direction>
+              </SortExpression>
+              <SortExpression>
+                <Value>=Fields!Vuelo.Value</Value>
+                <Direction>Descending</Direction>
+              </SortExpression>
+              <SortExpression>
+                <Value>=Fields!Ruta.Value</Value>
+                <Direction>Descending</Direction>
+              </SortExpression>
+            </SortExpressions>
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>2.54cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.83048cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.2225cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.2225cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.01039cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.09021cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.98438cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.01008cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.61011cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.91206cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.91206cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.91206cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.95174cm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.99483cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox1">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>2.54cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Fecha</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox39">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>1.83047cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Vuelo</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox53">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>2.2225cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Ruta</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox51">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>2.2225cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>#d3d3d3</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Apertura</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <UserSort>
+                            <SortExpression>=Fields!TiempoVueloActivoApertura.Value</SortExpression>
+                          </UserSort>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox49">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>2.01039cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Cierre</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox47">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>2.09021cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>STD</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox41">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>1.98438cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>ETD</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox42">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>3.01009cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Aeronave</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox43">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>2.61011cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Sector</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox57">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>1.91206cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Maletas tempranas</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox59">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>1.91206cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Maletas puntuales</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox61">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>1.91206cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Maletas tardías</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox63">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.99483cm</Height>
+                          <Width>1.95174cm</Width>
+                          <Style>
+                            <BackgroundColor>#142e47</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Maletas perdidas</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>#ffffff</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.65793cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox2">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>2.54cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!FechaVuelo.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Format>MM/dd/yyyy</Format>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox40">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>1.83047cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Vuelo.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox54">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>2.2225cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Ruta.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox52">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>2.2225cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!TiempoVueloActivoApertura.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Format>HH:mm</Format>
+                                    <Color>black</Color>
+                                    <Language>es-HN</Language>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <UserSort />
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox50">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>2.01039cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!TiempoVueloActivoCierre.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Format>HH:mm</Format>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox48">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>2.09021cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!TiempoProgramadoSTD.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Format>HH:mm</Format>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox44">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>1.98438cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!TiempoProgramadoETD.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Format>HH:mm</Format>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox45">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>3.01009cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Aeronave.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox46">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>2.61011cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Mercado.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox58">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>1.91206cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Early.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox60">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>1.91206cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!OnTime.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox62">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>1.91206cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Late.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox64">
+                          <Left>0in</Left>
+                          <Top>0in</Top>
+                          <Height>0.65793cm</Height>
+                          <Width>1.95174cm</Width>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Missed.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontSize>0.35278cm</FontSize>
+                                    <Color>black</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                        </Textbox>
+                        <RowSpan>1</RowSpan>
+                        <ColSpan>1</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details1" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+          </Tablix>
+          <Textbox Name="TextBox19">
+            <Left>22.43667cm</Left>
+            <Top>0.84997cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.64583cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Vuelos Activos</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox20">
+            <Left>25.08209cm</Left>
+            <Top>0.84667cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.65cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=IIf(Parameters!vuelosActivos.Value=="1", "Todos", "Inactivos")</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox26">
+            <Left>25.20652cm</Left>
+            <Top>1.50771cm</Top>
+            <Height>0.66000cm</Height>
+            <Width>2.71cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=IIf(Str(Parameters!vuelosActivosSinAsignacion.Value)=="1", "Todos", "Inactivos")</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+          <Textbox Name="TextBox25">
+            <Left>22.46313cm</Left>
+            <Top>1.50771cm</Top>
+            <Height>0.66146cm</Height>
+            <Width>2.93654cm</Width>
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>0.35278cm</FontSize>
+              <PaddingLeft>0.07056cm</PaddingLeft>
+              <PaddingRight>0.07056cm</PaddingRight>
+              <PaddingTop>0.07056cm</PaddingTop>
+              <PaddingBottom>0.07056cm</PaddingBottom>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Vuelos Inactivos</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>0.35278cm</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>0.35278cm</FontSize>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+          </Textbox>
+        </ReportItems>
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>0.35278cm</FontSize>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Body>
+      <Width>29.28938cm</Width>
+      <Page>
+        <PageHeight>21.59cm</PageHeight>
+        <PageWidth>27.94cm</PageWidth>
+        <PageHeader>
+          <Height>1.74625cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Image Name="Image2">
+              <Left>0cm</Left>
+              <Top>0.21167cm</Top>
+              <Height>1.32292cm</Height>
+              <Width>3.96875cm</Width>
+              <Style>
+                <FontFamily>Segoe UI</FontFamily>
+                <FontSize>0.35278cm</FontSize>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+              <Visibility>
+                <Hidden>false</Hidden>
+              </Visibility>
+              <Source>External</Source>
+              <Value>C:\Users\mladmin\Pictures\Report img\MATEC l White Logo.png</Value>
+              <Sizing>FitProportional</Sizing>
+            </Image>
+            <Image Name="Image3">
+              <Left>25.63771cm</Left>
+              <Top>0.15586cm</Top>
+              <Height>1.37335cm</Height>
+              <Width>3.22749cm</Width>
+              <Style>
+                <FontFamily>Segoe UI</FontFamily>
+                <FontSize>0.35278cm</FontSize>
+                <Border>
+                  <Width>0.03528cm</Width>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+              <Visibility>
+                <Hidden>false</Hidden>
+              </Visibility>
+              <Source>External</Source>
+              <Value>C:\Users\mladmin\Pictures\Report img\Palme.png</Value>
+              <Sizing>FitProportional</Sizing>
+            </Image>
+            <Textbox Name="TextBox6">
+              <Left>9.15293cm</Left>
+              <Top>0.47377cm</Top>
+              <Height>0.82011cm</Height>
+              <Width>10.53042cm</Width>
+              <Style>
+                <FontFamily>Segoe UI</FontFamily>
+                <FontSize>0.35278cm</FontSize>
+                <PaddingLeft>0.07056cm</PaddingLeft>
+                <PaddingRight>0.07056cm</PaddingRight>
+                <PaddingTop>0.07056cm</PaddingTop>
+                <PaddingBottom>0.07056cm</PaddingBottom>
+                <Border>
+                  <Width>0.03528cm</Width>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!ReportName + Globals!PageName</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>0.42333cm</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>#ffffff</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <FontFamily>Segoe UI</FontFamily>
+                    <FontSize>0.35278cm</FontSize>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <BackgroundColor>#142e47</BackgroundColor>
+            <FontFamily>Segoe UI</FontFamily>
+            <FontSize>0.35278cm</FontSize>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageHeader>
+        <PageFooter>
+          <Height>1.85208cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <Style>
+            <BackgroundColor>#142e47</BackgroundColor>
+            <FontFamily>Segoe UI</FontFamily>
+            <FontSize>0.35278cm</FontSize>
+            <Border>
+              <Width>0.03528cm</Width>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
+        <InteractiveHeight>21.59cm</InteractiveHeight>
+        <InteractiveWidth>27.94cm</InteractiveWidth>
+        <LeftMargin>2.54cm</LeftMargin>
+        <RightMargin>2.54cm</RightMargin>
+        <TopMargin>2.54cm</TopMargin>
+        <BottomMargin>2.54cm</BottomMargin>
+        <ColumnSpacing>1.27cm</ColumnSpacing>
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>0.35278cm</FontSize>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundImage>
+            <Source>Embedded</Source>
+            <BackgroundRepeat>Default</BackgroundRepeat>
+          </BackgroundImage>
+        </Style>
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <DataSources>
+    <DataSource Name="Report1">
+      <rd:SecurityType>None</rd:SecurityType>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=10.120.18.11;Initial Catalog=MLIDB_BAG;user=mladmin;Password=Matec2021*;</ConnectString>
+      </ConnectionProperties>
+    </DataSource>
+    <DataSource Name="DataSource1">
+      <rd:SecurityType>None</rd:SecurityType>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=10.120.18.11;Initial Catalog=MLIDB_BAG;user=mladmin;Password=Matec2021*;</ConnectString>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="Report01">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>dbo.usp_GetReport01</CommandText>
+        <CommandType>StoredProcedure</CommandType>
+        <QueryParameters>
+          <QueryParameter Name="@to">
+            <Value>=Parameters!to.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@from">
+            <Value>=Parameters!from.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@sector">
+            <Value>=Parameters!Mercado.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@vuelosActivos">
+            <Value>=Parameters!vuelosActivos.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@vuelosActivosSinAsignacion">
+            <Value>=Parameters!vuelosActivosSinAsignacion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@erolinea">
+            <Value>=Parameters!erolinea.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <QueryDesignerState xmlns="http://schemas.microsoft.com/ReportingServices/QueryDefinition/Relational">
+          <StoredProcedure Name="usp_GetReport01" Schema="dbo">
+            <Parameters>
+              <SParameter Name="@to" IsNull="false" DataType="System.DateTime" Value="2022-06-07T05:00:00.000Z" />
+              <SParameter Name="@from" IsNull="false" DataType="System.DateTime" Value="2022-06-07T05:00:00.000Z" />
+              <SParameter Name="@sector" IsNull="false" DataType="System.String" Value="" />
+              <SParameter Name="@vuelosActivos" IsNull="false" DataType="System.String" Value="" />
+              <SParameter Name="@vuelosActivosSinAsignacion" IsNull="false" DataType="System.String" Value="" />
+              <SParameter Name="@erolinea" IsNull="false" DataType="System.String" Value="" />
+            </Parameters>
+            <SchemaLevels>
+              <SchemaInfo Name="dbo" SchemaType="Schema" />
+              <SchemaInfo Name="Procedures" SchemaType="Category" />
+              <SchemaInfo Name="usp_GetReport01" SchemaType="Procedure" />
+            </SchemaLevels>
+          </StoredProcedure>
+        </QueryDesignerState>
+      </Query>
+      <Fields>
+        <Field Name="Vuelo">
+          <DataField>Vuelo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Ruta">
+          <DataField>Ruta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaVuelo">
+          <DataField>FechaVuelo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="TiempoVueloActivoApertura">
+          <DataField>TiempoVueloActivoApertura</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="TiempoVueloActivoCierre">
+          <DataField>TiempoVueloActivoCierre</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="TiempoProgramadoSTD">
+          <DataField>TiempoProgramadoSTD</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="TiempoProgramadoETD">
+          <DataField>TiempoProgramadoETD</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Aeronave">
+          <DataField>Aeronave</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mercado">
+          <DataField>Mercado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Early">
+          <DataField>Early</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="OnTime">
+          <DataField>OnTime</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Late">
+          <DataField>Late</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Missed">
+          <DataField>Missed</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IsActive">
+          <DataField>IsActive</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IsAsignado">
+          <DataField>IsAsignado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>Report1</DataSourceName>
+        <CommandText>SELECT [dbo].[uv_GetReport01_Filter].[Vuelo],
+[dbo].[uv_GetReport01_Filter].[Mercado],
+[dbo].[uv_GetReport01_Filter].[ScheduledDate] FROM [dbo].[uv_GetReport01_Filter]
+where [dbo].[uv_GetReport01_Filter].[ScheduledDate] between @to and @from</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@to">
+            <Value>=Parameters!to.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@from">
+            <Value>=Parameters!from.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+      <Fields>
+        <Field Name="Vuelo">
+          <DataField>Vuelo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mercado">
+          <DataField>Mercado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ScheduledDate">
+          <DataField>ScheduledDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="FilterSector">
+      <Query>
+        <DataSourceName>Report1</DataSourceName>
+        <CommandText>SELECT [dbo].[uv_GetReport_Sector].[Mercado] FROM [dbo].[uv_GetReport_Sector]</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Mercado">
+          <DataField>Mercado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="to">
+      <DataType>DateTime</DataType>
+      <Prompt>Fecha Inicio</Prompt>
+      <DefaultValue>
+        <Values>
+          <Value>=Today()</Value>
+        </Values>
+      </DefaultValue>
+    </ReportParameter>
+    <ReportParameter Name="from">
+      <DataType>DateTime</DataType>
+      <Prompt>Fecha Fin</Prompt>
+      <DefaultValue>
+        <Values>
+          <Value>=Today()</Value>
+        </Values>
+      </DefaultValue>
+    </ReportParameter>
+    <ReportParameter Name="Mercado">
+      <DataType>String</DataType>
+      <Prompt>Sector</Prompt>
+      <DefaultValue>
+        <Values>
+          <Value>International</Value>
+        </Values>
+      </DefaultValue>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>FilterSector</DataSetName>
+          <ValueField>Mercado</ValueField>
+          <LabelField>Mercado</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="vuelosActivos">
+      <DataType>String</DataType>
+      <Prompt>Vuelos Activos</Prompt>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>Todos</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0</Value>
+            <Label>Inactivos</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="vuelosActivosSinAsignacion">
+      <DataType>String</DataType>
+      <Prompt>Vuelos Sin Asignacion</Prompt>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>Todos</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0</Value>
+            <Label>Sin Asignacion</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="erolinea">
+      <DataType>String</DataType>
+      <Prompt>Aerolinea y Vuelo</Prompt>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSet1</DataSetName>
+          <ValueField>Vuelo</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSet1</DataSetName>
+          <ValueField>Vuelo</ValueField>
+          <LabelField>Vuelo</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>to</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>from</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Mercado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>vuelosActivos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>vuelosActivosSinAsignacion</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>erolinea</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <CustomProperties>
+    <CustomProperty>
+      <Name>UniqueValueParameters</Name>
+      <Value>Mercado,vuelosActivos,vuelosActivosSinAsignacion,erolinea</Value>
+    </CustomProperty>
+  </CustomProperties>
+  <EmbeddedImages>
+    <EmbeddedImage Name="MATEC_l_White_Logo2">
+      <MIMEType>image/png</MIMEType>
+    </EmbeddedImage>
+    <EmbeddedImage Name="Palme2">
+      <MIMEType>image/png</MIMEType>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <Language>es-CO</Language>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:PageUnit />
+  <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
+</Report>

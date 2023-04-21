@@ -83,8 +83,6 @@ export class PagesComponent implements OnDestroy {
       .subscribe(menu => {
         this.menu = menu;
       });
-    // this.AutoLogoutCharge();
-    // this.test();
 
   }
 
@@ -126,7 +124,7 @@ export class PagesComponent implements OnDestroy {
             Swal.fire({
               title: `${msg.message}, Sesión encontrada`,
               text: "Desea cerrar la sesión",
-              timer: 4000,
+              timer: 10000,
               icon: "success",
               showCancelButton: true,
               confirmButtonColor: "#d33",

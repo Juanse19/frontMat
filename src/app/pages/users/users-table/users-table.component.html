@@ -16,7 +16,7 @@
     <nb-card-body>
         
         <div>
-            <button nbButton status="primary" type="submit" (click)="add()" class="btn btn-primary" style="text-transform: none;">Agregar usuario </button>
+            <button nbButton status="primary" type="submit" (click)="add()" class="btn btn-primary" style="text-transform: none;" *ngIf="access?.includes('user.create')">Agregar usuario </button>
             </div>
             <br>
 

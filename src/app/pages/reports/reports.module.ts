@@ -25,6 +25,7 @@ import '@boldreports/javascript-reporting-controls/Scripts/bold.report-designer.
 // data-visualization
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.bulletgraph.min';
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
+
 import { BoldReportsModule } from '@boldreports/angular-reporting-components';
 
 import { ReportsRoutingModule } from './reports-routing.module';

@@ -186,7 +186,7 @@
             </div>
         </div>
 
-        <div class="form-group" [formGroup]="userForm" *ngIf="!ocultar" >
+        <div class="form-group" [formGroup]="userForm" *ngIf="!hideLicens" >
             <label for="licens">Asignación de licencia</label>
             <br />
             <nb-select style="width: 190%; border: 1px solid #ccc;" id="licens" placeholder="Licencia" formControlName="licens"  [status]="(licens.hasError('minlength') || licens.hasError('maxlength')) ? 'danger' : 'primary'" [(selected)]="selectedLis">
@@ -209,7 +209,7 @@
 
         </div> -->
         
-        <div class="form-group" [formGroup]="userForm" *ngIf="!ocultar">
+        <div class="form-group" [formGroup]="userForm" *ngIf="!hideState">
             <label for="state">Activación usuarios </label>
             <br />
             <nb-select style="width: 190%; border: 1px solid #ccc;" id="state" placeholder="Activar usuario" formControlName="state" [attr.disabled]="select" [status]="(state?.hasError('minlength') || state?.hasError('maxlength')) ? 'danger' : 'primary'" [(selected)]="selectedState">
@@ -227,9 +227,11 @@
 </div>
     </nb-card-body>
     <nb-card-footer *ngIf="!mostrar">
+        <button nbButton status="info" style="text-transform: none;" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero>Atras</button>
+
         <button nbButton status="primary" style="text-transform: none;" *ngIf="!mostrar" [disabled]="!userForm.valid || password.value != confirmPassword.value || isPasswordRequired.value" (click)="save()"
             hero>Guardar</button>
-        <button nbButton status="info" style="text-transform: none;" *ngIf="!mostrar" [disabled]="select" (click)="back()" hero>Atras</button>
+        
         <button nbButton status="success"  style="background-color: blue-200; text-transform: none;" *ngIf="!ocultar" [disabled]="select"  (click)="changepass()" hero>Cambiar contraseña</button>
     </nb-card-footer>
   </nb-card>

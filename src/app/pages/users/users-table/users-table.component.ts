@@ -6,7 +6,7 @@
 
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 
-import { takeWhile } from 'rxjs/operators';
+import { takeUntil, takeWhile } from 'rxjs/operators';
 import { UserData } from '../../../@core/interfaces/common/users';
 import { NbToastrService } from '@nebular/theme';
 import { Router } from '@angular/router';
@@ -23,6 +23,9 @@ import { ChangeEventArgs, DropDownListComponent } from '@syncfusion/ej2-angular-
 import { LocalDataSource } from 'ng2-smart-table';
 import { UsersService } from '../../../@core/backend/common/services/users.service'
 import { User } from '../../../@core/interfaces/common/users'
+import { NbAuthService } from '@nebular/auth';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 interface UserChange {
   id: number,
@@ -44,7 +47,7 @@ interface UserChange {
 export class UsersTableComponent implements OnDestroy {
 
   private alive = true;
-
+  protected ngUnsubscribe: Subject<void> = new Subject<void>();
   public editSettings: Object;
   public toolbar: ToolbarItems[] | object;
   public editparams: Object;
@@ -58,6 +61,7 @@ export class UsersTableComponent implements OnDestroy {
   public grid: GridComponent;
 
   public source: DataSource;
+  public access?: any;
 
   constructor(
     private usersService: UserData,
@@ -66,9 +70,16 @@ export class UsersTableComponent implements OnDestroy {
     private toastrService: NbToastrService,
     private userStore: UserStore,
     private api: HttpService,
-    private apiGetComp: ApiGetService
+    private apiGetComp: ApiGetService,
+    private authService: NbAuthService,
+    private http: HttpClient,
   ) {
     this.loadData();
+    this.authService.getToken()
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res:any) => {
+        this.access = res.accessTokenPayload.user.access;
+      });
   }
 
   ngOnInit(): void {
@@ -129,12 +140,14 @@ export class UsersTableComponent implements OnDestroy {
   }
 
   users() {
-    this.apiGetComp.GetJson(this.api.apiUrlNode1 + '/api/users')
-      .pipe(takeWhile(() => this.alive))
+    this.http.get(`${this.api.apiUrl}/users`)
+    .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((res: any) => {
+        //  console.log("Users: ", res);
+        let datav = res.items ? res.items : res.Users;
+        this.userData = datav;
+        // console.log("Users: ", this.userData);
 
-        this.userData = res
-        console.log("Users: ", this.userData);
       });
   }
 
@@ -148,14 +161,23 @@ export class UsersTableComponent implements OnDestroy {
 
   actionBegin(args) {
     if (args.requestType == 'beginEdit') {
-      // console.log('Editar');
-      // console.log('Type edit: ', args.rowData.id);
-      this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
       args.cancel = true;
+      if (this.access?.includes('user.edit')) {
+        this.router.navigate([`/pages/users/edit/${args.rowData.id}`]);
+        args.cancel = true;
+      }
     }
     if ((args.requestType === 'delete')) {
-      const Id = 'Id';
-      // console.log('Type Delete: ', args.data[0].id);
+      args.cancel = true;
+      
+      if (this.access?.includes('user.delete')) {
+        const Id = 'Id';
+        const { id } = args.data[0]
+
+      if (args.data[0].id === this.userStore.getUser().id) {
+        return Swal.fire('Error', 'No puede borrar el usuario logueado', 'error');
+      }
+
       Swal.fire({
         title: '¿Estás seguro que quieres eliminar el Usuario?',
         text: `¡Se eliminará el usuario!`,
@@ -172,26 +194,22 @@ export class UsersTableComponent implements OnDestroy {
             .delete(args.data[0].id)
             .pipe(takeWhile(() => this.alive))
             .subscribe((res) => {
-              const currentUserId = this.userStore.getUser().id;
-              const currentUser = this.userStore.getUser().firstName;
-              // console.log("este es el usuario: ",this.userStore.getUser().firstName);
-              var respons =
-              {
-                user: currentUser,
-                message: "Elimino un usuario",
-                users: currentUserId,
-              };
-              this.apiGetComp.PostJson(this.api.apiUrlNode1 + '/postSaveAlarmUser', respons)
-                .pipe(takeWhile(() => this.alive))
-                .subscribe((res: any) => {
-                  //  console.log("Envió: ", res);
-                  this.users();
+              this.changeUser();
 
-                  args.cancel = false;
-                });
+              Swal.fire({
+                title: 'Se eliminó exitosamente',
+                icon: 'success',
+                timer: 2500,
+              });
 
-              Swal.fire('Se eliminó exitosamente');
-
+            }, err => {
+              console.log(err)
+              Swal.fire({
+                title: 'Hubo un error',
+                text: "Intentelo nuevamente",
+                icon: 'error',
+                timer: 2500,
+              });
             });
         }
 
@@ -199,6 +217,7 @@ export class UsersTableComponent implements OnDestroy {
       });
       args.cancel = true;
     }
+  }
 
   }
 

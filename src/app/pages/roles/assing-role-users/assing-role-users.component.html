@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card style="height: 100vh;">
     <nb-card-header>
         <h3>Asignar roles a usuarios</h3>
     </nb-card-header>
@@ -11,7 +11,7 @@
                     </h3>
                 </div>
                 <div *ngIf="userInfo" class="card-body">
-                    <p class="card-text">Nombre: {{userInfo.Usuario}}</p>
+                    <p class="card-text" style="margin-left: 0.2rem;">Nombre: {{userInfo.Usuario}}</p>
                     <p class="card-text">Roles: {{userInfo.Role}}</p>
                 </div>
             </div>
@@ -50,13 +50,18 @@
 
             </div>
         </div>
+        <div class="modal-footer footer-licens">
+            <button nbButton status="info" routerLink="/pages/roles/user-roles" hero style="text-transform: none;">Atras</button>
+            <button nbButton status="primary" hero (click)="assingRolesToUsers()"
+                [disabled]="isAvailable(rolesForm)" style="text-transform: none;">Guardar</button>
+          </div>
     </nb-card-body>
-    <nb-card-footer>
+    <!-- <nb-card-footer>
         <button nbButton status="info" routerLink="/pages/roles/user-roles" hero style="text-transform: none;">Atras</button>
         <button nbButton status="primary" hero (click)="assingRolesToUsers()"
             [disabled]="isAvailable(rolesForm)" style="text-transform: none;">Guardar</button>
         
-    </nb-card-footer>
+    </nb-card-footer> -->
 </nb-card>
 
 <!-- [disabled]="isAvailable(rolesForm)" -->

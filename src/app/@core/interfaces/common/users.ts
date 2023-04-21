@@ -17,7 +17,7 @@ export interface User {
   name?: string;
   age: number;
   states?: number;
-  licens_id: number;
+  licens_id?: number;
   login: string;
   picture: string;
   address: Address;

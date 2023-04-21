@@ -211,7 +211,7 @@ export class NgxLoginComponent implements OnInit {
 
             //   if (this.isLoading = true) {
             //     console.log("Sesión finalizada login");
-            //   // this.socketService.sendMessage({ route: "changeSession", changeSession: true, email: this.loginForm.value.email });
+            //   this.socketService.sendMessage({ route: "changeSession", changeSession: true, email: this.loginForm.value.email });
             //   localStorage.clear();
             //   // this.isLoading = false;
             //   this.socketService.sendMessage({ route: "logoutUser", email: this.loginForm.value.email });
@@ -369,10 +369,13 @@ export class NgxLoginComponent implements OnInit {
 
   startTimeout() {
     this.timeoutId = setTimeout(() => {
+      this.isLoading = false;
+      this.socketService.sendMessage({ route: "changeSession", changeSession: true, email: this.loginForm.value.email });
       localStorage.clear();
       this.socketService.sendMessage({ route: "logoutUser", email: this.loginForm.value.email });
-      console.log('Este mensaje se muestra después de 5 segundos');
-    }, 4000);
+      Swal.close();
+      console.log('Este mensaje se muestra después de 10 segundos');
+    }, 10000);
   }
 
   stopTimeout() {

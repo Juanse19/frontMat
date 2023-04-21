@@ -12,18 +12,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, takeWhile} from 'rxjs/operators';
+import { takeUntil, takeWhile } from 'rxjs/operators';
 
 import { NbToastrService } from '@nebular/theme';
 
-import {User, UserData} from '../../../@core/interfaces/common/users';
-import {EMAIL_PATTERN, NgxResetPasswordComponent, NUMBERS_PATTERN} from '../../../@auth/components';
-import {NbAuthOAuth2JWTToken, NbTokenService} from '@nebular/auth';
-import {UserStore} from '../../../@core/stores/user.store';
+import { User, UserData } from '../../../@core/interfaces/common/users';
+import { EMAIL_PATTERN, NgxResetPasswordComponent, NUMBERS_PATTERN } from '../../../@auth/components';
+import { NbAuthOAuth2JWTToken, NbTokenService } from '@nebular/auth';
+import { UserStore } from '../../../@core/stores/user.store';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
-import {ApiGetService} from '../../../@auth/components/register/apiGet.services';
+import { ApiGetService } from '../../../@auth/components/register/apiGet.services';
 import { NbAccessChecker } from '@nebular/security';
-import * as crypto from 'crypto-js'; 
+import * as crypto from 'crypto-js';
 import { getDeepFromObject } from '../../../@auth/helpers';
 import { NB_AUTH_OPTIONS, NbAuthSocialLink, NbAuthService, NbAuthResult } from '@nebular/auth';
 import { HttpClient } from '@angular/common/http';
@@ -57,7 +57,7 @@ let LICENS: licen[] = [
 
 ];
 
-let LICENDa: licen; 
+let LICENDa: licen;
 
 let IDLICEN: number;
 
@@ -82,24 +82,27 @@ export class UserComponent implements OnInit, OnDestroy {
   selectedRole;
   selectedLis;
   selectedState;
-  listaRoles:Roles[]=[];
-  listaLicens:states[]=[];
-  listaUsers:states[]=[];
-  licenTotalData: licen[]=[];
+  listaRoles: Roles[] = [];
+  listaLicens: states[] = [];
+  listaUsers: states[] = [];
+  licenTotalData: licen[] = [];
   licData = IDLICEN;
   licenAcitveTotalData: any;
   public select = false;
   public selectLicen: Boolean;
   private alive = true;
   mostrar: Boolean;
-  ocultar: Boolean;
+  ocultar: boolean;
+  hideState: boolean;
+  hideLicens: boolean;
   isDisabled: Boolean;
   desPass: string = 'Matec2021*';
-  
+  public access?: any;
+
   minLength: number = this.getConfigValue('forms.validation.password.minLength');
   maxLength: number = this.getConfigValue('forms.validation.password.maxLength');
   isPasswordRequired: boolean = this.getConfigValue('forms.validation.password.required');
-  
+
 
   protected readonly unsubscribe$ = new Subject<void>();
 
@@ -108,7 +111,7 @@ export class UserComponent implements OnInit, OnDestroy {
   get lastName() { return this.userForm.get('lastName'); }
 
   get login() { return this.userForm.get('login'); }
-  
+
   get role() { return this.userForm.get('role'); }
 
   get email() { return this.userForm.get('email'); }
@@ -129,7 +132,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   get zipCode() { return this.userForm.get('address').get('zipCode'); }
 
-  
+
 
   mode: UserFormMode;
   setViewMode(viewMode: UserFormMode) {
@@ -137,62 +140,71 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-              public accessChecker: NbAccessChecker,
-              @Inject(NB_AUTH_OPTIONS) protected options = {},
-              private usersService: UserData,
-              private router: Router,
-              private route: ActivatedRoute,
-              private tokenService: NbTokenService,
-              private userStore: UserStore,
-              private toasterService: NbToastrService,
-              private fb: FormBuilder,
-              private httpService: HttpService,
-              private apiGetComp: ApiGetService,
-              private api: HttpService,
-              private http: HttpClient,
-              public resetPassword: NgxResetPasswordComponent) {
+    public accessChecker: NbAccessChecker,
+    @Inject(NB_AUTH_OPTIONS) protected options = {},
+    private usersService: UserData,
+    private router: Router,
+    private route: ActivatedRoute,
+    private tokenService: NbTokenService,
+    private userStore: UserStore,
+    private toasterService: NbToastrService,
+    private fb: FormBuilder,
+    private httpService: HttpService,
+    private apiGetComp: ApiGetService,
+    private api: HttpService,
+    private http: HttpClient,
+    public resetPassword: NgxResetPasswordComponent,
+    private authService: NbAuthService,) {
 
-                this.http.get(this.api.apiUrlNode +'/api/getvalidation')
-                .pipe(takeWhile(() => this.alive))
-                .subscribe((res: any) => {
-                  this.licenAcitveTotalData=res[0]?.Licens_id;
-                  console.log('getvalidation', this.licenAcitveTotalData);
-                });
+      this.authService.getToken()
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res:any) => {
+        this.access = res.accessTokenPayload.user.email;
+        console.log('access', this.access);
+        
+      });
 
-                this.http.get(this.api.apiUrlNode +'/api/getroles')
-                .pipe(takeWhile(() => this.alive))
-                .subscribe((res: any) => {
-                  // console.log('getroles', this.listaRoles);
-                  this.listaRoles=res;
-                });
+    this.http.get(this.api.apiUrlNode + '/api/getvalidation')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.licenAcitveTotalData = res[0]?.Licens_id;
+        console.log('getvalidation', this.licenAcitveTotalData);
+      });
 
-                this.http.get(this.api.apiUrlNode +'/api/getuserstate')
-                .pipe(takeWhile(() => this.alive))
-                .subscribe((res: any) => {
-                  // console.log('getuserstate', this.listaLicens);
-                  this.listaUsers=res;
-                  this.listaLicens=res;
-                });
+    this.http.get(this.api.apiUrlNode + '/api/getroles')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        // console.log('getroles', this.listaRoles);
+        this.listaRoles = res;
+      });
 
-                this.apiGetComp.GetJson(this.api.apiUrlNode +'/api/getlicenses').subscribe((res: any) => {
-                  // console.log('getlicenses', this.licData);
-                  this.licData = crypto.AES.decrypt(res[0].Value.trim(), this.desPass.trim()).toString(crypto.enc.Utf8);
-                  
-                });
+    this.http.get(this.api.apiUrlNode + '/api/getuserstate')
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        // console.log('getuserstate', this.listaLicens);
+        this.listaUsers = res;
+        this.listaLicens = res;
+      });
 
-                
-                
-                // this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
-                //   if(res){ 
-                //     this.select = false;
-                //     this.mostrar = false;
-                //   }else {
-                //     this.select=true;
-                //     this.mostrar=true;
-                //     this.selectLicen = true;
-                //     this.isDisabled = true;
-                //   }
-                // });
+    this.apiGetComp.GetJson(this.api.apiUrlNode + '/api/getlicenses').subscribe((res: any) => {
+      // console.log('getlicenses', this.licData);
+      this.licData = crypto.AES.decrypt(res[0].Value.trim(), this.desPass.trim()).toString(crypto.enc.Utf8);
+
+    });
+
+
+
+    // this.accessChecker.isGranted('edit', 'users').subscribe((res: any) => {
+    //   if(res){ 
+    //     this.select = false;
+    //     this.mostrar = false;
+    //   }else {
+    //     this.select=true;
+    //     this.mostrar=true;
+    //     this.selectLicen = true;
+    //     this.isDisabled = true;
+    //   }
+    // });
   }
 
   ngOnInit(): void {
@@ -228,14 +240,14 @@ export class UserComponent implements OnInit, OnDestroy {
         city: this.fb.control(''),
         zipCode: this.fb.control(''),
       }),
-    }); 
+    });
   }
 
   get canEdit(): boolean {
     return this.mode !== UserFormMode.VIEW;
   }
 
-  
+
 
   loadUserData() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -248,128 +260,129 @@ export class UserComponent implements OnInit, OnDestroy {
         // const currentUserId = this.userStore.getUser().id;
         // this.setViewMode(currentUserId.toString() === id ? UserFormMode.EDIT_SELF : UserFormMode.EDIT);
         this.loadUser(id);
+        this.hideLicens = this.access == 'mladmin@matec.com.co' ?  false : true
       } else {
         this.setViewMode(UserFormMode.ADD);
-        this.ocultar=true;
-        
+        this.hideLicens = true 
+        this.ocultar = true;
+        this.hideState = true
       }
     }
   }
 
   loadUser(id?) {
     console.log(id);
-    
+
     const loadUser = this.mode === UserFormMode.EDIT_SELF
       ? this.usersService.getCurrentUser() : this.usersService.get(id);
     loadUser
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((user) => { 
+      .subscribe((user) => {
         // debugger
-        if(user.licens_id === null )
-          {
-            this.apiGetComp.GetJson(this.api.apiUrlNode +'/userrole/getrolebyuser?idUser='+user.id)
+        if (user.licens_id === null) {
+          this.apiGetComp.GetJson(this.api.apiUrlNode + '/userrole/getrolebyuser?idUser=' + user.id)
             .pipe(takeWhile(() => this.alive))
             .subscribe((res: any) => {
               // console.log('data Rols: ', res);
               console.log('si');
               if (res == undefined) {
                 return user.role = '';
-              }  
+              }
               else if (res.length == 0) {
                 // console.log('No hay rol');
               }
               else {
-                user.role=res[0].name;
+                user.role = res[0].name;
               }
               // debugger
-              if (this.licenAcitveTotalData >= this.licData || user.licens_id == undefined ) {
+              if (this.licenAcitveTotalData >= this.licData || user.licens_id == undefined) {
                 // console.log('no tienes mas licencias');
                 if (user.licens_id == 2) {
-                  this.selectLicen=true;
+                  this.selectLicen = true;
                 } else if (user.licens_id == undefined) {
-                  this.selectLicen=true;
+                  this.selectLicen = true;
                 } else if (user.licens_id == 0) {
-                  this.selectLicen=true;
+                  this.selectLicen = true;
                 }
-                
-              } 
+
+              }
 
               // console.log('data rol:', user.role);
               // console.log('data rol:', user.role, 'DataLicens:', user.licens_id);
-             
-            this.userForm.setValue({
-              id: user.id ? user.id : '',
-              // role: user.role ? user.role : '',
-              firstName: user.firstName ? user.firstName : '',
-              lastName: user.lastName ? user.lastName : '',
-              login: user.login ? user.login : '',
-              age: user.age ? user.age : '',
-              state: user.states ? user.states : '',
-              licens: user.licens_id ? user.licens_id : '',
-              email: user.email,
-              
-              address: {
-                street: (user.address && user.address.street) ? user.address.street : '',
-                city: (user.address && user.address.city) ? user.address.city : '',
-                zipCode: (user.address && user.address.zipCode) ? user.address.zipCode : '',
-              },
-            });
-          },
-        );
-          }  else {
-            // }
-            // this.apiGetComp.GetJson(this.api.apiUrlNode +'/userrole/getrolebyuser?idUser='+user.id)
-            // .pipe(takeWhile(() => this.alive))
-            // .subscribe((res: any) => {
-          
-              console.log('no');
-              console.log('licenAcitveTotalData', this.licenAcitveTotalData, 'licData', this.licData);
-              
-              
-              // if (res == undefined) {
-              //   return user.role = '';
-              // }  
-              // else if (res.length == 0) {
-              
-              // }
-              // else {
-              //   user.role=res[0].name;
-              // }
-              if (this.licenAcitveTotalData >= this.licData) {
-               
-                if (user.licens_id == 2) {
-                  this.selectLicen=true;
-                  this.userForm.controls.licens.disable();
-                } else if (user.licens_id == undefined) {
-                  this.selectLicen=true;
-                } else if (user.licens_id == 0) {
-                  this.selectLicen=true;
-                }
-                
-              }  
 
-            this.userForm.setValue({
-              id: user.id ? user.id : '',
-              // role: user.role ? user.role : '',
-              firstName: user.firstName ? user.firstName : '',
-              lastName: user.lastName ? user.lastName : '',
-              login: user.login ? user.login : '',
-              age: user.age ? user.age : 0,
-              state: user.states ? user.states : '',
-              licens: user.licens_id ? user.licens_id : '',
-              email: user.email,
-              password: '123456',
-              confirmPassword: '123456',
-              address: {
-                street: (user.address && user.address.street) ? user.address.street : '',
-                city: (user.address && user.address.city) ? user.address.city : '',
-                zipCode: (user.address && user.address.zipCode) ? user.address.zipCode : '',
-              },
-            });
+              this.userForm.setValue({
+                id: user.id ? user.id : '',
+                // role: user.role ? user.role : '',
+                firstName: user.firstName ? user.firstName : '',
+                lastName: user.lastName ? user.lastName : '',
+                login: user.login ? user.login : '',
+                age: user.age ? user.age : '',
+                state: user.states ? user.states : '',
+                licens: user.licens_id ? user.licens_id : '',
+                email: user.email,
+
+                address: {
+                  street: (user.address && user.address.street) ? user.address.street : '',
+                  city: (user.address && user.address.city) ? user.address.city : '',
+                  zipCode: (user.address && user.address.zipCode) ? user.address.zipCode : '',
+                },
+              });
+            },
+            );
+        } else {
+          // }
+          // this.apiGetComp.GetJson(this.api.apiUrlNode +'/userrole/getrolebyuser?idUser='+user.id)
+          // .pipe(takeWhile(() => this.alive))
+          // .subscribe((res: any) => {
+
+          console.log('no');
+          console.log('licenAcitveTotalData', this.licenAcitveTotalData, 'licData', this.licData);
+
+
+          // if (res == undefined) {
+          //   return user.role = '';
+          // }  
+          // else if (res.length == 0) {
+
+          // }
+          // else {
+          //   user.role=res[0].name;
+          // }
+          if (this.licenAcitveTotalData >= this.licData) {
+
+            if (user.licens_id == 2) {
+              this.selectLicen = true;
+              this.userForm.controls.licens.disable();
+            } else if (user.licens_id == undefined) {
+              this.selectLicen = true;
+            } else if (user.licens_id == 0) {
+              this.selectLicen = true;
+            }
+
+          }
+
+          this.userForm.setValue({
+            id: user.id ? user.id : '',
+            // role: user.role ? user.role : '',
+            firstName: user.firstName ? user.firstName : '',
+            lastName: user.lastName ? user.lastName : '',
+            login: user.login ? user.login : '',
+            age: user.age ? user.age : 0,
+            state: user.states ? user.states : '',
+            licens: user.licens_id ? user.licens_id : '',
+            email: user.email,
+            password: '123456',
+            confirmPassword: '123456',
+            address: {
+              street: (user.address && user.address.street) ? user.address.street : '',
+              city: (user.address && user.address.city) ? user.address.city : '',
+              zipCode: (user.address && user.address.zipCode) ? user.address.zipCode : '',
+            },
+          });
           // },
-        // );
-     }
-  
+          // );
+        }
+
       });
   }
 
@@ -379,109 +392,131 @@ export class UserComponent implements OnInit, OnDestroy {
     return user;
   }
 
-  changepass(){
-    this.router.navigate(['/auth/reset-password/'+this.userForm.value.id]);
+  changepass() {
+    this.router.navigate(['/auth/reset-password/' + this.userForm.value.id]);
   }
 
   save() {
     const user: User = this.convertToUser(this.userForm.value);
-  
-    console.log(user);
+
+    console.log('convertToUser', this.convertToUser(this.userForm.value));
     
-    
+    console.log('user', user);
+
+    let userCreate: any 
+    userCreate = { 
+      id: this.userForm.value.id, 
+      licens:1, 
+      states:1, 
+      firstName: this.userForm.value.firstName, 
+      lastName: this.userForm.value.lastName, 
+      login: this.userForm.value.login, 
+      age:0, 
+      email: this.userForm.value.email, 
+      password: this.userForm.value.password,
+      confirmPassword: this.userForm.value.confirmPassword, 
+      address: { 
+        street:"", 
+        city:"", 
+        zipCode:""} 
+      } 
+
+      console.log('userCreate', userCreate);
+      
+
     if (this.licenAcitveTotalData >= this.licData) {
- 
+
       if (user.licens_id == 2) {
-        this.selectLicen=true;
+        this.selectLicen = true;
       }
     } else {
       console.log('aun tenes licencias');
-      
+
     }
 
     let observable = new Observable<User>();
     if (this.mode === UserFormMode.EDIT_SELF) {
-      
-    //   const currentUserId = this.userStore.getUser().id;
-    //   const currentUser = this.userStore.getUser().firstName;
 
-    //   var respons = 
-    //     {
-    //         user: currentUser,
-    //         message:"Edito usuario", 
-    //         users: currentUserId,
-    // };
-    //   this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
-    //     .pipe(takeWhile(() => this.alive))
-    //     .subscribe((res: any) => {
-       
-    //       }); 
-          
-          
+      //   const currentUserId = this.userStore.getUser().id;
+      //   const currentUser = this.userStore.getUser().firstName;
+
+      //   var respons = 
+      //     {
+      //         user: currentUser,
+      //         message:"Edito usuario", 
+      //         users: currentUserId,
+      // };
+      //   this.apiGetComp.PostJson(this.api.apiUrlNode + '/postSaveAlarmUser', respons)
+      //     .pipe(takeWhile(() => this.alive))
+      //     .subscribe((res: any) => {
+
+      //       }); 
+
+
 
       this.usersService.updateCurrent(user)
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((result: any) => {   
-      
-    //   this.apiGetComp.PostJson(this.api.apiUrlNode + '/update', user)
-    //   .pipe(takeWhile(() => this.alive))
-    //   .subscribe((res: any) => {
-        
-    //   });
-     
-    //   var respon = 
-    //   {
-    //       user: user.id,
-    //       sesion: 0, 
-          
-    // };
-    // this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respon)
-    //   .pipe(takeWhile(() => this.alive))
-    //   .subscribe((res: any) => {
-      
-    //     });
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((result: any) => {
 
-        // var userRole = {
-        //   IdUser:user.id,
-        //   Role:user.role
-        // };
-        // this.apiGetComp.PostJson(this.api.apiUrlNode + '/userrole/postupdateroleuser',userRole)
-        // .pipe(takeWhile(() => this.alive))
-        // .subscribe();
+          //   this.apiGetComp.PostJson(this.api.apiUrlNode + '/update', user)
+          //   .pipe(takeWhile(() => this.alive))
+          //   .subscribe((res: any) => {
+
+          //   });
+
+          //   var respon = 
+          //   {
+          //       user: user.id,
+          //       sesion: 0, 
+
+          // };
+          // this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respon)
+          //   .pipe(takeWhile(() => this.alive))
+          //   .subscribe((res: any) => {
+
+          //     });
+
+          // var userRole = {
+          //   IdUser:user.id,
+          //   Role:user.role
+          // };
+          // this.apiGetComp.PostJson(this.api.apiUrlNode + '/userrole/postupdateroleuser',userRole)
+          // .pipe(takeWhile(() => this.alive))
+          // .subscribe();
           // this.tokenService.set(new NbAuthOAuth2JWTToken(result, 'email', new Date()));
           this.handleSuccessResponse();
         },
-        err => {
-          this.handleWrongResponse();
-        });
+          err => {
+            this.handleWrongResponse();
+          });
     } else {
       observable = user.id
         ? this.usersService.update(user)
-        : this.usersService.create(user);
+        : this.usersService.create(userCreate);
     }
 
     observable
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => {
-        
-      // this.apiGetComp.PostJson(this.api.apiUrlNode + '/update', user)
-      // .pipe(takeWhile(() => this.alive))
-      // .subscribe((res: any) => {
-        
-      // });
 
-      
-    //   var respon = 
-    //   {
-    //       user: user.id,
-    //       sesion: 0, 
-          
-    // };
-    // this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respon)
-    //   .pipe(takeWhile(() => this.alive))
-    //   .subscribe((res: any) => {
-    //   //  console.log("Envió: ", res);
-    //     });
+        // this.apiGetComp.PostJson(this.api.apiUrlNode + '/update', user)
+        // .pipe(takeWhile(() => this.alive))
+        // .subscribe((res: any) => {
+
+        // });
+
+
+        //   var respon = 
+        //   {
+        //       user: user.id,
+        //       sesion: 0, 
+
+        // };
+        // this.apiGetComp.PostJson(this.api.apiUrlNode + '/updateSesion', respon)
+        //   .pipe(takeWhile(() => this.alive))
+        //   .subscribe((res: any) => {
+        //   //  console.log("Envió: ", res);
+        //     });
 
         // var userRole = {
         //   IdUser:user.id,
@@ -493,10 +528,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
         this.handleSuccessResponse();
       },
-      err => {
-      this.handleWrongResponse();
-    });
-  // }
+        err => {
+          this.handleWrongResponse();
+        });
+    // }
   }
 
   handleSuccessResponse() {
@@ -509,7 +544,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   back() {
-    
+
     this.router.navigate(['/pages/users/list']);
   }
 

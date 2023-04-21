@@ -23,3 +23,13 @@
 button[nbButton] {
     margin: 0.25rem;
   }
+
+  .footer-licens {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+  }

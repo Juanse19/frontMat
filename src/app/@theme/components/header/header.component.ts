@@ -265,28 +265,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
          this.count();
 
-        if (
-          msg.payload === 0 ||
-          msg.payload === 1 ||
-          msg.payload === 2 ||
-          msg.payload === 6 ||
-          msg.payload === 21
-        ) {
-          let duration = 6000;
-          this.toastrService.success(msg.topic, msg.message, { duration });
-        } else if (msg.payload === 3 || msg.payload === 9) {
-          let duration = 6000;
-          this.toastrService.danger(msg.topic, msg.message, { duration });
-        } else if (
-          msg.payload === 4 ||
-          msg.payload === 4 ||
-          msg.payload === 7 ||
-          msg.payload === 8 ||
-          msg.payload === 20
-        ) {
-          let duration = 6000;
-          this.toastrService.warning(msg.topic, msg.message, { duration });
-        }
+        // if (
+        //   msg.payload === 0 ||
+        //   msg.payload === 1 ||
+        //   msg.payload === 2 ||
+        //   msg.payload === 6 ||
+        //   msg.payload === 21
+        // ) {
+        //   let duration = 6000;
+        //   this.toastrService.success(msg.topic, msg.message, { duration });
+        // } else if (msg.payload === 3 || msg.payload === 9) {
+        //   let duration = 6000;
+        //   this.toastrService.danger(msg.topic, msg.message, { duration });
+        // } else if (
+        //   msg.payload === 4 ||
+        //   msg.payload === 4 ||
+        //   msg.payload === 7 ||
+        //   msg.payload === 8 ||
+        //   msg.payload === 20
+        // ) {
+        //   let duration = 6000;
+        //   this.toastrService.warning(msg.topic, msg.message, { duration });
+        // }
       },
       (err) => {
         this.toastrService.danger(err.type, "Error de conexión del WebSocket", {

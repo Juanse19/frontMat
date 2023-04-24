@@ -231,7 +231,7 @@ export class WindowComponent implements OnInit {
 
           this.deviceSpeed = `Velocidad parametrizada para este equipo.`;
           this.deviceConsumption = `Media del cálculo de potencia del equipo en el rango de una hora  `;
-          this.devicecounter = `Contador de objetos promedio de los transportadores en la zona`;
+          this.devicecounter = `Contador de objetos en el equipo en un día`;
         }
       },
         err => console.log('Error', err));

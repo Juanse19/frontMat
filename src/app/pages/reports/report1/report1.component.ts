@@ -90,7 +90,7 @@ export class Report1Component implements OnInit {
     // console.log('NameReport', `/XPL_V1/${this.reportCategoryData.Description}`);    
     this.serviceUrl = 'http://xpl-matbag-app01:63863/reporting/reportservice/api/Viewer';
       this.reportServerUrl = 'http://xpl-matbag-app01:63863/reporting/api/site/site1';
-      this.serviceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1sYWRtaW5AbWF0ZWMuY29tLmNvIiwibmFtZWlkIjoiMSIsInVuaXF1ZV9uYW1lIjoiYjVhZTAwM2QtNzEyMi00MDEyLThlZmItYTYwYzczNDVlMmU4IiwiSVAiOiJmZTgwOjoyNTI1OjRiMGE6Nzg2OTphMTAwIiwiaXNzdWVkX2RhdGUiOiIxNjgxNzM4MTM2IiwibmJmIjoxNjgxNzM4MTM2LCJleHAiOjE2ODIzNDI5MzYsImlhdCI6MTY4MTczODEzNiwiaXNzIjoiaHR0cDovL3hwbC1tYXRiYWctYXBwMDE6NjM4NjMvcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwOi8veHBsLW1hdGJhZy1hcHAwMTo2Mzg2My9yZXBvcnRpbmcvc2l0ZS9zaXRlMSJ9.2XX1CqHS6hm874JMp4KQdg5Q1T3TVA-zQh0n1zN88yU';
+      this.serviceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1sYWRtaW5AbWF0ZWMuY29tLmNvIiwibmFtZWlkIjoiMSIsInVuaXF1ZV9uYW1lIjoiYjVhZTAwM2QtNzEyMi00MDEyLThlZmItYTYwYzczNDVlMmU4IiwiSVAiOiJmZTgwOjoyNTI1OjRiMGE6Nzg2OTphMTAwIiwiaXNzdWVkX2RhdGUiOiIxNjgyMzQ4NTE2IiwibmJmIjoxNjgyMzQ4NTE2LCJleHAiOjE2ODI5NTMzMTYsImlhdCI6MTY4MjM0ODUxNiwiaXNzIjoiaHR0cDovL3hwbC1tYXRiYWctYXBwMDE6NjM4NjMvcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwOi8veHBsLW1hdGJhZy1hcHAwMTo2Mzg2My9yZXBvcnRpbmcvc2l0ZS9zaXRlMSJ9.4VC4IlD245SBFDE7gA3H5wWCrkbnmdbveuDJgtiyIz8';
       this.reportPath = `/XPL_V1/${this.reportCategoryData?.Description}`;
       // this.Remote = 'Remote'
       this.locale = "es-ES";

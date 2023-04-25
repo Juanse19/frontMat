@@ -24,6 +24,18 @@ export class ProcessStatusComponent {
         this.statusText = 'Activo';
         this.statusClass = 'status-Adelante';
         break;
+      case 'Abierta':
+        this.statusText = 'Abierta';
+        this.statusClass = 'status-Adelante';
+        break;
+      case 'Cerrada':
+        this.statusText = 'Cerrada';
+        this.statusClass = 'status-Apagado';
+        break;
+      case 'Cerrando':
+          this.statusText = 'Cerrando';
+          this.statusClass = 'status-Apagado';
+          break;
       case 'Encendido Reversa':
         this.statusText = 'Encendido Reversa';
         this.statusClass = 'status-Reversa';

@@ -26,6 +26,7 @@ export class WindowComponent implements OnInit {
   public message: string;
   public deviceState: string;
   public atrState: string;
+  public doorState: string;
   public deviceSpeed: string;
   public deviceConsumption: string;
   public devicecounter: string;
@@ -272,12 +273,14 @@ export class WindowComponent implements OnInit {
         err => console.log('Error', err));
   }
 
-  public opendevice3(idDevice?: number) {
+  public opendevice3(idDevice?: number) { 
     // console.log('test...! 2');
     // debugger
     this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId=' + idDevice)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
+        console.log('res', res);
+        
         if (typeof res.DeviceId === 'string') {
           res = [{
             Estado: "Off",
@@ -292,6 +295,16 @@ export class WindowComponent implements OnInit {
           this.divices3 = res;
           this.device3.show();
           this.header3 = this.divices3[0]?.DeviceName;
+          this.device3.position = { X: 305, Y: 366.133 };
+          this.doorState = `Estados de puertas:
+                          0. Abierta.
+                          1. Cerrada.
+                          2": "Abiendo",
+                          3: "Cerrando",
+                          4: "Atascada",
+                          5: "Inoperativa por seguridad",
+                          6: "Maleta en puerta, no permite cierre",
+                          7: "Puerta bloqueada desde el sistema",`;
           // this.ejDialogTX.position = { X: 171.33, Y: 100.14 };
         }
 

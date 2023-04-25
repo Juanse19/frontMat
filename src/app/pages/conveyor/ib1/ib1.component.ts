@@ -18,13 +18,13 @@ export const WS_DEVICE = environment.urlDevicesSocket;
 })
 export class Ib1Component implements OnInit {
 
-  private alive=true;
+  private alive = true;
 
   public divice: teams[] = [];
 
   public zone: zons[] = [];
 
-  public states: states [] = [];
+  public states: states[] = [];
 
   intervalSubscriptionStatusAlarm: Subscription;
 
@@ -47,56 +47,56 @@ export class Ib1Component implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/pages/conveyor/info'],{skipLocationChange: true});
+    this.router.navigate(['/pages/conveyor/info'], { skipLocationChange: true });
     return false;
   }
 
-  public bandaNameCharge(){
+  public bandaNameCharge() {
     this.http.get(this.api.apiUrlNode1 + '/apizonename?zone=zona7')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res:zons[]=[])=>{
-      this.zone=res;
-      // console.log('bandaIB1:', res);
-    });
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: zons[] = []) => {
+        this.zone = res;
+        // console.log('bandaIB1:', res);
+      });
   }
 
-  public changeId(tea: any){
- 
-    this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId='+ tea)
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{
-      this.divice=res;
-      // console.log('Zons:', res , 'states');
-      
-    });
+  public changeId(tea: any) {
+
+    this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId=' + tea)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.divice = res;
+        // console.log('Zons:', res , 'states');
+
+      });
   }
 
-  public bandaStatesCharge(){
+  public bandaStatesCharge() {
 
     this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona7')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res:any)=>{
-      this.states  = res;
-      this.bandaStateCharge();
-      console.log('static:', this.states);
-    });
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.states = res;
+        this.bandaStateCharge();
+        console.log('static:', this.states);
+      });
   }
 
-  public bandaStateCharge(){
+  public bandaStateCharge() {
 
     if (this.intervalSubscriptionStatusAlarm) {
       this.intervalSubscriptionStatusAlarm.unsubscribe();
     }
-    
+
     this.intervalSubscriptionStatusAlarm = interval(8000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona7')),
-    )
-    .subscribe((res: any) => {
-        this.states  = res;
+      .pipe(
+        takeWhile(() => this.alive),
+        switchMap(() => this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona7')),
+      )
+      .subscribe((res: any) => {
+        this.states = res;
         // console.log('status:', res);
-    });
+      });
   }
 
   myWebSocket: WebSocketSubject<any> = webSocket(WS_DEVICE);
@@ -106,47 +106,47 @@ export class Ib1Component implements OnInit {
     let dataSend = {
       "Zone": "zona7"
     }
-    
+
     this.myWebSocket.next(dataSend);
   }
 
   wSocketZoneIb1() {
     const subcription1 = this.myWebSocket
-    .pipe(
-      retryWhen(errors => errors.pipe(delay(1000), take(10))),
+      .pipe(
+        retryWhen(errors => errors.pipe(delay(1000), take(10))),
 
-    )
-    .subscribe(
-      (msg) => {
-        
-        this.devicesDom.forEach(elemento => {
-          if (msg.Estado === 'Bloqueado') {
-            // console.log('Dispositivo Bloqueado');
-            if(msg.DeviceName === elemento.nativeElement.id){
-              // filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px);
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(white -5px -5px 5px); animation: blinkingAlarm 2s infinite`);
-            }
-          } else if (msg.Estado === 'Motor con paro de emergencia activo') {
-            if(msg.DeviceName === elemento.nativeElement.id){
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px); animation: blinkingAlarmEmergencia 2s infinite`);
-            }
-          } else {
-            if(msg.DeviceName === elemento.nativeElement.id){
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px)`);
-            }
-          }
-        })
+      )
+      .subscribe(
+        (msg) => {
 
-      },
-      (err) => {
-        this.toastrService.danger(err.type, "Error de conexión del WebSocket", {
-          duration: 30000,
-        });
-      },
-      () => {
-        console.log("complete");
-      }
-    );
+          this.devicesDom.forEach(elemento => {
+            if (msg.Estado === 'Bloqueado') {
+              // console.log('Dispositivo Bloqueado');
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                // filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px);
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(white -5px -5px 5px); animation: blinkingAlarm 2s infinite`);
+              }
+            } else if (msg.Estado === 'Motor con paro de emergencia activo') {
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px); animation: blinkingAlarmEmergencia 2s infinite`);
+              }
+            } else {
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px)`);
+              }
+            }
+          })
+
+        },
+        (err) => {
+          this.toastrService.danger(err.type, "Error de conexión del WebSocket", {
+            duration: 30000,
+          });
+        },
+        () => {
+          console.log("complete");
+        }
+      );
   }
 
   // ClicIB1_1() {
@@ -196,52 +196,55 @@ export class Ib1Component implements OnInit {
 
   ClicIB1_1() {
     this.dialog.opendevice1(55);
-    }
+  }
 
   ClicIB1_2() {
     this.dialog.opendevice1(56);
-    }
+  }
 
   ClicIB1_3() {
     this.dialog.opendevice1(57);
-    }
+  }
 
   ClicIB1_4() {
     this.dialog.opendevice1(58);
-    }
+  }
 
   ClicIB1_5() {
     this.dialog.opendevice1(59);
-    }
+  }
 
   ClicIB1_6() {
     this.dialog.opendevice1(60);
-    }
+  }
 
   ClicIB1_7() {
     this.dialog.opendevice1(61);
-    }
+  }
 
   ClicIB1_8() {
     this.dialog.opendevice1(62);
-    }
+  }
 
-  ClicIB1_9() {
-    // this.dialog.opendevice9(194);
-    }
 
   ClicIB1_10() {
     // this.dialog.opendevice9(194);
     this.dialog.opendevice1(404);
-    }
+  }
 
   ClicIB1_11M01() {
     this.dialog.opendevice1(402);
-    }
+  }
 
-    ClicIB1_11M02() {
-      this.dialog.opendevice1(403);
-      }
+  ClicIB1_11M02() {
+    this.dialog.opendevice1(403);
+  }
+
+  //Doors
+
+  ClicIB1_9() {
+    this.dialog.opendevice3(194);
+  }
 
   ngOnDestroy() {
     this.alive = false;

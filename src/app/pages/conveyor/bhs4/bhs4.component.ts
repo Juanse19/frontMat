@@ -297,10 +297,10 @@ export class Bhs4Component implements OnInit {
     this.dialog.opendevice1(6);
    }
 
-   ClicAL1_9() {
-    // debugger
-    this.dialog.opendevice1(11);
-   }
+  //  ClicAL1_9() {
+  //   // debugger
+  //   this.dialog.opendevice1(11);
+  //  }
 
    ClicAL1_10() {
     // debugger
@@ -331,6 +331,12 @@ export class Bhs4Component implements OnInit {
     // debugger
     this.dialog.opendevice1(15);
    }
+
+   //Doors
+
+  ClicAL1_9() {
+    this.dialog.opendevice3(11);
+  }
 
   ngOnDestroy() {
     this.alive = false;

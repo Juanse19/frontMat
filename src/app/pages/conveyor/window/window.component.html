@@ -72,15 +72,26 @@
 
 <div #container class='root-container'>
     <ejs-dialog id='device3' #device3 allowDragging='true' [header]='header3' [visible]='hidden'
-        [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        [target]='targetElement' width='370px' [showCloseIcon]='showCloseIcon'>
         <ng-template #content>
 
 
             <div class="media">
 
+                <div class="media-body" *ngFor="let tx1 of divices3">
 
+                    <br>
+                    <pre
+                        class="pre"><b class="titleCard" data-toggle="tooltip" 
+                        [title]="doorState">Estado:</b>                <ngx-process-status [status]="tx1?.Estado"></ngx-process-status></pre>
+                   
 
-                <div class="media-body" *ngFor="let tx3 of divices3">
+                    <!-- <pre class="pre"><b class="titleCard">Contador de objetos:</b>   {{tx1?.ContadorMaletas}} </pre>
+                    <pre class="pre"><b class="titleCard">Velocidad (m/min):</b>     {{tx1?.VelocidadActual}}</pre> -->
+
+                </div>
+
+                <!-- <div class="media-body" *ngFor="let tx3 of divices3">
 
 
                     <br>
@@ -90,7 +101,7 @@
                     <pre class="pre"><b>Contador Maletas:</b> {{tx3?.ContadorMaletas}} </pre>
                     <pre class="pre"><b>Velocidad (m/min):</b>{{tx3?.VelocidadActual}}</pre>
 
-                </div>
+                </div> -->
             </div>
         </ng-template>
     </ejs-dialog>

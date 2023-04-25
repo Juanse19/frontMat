@@ -46,9 +46,16 @@ id='report-frame' width='100%' height='720px' allowfullscreen frameborder='0'></
 
 
               <div *ngIf="reportState; else elseBlock">
-                <bold-reportviewer id="reportViewer_Control_35" [reportServiceUrl]="serviceUrl"
-                  [reportServerUrl]="reportServerUrl" [serviceAuthorizationToken]="serviceAuthorizationToken"
-                  [reportPath]="reportPath" style="width: 100%;height: 950px" [locale]='locale'>
+                <bold-reportviewer id="reportViewer_Control_35" 
+                    [reportServiceUrl]="serviceUrl"
+                    [processingMode] = "Remote"
+                    [reportServerUrl]="reportServerUrl"
+                    [reportPath]="reportPath" 
+                    [serviceAuthorizationToken]="serviceAuthorizationToken"
+                    [printMode] = "isPrintMode"
+                    [pageSettings] = "pageSettings" 
+                     style="width: 100%;height: 950px" 
+                     [locale]='locale' (reportPrint) = "onReportPrint($event)">
                 </bold-reportviewer>
               </div>
               <ng-template #elseBlock>

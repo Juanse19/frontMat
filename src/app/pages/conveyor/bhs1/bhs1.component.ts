@@ -326,6 +326,12 @@ export class Bhs1Component implements OnInit {
     this.dialog.opendevice1(185);
   }
 
+  //Doors
+
+  ClicTX1_2() {
+    this.dialog.opendevice3(172);
+  }
+
   ngOnDestroy() {
     this.alive = false;
     this.myWebSocket.complete();

@@ -299,7 +299,7 @@ export class WindowComponent implements OnInit {
           this.doorState = `Estados de puertas:
                           0. Abierta.
                           1. Cerrada.
-                          2": "Abiendo",
+                          2: "Abiendo",
                           3: "Cerrando",
                           4: "Atascada",
                           5: "Inoperativa por seguridad",

@@ -89,18 +89,22 @@ export class Report1Component implements OnInit {
 
       this.reportState = false
     }
+
+    this.trustedDashboardUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value);
+    this.trustedDashboardUrl01 = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value01);
+
     // console.log('NameReport', `/XPL_V1/${this.reportCategoryData.Description}`);    
     this.serviceUrl = 'http://xpl-matbag-app01:63863/reporting/reportservice/api/Viewer';
     this.reportServerUrl = 'http://xpl-matbag-app01:63863/reporting/api/site/site1';
     this.serviceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1sYWRtaW5AbWF0ZWMuY29tLmNvIiwibmFtZWlkIjoiMSIsInVuaXF1ZV9uYW1lIjoiYjVhZTAwM2QtNzEyMi00MDEyLThlZmItYTYwYzczNDVlMmU4IiwiSVAiOiJmZTgwOjoyNTI1OjRiMGE6Nzg2OTphMTAwIiwiaXNzdWVkX2RhdGUiOiIxNjgyNDQ5Mjc0IiwibmJmIjoxNjgyNDQ5Mjc0LCJleHAiOjE2ODMwNTQwNzQsImlhdCI6MTY4MjQ0OTI3NCwiaXNzIjoiaHR0cDovL3hwbC1tYXRiYWctYXBwMDE6NjM4NjMvcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwOi8veHBsLW1hdGJhZy1hcHAwMTo2Mzg2My9yZXBvcnRpbmcvc2l0ZS9zaXRlMSJ9.cbZoXTuNcIGN811Y8S914oR-qWQI8GzQ6Ct8ZradrJo';
     this.reportPath = `/XPL_V1/${this.reportCategoryData?.Description}`;
-
-    console.log(this.reportPath);
+    // this.Remote = 'Remote'
+    this.locale = "es-ES";
 
     this.isPrintMode = true;
 
-    if (this.reportCategoryData.Description === '0. Resumen de Maletas Procesadas por Día') {
-      this.pageSettings = {
+    if (this.reportCategoryData?.Description === '0. Resumen de Maletas Procesadas por Día') {
+      return this.pageSettings = {
         height: 8.60,
         width: 12.06,
         margins: {
@@ -108,22 +112,342 @@ export class Report1Component implements OnInit {
           right: 0.01,
           bottom: 0.01,
           left: 0.01
-            }
+        }
       };
     }
 
-    if (this.reportCategoryData.Description === '14. ATR') {
-      this.pageSettings = {
-        height: 11.69,
-        width: 16.27,
+    if (this.reportCategoryData?.Description === '1. Reporte de Cronograma de Vuelo - Lista de Vuelos Activos') {
+      return this.pageSettings = {
+        height: 8.60,
+        width: 11.48,
         margins: {
           top: 0.01,
           right: 0.01,
           bottom: 0.01,
           left: 0.01
-            }
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '2.Reporte de Cronograma de Vuelo - Lista de Vuelos Activos sin Asignación de Carrusel') {
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.85,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '4. Resumen de Clasificación - Total') {
+      return this.pageSettings = {
+        height: 8.60,
+        width: 11.4,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '5. Resumen de Clasificación por Vuelo Individual') {
+      this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 11.76,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '6. Resumen de BSM Tag') {
+      this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.65,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '7. Resumen por Aerolínea') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 11.18,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '8. Problema con BSM') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.53,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '9. BSM Raw') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.50,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '10. Fallo de Clasificación') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.55,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '11.Tiempo de Tránsito de Maleta') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 11.50,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '12. Reporte de Fin de Día') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.55,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '13. Resumen Operación por Equipo') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 11.72,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '15. ATR Reporte de Actividad') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.46,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '16. EDS - Performance de Nivel 1 y Nivel 2') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 11.32,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '17. EDS - Performance de Nivel 3') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 12.58,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '18. Estadísticas EDS') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.08,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '19. BPM Raw') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.55,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '20. KPI - Salidas Diarias') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 11.05,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '21. Reporte del Encoder') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.55,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '22. Procesamiento del Sistema') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.2,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '23. Estadísticas de Mantenimiento') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 9.2,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '24. Reporte de Mal funcionamiento') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.67,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '25. Reporte Resumen de Mal funcionamiento') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.15,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '14. ATR') {
+      this.pageSettings = {
+        height: 8.60,
+        width: 15.23,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
       };
     } else {
+      // this.isPrintMode = false;
       this.pageSettings = {
         height: 8.69,
         width: 12.30,
@@ -132,33 +456,15 @@ export class Report1Component implements OnInit {
           right: 0.01,
           bottom: 0.01,
           left: 0.01
-            }
+        }
       };
     }
-
-    
-
-    // this.Remote = 'Remote'
-    this.locale = "es-ES";
-
-    this.trustedDashboardUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value);
-    this.trustedDashboardUrl01 = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value01);
-
-    // this.http.get(this.api.apiUrlNode1 + '/api/reportsId?Id=' + this.reportCategoryData.Id)
-    // .pipe(takeWhile(() => this.alive))
-    // .subscribe((res: any)=>{
-    //     this.rutaData = res[0];
-    //     console.log('Test: ', this.rutaData);
-
-    //     console.log('URL:', this.rutaData.Value );
-    //     this.trustedDashboardUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value);
-    // });
 
   }
 
   onReportPrint(event) {
     event.isStyleLoad = false;
-}
+  }
 
   goTo() {
     this.router.navigate(["/pages/reports/reports"]);

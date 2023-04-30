@@ -16,6 +16,7 @@ interface confi {
   Category: string,
   Description: string,
   Type: string,
+  token_report_server: string,
  }
 
  let confiReport: confi;

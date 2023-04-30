@@ -24,6 +24,8 @@ export class ProcessStatusComponent {
         this.statusText = 'Activo';
         this.statusClass = 'status-Adelante';
         break;
+
+      //--------------------------States Doors--------------------------------------------
       case 'Abierta':
         this.statusText = 'Abierta';
         this.statusClass = 'status-Adelante';
@@ -32,10 +34,31 @@ export class ProcessStatusComponent {
         this.statusText = 'Cerrada';
         this.statusClass = 'status-Apagado';
         break;
+      case 'Abiendo':
+        this.statusText = 'Abiendo';
+        this.statusClass = 'status-Apagado';
+        break;
       case 'Cerrando':
-          this.statusText = 'Cerrando';
-          this.statusClass = 'status-Apagado';
-          break;
+        this.statusText = 'Cerrando';
+        this.statusClass = 'status-Apagado';
+        break;
+      case 'Atascada':
+        this.statusText = 'Atascada';
+        this.statusClass = 'status-Apagado';
+        break;
+      case 'Inoperativa por seguridad':
+        this.statusText = 'Inoperativa por seguridad';
+        this.statusClass = 'status-Apagado';
+        break;
+      case 'Maleta en puerta, no permite cierre':
+        this.statusText = 'Maleta en puerta, no permite cierre';
+        this.statusClass = 'status-Apagado';
+        break;
+      case 'Puerta bloqueada desde el sistema':
+        this.statusText = 'Puerta bloqueada desde el sistema';
+        this.statusClass = 'status-Apagado';
+        break;
+      //--------------------------------------------------------------------------------
       case 'Encendido Reversa':
         this.statusText = 'Encendido Reversa';
         this.statusClass = 'status-Reversa';
@@ -44,7 +67,7 @@ export class ProcessStatusComponent {
         this.statusText = 'Falla';
         this.statusClass = 'status-Falla';
         break;
-      case'Acumulacion':
+      case 'Acumulacion':
         this.statusText = 'Acumulacion';
         this.statusClass = 'status-Acumulacion';
         break;

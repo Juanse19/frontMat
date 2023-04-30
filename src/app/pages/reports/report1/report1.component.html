@@ -47,15 +47,18 @@ id='report-frame' width='100%' height='720px' allowfullscreen frameborder='0'></
 
               <div *ngIf="reportState; else elseBlock">
                 <bold-reportviewer id="reportViewer_Control_35" 
+                    style="width: 100%;height: 950px" 
                     [reportServiceUrl]="serviceUrl"
                     [processingMode] = "Remote"
                     [reportServerUrl]="reportServerUrl"
                     [reportPath]="reportPath" 
                     [serviceAuthorizationToken]="serviceAuthorizationToken"
                     [printMode] = "isPrintMode"
-                    [pageSettings] = "pageSettings" 
-                     style="width: 100%;height: 950px" 
-                     [locale]='locale' (reportPrint) = "onReportPrint($event)">
+                    [pageSettings] = "pageSettings"
+                    
+                    [locale]='locale' (reportPrint) = "onReportPrint($event)" 
+                    >
+                    <!-- (beforeParameterAdd) = "onBeforeParameterAdd($event)" -->
                 </bold-reportviewer>
               </div>
               <ng-template #elseBlock>
@@ -69,8 +72,22 @@ id='report-frame' width='100%' height='720px' allowfullscreen frameborder='0'></
           <e-tabitem [header]='headerText[1]' style="text-transform: none;" *ngIf="!select">
             <ng-template #content>
 
-              <iframe [src]="trustedDashboardUrl01" id='report-frame' width='100%' height='720px'
-                allow="autoplay; encrypted-media" allowfullscreen frameborder='0' loading="lazy"></iframe>
+              <div>
+                <bold-reportviewer id="reportViewer_Control_36" 
+                    style="width: 100%;height: 950px"
+                    [reportServiceUrl]="serviceUrl"
+                    [processingMode] = "Remote"
+                    [reportServerUrl]="reportServerUrl"
+                    [reportPath]="reportPath2" 
+                    [serviceAuthorizationToken]="serviceAuthorizationToken"
+                    [printMode] = "isPrintMode"
+                    [pageSettings] = "pageSettings2" 
+                    [locale]='locale' >
+                </bold-reportviewer>
+              </div>
+
+              <!-- <iframe [src]="trustedDashboardUrl01" id='report-frame' width='100%' height='720px'
+                allow="autoplay; encrypted-media" allowfullscreen frameborder='0' loading="lazy"></iframe> -->
                 
 
             </ng-template>

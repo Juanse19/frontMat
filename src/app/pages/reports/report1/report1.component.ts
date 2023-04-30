@@ -22,6 +22,7 @@ interface confi {
   Description: string,
   Type: string,
   Value01?: string,
+  token_report_server: string;
 }
 
 let confiReport: confi;
@@ -46,12 +47,15 @@ export class Report1Component implements OnInit {
   public select = false;
   public serviceUrl: string;
   public reportPath: string;
+  public reportPath2: string;
   public reportServerUrl?: string;
   public serviceAuthorizationToken?: string;
   public Remote: string;
   public locale: string;
   public pageSettings: any;
+  public pageSettings2: any;
   public isPrintMode: boolean;
+  public parameterSettings: any;
 
   constructor(private http: HttpClient,
     private api: HttpService,
@@ -70,7 +74,7 @@ export class Report1Component implements OnInit {
   getDataReport(reports: confi) {
     confiReport = reports[0]
     this.reportCategoryData = confiReport;
-    console.log('DataReport', this.reportCategoryData.Description);
+    console.log('DataReport', this.reportCategoryData.token_report_server);
 
   }
 
@@ -82,7 +86,32 @@ export class Report1Component implements OnInit {
     if (this.reportCategoryData.Value01 === null) {
       this.select = true;
     }
+    console.log('select', this.select);
 
+    if (!this.select) {
+
+      console.log('select is false');
+      
+      this.serviceUrl = 'http://xpl-matbag-app01:63863/reporting/reportservice/api/Viewer';
+    this.reportServerUrl = 'http://xpl-matbag-app01:63863/reporting/api/site/site1';
+    // this.serviceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1sYWRtaW5AbWF0ZWMuY29tLmNvIiwibmFtZWlkIjoiMSIsInVuaXF1ZV9uYW1lIjoiYjVhZTAwM2QtNzEyMi00MDEyLThlZmItYTYwYzczNDVlMmU4IiwiSVAiOiJmZTgwOjoyNTI1OjRiMGE6Nzg2OTphMTAwIiwiaXNzdWVkX2RhdGUiOiIxNjgyNTE2NjA4IiwibmJmIjoxNjgyNTE2NjA4LCJleHAiOjE2ODMxMjE0MDgsImlhdCI6MTY4MjUxNjYwOCwiaXNzIjoiaHR0cDovL3hwbC1tYXRiYWctYXBwMDE6NjM4NjMvcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwOi8veHBsLW1hdGJhZy1hcHAwMTo2Mzg2My9yZXBvcnRpbmcvc2l0ZS9zaXRlMSJ9.3mOINdyyaOjK0NY4xhj_SWpVOa2KEzHUrPrwypGBMZc';
+    this.serviceAuthorizationToken = this.reportCategoryData.token_report_server;
+    this.reportPath2 = `/XPL_GRÁFICAS/${this.reportCategoryData?.Value}`;
+    // this.Remote = 'Remote'
+    this.locale = "es-ES";
+    this.isPrintMode = true;
+    this.pageSettings2 = {
+      height: 9.60,
+      width: 15.06,
+      margins: {
+        top: 0.01,
+        right: 0.01,
+        bottom: 0.01,
+        left: 0.01
+      }
+    };
+    }
+    
     this.reportState = true
     if (this.reportCategoryData.Description === '26. Estado de Network') {
       console.log('reportState');
@@ -92,21 +121,42 @@ export class Report1Component implements OnInit {
 
     this.trustedDashboardUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value);
     this.trustedDashboardUrl01 = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value01);
-
-    // console.log('NameReport', `/XPL_V1/${this.reportCategoryData.Description}`);    
+   
     this.serviceUrl = 'http://xpl-matbag-app01:63863/reporting/reportservice/api/Viewer';
     this.reportServerUrl = 'http://xpl-matbag-app01:63863/reporting/api/site/site1';
-    this.serviceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1sYWRtaW5AbWF0ZWMuY29tLmNvIiwibmFtZWlkIjoiMSIsInVuaXF1ZV9uYW1lIjoiYjVhZTAwM2QtNzEyMi00MDEyLThlZmItYTYwYzczNDVlMmU4IiwiSVAiOiJmZTgwOjoyNTI1OjRiMGE6Nzg2OTphMTAwIiwiaXNzdWVkX2RhdGUiOiIxNjgyNDQ5Mjc0IiwibmJmIjoxNjgyNDQ5Mjc0LCJleHAiOjE2ODMwNTQwNzQsImlhdCI6MTY4MjQ0OTI3NCwiaXNzIjoiaHR0cDovL3hwbC1tYXRiYWctYXBwMDE6NjM4NjMvcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwOi8veHBsLW1hdGJhZy1hcHAwMTo2Mzg2My9yZXBvcnRpbmcvc2l0ZS9zaXRlMSJ9.cbZoXTuNcIGN811Y8S914oR-qWQI8GzQ6Ct8ZradrJo';
+    // this.serviceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1sYWRtaW5AbWF0ZWMuY29tLmNvIiwibmFtZWlkIjoiMSIsInVuaXF1ZV9uYW1lIjoiYjVhZTAwM2QtNzEyMi00MDEyLThlZmItYTYwYzczNDVlMmU4IiwiSVAiOiJmZTgwOjoyNTI1OjRiMGE6Nzg2OTphMTAwIiwiaXNzdWVkX2RhdGUiOiIxNjgyNTE2NjA4IiwibmJmIjoxNjgyNTE2NjA4LCJleHAiOjE2ODMxMjE0MDgsImlhdCI6MTY4MjUxNjYwOCwiaXNzIjoiaHR0cDovL3hwbC1tYXRiYWctYXBwMDE6NjM4NjMvcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwOi8veHBsLW1hdGJhZy1hcHAwMTo2Mzg2My9yZXBvcnRpbmcvc2l0ZS9zaXRlMSJ9.3mOINdyyaOjK0NY4xhj_SWpVOa2KEzHUrPrwypGBMZc';
+    this.serviceAuthorizationToken = this.reportCategoryData.token_report_server;
     this.reportPath = `/XPL_V1/${this.reportCategoryData?.Description}`;
     // this.Remote = 'Remote'
     this.locale = "es-ES";
-
     this.isPrintMode = true;
 
+   this.parameterSettings = {
+      itemWidth: '250px',
+      labelWidth: 'auto',
+      dateTimePickerType: "DateTime",
+      dateTimeFormat: "MM/dd/yyyy h:mm tt",
+      timeDisplayFormat: "HH:mm",
+      timeInterval: 60,
+    };
+
     if (this.reportCategoryData?.Description === '0. Resumen de Maletas Procesadas por Día') {
-      return this.pageSettings = {
-        height: 8.60,
+       this.pageSettings = {
+        height: 9.60,
         width: 12.06,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Value === '0. Resumen de Maletas Procesadas por Día Gráfica') {
+       this.pageSettings2 = {
+        height: 9.60,
+        width: 15.06,
         margins: {
           top: 0.01,
           right: 0.01,
@@ -446,24 +496,39 @@ export class Report1Component implements OnInit {
           left: 0.01
         }
       };
-    } else {
-      // this.isPrintMode = false;
-      this.pageSettings = {
-        height: 8.69,
-        width: 12.30,
-        margins: {
-          top: 0.01,
-          right: 0.01,
-          bottom: 0.01,
-          left: 0.01
-        }
-      };
-    }
+    } 
+    
+    // else {
+    //   // this.isPrintMode = false;
+    //   this.pageSettings = {
+    //     height: 8.69,
+    //     width: 12.30,
+    //     margins: {
+    //       top: 0.01,
+    //       right: 0.01,
+    //       bottom: 0.01,
+    //       left: 0.01
+    //     }
+    //   };
+    // }
+
 
   }
 
   onReportPrint(event) {
     event.isStyleLoad = false;
+  }
+
+  onBeforeParameterAdd(event) {
+    event.parameterSettings.dateTimePickerType = "DateTime";
+    if (event.parameterModel.Name === "StartDate") {
+      event.parameterSettings.minDateTime = new Date("4/5/2003 5:00:00 AM");
+      event.parameterSettings.maxDateTime = new Date("4/15/2003 5:00:00 AM");
+    }
+    if (event.parameterModel.Name === "EndDate") {
+      event.parameterSettings.minDateTime = new Date("5/10/2003 5:00:00 AM");
+      event.parameterSettings.maxDateTime = new Date("5/20/2003 5:00:00 AM");
+    }
   }
 
   goTo() {

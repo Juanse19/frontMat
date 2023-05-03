@@ -22,7 +22,7 @@ export class Bhs3Component implements OnInit {
 
   public divice: teams[] = [];
 
-  public states: states [] = [];
+  public states: states[] = [];
 
   private alive = true;
 
@@ -31,7 +31,7 @@ export class Bhs3Component implements OnInit {
   @ViewChild(WindowComponent, { static: true }) public dialog: WindowComponent;
 
   @ViewChildren("MU") public devicesDom: QueryList<ElementRef>;
-  
+
 
   constructor(
     private router: Router,
@@ -61,58 +61,58 @@ export class Bhs3Component implements OnInit {
   //   .subscribe((res: any)=>{
   //     this.dataBanda3=res[0];
   //     console.log('data-banda4:', res);
-      
+
   //   });
   // }
 
-  public bandaNameCharge(){
+  public bandaNameCharge() {
 
     this.http.get(this.api.apiUrlNode1 + '/apizonename?zone=zona6')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res:zons[]=[])=>{
-      this.zone=res;
-      // console.log('Zons3:', res , 'band with zones', this.zone[1].Name);
-      
-    });
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: zons[] = []) => {
+        this.zone = res;
+        // console.log('Zons3:', res , 'band with zones', this.zone[1].Name);
+
+      });
   }
 
-  public changeId(tea: any){
- 
-    this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId='+ tea)
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{
-      this.divice=res;
-      // console.log('Zons:', res , 'states');
-      
-    });
+  public changeId(tea: any) {
+
+    this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId=' + tea)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.divice = res;
+        // console.log('Zons:', res , 'states');
+
+      });
   }
 
-  public bandaStatesCharge(){
+  public bandaStatesCharge() {
 
     this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona6')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res:any)=>{
-      this.states  = res;
-      this.bandaStateCharge();
-      // console.log('static:', this.states);
-    });
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.states = res;
+        this.bandaStateCharge();
+        // console.log('static:', this.states);
+      });
   }
 
-  public bandaStateCharge(){
+  public bandaStateCharge() {
 
     if (this.intervalSubscriptionStatusAlarm) {
       this.intervalSubscriptionStatusAlarm.unsubscribe();
     }
-    
+
     this.intervalSubscriptionStatusAlarm = interval(8000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona6')),
-    )
-    .subscribe((res: any) => {
-        this.states  = res;
+      .pipe(
+        takeWhile(() => this.alive),
+        switchMap(() => this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona6')),
+      )
+      .subscribe((res: any) => {
+        this.states = res;
         // console.log('status:', res);
-    });
+      });
   }
 
   myWebSocket: WebSocketSubject<any> = webSocket(WS_DEVICE);
@@ -122,47 +122,47 @@ export class Bhs3Component implements OnInit {
     let dataSend = {
       "Zone": "zona6"
     }
-    
+
     this.myWebSocket.next(dataSend);
   }
 
   wSocketZone3() {
     const subcription1 = this.myWebSocket
-    .pipe(
-      retryWhen(errors => errors.pipe(delay(1000), take(10))),
+      .pipe(
+        retryWhen(errors => errors.pipe(delay(1000), take(10))),
 
-    )
-    .subscribe(
-      (msg) => {
-        
-        this.devicesDom.forEach(elemento => {
-          if (msg.Estado === 'Bloqueado') {
-            // console.log('Dispositivo Bloqueado');
-            if(msg.DeviceName === elemento.nativeElement.id){
-              // filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px);
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(gray 5px 5px 5px) drop-shadow(gray -5px -5px ); animation: blinkingAlarm 2s infinite`);
+      )
+      .subscribe(
+        (msg) => {
+
+          this.devicesDom.forEach(elemento => {
+            if (msg.Estado === 'Bloqueado') {
+              // console.log('Dispositivo Bloqueado');
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                // filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px);
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(gray 5px 5px 5px) drop-shadow(gray -5px -5px ); animation: blinkingAlarm 2s infinite`);
+              }
+            } else if (msg.Estado === 'Motor con paro de emergencia activo') {
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px); animation: blinkingAlarmEmergencia 2s infinite`);
+              }
+            } else {
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px)`);
+              }
             }
-          } else if (msg.Estado === 'Motor con paro de emergencia activo') {
-            if(msg.DeviceName === elemento.nativeElement.id){
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px); animation: blinkingAlarmEmergencia 2s infinite`);
-            }
-          } else {
-            if(msg.DeviceName === elemento.nativeElement.id){
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px)`);
-            }
-          } 
-        })
-        
-      },
-      (err) => {
-        this.toastrService.danger(err.type, "Error de conexión del WebSocket", {
-          duration: 30000,
-        });
-      },
-      () => {
-        console.log("complete");
-      }
-    );
+          })
+
+        },
+        (err) => {
+          this.toastrService.danger(err.type, "Error de conexión del WebSocket", {
+            duration: 30000,
+          });
+        },
+        () => {
+          console.log("complete");
+        }
+      );
   }
 
   // ClicMU1_1() {
@@ -207,48 +207,64 @@ export class Bhs3Component implements OnInit {
   //   this.dialog.opendevice10(92);
   //   }
 
-  ClicMU1_1() {
-    this.dialog.opendevice1(82);
-    }
+  // ClicMU1_1() {
+  //   this.dialog.opendevice1(82);
+  //   }
 
   ClicMU1_2() {
     this.dialog.opendevice1(86);
-    }
+  }
 
   ClicMU1_3() {
     this.dialog.opendevice1(85);
-    }
+  }
 
   ClicMU1_4() {
     this.dialog.opendevice1(87);
-    }
+  }
 
   ClicMU1_5() {
     this.dialog.opendevice1(83);
-    }
+  }
 
-    // MU2
+  // MU2
 
-  ClicMU2_1() {
-    this.dialog.opendevice1(91);
-    }
+  // ClicMU2_1() {
+  //   this.dialog.opendevice1(91);
+  // }
 
   ClicMU2_2() {
     this.dialog.opendevice1(89);
-    }
+  }
 
   ClicMU2_3() {
     this.dialog.opendevice1(88);
-    }
+  }
 
   ClicMU2_4() {
     this.dialog.opendevice1(90);
-    }
+  }
 
   ClicMU2_5() {
     this.dialog.opendevice1(92);
-    }
+  }
 
+  // --------------------------
+  ClicMU1_1M01() {
+    this.dialog.opendevice1(347);
+  }
+
+  ClicMU1_1M02() {
+    this.dialog.opendevice1(346);
+  }
+
+  ClicMU2_1M01() {
+    this.dialog.opendevice1(397);
+  }
+
+  ClicMU2_1M02() {
+    this.dialog.opendevice1(394);
+  }
 
   ngOnDestroy() {
     this.alive = false;

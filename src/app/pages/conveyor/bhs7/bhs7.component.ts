@@ -39,7 +39,7 @@ export class Bhs7Component implements OnInit {
 
   public divice: teams[] = [];
 
-  public states: states [] = [];
+  public states: states[] = [];
 
   public osrData: bhsosr[] = [];
 
@@ -62,9 +62,9 @@ export class Bhs7Component implements OnInit {
     private http: HttpClient,
     private api: HttpService,
     private toastrService: NbToastrService,
-    private render2: Renderer2) { 
-      this.loading = true;
-     }
+    private render2: Renderer2) {
+    this.loading = true;
+  }
 
   ngOnInit(): void {
     this.sendMessage();
@@ -76,12 +76,13 @@ export class Bhs7Component implements OnInit {
 
     this.wSocketZone7();
 
-    this.pageSettings = { 
+    this.pageSettings = {
       // pageSizes: true,
-      pageSize: 5 };
+      pageSize: 5
+    };
     this.filterOptions = {
       type: 'Menu',
-   };
+    };
   }
 
   back() {
@@ -89,89 +90,89 @@ export class Bhs7Component implements OnInit {
     return false;
   }
 
-  public bandaNameCharge(){
+  public bandaNameCharge() {
 
     this.http.get(this.api.apiUrlNode1 + '/apizonename?zone=zona2')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res:zons[]=[])=>{
-      this.zone=res;
-      // console.log('ss:', res , 'band with zones', this.zone[1].Name);
-      
-    });
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: zons[] = []) => {
+        this.zone = res;
+        // console.log('ss:', res , 'band with zones', this.zone[1].Name);
+
+      });
 
   }
 
-  public bandaNameOsrCharge(){
+  public bandaNameOsrCharge() {
 
     this.http.get(this.api.apiUrlNode1 + '/apizonename?zone=zona3')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res:zons[]=[])=>{
-      this.zons=res;
-      // console.log('Osr:', res , 'band with zones', this.zons[1].Name);
-      
-    });
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: zons[] = []) => {
+        this.zons = res;
+        // console.log('Osr:', res , 'band with zones', this.zons[1].Name);
+
+      });
 
   }
 
-  public changeId(tea: any){
- 
-    this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId='+ tea)
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any)=>{
-      this.divice=res;
-      // console.log('Zons:', res , 'states');
-      
-    });
+  public changeId(tea: any) {
+
+    this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId=' + tea)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.divice = res;
+        // console.log('Zons:', res , 'states');
+
+      });
   }
 
-  public bandaStatesCharge(){
+  public bandaStatesCharge() {
 
     this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona3')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res:any)=>{
-      this.states  = res;
-      this.bandaStateCharge();
-      // this.devicesDom.forEach(elemento => {
-      //   console.log(elemento.nativeElement.id);
-      // })
-      // console.log('static:', this.states);
-    });
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        this.states = res;
+        this.bandaStateCharge();
+        // this.devicesDom.forEach(elemento => {
+        //   console.log(elemento.nativeElement.id);
+        // })
+        // console.log('static:', this.states);
+      });
   }
 
-  public bandaStateCharge(){
+  public bandaStateCharge() {
 
     if (this.intervalSubscriptionStatusAlarm) {
       this.intervalSubscriptionStatusAlarm.unsubscribe();
     }
-    
+
     this.intervalSubscriptionStatusAlarm = interval(8000)
-    .pipe(
-      takeWhile(() => this.alive),
-      switchMap(() => this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona3')),
-    )
-    .subscribe((res: any) => {
-        this.states  = res;
+      .pipe(
+        takeWhile(() => this.alive),
+        switchMap(() => this.http.get(this.api.apiUrlNode1 + '/apizonestate?zone=zona3')),
+      )
+      .subscribe((res: any) => {
+        this.states = res;
         // console.log('status:', res);
-    });
+      });
   }
 
   chargeData() {
     this.http.get(this.api.apiUrlNode1 + '/apiTracking')
-    .pipe(takeWhile(() => this.alive))
-    .subscribe((res: any) => {
-      // tslint:disable-next-line: no-console
-      // console.log('bhsOsrData: ', res);
-      this.loading = false;
-      this.osrData = res;
-    });
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((res: any) => {
+        // tslint:disable-next-line: no-console
+        // console.log('bhsOsrData: ', res);
+        this.loading = false;
+        this.osrData = res;
+      });
     const contador = interval(50000)
     contador.subscribe((n) => {
       this.http.get(this.api.apiUrlNode1 + '/apiTracking')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((res: any) => {
-        this.osrData = res;
-        this.loading = false;
-      });
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((res: any) => {
+          this.osrData = res;
+          this.loading = false;
+        });
     });
   }
 
@@ -182,47 +183,47 @@ export class Bhs7Component implements OnInit {
     let dataSend = {
       "Zone": "zona3"
     }
-    
+
     this.myWebSocket.next(dataSend);
   }
 
   wSocketZone7() {
     const subcription1 = this.myWebSocket
-    .pipe(
-      retryWhen(errors => errors.pipe(delay(1000), take(10))),
+      .pipe(
+        retryWhen(errors => errors.pipe(delay(1000), take(10))),
 
-    )
-    .subscribe(
-      (msg) => {
-        
-        this.devicesDom.forEach(elemento => {
-          if (msg.Estado === 'Bloqueado') {
-            // console.log('Dispositivo Bloqueado');
-            if(msg.DeviceName === elemento.nativeElement.id){
-              // filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px);
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(white -5px -5px 5px); animation: blinkingAlarm 2s infinite`);
-            }
-          } else if (msg.Estado === 'Motor con paro de emergencia activo') {
-            if(msg.DeviceName === elemento.nativeElement.id){
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px); animation: blinkingAlarmEmergencia 2s infinite`);
-            }
-          } else {
-            if(msg.DeviceName === elemento.nativeElement.id){
-              this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px)`);
-            }
-          }
-        })
+      )
+      .subscribe(
+        (msg) => {
 
-      },
-      (err) => {
-        this.toastrService.danger(err.type, "Error de conexión del WebSocket", {
-          duration: 30000,
-        });
-      },
-      () => {
-        console.log("complete");
-      }
-    );
+          this.devicesDom.forEach(elemento => {
+            if (msg.Estado === 'Bloqueado') {
+              // console.log('Dispositivo Bloqueado');
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                // filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px);
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(white -5px -5px 5px); animation: blinkingAlarm 2s infinite`);
+              }
+            } else if (msg.Estado === 'Motor con paro de emergencia activo') {
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px); animation: blinkingAlarmEmergencia 2s infinite`);
+              }
+            } else {
+              if (msg.DeviceName === elemento.nativeElement.id) {
+                this.render2.setAttribute(elemento.nativeElement, "style", `filter: drop-shadow(${msg.Color} 5px 5px 5px) drop-shadow(${msg.Color} -5px -5px 5px)`);
+              }
+            }
+          })
+
+        },
+        (err) => {
+          this.toastrService.danger(err.type, "Error de conexión del WebSocket", {
+            duration: 30000,
+          });
+        },
+        () => {
+          console.log("complete");
+        }
+      );
   }
 
   // ClicOSR1_1() {
@@ -244,17 +245,17 @@ export class Bhs7Component implements OnInit {
   // ClicOSR1_5() {
   //   this.dialog.opendevice5(109);
   //   }
-  
+
   // ClicOSR1_6() {
   //   this.dialog.opendevice6(104);
   //   }
 
   //   //OSR2
-  
+
   // ClicOSR2_1() {
   //   this.dialog.opendevice7(98);
   //   }
-  
+
   // ClicOSR2_2() {
   //   this.dialog.opendevice8(99);
   //   }
@@ -277,53 +278,71 @@ export class Bhs7Component implements OnInit {
 
   ClicOSR1_1() {
     this.dialog.opendevice1(106);
-    }
+  }
 
   ClicOSR1_2() {
     this.dialog.opendevice1(107);
-    }
+  }
 
   ClicOSR1_3() {
-     this.dialog.opendevice1(105);
-    }
+    this.dialog.opendevice1(105);
+  }
 
   ClicOSR1_4() {
-      this.dialog.opendevice1(108);
-     }
+    this.dialog.opendevice1(108);
+  }
 
   ClicOSR1_5() {
     this.dialog.opendevice1(109);
-    }
-  
-  ClicOSR1_6() {
-    this.dialog.opendevice1(104);
-    }
+  }
 
-    //OSR2
-  
+  // ClicOSR1_6() {
+  //   this.dialog.opendevice1(104);
+  // }
+
+  //OSR2
+
   ClicOSR2_1() {
     this.dialog.opendevice1(98);
-    }
-  
+  }
+
   ClicOSR2_2() {
     this.dialog.opendevice1(99);
-    }
+  }
 
   ClicOSR2_3() {
     this.dialog.opendevice1(102);
-    }
+  }
 
   ClicOSR2_4() {
     this.dialog.opendevice1(100);
-    }
+  }
 
   ClicOSR2_5() {
     this.dialog.opendevice1(101);
-    }
+  }
 
-  ClicOSR2_6() {
-    this.dialog.opendevice1(103);
-    }
+  // ClicOSR2_6() {
+  //   this.dialog.opendevice1(103);
+  // }
+
+  //----------------------
+  ClicOSR1_6M01() {
+    this.dialog.opendevice1(392);
+  }
+
+  ClicOSR1_6M02() {
+    this.dialog.opendevice1(350);
+  }
+
+  ClicOSR2_6M01() {
+    this.dialog.opendevice1(391);
+  }
+
+  ClicOSR2_6M02() {
+    this.dialog.opendevice1(393);
+  }
+  
 
   ngOnDestroy() {
     this.alive = false;

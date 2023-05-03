@@ -116,7 +116,7 @@ export class Report1Component implements OnInit {
     if (this.reportCategoryData.Description === '26. Estado de Network') {
       console.log('reportState');
 
-      this.reportState = false
+      this.reportState = true
     }
 
     this.trustedDashboardUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.reportCategoryData.Value);
@@ -476,6 +476,20 @@ export class Report1Component implements OnInit {
       return this.pageSettings = {
         height: 8.60,
         width: 10.15,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    if (this.reportCategoryData?.Description === '26. Estado de Network (Gráfica)') {
+      // this.isPrintMode = false;
+      return this.pageSettings = {
+        height: 8.60,
+        width: 10.95,
         margins: {
           top: 0.01,
           right: 0.01,

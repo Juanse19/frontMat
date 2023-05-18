@@ -1,0 +1,32 @@
+<nb-card style="height: 100vh;">
+    <nb-card-header>
+        <div class="title h">
+            Mantenimineto de dispositivos
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+
+        <ejs-grid #grid [dataSource]='dataMaintenanceGrid' [editSettings]="editSettings" (actionBegin)="actionBegin($event)"
+         allowTextWrap="true" [toolbar]='toolbar' height='430' width='100%' (rowSelected)='rowSelected($event)'>
+            <e-columns>
+                <!-- <e-column isPrimaryKey='true' headerText='#ID' field='Id' minWidth=100 width=180></e-column> -->
+                <e-column isPrimaryKey='true' field='Line' headerText='Línea' minWidth=10 width=30></e-column>
+                <e-column field='Device' headerText='Nombre' width=40></e-column>
+                <e-column field='Sequence' headerText='Secuencia' width=50  textAlign='center'></e-column>
+                <e-column field='RegisterDateInitialOperation' headerText='Fecha de creación' type="date" format="dd/MM/yyyy HH:mm" width=60></e-column>
+                <e-column field='TimeOperationTotal' headerText='Tiempo total activo' width=50  textAlign='center'></e-column>
+                <e-column field='TimeOperationPartial' headerText='Tiempo parcial activo' width=50  textAlign='center'></e-column>
+                <e-column field='TimeNewMaintenance' headerText='Tiempo ' width=50  textAlign='center'></e-column>
+                <e-column field='TimeResertMaintenance' headerText='Fecha de creación' type="date" format="dd/MM/yyyy HH:mm" width=60></e-column>
+                <!-- <e-column field='TimeIniForPartial' headerText='Tiempo init' width=50  textAlign='center'></e-column> -->
+                <e-column headerText='Acciones' [commands]='commands' textAlign='center' width=60></e-column>
+            </e-columns>
+
+        </ejs-grid>
+    </nb-card-body>
+
+    <div class='root-container'>
+        <ngx-window-maintenance></ngx-window-maintenance>
+      </div>
+
+</nb-card>

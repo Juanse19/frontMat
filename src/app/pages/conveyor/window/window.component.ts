@@ -6,7 +6,7 @@ import { NbAccessChecker } from '@nebular/security'
 import { takeWhile } from 'rxjs/operators';
 import { HttpService } from '../../../@core/backend/common/api/http.service';
 import { HttpClient } from '@angular/common/http';
-import { Banda1, zons, teams, states } from '../_interfaces/MatBag.model';
+import { Banda1, zons, teams, states, deviceEDS } from '../_interfaces/MatBag.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -41,7 +41,7 @@ export class WindowComponent implements OnInit {
   public header2: string;
   public divices3: teams[] = [];
   public header3: string;
-  public divices4: teams[] = [];
+  public divices4: deviceEDS[] = [];
   public header4: string;
   public divices5: teams[] = [];
   public header5: string;
@@ -218,7 +218,7 @@ export class WindowComponent implements OnInit {
           this.device1.show();
           console.log('divices1: ', this.divices1);
           this.header1 = this.divices1[0]?.DeviceName;
-          this.device1.position = { X: 305.328, Y: 180.125 };
+          this.device1.position = { X: 305.328, Y: 160.125 };
           this.deviceState = `Estados:
                           1. Apagado.
                           2. Activo.
@@ -239,27 +239,20 @@ export class WindowComponent implements OnInit {
   }
 
   public opendevice2(idDevice?: number) {
-    // console.log('test...! 2');
-    // debugger
+
     this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId=' + idDevice)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
 
         if (typeof res.DeviceId === 'string') {
-          res = [{
-            Estado: "Off",
-            // DeviceId: 148,
-            TiempoOn: "0",
-            Consumo: "0",
-            TiempoOff: 0
-          }]
+          
           this.divices2 = res;
           this.device2.show();
         } else {
           this.divices2 = res;
           this.device2.show();
           this.header2 = this.divices2[0]?.DeviceName;
-          this.device2.position = { X: 305.328, Y: 366.133 };
+          this.device2.position = { X: 305.328, Y: 364.133 };
           this.atrState = `Estados:
                           1. Activo.
                           2. Inactivo.`;
@@ -295,7 +288,7 @@ export class WindowComponent implements OnInit {
           this.divices3 = res;
           this.device3.show();
           this.header3 = this.divices3[0]?.DeviceName;
-          this.device3.position = { X: 305, Y: 366.133 };
+          this.device3.position = { X: 305.328, Y: 364.133 };
           this.doorState = `Estados de puertas:
                           0. Abierta.
                           1. Cerrada.
@@ -311,10 +304,9 @@ export class WindowComponent implements OnInit {
       });
   }
 
-  opendevice4(idDevice?: number) {
-    // console.log('test...! 2');
-    // debugger
-    this.http.get(this.api.apiUrlNode1 + '/apideviceconsume?DeviceId=' + idDevice)
+  opendevice4(Device?: string) {
+
+    this.http.get(this.api.apiUrlNode1 + '/api/infoeds?eds=' + Device)
       .pipe(takeWhile(() => this.alive))
       .subscribe((res: any) => {
         if (typeof res.DeviceId === 'string') {
@@ -328,10 +320,12 @@ export class WindowComponent implements OnInit {
           this.divices4 = res;
           this.device4.show();
         } else {
+          
           this.divices4 = res;
+          
           this.device4.show();
           this.header4 = this.divices4[0]?.DeviceName;
-          // this.ejDialogTX.position = { X: 171.33, Y: 100.14 };
+          this.device4.position = { X: 305.328, Y: 568.5 };
         }
 
       });

@@ -18,7 +18,7 @@ export interface Zones {
 // Name of bands by zone
 export interface zons {
     idEquipo: string,
-        Name: string,
+    Name: string,
 }
 
 // Band status by zone
@@ -29,7 +29,7 @@ export interface states {
 }
 
 // Band information by zone
-export interface teams{
+export interface teams {
     DeviceID?: string,
     DeviceName?: string,
     Estado?: string,
@@ -40,6 +40,28 @@ export interface teams{
     VelocidadCalculada: number,
     Color: string
 }
+
+export interface deviceEDS {
+    DeviceName: string,
+    Eficiencia: number,
+    Estado: string,
+    Maletas: number,
+    MaletasAlarmadas: number,
+    MaletasLimpias: number
+}
+
+export interface maintenance {
+    Id: number,
+    Line: number,
+    Device: string,
+    Sequence: number,
+    RegisterDateInitialOperation: string,
+    TimeOperationTotal: number,
+    TimeOperationPartial: number,
+    TimeNewMaintenance: number,
+    TimeResertMaintenance: string,
+    TimeIniForPartial: number
+  }
 
 // export interface teams{
 //     DeviceId?: string,
@@ -53,19 +75,19 @@ export interface teams{
 // }
 
 export interface Consumezone {
-ZoneId?: number;
-ZoneName?: string;
-Estado?: string;
-Consumo?: string;
-ContadorMaletas?: string;
-TiempoOn?: number;
-TiempoOff?: number;
+    ZoneId?: number;
+    ZoneName?: string;
+    Estado?: string;
+    Consumo?: string;
+    ContadorMaletas?: string;
+    TiempoOn?: number;
+    TiempoOff?: number;
 }
 
 export const Zonass = {
     TX: 13,
-  }
-  
+}
+
 
 export interface departures {
     Id: string,
@@ -73,7 +95,7 @@ export interface departures {
     Name: string,
     ICAO: string,
     Flight: string,
-    Vuelos:string,
+    Vuelos: string,
     STD: string,
     ETD: string,
     DATE: string,
@@ -90,9 +112,9 @@ export interface Banda8 {
     b2: string,
     b3: string,
     b4: string,
-  }
-  
-  export interface Banda1 {
+}
+
+export interface Banda1 {
     b1: string,
     b2: string,
     b3: string,
@@ -272,12 +294,12 @@ export interface consume {
 }
 
 export interface ReqResResponse {
-    slug:     string;
+    slug: string;
     ZoneName: string;
-    KWh:      number;
-    porcent:  number;
+    KWh: number;
+    porcent: number;
     kwhTotal: number;
-  }
+}
 
 export interface BagData {
     CreatedDate: string;

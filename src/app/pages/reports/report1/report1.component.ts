@@ -312,6 +312,20 @@ export class Report1Component implements OnInit {
     }
 
     // Print report style
+    if (this.reportCategoryData?.Description === '3. Reporte de Cronograma de Vuelo - Plantilla de Cronograma de Vuelo') {
+      return this.pageSettings = {
+        height: 10.60,
+        width: 12.25,
+        margins: {
+          top: 0.01,
+          right: 0.01,
+          bottom: 0.01,
+          left: 0.01
+        }
+      };
+    }
+
+    // Print report style
     if (this.reportCategoryData?.Description === '4. Resumen de Clasificación - Total') {
       return this.pageSettings = {
         height: 8.60,

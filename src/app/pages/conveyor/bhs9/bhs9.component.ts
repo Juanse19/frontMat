@@ -214,6 +214,7 @@ export class Bhs9Component implements OnInit {
       this.dialog.opendevice1(167);
      }
 
+     // ATR 1
      ClicSS1_3() {
       this.dialog.opendevice2(171);
      }
@@ -238,6 +239,7 @@ export class Bhs9Component implements OnInit {
       this.dialog.opendevice1(160);
      }
 
+     // ATR 2
      ClicSS2_3() {
       this.dialog.opendevice2(158);
      }
@@ -260,6 +262,15 @@ export class Bhs9Component implements OnInit {
 
      ClicSS2_8() {
       this.dialog.opendevice1(164);
+     }
+
+     // EDS 1
+     ClicEDS_1() {
+      this.dialog.opendevice4('EDS1');
+     }
+
+     ClicEDS_2() {
+      this.dialog.opendevice4('EDS2');
      }
 
   ngOnDestroy() {

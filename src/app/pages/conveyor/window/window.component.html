@@ -10,14 +10,40 @@
 
 
                 <br>
-                <pre class="pre" [title]="deviceState"><b class="titleCard" data-toggle="tooltip" 
+                <pre class="pre"
+                    [title]="deviceState"><b class="titleCard" data-toggle="tooltip" 
                     [title]="deviceState">Estado:</b>                <ngx-process-status [status]="tx1?.Estado"></ngx-process-status></pre>
-                <pre class="pre"><b data-toggle="tooltip" 
+                <pre
+                    class="pre"><b data-toggle="tooltip" 
                     [title]="deviceConsumption" class="titleCard">Consumo (KWH):</b>         {{tx1?.Consumo | number: '1.0-0'}} </pre>
-                <pre class="pre"><b data-toggle="tooltip" 
+                <pre
+                    class="pre"><b data-toggle="tooltip" 
                     [title]="devicecounter" class="titleCard">Contador de objetos:</b>   {{tx1?.ContadorMaletas}} </pre>
                 <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
                     [title]="deviceSpeed">Velocidad (m/min):</b>     {{tx1?.VelocidadActual}}</pre>
+<!-- 
+                <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                        [title]="deviceSpeed">Tiempo total activo:</b>   800h</pre>
+
+                <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                            [title]="deviceSpeed">Tiempo parcial activo:</b> 700h</pre>
+
+                <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                                [title]="deviceSpeed">Ultimo reseteo parcial:</b> 16/05/2023 10:00</pre>
+
+                <pre
+                    class="pre"><b class="titleCard" data-toggle="tooltip" 
+                                [title]="deviceSpeed">Proximo mantenimiento:</b> <input type="number" name="alarm" id="" placeholder="300h" style="width: 50px;"> h</pre> -->
+
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Reset</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div> -->
+
+                <!-- <div >
+                    <button nbButton status="info" style="text-transform: none;" hero>Resetear</button>
+                <button nbButton status="primary"  hero (click)="accionRole()" style="text-transform: none;">Guardar</button>
+                  </div> -->
 
             </div>
         </div>
@@ -84,7 +110,7 @@
                     <pre
                         class="pre"><b class="titleCard" data-toggle="tooltip" 
                         [title]="doorState">Estado:</b>                <ngx-process-status [status]="tx1?.Estado"></ngx-process-status></pre>
-                   
+
 
                     <!-- <pre class="pre"><b class="titleCard">Contador de objetos:</b>   {{tx1?.ContadorMaletas}} </pre>
                     <pre class="pre"><b class="titleCard">Velocidad (m/min):</b>     {{tx1?.VelocidadActual}}</pre> -->
@@ -109,7 +135,7 @@
 
 <div #container class='root-container'>
     <ejs-dialog id='device4' #device4 allowDragging='true' [header]='header4' [visible]='hidden'
-        [target]='targetElement' width='300px' [showCloseIcon]='showCloseIcon'>
+        [target]='targetElement' width='370px' [showCloseIcon]='showCloseIcon'>
         <ng-template #content>
 
 
@@ -119,12 +145,25 @@
 
                 <div class="media-body" *ngFor="let tx4 of divices4">
 
-
                     <br>
-                    <pre class="pre"><b>Estado:</b>         {{tx4?.Estado}}</pre>
-                    <pre class="pre"><b>Consumo (KWH):</b>    {{tx4?.Consumo | number: '1.0-0'}} </pre>
-                    <pre class="pre"><b>Contador Maletas:</b> {{tx4?.ContadorMaletas}} </pre>
-                    <pre class="pre"><b>Velocidad (m/min):</b>{{tx4?.VelocidadActual}}</pre>
+                    <pre
+                        class="pre"><b class="titleCard" data-toggle="tooltip" 
+                        [title]="atrState">Estado:</b>                <ngx-process-status [status]="tx4?.Estado"></ngx-process-status></pre>
+
+                    <pre class="pre"><b class="titleCard" data-toggle="tooltip" 
+                            [title]="deviceEficiencia" >Eficiencia (%):</b>        {{tx4?.Eficiencia }} </pre>
+
+                    <pre
+                        class="pre"><b data-toggle="tooltip" 
+                            [title]="devicecounter" class="titleCard">Contador de objetos:</b>   {{tx4?.Maletas}} </pre>
+
+                    <pre
+                        class="pre"><b data-toggle="tooltip" 
+                                [title]="devicecounter" class="titleCard">Maletas alarmadas:</b>     {{tx4?.MaletasAlarmadas}} </pre>
+
+                    <pre
+                        class="pre"><b data-toggle="tooltip" 
+                            [title]="devicecounter" class="titleCard">Maletas limpias:</b>       {{tx4?.MaletasLimpias}} </pre>
 
                 </div>
             </div>

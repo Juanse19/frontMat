@@ -383,20 +383,6 @@ export class PagesMenu {
       title: 'ReportesV2',
       icon: 'pie-chart-outline',
       link: '/pages/reports-pia/report2',
-      // children: [
-      //   {
-      //     title: 'report',
-      //     link: '/pages/reports-pia/report2',
-      //   },
-      //   // {
-      //   //   title: 'Operacion',
-      //   //   link: '/pages/conveyor/team',
-      //   // },
-      //   // {
-      //   //   title: 'Mantenimiento',
-      //   //   link: '/pages/conveyor/schedulerSita',
-      //   // },
-      // ],
     };
 
     const reportMenu: NbMenuItem = {
@@ -482,6 +468,14 @@ export class PagesMenu {
       ],
     };
 
+    const maintenanceMenu: NbMenuItem = {
+      title: 'Mantenimiento',
+      icon: 'scissors-outline',
+      link: '/pages/maintenance/list',
+      hidden: !this.access.includes('alarms.index'),
+      children: undefined,
+    };
+    
     const alarmMenu: NbMenuItem = {
       title: 'Log eventos',
       icon: 'bell-outline',
@@ -520,10 +514,10 @@ export class PagesMenu {
           // return [...dashboardMenu, orderMenu, userMenu, ...menu,registerMenu];
           // return [...dashboardMenu, orderMenu, reportMenu, analyticsMenu, userMenu, alarmMenu, registerMenu];
           // return [...dashboardMenu, SchedulerMenu1, cosumeMenu, reportMenu, configurationMenu, alarmMenu];
-          return [...dashboardMenu, SchedulerMenu1, reportMenu, alarmMenu,  configurationMenu];
+          return [...dashboardMenu, SchedulerMenu1, reportMenu, maintenanceMenu, alarmMenu,  configurationMenu];
         } else {
           // return [...dashboardMenu, ...menu];
-          return [...dashboardMenu, SchedulerMenu1, reportMenu, alarmMenu, configurationMenu];
+          return [...dashboardMenu, SchedulerMenu1, reportMenu, maintenanceMenu, alarmMenu, configurationMenu];
         }
       }));
 

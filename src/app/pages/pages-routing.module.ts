@@ -48,12 +48,12 @@ const routes: Routes = [{
         .then(m => m.ReportsModule)
         .catch( err => console.log('Oh no!', err)),
     },
-    {
-      path: 'reports-pia',
-      loadChildren: () => import('./reports-pia/reports-pia.module')
-        .then(m => m.ReportsPiaModule)
-        .catch( err => console.log('Oh no!', err)),
-    },
+    // {
+    //   path: 'reports-pia',
+    //   loadChildren: () => import('./reports-pia/reports-pia.module')
+    //     .then(m => m.ReportsPiaModule)
+    //     .catch( err => console.log('Oh no!', err)),
+    // },
     {
       path: 'sita',
       loadChildren: () => import('./sita/sita.module')
@@ -69,6 +69,11 @@ const routes: Routes = [{
       path: 'roles',
       loadChildren: () => import('./roles/roles.module')
         .then(m => m.RolesModule),
+    },
+    {
+      path: 'maintenance',
+      loadChildren: () => import('./maintenance/maintenance.module')
+        .then(m => m.MaintenanceModule),
     },
     {
       path: '',
